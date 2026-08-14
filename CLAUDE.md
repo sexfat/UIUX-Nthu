@@ -15,14 +15,15 @@
 
 - `index.html` 是目前課程名稱、日期、時段與教材狀態的唯一主要依據。
 - README、課綱、時程表或單元文件若與 `index.html` 不一致，應同步修正，以 `index.html` 為準。
-- `class.md` 是舊版 Figma 工具導向課綱，只供歷史備查。
+- `清華大學課程大綱.md` 是現行課程大綱。
+- `舊版課綱備查.md` 彙整資展國際班時程與 Figma 導向舊大綱，只供歷史備查。
 - Unit 12 是作品展與專題發表，不安排課程簡報。
 
 ### Unit 02 — 使用者訪談與訪綱製作
 
 #### 相關檔案
 
-- `Unit_02/slides_unit02.html` — 課堂簡報。
+- `Unit_02/slides.html` — 課堂簡報。
 - `Unit_02/article.html` — 完整教材。
 - `Unit_02/interview-prompt.html` — 訪談前後的 AI 協作提示詞。
 - `Unit_02/README.md` — 單元目標、內容、參考資料與產出說明。

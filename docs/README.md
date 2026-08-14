@@ -15,6 +15,7 @@
 | [Unit 09 完整教材建置（響應式網頁設計 RWD）](spec/unit09-rwd.md) | [spec](spec/unit09-rwd.md) | [log](changelog/unit09-rwd.md) | done | 2026-08-11 |
 | [Unit 10 完整教材建置（Mockup 精度與十大易用性）](spec/unit10-mockup-heuristics.md) | [spec](spec/unit10-mockup-heuristics.md) | [log](changelog/unit10-mockup-heuristics.md) | done | 2026-08-11 |
 | [Unit 11 APP UI 設計規範教材與自我檢核表](spec/unit11-app-ui.md) | [spec](spec/unit11-app-ui.md) | [log](changelog/unit11-app-ui.md) | done | 2026-08-14 |
+| [課程改版：清華大學課綱同步、單元重新編號與教材整合](spec/tsinghua-course-migration.md) | [spec](spec/tsinghua-course-migration.md) | [log](changelog/tsinghua-course-migration.md) | done | 2026-08-14 |
 
 ## 修復紀錄
 

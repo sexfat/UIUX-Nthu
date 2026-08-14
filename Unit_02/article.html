@@ -3,51 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>使用者訪談與訪綱製作 · 完整教材 · Unit 02</title>
+<title>AI 輔助訪談與分析 · 完整教材 · Unit 02</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:      #fbfbfd;
-  --dark:    #1d1d1f;
-  --muted:   #86868b;
-  --accent:  #0066cc;
-  --accent3: #4094ff;
-  --surface: #f5f5f7;
-  --card:    #e8e8ed;
-  --border:  #d2d2d7;
-  --code-bg: #1d1d1f;
   --good:    #1a7f37;
   --good-bg: #eaf6ec;
   --bad:     #c4314b;
   --bad-bg:  #fdecef;
-  --max-w:   720px;
+  --bg: #fbfbfd;
+  --dark: #1d1d1f;
+  --muted: #6e6e73;
+  --accent: #0066cc;
+  --accent2: #0f766e;
+  --accent3: #c2410c;
+  --surface: #f5f5f7;
+  --border: #d2d2d7;
+  --code-bg: #1d1d1f;
+  --max-w: 760px;
 }
 
 html { scroll-behavior: smooth; scroll-padding-top: 24px; }
-
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang TC", sans-serif;
   background: var(--bg);
   color: var(--dark);
   -webkit-font-smoothing: antialiased;
-  padding: 0 24px 100px;
+  padding: 0 24px 96px;
   line-height: 1.75;
 }
 
-/* ── Reading progress ────────────────────── */
 #prog {
-  position: fixed; top: 0; left: 0;
-  height: 3px; width: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
   background: var(--accent);
   z-index: 200;
-  transition: width .1s linear;
 }
 
-/* ── Top bar ─────────────────────────────── */
 .topbar {
   max-width: var(--max-w);
   margin: 0 auto;
@@ -57,21 +56,28 @@ body {
   justify-content: space-between;
 }
 .back-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 12px; font-weight: 600;
-  color: var(--accent); text-decoration: none;
-  letter-spacing: .04em; transition: opacity .2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: .04em;
 }
-.back-link:hover { opacity: .7; }
+.back-link:hover { opacity: .75; }
 .back-link::before { content: '←'; }
 .unit-pill {
-  font-size: 11px; font-weight: 600;
-  letter-spacing: .09em; text-transform: uppercase;
-  color: var(--accent); background: rgba(0,102,204,.09);
-  padding: 4px 11px; border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.09);
+  padding: 4px 11px;
+  border-radius: 8px;
 }
 
-/* ── Hero ────────────────────────────────── */
 .hero {
   max-width: var(--max-w);
   margin: 0 auto;
@@ -79,115 +85,421 @@ body {
   border-bottom: 1px solid var(--border);
 }
 .overline {
-  font-size: 11px; font-weight: 600;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
 }
 .hero h1 {
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  font-weight: 800; letter-spacing: -.045em;
-  line-height: 1.1; color: var(--dark);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.1;
   margin-bottom: 18px;
 }
-.hero .lead {
-  font-size: 1.08rem; color: var(--muted);
-  line-height: 1.75; letter-spacing: -.01em;
-}
+.hero .lead { font-size: 1.05rem; color: var(--muted); line-height: 1.75; }
 .hero .meta {
-  display: flex; flex-wrap: wrap; gap: 12px;
-  margin-top: 24px; font-size: 12px; color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+  font-size: 12px;
+  color: var(--muted);
   align-items: center;
 }
 .hero .meta .d { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
 
-/* ── TOC ─────────────────────────────────── */
 .toc {
   max-width: var(--max-w);
   margin: 36px auto 0;
   padding: 26px 30px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 18px;
+  border-radius: 8px;
 }
 .toc h2 {
-  font-size: 12px; font-weight: 700;
-  letter-spacing: .1em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
 }
 .toc ol { list-style: none; counter-reset: toc; columns: 2; column-gap: 32px; }
 .toc li { counter-increment: toc; margin-bottom: 10px; break-inside: avoid; }
-.toc a {
-  font-size: .92rem; color: var(--dark);
-  text-decoration: none; display: flex; gap: 10px;
-  transition: color .2s;
-}
+.toc a { font-size: .92rem; color: var(--dark); text-decoration: none; display: flex; gap: 10px; }
 .toc a:hover { color: var(--accent); }
 .toc a::before {
   content: counter(toc, decimal-leading-zero);
-  font-size: .72rem; font-weight: 700; color: var(--accent);
-  font-variant-numeric: tabular-nums; padding-top: 3px;
+  font-size: .72rem;
+  font-weight: 800;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  padding-top: 3px;
 }
 
-/* ── Article body ────────────────────────── */
-article { max-width: var(--max-w); margin: 0 auto; }
-
-section { padding-top: 56px; }
-
+.article { max-width: var(--max-w); margin: 0 auto; }
+.section { padding-top: 56px; }
 .sec-num {
-  font-size: 12px; font-weight: 700;
-  letter-spacing: .1em; color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  color: var(--accent);
   margin-bottom: 10px;
 }
 h2.sec-title {
   font-size: clamp(1.5rem, 3.2vw, 2.1rem);
-  font-weight: 800; letter-spacing: -.04em;
-  line-height: 1.2; color: var(--dark);
+  font-weight: 800;
+  line-height: 1.22;
   margin-bottom: 20px;
 }
 h3 {
-  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
-  font-weight: 700; letter-spacing: -.02em;
-  color: var(--dark); margin: 32px 0 12px;
+  font-size: clamp(1.05rem, 2.2vw, 1.28rem);
+  font-weight: 800;
+  margin: 32px 0 12px;
 }
 p { font-size: 1rem; color: #2c2c2e; margin-bottom: 16px; }
-p .hl { color: var(--accent); font-weight: 600; }
-strong { font-weight: 700; color: var(--dark); }
-em { font-style: normal; background: rgba(0,102,204,.09); color: var(--accent);
-     padding: 1px 6px; border-radius: 5px; font-weight: 500; }
+strong { font-weight: 800; color: var(--dark); }
+em {
+  font-style: normal;
+  background: rgba(0,102,204,.09);
+  color: var(--accent);
+  padding: 1px 6px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+.hl { color: var(--accent); font-weight: 800; }
+.hl2 { color: var(--accent2); font-weight: 800; }
+.bad { color: var(--accent3); font-weight: 800; }
+code {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .88em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+
+.fig { margin: 24px 0; }
+.fig img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.fig figcaption {
+  margin-top: 10px;
+  font-size: .88rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
 
 ul.bullets, ol.steps { margin: 4px 0 20px; padding-left: 0; list-style: none; }
 ul.bullets li, ol.steps li {
-  font-size: 1rem; color: #2c2c2e; line-height: 1.7;
-  margin-bottom: 12px; padding-left: 26px; position: relative;
+  font-size: 1rem;
+  color: #2c2c2e;
+  line-height: 1.7;
+  margin-bottom: 12px;
+  padding-left: 26px;
+  position: relative;
 }
 ul.bullets li::before {
-  content: ''; position: absolute; left: 6px; top: .65em;
-  width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: .65em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
 }
 ol.steps { counter-reset: step; }
 ol.steps li { counter-increment: step; padding-left: 38px; }
 ol.steps li::before {
-  content: counter(step); position: absolute; left: 0; top: 1px;
-  width: 24px; height: 24px; border-radius: 50%;
-  background: rgba(0,102,204,.1); color: var(--accent);
-  font-size: .78rem; font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0,102,204,.1);
+  color: var(--accent);
+  font-size: .78rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* ── Callout ─────────────────────────────── */
 .callout {
-  display: flex; gap: 14px; align-items: flex-start;
-  margin: 24px 0; padding: 18px 20px;
+  margin: 24px 0;
+  padding: 18px 20px;
   background: rgba(0,102,204,.05);
   border: 1px solid rgba(0,102,204,.16);
-  border-radius: 14px;
-  font-size: .95rem; line-height: 1.7; color: var(--dark);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  font-size: .95rem;
+  line-height: 1.7;
+  color: var(--dark);
 }
-.callout::before { content: '💡'; flex-shrink: 0; font-size: 1.1rem; }
-.callout.warn { background: #fff8e6; border-color: #f2d98a; }
-.callout.warn::before { content: '⚠️'; }
-.callout b { color: var(--accent); }
+.callout.green {
+  background: rgba(15,118,110,.06);
+  border-color: rgba(15,118,110,.2);
+  border-left-color: var(--accent2);
+}
+.callout.warn {
+  background: rgba(194,65,12,.06);
+  border-color: rgba(194,65,12,.2);
+  border-left-color: var(--accent3);
+}
 
+.tbl-wrap { overflow-x: auto; margin: 24px 0; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font-size: .94rem; min-width: 560px; }
+th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.06);
+  border-bottom: 2px solid var(--border);
+}
+th:first-child { color: var(--muted); background: transparent; }
+td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+  color: #2c2c2e;
+  line-height: 1.6;
+  vertical-align: top;
+}
+td:first-child { font-weight: 800; color: var(--muted); font-size: .9em; white-space: nowrap; }
+tr:last-child td { border-bottom: none; }
+
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 22px 0; }
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+}
+.card h3 { margin: 0 0 8px; font-size: 1rem; }
+.card p { margin: 0; font-size: .93rem; color: var(--muted); line-height: 1.65; }
+
+.dia {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 22px;
+  margin: 22px 0;
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .8rem;
+  line-height: 1.85;
+  color: #2c2c2e;
+  white-space: pre;
+  overflow-x: auto;
+}
+.dia .n { color: var(--accent); font-weight: 700; }
+.dia .d { color: var(--accent2); font-weight: 700; }
+.dia .x { color: var(--accent3); font-weight: 700; }
+.dia .c { color: var(--muted); }
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 22px 0;
+}
+.sw {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+.sw .chip { display: block; height: 56px; }
+.sw .lbl {
+  display: block;
+  padding: 9px 11px 11px;
+  font-size: .78rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.sw .lbl b { display: block; font-size: .82rem; color: var(--dark); font-weight: 800; }
+
+.prompt {
+  position: relative;
+  background: var(--code-bg);
+  border-radius: 8px;
+  padding: 22px 22px 24px;
+  margin: 18px 0 26px;
+}
+.prompt pre {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .8rem;
+  line-height: 1.75;
+  color: #e8e8ed;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #c7c7cc;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+  padding: 5px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.copy-btn:hover { background: rgba(255,255,255,.16); color: #fff; }
+.copy-btn.done { color: #30d158; border-color: rgba(48,209,88,.45); }
+
+.refs {
+  max-width: var(--max-w);
+  margin: 64px auto 0;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.refs h2 {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.refs h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin: 26px 0 12px;
+}
+.refs ul { list-style: none; }
+.refs li {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 10px;
+  padding-left: 18px;
+  position: relative;
+}
+.refs li::before { content: '-'; position: absolute; left: 0; color: var(--border); }
+.refs a { color: var(--accent); text-decoration: none; }
+.refs a:hover { text-decoration: underline; }
+
+.foot-nav {
+  max-width: var(--max-w);
+  margin: 48px auto 0;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.foot-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  border: 1px solid rgba(0,102,204,.18);
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.foot-nav a:hover { background: rgba(0,102,204,.14); }
+.foot-nav a::after { content: '↗'; font-size: 11px; opacity: .8; }
+
+.pin-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+.pin-embed {
+  min-height: 360px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+.pin-embed h3 {
+  margin: 0 0 12px;
+  font-size: 1rem;
+}
+.pin-note {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.side-nav {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: calc(50% - (var(--max-w) / 2) - 258px);
+  transform: translateY(-50%);
+  width: 220px;
+  max-height: 72vh;
+  overflow-y: auto;
+  z-index: 150;
+}
+.side-nav-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+  padding-left: 15px;
+}
+.side-nav ol { list-style: none; counter-reset: sidenav; border-left: 2px solid var(--border); }
+.side-nav li { counter-increment: sidenav; }
+.side-nav a {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: .82rem;
+  line-height: 1.45;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 7px 0 7px 15px;
+  margin-left: -2px;
+  border-left: 2px solid transparent;
+  transition: color .15s, border-color .15s;
+}
+.side-nav a::before {
+  content: counter(sidenav, decimal-leading-zero);
+  font-size: .68rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--border);
+  flex-shrink: 0;
+}
+.side-nav a:hover { color: var(--dark); }
+.side-nav a.active { color: var(--accent); font-weight: 700; border-left-color: var(--accent); }
+.side-nav a.active::before { color: var(--accent); }
+
+@media (min-width: 1400px) { .side-nav { display: block; } }
+
+@media (max-width: 768px) {
+  body { padding-left: 18px; padding-right: 18px; }
+  .toc ol { columns: 1; }
+  .cards { grid-template-columns: 1fr; }
+  .swatches { grid-template-columns: repeat(2, 1fr); }
+  .pin-grid { grid-template-columns: 1fr; }
+  .hero { padding: 40px 0 32px; }
+}
+
+/* ── merged-in from Unit_02(訪談) ── */
 /* ── Cross-reference link ────────────────── */
 .xref {
   color: var(--accent); text-decoration: none; font-weight: 600;
@@ -323,81 +635,58 @@ tr:last-child td { border-bottom: none; }
   padding: 4px 11px; border-radius: 7px; margin-top: 10px; line-height: 1.5;
 }
 
-/* ── Prompt code ─────────────────────────── */
-.prompt {
-  position: relative; background: var(--code-bg);
-  border-radius: 14px; padding: 22px 22px 24px; margin: 18px 0;
-}
-.prompt pre {
-  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
-  font-size: .8rem; line-height: 1.75; color: #e8e8ed;
-  white-space: pre-wrap; word-break: break-word;
-}
 .prompt .ph { color: #4094ff; font-weight: 600; }
 .prompt .cm { color: #6e6e73; }
-.copy-btn {
-  position: absolute; top: 12px; right: 12px;
-  font-size: 11px; font-weight: 600; color: #c7c7cc;
-  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14);
-  padding: 5px 12px; border-radius: 8px; cursor: pointer;
-  transition: background .2s, color .2s;
-}
-.copy-btn:hover { background: rgba(255,255,255,.16); color: #fff; }
-.copy-btn.done { color: #30d158; border-color: rgba(48,209,88,.4); }
 
-/* ── References ──────────────────────────── */
-.refs { max-width: var(--max-w); margin: 64px auto 0; padding-top: 32px; border-top: 1px solid var(--border); }
-.refs h2 { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
-.refs ul { list-style: none; }
-.refs li { font-size: .9rem; color: var(--muted); line-height: 1.6; margin-bottom: 10px; padding-left: 18px; position: relative; }
-.refs li::before { content: '—'; position: absolute; left: 0; color: var(--border); }
-.refs a { color: var(--accent); text-decoration: none; }
-.refs a:hover { text-decoration: underline; }
-
-/* ── Footer nav ──────────────────────────── */
-.foot-nav { max-width: var(--max-w); margin: 48px auto 0; display: flex; gap: 12px; flex-wrap: wrap; }
-.foot-nav a {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 13px; font-weight: 600; color: var(--accent);
-  background: rgba(0,102,204,.08); border: 1px solid rgba(0,102,204,.18);
-  padding: 10px 18px; border-radius: 12px; text-decoration: none;
-  transition: background .2s, transform .15s;
-}
-.foot-nav a:hover { background: rgba(0,102,204,.14); transform: translateY(-1px); }
-.foot-nav a::after { content: '↗'; font-size: 11px; opacity: .8; }
-
-@media (max-width: 768px) {
-  .toc ol { columns: 1; }
-  .dd { grid-template-columns: 1fr; }
-  .hero { padding: 40px 0 32px; }
-  .guide-seg { padding: 18px 18px; }
-}
 </style>
 </head>
 <body>
 
 <div id="prog"></div>
 
-<!-- Top bar -->
+<nav class="side-nav" aria-label="大綱導覽">
+  <p class="side-nav-label">大綱</p>
+  <ol>
+    <li><a href="#s1">研究方法的兩種取向：質化與量化</a></li>
+    <li><a href="#s2">什麼是使用者訪談？</a></li>
+    <li><a href="#s3">訪談 vs 可用性測試</a></li>
+    <li><a href="#s4">執行訪談的 6 個步驟</a></li>
+    <li><a href="#s5">訪綱的四段結構</a></li>
+    <li><a href="#s6">篩選對的受訪者（Screener）</a></li>
+    <li><a href="#s7">到底該訪幾個人？</a></li>
+    <li><a href="#s8">撰寫問題的 6 個常見錯誤</a></li>
+    <li><a href="#s9">訪談的局限性</a></li>
+    <li><a href="#s10">訪談後：用 AI 協作整理資料</a></li>
+    <li><a href="#s11">附錄：訪綱範例模板</a></li>
+    <li><a href="#s12">什麼是競品分析？</a></li>
+    <li><a href="#s13">為什麼要做競品分析？</a></li>
+    <li><a href="#s14">競品分析如何建立設計決策依據？</a></li>
+    <li><a href="#s15">如何選擇競品</a></li>
+    <li><a href="#s16">分析維度與表格</a></li>
+    <li><a href="#s17">從表格收斂成洞察</a></li>
+    <li><a href="#s18">Persona 與競品分析的雙向互補關係</a></li>
+    <li><a href="#s19">課堂練習與作業</a></li>
+    <li><a href="#s20">AI 協作提示詞</a></li>
+  </ol>
+</nav>
+
 <div class="topbar">
-  <a class="back-link" href="slides_unit02.html">回到投影片</a>
+  <a class="back-link" href="slides.html">回到投影片</a>
   <span class="unit-pill">Unit 02</span>
 </div>
 
-<!-- Hero -->
-<header class="hero">
+<div class="hero">
   <p class="overline">User Research · 完整教材</p>
-  <h1>使用者訪談與訪綱製作</h1>
-  <p class="lead">怎麼問，才能問出真實的洞察？這篇教材從研究方法的全局談起，一步步帶你搞懂訪談的定位、訪綱的四段結構、提問的常見地雷，以及訪談後如何用 AI 協助整理資料——最後附上一份可以直接套用的訪綱範例。</p>
+  <h1>AI 輔助訪談與分析</h1>
+  <p class="lead">這份講義接了兩段內容：為什麼要訪談、怎麼寫訪綱、怎麼問問題，訪談後用 AI 協助整理逐字稿；接著把洞察放進市場脈絡，做競品分析、建立 Persona。使用者旅程地圖的部分目前只在簡報與互動練習裡，這份講義還沒有對應章節。</p>
   <div class="meta">
-    <span>閱讀時間約 18 分鐘</span><span class="d"></span>
-    <span>整理自 Nielsen Norman Group</span><span class="d"></span>
-    <span>搭配 slides_unit02</span>
+    <span>閱讀時間約 35 分鐘</span><span class="d"></span>
+    <span>搭配 Unit 02 投影片</span><span class="d"></span>
+    <span>對應作業：訪綱、競品分析表、Persona（旅程地圖作業見 <code>from-journey-map/exercises.html</code>）</span>
   </div>
-</header>
+</div>
 
-<!-- TOC -->
-<nav class="toc">
+<div class="toc">
   <h2>目錄</h2>
   <ol>
     <li><a href="#s1">研究方法的兩種取向：質化與量化</a></li>
@@ -411,14 +700,22 @@ tr:last-child td { border-bottom: none; }
     <li><a href="#s9">訪談的局限性</a></li>
     <li><a href="#s10">訪談後：用 AI 協作整理資料</a></li>
     <li><a href="#s11">附錄：訪綱範例模板</a></li>
+    <li><a href="#s12">什麼是競品分析？</a></li>
+    <li><a href="#s13">為什麼要做競品分析？</a></li>
+    <li><a href="#s14">競品分析如何建立設計決策依據？</a></li>
+    <li><a href="#s15">如何選擇競品</a></li>
+    <li><a href="#s16">分析維度與表格</a></li>
+    <li><a href="#s17">從表格收斂成洞察</a></li>
+    <li><a href="#s18">Persona 與競品分析的雙向互補關係</a></li>
+    <li><a href="#s19">課堂練習與作業</a></li>
+    <li><a href="#s20">AI 協作提示詞</a></li>
   </ol>
-</nav>
+</div>
 
-<article>
+<div class="article">
 
-  <!-- 1 -->
-  <section id="s1">
-    <p class="sec-num">SECTION 01</p>
+<section class="section" id="s1">
+    <p class="sec-num">01</p>
     <h2 class="sec-title">研究方法的兩種取向：質化與量化</h2>
     <p>在學怎麼做訪談之前，先把它放回更大的研究地圖。使用者研究大致分成兩種取向：<strong>質化（Qualitative）</strong>回答「<span class="hl">為什麼</span>、怎麼修」，<strong>量化（Quantitative）</strong>回答「<span class="hl">有多少</span>、多嚴重」。使用者訪談，就是質化方法裡最常用的一種。</p>
     <div class="tbl-wrap">
@@ -426,8 +723,8 @@ tr:last-child td { border-bottom: none; }
         <thead><tr><th>面向</th><th>質化研究 Qualitative</th><th>量化研究 Quantitative</th></tr></thead>
         <tbody>
           <tr><td>核心問題</td><td>為什麼？如何修？</td><td>有多少？多嚴重？</td></tr>
-          <tr><td>樣本數</td><td>少量（約 5–8 人）</td><td>大量（通常 30+ 人）</td></tr>
-          <tr><td>角色</td><td>形成性（Formative），引導設計方向</td><td>總結性（Summative）／基準測試，評估成效</td></tr>
+          <tr><td>樣本數</td><td>少量，依方法而定（例如可用性測試常見 5–8 人；探索性訪談通常需要更多，見下段）</td><td>大量（通常 30+ 人）</td></tr>
+          <tr><td>角色</td><td>主要用於形成性（Formative），引導設計方向；也能做總結性評估</td><td>常用於總結性（Summative）／基準測試，評估成效</td></tr>
           <tr><td>產出</td><td>痛點清單、洞察（依嚴重度排序）</td><td>統計指標、顯著性、誤差範圍</td></tr>
           <tr><td>代表方法</td><td>使用者訪談、可用性測試</td><td>大樣本問卷、A/B 測試、可用性基準</td></tr>
         </tbody>
@@ -450,9 +747,8 @@ tr:last-child td { border-bottom: none; }
     </div>
   </section>
 
-  <!-- 2 -->
-  <section id="s2">
-    <p class="sec-num">SECTION 02</p>
+<section class="section" id="s2">
+    <p class="sec-num">02</p>
     <h2 class="sec-title">什麼是使用者訪談？</h2>
     <p>使用者訪談是一種研究方法：研究員向參與者提問、聆聽回答，並順著回答<strong>追問</strong>，藉此深入了解使用者是誰、他們的經驗、痛點與真正的需求。它通常用在設計流程最前面的<em>探索階段（Discovery）</em>，也就是設計思考的「同理（Empathize）」階段。</p>
     <p>透過訪談，你可以了解：</p>
@@ -465,9 +761,8 @@ tr:last-child td { border-bottom: none; }
     <p>這些資料可以直接拿來建立 <span class="hl">Persona、同理心地圖、使用者旅程地圖、使用者需求陳述</span>等設計產物。最關鍵的一句話：<strong>把訪談當成一場研究，而不是聊天，也不是推銷。</strong></p>
   </section>
 
-  <!-- 3 -->
-  <section id="s3">
-    <p class="sec-num">SECTION 03</p>
+<section class="section" id="s3">
+    <p class="sec-num">03</p>
     <h2 class="sec-title">訪談 vs 可用性測試</h2>
     <p>這兩個方法都常是一對一進行，因此很容易被搞混，但它們的目的與本質完全不同。</p>
     <div class="tbl-wrap">
@@ -475,7 +770,7 @@ tr:last-child td { border-bottom: none; }
         <thead><tr><th>維度</th><th>使用者訪談</th><th>可用性測試</th></tr></thead>
         <tbody>
           <tr><td>目的</td><td>產生對使用者的新知識與同理心</td><td>評估設計好不好用、哪裡卡住、為什麼</td></tr>
-          <tr><td>研究類型</td><td>態度型：蒐集陳述的想法、感受</td><td>行為型：直接觀察操作行為</td></tr>
+          <tr><td>研究類型</td><td>態度型：蒐集陳述的想法、感受、自陳行為</td><td>行為型：直接觀察操作行為</td></tr>
           <tr><td>有無設計</td><td>沒有，不看也不試任何設計</td><td>有，受試者實際操作原型或產品</td></tr>
           <tr><td>使用時機</td><td>同理／探索階段</td><td>測試階段、產品 alpha/beta</td></tr>
           <tr><td>互動氛圍</td><td>較自然、溫暖，常有眼神接觸</td><td>較中性，避免過度友善影響結果</td></tr>
@@ -485,9 +780,8 @@ tr:last-child td { border-bottom: none; }
     <p>簡單記：<strong>訪談問的是「想法」，可用性測試看的是「行為」</strong>。兩者可以混搭——例如可用性測試前先做一段簡短訪談，但要注意訪談的問題不要「劇透」、引導受試者特別注意設計裡的某些東西。</p>
   </section>
 
-  <!-- 4 -->
-  <section id="s4">
-    <p class="sec-num">SECTION 04</p>
+<section class="section" id="s4">
+    <p class="sec-num">04</p>
     <h2 class="sec-title">執行訪談的 6 個步驟</h2>
     <ol class="steps">
       <li><strong>明確研究目標。</strong>訪談是研究，要先有研究目標。太寬的目標（例如「了解使用者」）會做出問不出洞察的訪談。好的目標很具體，例如「<span class="hl">是什麼原因讓使用者放棄這個產品？</span>」研究目標會直接決定你要問哪些問題。</li>
@@ -500,9 +794,8 @@ tr:last-child td { border-bottom: none; }
     <div class="callout">把訪綱想成「<b>有結構但有彈性</b>」的劇本：可以跳題、可以在某題停久一點、也可以問訪綱上沒有的問題。它是地圖，不是鐵軌。</div>
   </section>
 
-  <!-- 5 -->
-  <section id="s5">
-    <p class="sec-num">SECTION 05</p>
+<section class="section" id="s5">
+    <p class="sec-num">05</p>
     <h2 class="sec-title">訪綱的四段結構</h2>
     <p>一份 45–60 分鐘的訪綱，通常可以拆成四段。時間配比只是參考，重點是「先暖身、再進核心、深入動機、最後收尾」的節奏。</p>
     <div class="tbl-wrap">
@@ -526,9 +819,8 @@ tr:last-child td { border-bottom: none; }
     <p>主問題底下再準備追問，把細節補齊：「當時是什麼時候發生的？」「花了你多久？」「當下你有什麼感覺？」</p>
   </section>
 
-  <!-- 6 -->
-  <section id="s6">
-    <p class="sec-num">SECTION 06</p>
+<section class="section" id="s6">
+    <p class="sec-num">06</p>
     <h2 class="sec-title">篩選對的受訪者（Screener）</h2>
     <p>找錯人，再好的訪綱也問不出有用的東西。<strong>篩選問卷（Screener Questionnaire）</strong>是一組用來確認潛在參與者是否符合條件的問題。它能確保相關性、提升資料品質、節省時間與金錢，也能減少樣本偏差（招募平台常塞滿 IT／科技愛好者，不具一般大眾代表性）。</p>
     <h3>四個最佳實踐</h3>
@@ -637,9 +929,8 @@ tr:last-child td { border-bottom: none; }
     <div class="callout">回收問卷後、正式發出訪談邀請前，建議先撥一通<b>約 5 分鐘的電話或簡訊二次確認</b>，簡單聊兩句，就能確保對方不是機器人，且口條與態度適合你們的質化研究。</div>
   </section>
 
-  <!-- 7 -->
-  <section id="s7">
-    <p class="sec-num">SECTION 07</p>
+<section class="section" id="s7">
+    <p class="sec-num">07</p>
     <h2 class="sec-title">到底該訪幾個人？</h2>
     <p>很多人以為可用性測試的「5 人定律」也適用於訪談——但對探索性訪談來說，<strong>5 個人通常遠遠不夠</strong>。訪談是質化研究，目的是深入理解體驗與需求，而不是計算百分比，所以出發前無法精算出硬性的樣本數。</p>
     <h3>由「飽和點」決定</h3>
@@ -652,9 +943,8 @@ tr:last-child td { border-bottom: none; }
     </ul>
   </section>
 
-  <!-- 8 -->
-  <section id="s8">
-    <p class="sec-num">SECTION 08</p>
+<section class="section" id="s8">
+    <p class="sec-num">08</p>
     <h2 class="sec-title">撰寫問題的 6 個常見錯誤</h2>
     <p>適合問卷的問題，不一定適合面對面訪談。糟糕的問題會讓受試者困惑，或給出不準確的想法，產生無效的洞察。以下六個是最常見的地雷。</p>
 
@@ -701,9 +991,8 @@ tr:last-child td { border-bottom: none; }
     </div>
   </section>
 
-  <!-- 9 -->
-  <section id="s9">
-    <p class="sec-num">SECTION 09</p>
+<section class="section" id="s9">
+    <p class="sec-num">09</p>
     <h2 class="sec-title">訪談的局限性</h2>
     <p>訪談是<strong>態度型</strong>方法，蒐集的是受試者「自我陳述」的行為，而非觀察到的行為。要留意三個限制：</p>
     <ul class="bullets">
@@ -714,9 +1003,8 @@ tr:last-child td { border-bottom: none; }
     <p>因此，若想知道使用者「實際上做什麼」，需要結合<strong>觀察型研究</strong>（田野調查、數據分析）。此外，資料品質也高度依賴訪談者的技巧——問太多誘導性問題，資料的有效性就會被破壞。這也呼應了第一節的<a class="xref" href="#term-triangulation">三角驗證</a>：別把所有結論都壓在單一方法上。</p>
   </section>
 
-  <!-- 10 -->
-  <section id="s10">
-    <p class="sec-num">SECTION 10</p>
+<section class="section" id="s10">
+    <p class="sec-num">10</p>
     <h2 class="sec-title">訪談後：用 AI 協作整理資料</h2>
     <p>訪談結束後，最花時間的是把一堆逐字稿變成可用的洞察。AI 可以加速這一步，但要記得：<strong>AI 負責加速整理，研究判斷仍在你身上</strong>。下面這段提示詞的最後一行「限制句」是關鍵，它要求 AI 不腦補、資料不足就明說，避免你把 AI 編出來的東西當成真實洞察。</p>
     <div class="prompt">
@@ -749,9 +1037,8 @@ tr:last-child td { border-bottom: none; }
     </div>
   </section>
 
-  <!-- 11 -->
-  <section id="s11">
-    <p class="sec-num">APPENDIX</p>
+<section class="section" id="s11">
+    <p class="sec-num">11</p>
     <h2 class="sec-title">附錄：訪綱範例模板</h2>
     <p>以下提供三份不同領域的訪綱範例，結構相同——研究時可直接替換括號 <em>[ ]</em> 內的內容，套用到你自己的專題。</p>
 
@@ -916,11 +1203,337 @@ tr:last-child td { border-bottom: none; }
     </div><!-- /ex3 -->
   </section>
 
-</article>
+<div class="section" id="s12">
+    <p class="sec-num">12</p>
+    <h2 class="sec-title">什麼是競品分析？</h2>
+    <p><strong>競品分析</strong>是指針對市場上與你的產品「功能相似、對象相近或解決相同問題」的其他產品，進行系統性的觀察、比較與評估，找出它們的優勢、弱點與差異，進而幫助你設計出更具競爭力的產品。</p>
+    <p>它不是「看到別人有什麼，我也做什麼」，也不是單純蒐集漂亮畫面。真正有價值的競品分析，會回答三個問題：</p>
+    <ul class="bullets">
+      <li>使用者現在有哪些選擇？哪些產品成為主流？</li>
+      <li>這些產品如何安排功能、流程、資訊架構與介面回饋？</li>
+      <li>它們在哪裡沒有做滿，讓我們有機會創造差異化？</li>
+    </ul>
+    <div class="callout green">競品分析的產出不是一張很滿的截圖牆，而是能支撐設計提案的觀察、比較、洞察與取捨。</div>
+  </div>
 
-<!-- References（暫時註解隱藏，需要時移除註解即可）-->
+<div class="section" id="s13">
+    <p class="sec-num">13</p>
+    <h2 class="sec-title">為什麼要做競品分析？</h2>
+    <ol class="steps">
+      <li><strong>了解市場現況與使用者的選擇。</strong>知道目前使用者有哪些選項、主流產品長什麼樣子，以及使用者最常使用哪幾個產品。</li>
+      <li><strong>學習優點、避免重複錯誤。</strong>從成熟產品學習最佳實務，也避開已知痛點、負評設計與讓使用者卡住的流程。</li>
+      <li><strong>找出設計上的差異化機會。</strong>觀察競品沒做好的地方，聚焦某個族群、情境或流程，創造自己的優勢。</li>
+      <li><strong>建立設計決策的依據。</strong>用觀察、比較與證據支持設計選擇，降低「我覺得」式的主觀判斷。</li>
+      <li><strong>提升 UX 整體設計品質與敏感度。</strong>習慣比較流程細節後，更容易看出使用者為什麼卡住，也更能跳出單一產品視角。</li>
+    </ol>
+  </div>
+
+<div class="section" id="s14">
+    <p class="sec-num">14</p>
+    <h2 class="sec-title">競品分析如何建立設計決策依據？</h2>
+    <p>設計決策依據，是設計師做出某個設計選擇時，背後可以說清楚的邏輯、數據或觀察。競品分析能提供以下幾種支撐：</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>依據類型</th><th>如何幫助設計決策</th></tr></thead>
+        <tbody>
+          <tr><td>市場驗證</td><td>當主流 App 都有某個功能時，你有理由相信它已是使用者期望值。</td></tr>
+          <tr><td>正反案例</td><td>分析競品優缺點，可以解釋「為什麼我選這個做法而不是那個」。</td></tr>
+          <tr><td>提案說服力</td><td>引用競品設計細節，說明方案不是亂猜，而是基於觀察與研究。</td></tr>
+          <tr><td>避免主觀偏誤</td><td>不只是「我覺得」，而是「我們看到其他成功產品是這樣處理」。</td></tr>
+          <tr><td>釐清取捨</td><td>尤其在導航、搜尋機制、流程設計時，可以看到各家怎麼選擇。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>範例 1：搜尋功能設計</h3>
+    <p>假設老闆希望 App 搜尋功能做「自動完成」，但你分析 5 個競品後發現：80% 的競品都顯示搜尋歷史與熱門搜尋，只有 1 家用自動完成，而且使用者回饋不佳。這時你的建議可以是：「根據市場主流設計與使用者習慣，我們建議採用搜尋建議與歷史記錄，降低學習曲線。」</p>
+
+    <h3>範例 2：註冊流程長度</h3>
+    <p>如果 PM 希望做多頁式註冊，但你在競品中發現：競品 A 的單頁快速註冊轉換率較高，競品 B 的多步驟流程常在第 2 步流失。這時你可以說服團隊：「我們建議使用一步完成註冊，再引導補充資訊，以降低流失率並符合使用者期望。」</p>
+  </div>
+
+<div class="section" id="s15">
+    <p class="sec-num">15</p>
+    <h2 class="sec-title">如何選擇競品</h2>
+    <p>建議先選 <strong>3-5 個產品</strong>。太少看不出市場模式，太多則容易變成資料蒐集而無法分析。競品可以分成三類：</p>
+    <div class="cards">
+      <div class="card"><h3>直接競品</h3><p>解決同樣問題、目標族群相近。例如兩個外送 App、兩個線上學習平台。</p></div>
+      <div class="card"><h3>間接競品</h3><p>提供替代解法，但形式或族群不同。例如 YouTube 教學是線上課程平台的替代方案。</p></div>
+      <div class="card"><h3>參考性產品</h3><p>不一定是競爭對手，但操作體驗、視覺呈現或互動細節值得借鏡。</p></div>
+      <div class="card"><h3>選擇原則</h3><p>優先選和你的核心任務相關、使用者真的可能拿來替代的產品。</p></div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>產品類型</th><th>直接競品</th><th>間接競品</th></tr></thead>
+        <tbody>
+          <tr><td>外送訂餐</td><td>Uber Eats、Foodpanda</td><td>7-11、全聯熟食、LINE 群組揪團訂餐</td></tr>
+          <tr><td>線上學習</td><td>Hahow、Udemy、Coursera</td><td>YouTube 教學、Podcast、學習型 IG 帳號</td></tr>
+          <tr><td>線上投資</td><td>永豐金證券、凱基證券、富邦證券、口袋證券</td><td>財經 YouTuber、銀行理財顧問、PTT 股票討論版</td></tr>
+          <tr><td>約會交友</td><td>Tinder、派愛族、Coffee Meets Bagel、GoodNight</td><td>IG、Dcard、PTT 八卦板、Twitch 聊天</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<div class="section" id="s16">
+    <p class="sec-num">16</p>
+    <h2 class="sec-title">分析維度與表格</h2>
+    <p>分析維度要依你的研究目標選擇。如果你正在做 MVP，功能完整性很重要；如果你正在改善轉換率，任務流程與錯誤提示就更重要。</p>
+    <h3>常見分析維度</h3>
+    <ul class="bullets">
+      <li><strong>使用者體驗與設計：</strong>資訊架構、互動設計與流程、UI 視覺、易用性。</li>
+      <li><strong>功能與內容：</strong>核心功能比較、內容策略、使用者是否能完成主要任務。</li>
+      <li><strong>商業策略：</strong>目標客群、商業模式、市場表現、評價與媒體聲量。</li>
+    </ul>
+
+    <h3>初學者先用 5 個基本維度</h3>
+    <ol class="steps">
+      <li>功能完整性。</li>
+      <li>操作流程順暢度。</li>
+      <li>視覺與 UI 一致性。</li>
+      <li>使用情緒與體驗。</li>
+      <li>設計亮點與缺點。</li>
+    </ol>
+
+    <h3>競品分析表建議欄位</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>欄位</th><th>觀察重點</th></tr></thead>
+        <tbody>
+          <tr><td>產品名稱與連結</td><td>競品名稱、網站或 App 連結、平台。</td></tr>
+          <tr><td>競品類型</td><td>直接競品、間接競品或參考性產品。</td></tr>
+          <tr><td>目標客群</td><td>主要服務誰？是否與你的專題使用者重疊？</td></tr>
+          <tr><td>核心任務</td><td>使用者在這個產品中最常完成什麼任務？</td></tr>
+          <tr><td>核心功能</td><td>有哪些主要功能？功能是否完整？</td></tr>
+          <tr><td>任務流程</td><td>完成任務需要幾步？流程是否清楚、順暢？</td></tr>
+          <tr><td>資訊架構</td><td>分類、導覽、搜尋與內容組織是否合理？</td></tr>
+          <tr><td>UI 與視覺</td><td>色彩、排版、圖示、易讀性、品牌一致性。</td></tr>
+          <tr><td>回饋與錯誤提示</td><td>操作成功、失敗、等待、錯誤時如何提示？</td></tr>
+          <tr><td>使用情緒</td><td>哪些地方讓人安心、困惑、焦慮或驚喜？</td></tr>
+          <tr><td>差異化機會</td><td>我們可以在哪個族群、情境或流程做得更好？</td></tr>
+          <tr><td>證據來源</td><td>截圖、評價、訪談、觀察紀錄或資料來源。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<div class="section" id="s17">
+    <p class="sec-num">17</p>
+    <h2 class="sec-title">從表格收斂成洞察</h2>
+    <p>不要只交一張很滿的表格。真正有價值的是表格後面的 <strong>1 頁洞察</strong>。你可以用四個問題收斂：</p>
+    <ul class="bullets">
+      <li><strong>模式：</strong>多數競品都怎麼做？這代表什麼使用者期待？</li>
+      <li><strong>落差：</strong>哪個流程或情境被忽略？誰的需求沒有被照顧？</li>
+      <li><strong>機會：</strong>我們能用什麼策略，讓體驗更快、更清楚或更安心？</li>
+      <li><strong>取捨：</strong>哪些功能不該現在做？為什麼先做另一件事？</li>
+    </ul>
+    <div class="callout">洞察的句型可以寫成：「我們觀察到 [證據]，這代表 [使用者期待或痛點]，因此設計上可以 [機會或建議]。」</div>
+  </div>
+
+<div class="section" id="s18">
+    <p class="sec-num">18</p>
+    <h2 class="sec-title">Persona 與競品分析的雙向互補關係</h2>
+    <p>Persona 不是人口統計資料，而是後續設計決策的使用者模型。競品分析能幫你看見市場中的使用情境與缺口，Persona 則把這些觀察轉成具體角色，幫團隊判斷功能優先順序與流程取捨。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Persona 面向</th><th>要回答的問題</th></tr></thead>
+        <tbody>
+          <tr><td>Goals</td><td>這位使用者想完成什麼？成功對他來說是什麼？</td></tr>
+          <tr><td>Mental Model</td><td>他如何理解這件事？他習慣用什麼方式解決？</td></tr>
+          <tr><td>Context</td><td>他在什麼時間、地點、設備與壓力下使用？</td></tr>
+          <tr><td>Pains</td><td>他最容易卡住、焦慮或不滿的地方是什麼？</td></tr>
+          <tr><td>Gains</td><td>什麼會讓他覺得有價值、安心或想繼續使用？</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>好的 Persona 應該能回答：「這位使用者在這個情境下最不能忍受什麼？他為什麼會選擇或放棄某個功能？」如果 Persona 只剩年齡、職業、個性，它就很難幫你做設計判斷。</p>
+
+    <p>競品分析與 Persona 的核心，其實在於「從競品推導 Persona」與「用 Persona 審視競品」這兩個方向的雙向互補關係。雖然兩者看似都在處理同樣的素材，但它們在設計思考上的出發點、目的與思考盲點的防禦機制有很大的不同。</p>
+
+    <h3>核心差異對照表</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>維度</th><th>方向一：以競品找出 Persona</th><th>方向二：以 Persona 觀點看競品</th></tr></thead>
+        <tbody>
+          <tr><td>思維方向</td><td>由外而內：從市場與對手收斂出使用者模型</td><td>由內而外：從既有使用者設定去檢視市場</td></tr>
+          <tr><td>出發點</td><td>市場上的既有事實、對手產品、App 評論、負評</td><td>已經具備核心 Goals / Pains / Mental Model 的使用者原型</td></tr>
+          <tr><td>你的角色</td><td>觀察者／偵探：尋找市場缺口和蛛絲馬跡</td><td>扮演者／演員：戴上面具、化身為該角色去體驗流程</td></tr>
+          <tr><td>核心目的</td><td>尋找根據：讓 Persona 有證據支持，避免憑空捏造活在真空中的理想角色</td><td>精準驗證：避免盲目抄襲對手功能，找出對手做很好、但對我的使用者是垃圾的痛點</td></tr>
+          <tr><td>回答的問題</td><td>從對手的缺點和市場的現狀中，我的核心使用者應該長什麼樣子？</td><td>如果我是這個特定使用者，我用對手的產品會卡在哪裡？</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>方向一：以競品找出 Persona——建立證據鏈</h3>
+    <p>這個階段發生在 Persona 還不夠具體、缺乏真實數據的時候。你把競品當成大型實驗室，觀察別人踢到的鐵板，來拼湊出你使用者的面貌。</p>
+    <ul class="bullets">
+      <li>看到 80% 競品都有搜尋歷史功能，推導出使用者有「不想重複打字」的 Mental Model。</li>
+      <li>去 App Store 看競品的一星負評（例如：「改版後找不到功能」），提煉成 Persona 的 Pains。</li>
+    </ul>
+    <div class="callout">白話來說：因為對手（市場）普遍有這個現象、或者這群人都在罵這件事，我可以先假設我的 Persona 有這種痛點與目標——這仍是一個待驗證的假設，最後要回頭用自己的訪談或測試資料核對。</div>
+
+    <p>把這個邏輯落地到表格：讓 Persona 的每一條 <strong>Goals / Pains / Gains</strong> 都能指回競品分析表裡的一則觀察。把「多數競品怎麼做」與「哪裡沒被照顧」翻譯成使用者的心智模型與痛點，Persona 就有了證據，而不只是人設。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>競品洞察</th><th>推導出的 Persona 線索</th><th>對應面向</th></tr></thead>
+        <tbody>
+          <tr><td>80% 競品都顯示搜尋歷史與熱門搜尋</td><td>期待「快速找回看過的東西」，不想每次重打關鍵字</td><td>Mental Model</td></tr>
+          <tr><td>競品註冊常在第 2 步大量流失</td><td>對冗長註冊沒耐心，傾向先體驗、再決定要不要留下</td><td>Pains</td></tr>
+          <tr><td>某個族群在既有產品中沒被好好照顧</td><td>這正是你的 Persona 主角，也是差異化切入點</td><td>Goals / Context</td></tr>
+          <tr><td>競品用點數、提醒與社群維持黏著</td><td>什麼樣的回饋與價值會讓他願意持續使用</td><td>Gains</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout green">對照句型：「我在競品分析看到 <em>[觀察]</em>，這代表這位使用者其實在意 <em>[目標或痛點]</em>，因此 Persona 的 <em>[面向]</em> 應該寫成 <em>[具體描述]</em>。」這樣競品分析與 Persona 就串成同一條證據鏈。</div>
+
+    <h3>方向二：以 Persona 觀點看競品——戴上面具去體驗</h3>
+    <p>這個階段發生在 Persona 已經有了基本雛形。你要帶著這個角色的偏見、習慣和壓力，重新去審視市場上的競品。</p>
+    <ul class="bullets">
+      <li>不要只做功能有無的對照表。</li>
+      <li>假設 Persona 是一個極度缺乏時間的高壓主管，當你用他的心智模型去操作對手那套看似功能強大、資訊密集的後台時，你才會驚覺：這太複雜了，他絕對會崩潰。</li>
+    </ul>
+    <div class="callout">白話來說：我現在就是這個使用者。我用對手的功能時，雖然他們功能很齊全，但我卻覺得好難用。這就是我們產品可以切入的體驗缺口（機會點）。</div>
+
+    <h3>整合後的雙向循環</h3>
+    <p>在實際專案中，這兩者不是單向的，而是一個高度互補的動態循環：</p>
+    <ol class="steps">
+      <li><strong>以競品找 Persona：</strong>從競品分析中發現「某個族群在現有產品中沒被好好照顧」，於是提煉出你的 Persona（找到利基市場與主角）。</li>
+      <li><strong>以 Persona 看競品：</strong>接著戴上這個 Persona 的面具回頭去體驗那些競品，這時看到的不再是冷冰冰的功能清單，而是更深刻的「設計風格、效率、情感卡點」等綜效（找出具體的差異化設計決策）。</li>
+    </ol>
+    <p>要具體標出機會缺口，可以用定位圖與體驗地圖：以 Persona 的兩大核心訴求（例如：價格敏感度 vs. 操作便利性）作為 X / Y 軸，畫出四象限矩陣，把市場上的競品標示進去。你會一眼看出哪個象限是對手還沒擠滿、又完全符合 Persona 渴望的機會缺口，這就是產品的核心價值方向。</p>
+    <div class="callout green">這種互補關係，讓你的競品分析有了靈魂——因為知道是為誰而分析；也讓你的 Persona 有了落地感——因為背後都有市場證據支撐。</div>
+
+    <h3>一張表看懂兩者的資訊互補</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>思考維度</th><th>競品分析（市場角度）</th><th>Persona（使用者角度）</th><th>結合後的綜效</th></tr></thead>
+        <tbody>
+          <tr><td>功能範疇</td><td>對手提供了 A、B、C 功能</td><td>使用者在特定情境下需要解決 X 問題</td><td>只做符合 X 問題的 A 功能，避免加入用不到的功能</td></tr>
+          <tr><td>設計風格</td><td>競品多採嚴肅、高資訊密度的商務風</td><td>使用者是初學者，容易焦慮、需要引導</td><td>採用溫暖、高留白、多步驟引導的介面風格做出差異化</td></tr>
+          <tr><td>痛點來源</td><td>競品效能慢、結帳流程要走 5 個步驟</td><td>使用者極度缺乏時間，重視效率</td><td>把「一鍵快速結帳」列為最優先開發的特色</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>實戰範例：AI 工具技能精修平台（SkillSync）</h3>
+    <p>以開發一個「AI 工具技能精修平台（SkillSync）」為例：這個平台要幫助職場專業人士（例如產品經理、設計師）利用零碎時間快速掌握 AI 新技能。把 Persona 和競品分析放在一起操作時，不只是單純的數據比較，而是在尋找「產品市場適配（Product-Market Fit）」的切入點。</p>
+
+    <h4 style="font-size:1rem;font-weight:800;margin:24px 0 10px;">1. 定義 Persona：時間極度稀缺的主角</h4>
+    <ul class="bullets">
+      <li><strong>姓名：</strong>Linda，32 歲，軟體產品經理。</li>
+      <li><strong>動機：</strong>必須在三個月內學會如何用 AI 自動化工作流程，否則會被產出效率更高的同事取代。</li>
+      <li><strong>痛點：</strong>沒時間看 2 小時長的教學影片、討厭太理論的課程、遇到實際操作問題找不到人問，只能自己 Google 很久。</li>
+    </ul>
+
+    <h4 style="font-size:1rem;font-weight:800;margin:24px 0 10px;">2. 競品分析：市場現狀的地圖</h4>
+    <p>分析市面上兩大主流競品，並從 Linda 的視角審視它們：</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>評估項目</th><th>競品 A：大型綜合學院</th><th>競品 B：影音市集平台</th></tr></thead>
+        <tbody>
+          <tr><td>教學結構</td><td>學術性強，長達 10-20 小時的系列課</td><td>碎片化，單堂課長度不一</td></tr>
+          <tr><td>互動性</td><td>有論壇，但回覆極慢且無關緊要</td><td>通常無互動，僅單向觀看</td></tr>
+          <tr><td>Linda 的體驗</td><td>沒時間看完這麼長的課程，進度條永遠停在 10%</td><td>內容品質參差不齊，學完不知道怎麼在工作上落地</td></tr>
+          <tr><td>市場缺口</td><td>缺乏短效、高密度的實戰場景</td><td>缺乏針對專業人士的即時輔助機制</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="font-size:1rem;font-weight:800;margin:24px 0 10px;">3. 結合運用：三個設計決策</h4>
+    <p>把 Linda 的旅程疊加在競品的流程體驗上，會得到三個具體的設計決策，而不只是一張比較表：</p>
+    <div class="cards">
+      <div class="card"><h3>重塑內容形式</h3><p>Linda 只有通勤的 15 分鐘或開會前的 10 分鐘，所以把課程切成「5 分鐘理論 + 10 分鐘 AI 實作練習」。目標不是拚課程數量，而是拚完成率。</p></div>
+      <div class="card"><h3>引入即時 AI 助教</h3><p>兩個競品最大的共同痛點都是沒人能即時解決實作中的問題。課程頁面內建 Context-Aware AI 助教，遇到代碼報錯或 Prompt 不對時直接給 Debug 建議，這是競品完全沒有的差異化。</p></div>
+      <div class="card"><h3>MVP 功能優先順序</h3><p>用 Persona 需求對照競品現狀排序：必須做——AI 輔助練習器；可延後——社群論壇（Linda 沒空社交）；不做——超過 30 分鐘的長課程（競品已經做爛，也不符合 Linda 的場景）。</p></div>
+    </div>
+
+    <div class="callout green">如果不做結合，看到競品有 100 堂 AI 課，很容易誤判成「我也要做內容豐富的平台」。結合 Persona 之後，結論會變成：目標使用者不需要更多課程，需要更快的解決方案——所以優勢不在課程數量，而在 AI 互動的即時性。</div>
+    <p>這正是這兩個工具的分工：競品分析畫出「競爭的地平線」，Persona 指出「你應該站立的位置」。</p>
+  </div>
+
+<div class="section" id="s19">
+    <p class="sec-num">19</p>
+    <h2 class="sec-title">課堂練習與作業</h2>
+    <h3>課堂練習流程</h3>
+    <ol class="steps">
+      <li>確認專題題目與核心任務。</li>
+      <li>列出 3-5 個競品，至少包含直接競品與間接競品。</li>
+      <li>針對每個競品完成關鍵畫面截圖與流程觀察。</li>
+      <li>用 5 個基本維度完成比較表。</li>
+      <li>收斂 3-5 條洞察，寫出對應的設計機會。</li>
+      <li>在 FigJam / Figma 建立 1-2 位 Persona。</li>
+      <li>標註哪些結論已由觀察支持，哪些只是 AI 或團隊假設。</li>
+    </ol>
+    <h3>本單元產出</h3>
+    <ul class="bullets">
+      <li><strong>作業 1：競品分析表。</strong>3-5 個競品，含案例搜集、表格化比較與 1 頁洞察。</li>
+      <li><strong>作業 2：Persona 人物誌。</strong>在 FigJam / Figma 建立 1-2 位 Persona。</li>
+      <li><strong>附註：</strong>標註哪些結論來自觀察，哪些只是 AI 或團隊提出的假設。</li>
+    </ul>
+  </div>
+
+<div class="section" id="s20">
+    <p class="sec-num">20</p>
+    <h2 class="sec-title">AI 協作提示詞</h2>
+    <p>AI 可以協助你建立表格、整理觀察與產生 Persona 假設，但不能替你下研究結論。所有 AI 輸出都應視為假設，需要由截圖、評價、訪談或後續測試驗證。</p>
+
+    <h3>一、產生競品分析表欄位</h3>
+    <div class="prompt">
+      <button class="copy-btn" type="button">複製</button>
+      <pre>你是一位 UX 研究員。我正在為 [專題名稱] 做競品分析。
+我的產品目標是：[一句話描述目標]
+目標使用者是：[描述族群與使用情境]
+核心任務是：[使用者最重要要完成的任務]
+
+請幫我設計一份競品分析表，包含：
+1. 競品選擇欄位。
+2. UX/UI 分析維度。
+3. 功能與內容分析維度。
+4. 商業策略分析維度。
+5. 可收斂成設計機會的欄位。
+
+每個欄位請附上觀察問題，讓初學者知道要看什麼。</pre>
+    </div>
+
+    <h3>二、整理競品觀察成洞察</h3>
+    <div class="prompt">
+      <button class="copy-btn" type="button">複製</button>
+      <pre>以下是我整理的競品分析表內容：
+[貼上表格或重點]
+
+請協助我整理：
+1. 3 個市場共通模式。
+2. 3 個使用者可能遇到的痛點。
+3. 3 個設計差異化機會。
+4. 每個洞察對應的證據來源。
+
+限制：只能根據我提供的資料歸納，不要自行編造不存在的競品資訊。</pre>
+    </div>
+
+    <h3>三、從競品觀察產生 Persona 假設</h3>
+    <div class="prompt">
+      <button class="copy-btn" type="button">複製</button>
+      <pre>以下是我的競品分析洞察：
+[貼上洞察]
+
+請根據這些洞察，產出 1-2 位 Persona 假設，每位包含：
+1. 角色名稱與一句話描述。
+2. Goals：他想完成什麼。
+3. Mental Model：他如何理解這個任務。
+4. Context：他通常在什麼情境下使用。
+5. Pains：他最容易卡住或不滿的地方。
+6. Gains：什麼會讓他覺得有價值。
+7. 需要後續訪談或測試驗證的假設清單。
+
+請避免只寫年齡、職業、個性等表面資料。</pre>
+    </div>
+  </div>
+
+</div><!-- /.article -->
+
 <div class="refs">
   <h2>參考資料</h2>
+  <h3>訪談與訪綱</h3>
   <ul>
     <li>Maria Rosala &amp; Kara Pernice, <a href="https://www.nngroup.com/articles/user-interviews/" target="_blank" rel="noopener">User Interviews 101</a>, Nielsen Norman Group.</li>
     <li><a href="https://www.nngroup.com/articles/interview-questions-mistakes/" target="_blank" rel="noopener">6 Common Mistakes in Writing Interview Questions</a>, Nielsen Norman Group.</li>
@@ -928,42 +1541,87 @@ tr:last-child td { border-bottom: none; }
     <li><a href="https://www.nngroup.com/articles/interview-sample-size/" target="_blank" rel="noopener">How Many Participants for a UX Interview Study?</a>, Nielsen Norman Group.</li>
     <li><a href="https://www.nngroup.com/articles/quant-vs-qual/" target="_blank" rel="noopener">Quantitative vs. Qualitative Research</a>, Nielsen Norman Group.</li>
   </ul>
+  <h3>競品分析與 Persona</h3>
+  <ul>
+    <li>Notion 參考頁：競品分析，課堂提供內容。</li>
+    <li><a href="https://docs.google.com/spreadsheets/d/1EDciItb_cvnmH5owr8u5CksXL-hJ3UxdATRVXL68lI8/edit?usp=sharing" target="_blank" rel="noopener">維度分析表範例</a></li>
+  </ul>
 </div>
 
-
-<!-- Footer nav -->
 <div class="foot-nav">
-  <a href="slides_unit02.html">回到投影片</a>
-  <a href="interview-prompt.html" target="_blank" rel="noopener">AI 協作提示詞流程</a>
+  <a href="slides.html">回到投影片</a>
+  <a href="interview-prompt.html" target="_blank" rel="noopener">訪談 AI 協作提示詞</a>
+  <a href="from-competitor-persona/design-thinking.html" target="_blank" rel="noopener">設計思考延伸教材</a>
+  <a href="from-competitor-persona/exercises.html" target="_blank" rel="noopener">競品分析練習作業</a>
+  <a href="from-competitor-persona/competitor-analysis-template.html" target="_blank" rel="noopener">競品分析表</a>
+  <a href="from-journey-map/exercises.html" target="_blank" rel="noopener">旅程地圖互動練習</a>
+  <a href="../index.html">回到課程總覽</a>
 </div>
 
 <script>
-// reading progress
-const prog = document.getElementById('prog');
-document.addEventListener('scroll', () => {
-  const h = document.documentElement;
-  const scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight);
-  prog.style.width = (scrolled * 100) + '%';
-}, { passive: true });
+(function () {
+  const prog = document.getElementById('prog');
+  function updateProgress() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? window.scrollY / max * 100 : 0;
+    prog.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+})();
 
+(function () {
+  const nav = document.querySelector('.side-nav');
+  if (!nav || !('IntersectionObserver' in window)) return;
+  const links = Array.from(nav.querySelectorAll('a'));
+  const sections = links
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  const linkFor = new Map(sections.map((sec, i) => [sec, links[i]]));
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const link = linkFor.get(entry.target);
+      if (!link) return;
+      links.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  }, { rootMargin: '-10% 0px -75% 0px', threshold: 0 });
+
+  sections.forEach(sec => observer.observe(sec));
+})();
+
+(function () {
+  document.querySelectorAll('.prompt').forEach(prompt => {
+    const btn = prompt.querySelector('.copy-btn');
+    const pre = prompt.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        btn.textContent = '已複製';
+        btn.classList.add('done');
+        setTimeout(() => {
+          btn.textContent = '複製';
+          btn.classList.remove('done');
+        }, 1400);
+      } catch (error) {
+        btn.textContent = '複製失敗';
+      }
+    });
+  });
+})();
+</script>
+<script>
 // tabs (訪綱範例切換)
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const id = btn.dataset.tab;
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === id));
-  });
-});
-
-// copy buttons
-document.querySelectorAll('.copy-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const text = btn.parentElement.querySelector('pre').innerText;
-    navigator.clipboard.writeText(text).then(() => {
-      btn.textContent = '已複製';
-      btn.classList.add('done');
-      setTimeout(() => { btn.textContent = '複製'; btn.classList.remove('done'); }, 1600);
-    });
   });
 });
 </script>

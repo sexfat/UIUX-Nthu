@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wireframe 實作延伸 · 完整教材 · Unit 07</title>
+<title>風格發想與建立 · 完整教材 · Unit 08</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
@@ -91,15 +91,10 @@ body {
 .hero h1 {
   font-size: clamp(2rem, 5vw, 3.25rem);
   font-weight: 800;
-  letter-spacing: 0;
   line-height: 1.1;
   margin-bottom: 18px;
 }
-.hero .lead {
-  font-size: 1.05rem;
-  color: var(--muted);
-  line-height: 1.75;
-}
+.hero .lead { font-size: 1.05rem; color: var(--muted); line-height: 1.75; }
 .hero .meta {
   display: flex;
   flex-wrap: wrap;
@@ -109,12 +104,7 @@ body {
   color: var(--muted);
   align-items: center;
 }
-.hero .meta .d {
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: var(--border);
-}
+.hero .meta .d { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
 
 .toc {
   max-width: var(--max-w);
@@ -134,13 +124,7 @@ body {
 }
 .toc ol { list-style: none; counter-reset: toc; columns: 2; column-gap: 32px; }
 .toc li { counter-increment: toc; margin-bottom: 10px; break-inside: avoid; }
-.toc a {
-  font-size: .92rem;
-  color: var(--dark);
-  text-decoration: none;
-  display: flex;
-  gap: 10px;
-}
+.toc a { font-size: .92rem; color: var(--dark); text-decoration: none; display: flex; gap: 10px; }
 .toc a:hover { color: var(--accent); }
 .toc a::before {
   content: counter(toc, decimal-leading-zero);
@@ -163,14 +147,12 @@ body {
 h2.sec-title {
   font-size: clamp(1.5rem, 3.2vw, 2.1rem);
   font-weight: 800;
-  letter-spacing: 0;
   line-height: 1.22;
   margin-bottom: 20px;
 }
 h3 {
   font-size: clamp(1.05rem, 2.2vw, 1.28rem);
   font-weight: 800;
-  letter-spacing: 0;
   margin: 32px 0 12px;
 }
 p { font-size: 1rem; color: #2c2c2e; margin-bottom: 16px; }
@@ -185,12 +167,31 @@ em {
 }
 .hl { color: var(--accent); font-weight: 800; }
 .hl2 { color: var(--accent2); font-weight: 800; }
-
-ul.bullets, ol.steps {
-  margin: 4px 0 20px;
-  padding-left: 0;
-  list-style: none;
+.bad { color: var(--accent3); font-weight: 800; }
+code {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .88em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 5px;
 }
+
+.fig { margin: 24px 0; }
+.fig img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.fig figcaption {
+  margin-top: 10px;
+  font-size: .88rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+ul.bullets, ol.steps { margin: 4px 0 20px; padding-left: 0; list-style: none; }
 ul.bullets li, ol.steps li {
   font-size: 1rem;
   color: #2c2c2e;
@@ -210,10 +211,7 @@ ul.bullets li::before {
   background: var(--accent);
 }
 ol.steps { counter-reset: step; }
-ol.steps li {
-  counter-increment: step;
-  padding-left: 38px;
-}
+ol.steps li { counter-increment: step; padding-left: 38px; }
 ol.steps li::before {
   content: counter(step);
   position: absolute;
@@ -247,14 +245,14 @@ ol.steps li::before {
   border-color: rgba(15,118,110,.2);
   border-left-color: var(--accent2);
 }
+.callout.warn {
+  background: rgba(194,65,12,.06);
+  border-color: rgba(194,65,12,.2);
+  border-left-color: var(--accent3);
+}
 
 .tbl-wrap { overflow-x: auto; margin: 24px 0; -webkit-overflow-scrolling: touch; }
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: .94rem;
-  min-width: 560px;
-}
+table { width: 100%; border-collapse: collapse; font-size: .94rem; min-width: 560px; }
 th {
   text-align: left;
   padding: 12px 16px;
@@ -274,36 +272,58 @@ td {
   line-height: 1.6;
   vertical-align: top;
 }
-td:first-child {
-  font-weight: 800;
-  color: var(--muted);
-  font-size: .9em;
-  white-space: nowrap;
-}
+td:first-child { font-weight: 800; color: var(--muted); font-size: .9em; white-space: nowrap; }
 tr:last-child td { border-bottom: none; }
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin: 22px 0;
-}
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 22px 0; }
 .card {
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 18px 20px;
 }
-.card h3 {
-  margin: 0 0 8px;
-  font-size: 1rem;
+.card h3 { margin: 0 0 8px; font-size: 1rem; }
+.card p { margin: 0; font-size: .93rem; color: var(--muted); line-height: 1.65; }
+
+.dia {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 22px;
+  margin: 22px 0;
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .8rem;
+  line-height: 1.85;
+  color: #2c2c2e;
+  white-space: pre;
+  overflow-x: auto;
 }
-.card p {
-  margin: 0;
-  font-size: .93rem;
+.dia .n { color: var(--accent); font-weight: 700; }
+.dia .d { color: var(--accent2); font-weight: 700; }
+.dia .x { color: var(--accent3); font-weight: 700; }
+.dia .c { color: var(--muted); }
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 22px 0;
+}
+.sw {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+.sw .chip { display: block; height: 56px; }
+.sw .lbl {
+  display: block;
+  padding: 9px 11px 11px;
+  font-size: .78rem;
+  line-height: 1.5;
   color: var(--muted);
-  line-height: 1.65;
 }
+.sw .lbl b { display: block; font-size: .82rem; color: var(--dark); font-weight: 800; }
 
 .prompt {
   position: relative;
@@ -351,6 +371,12 @@ tr:last-child td { border-bottom: none; }
   color: var(--muted);
   margin-bottom: 16px;
 }
+.refs h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin: 26px 0 12px;
+}
 .refs ul { list-style: none; }
 .refs li {
   font-size: .9rem;
@@ -387,6 +413,30 @@ tr:last-child td { border-bottom: none; }
 .foot-nav a:hover { background: rgba(0,102,204,.14); }
 .foot-nav a::after { content: '↗'; font-size: 11px; opacity: .8; }
 
+.pin-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+.pin-embed {
+  min-height: 360px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+.pin-embed h3 {
+  margin: 0 0 12px;
+  font-size: 1rem;
+}
+.pin-note {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
 .side-nav {
   display: none;
   position: fixed;
@@ -407,11 +457,7 @@ tr:last-child td { border-bottom: none; }
   margin-bottom: 14px;
   padding-left: 15px;
 }
-.side-nav ol {
-  list-style: none;
-  counter-reset: sidenav;
-  border-left: 2px solid var(--border);
-}
+.side-nav ol { list-style: none; counter-reset: sidenav; border-left: 2px solid var(--border); }
 .side-nav li { counter-increment: sidenav; }
 .side-nav a {
   display: flex;
@@ -435,21 +481,17 @@ tr:last-child td { border-bottom: none; }
   flex-shrink: 0;
 }
 .side-nav a:hover { color: var(--dark); }
-.side-nav a.active {
-  color: var(--accent);
-  font-weight: 700;
-  border-left-color: var(--accent);
-}
+.side-nav a.active { color: var(--accent); font-weight: 700; border-left-color: var(--accent); }
 .side-nav a.active::before { color: var(--accent); }
 
-@media (min-width: 1400px) {
-  .side-nav { display: block; }
-}
+@media (min-width: 1400px) { .side-nav { display: block; } }
 
 @media (max-width: 768px) {
   body { padding-left: 18px; padding-right: 18px; }
   .toc ol { columns: 1; }
   .cards { grid-template-columns: 1fr; }
+  .swatches { grid-template-columns: repeat(2, 1fr); }
+  .pin-grid { grid-template-columns: 1fr; }
   .hero { padding: 40px 0 32px; }
 }
 </style>
@@ -461,52 +503,52 @@ tr:last-child td { border-bottom: none; }
 <nav class="side-nav" aria-label="大綱導覽">
   <p class="side-nav-label">大綱</p>
   <ol>
-    <li><a href="#s1">你畫的那幾張，都假設一次就成功</a></li>
-    <li><a href="#s2">空狀態：不要留全空白</a></li>
-    <li><a href="#s3">錯誤訊息要同時做到五件事</a></li>
-    <li><a href="#s4">表單出錯的十條準則</a></li>
-    <li><a href="#s5">載入狀態：0.1 秒、1 秒、10 秒</a></li>
-    <li><a href="#s6">指示器、驗證、通知</a></li>
-    <li><a href="#s7">把散裝畫面接成 Wireflow</a></li>
-    <li><a href="#s8">標註：畫不出來的用文字寫</a></li>
-    <li><a href="#s9">設計說明：決策要指得回研究</a></li>
-    <li><a href="#s10">同儕檢核怎麼開</a></li>
-    <li><a href="#s11">檢核之後：修正紀錄</a></li>
-    <li><a href="#s12">課堂練習與回家作業</a></li>
+    <li><a href="#s1">風格不是挑顏色</a></li>
+    <li><a href="#s2">市場風格分析</a></li>
+    <li><a href="#s3">風格故事化</a></li>
+    <li><a href="#s4">版面：網格與留白</a></li>
+    <li><a href="#s5">排版：字級與階層</a></li>
+    <li><a href="#s6">色彩：顏色的工作</a></li>
+    <li><a href="#s7">一致性</a></li>
+    <li><a href="#s8">完形心理學</a></li>
+    <li><a href="#s9">Laws of UX</a></li>
+    <li><a href="#s10">Style Tile 與 Moodboard</a></li>
+    <li><a href="#s11">設計系統</a></li>
+    <li><a href="#s12">課堂練習與作業</a></li>
     <li><a href="#s13">AI 協作提示詞</a></li>
   </ol>
 </nav>
 
 <div class="topbar">
   <a class="back-link" href="slides.html">回到投影片</a>
-  <span class="unit-pill">Unit 07</span>
+  <span class="unit-pill">Unit 08</span>
 </div>
 
 <div class="hero">
-  <p class="overline">介面設計流程（下）· 完整教材</p>
-  <h1>Wireframe 實作延伸</h1>
-  <p class="lead">上一堂交出來的是一張 Flowchart 加三個 Wireframe，那是最順的那一條路。這堂課要把它補成真的能被別人打開來看的東西：空的時候長什麼樣、出錯的時候怎麼講、要等的時候畫什麼，然後把散裝畫面接成一張 Wireflow，寫上標註，最後拿去給不認識你專題的人問一輪。結束時你手上會多一張接起來的 Wireflow、各種狀態的畫面，以及一份被問出來的修正清單。</p>
+  <p class="overline">Visual Direction · 完整教材</p>
+  <h1>風格發想與建立</h1>
+  <p class="lead">前面七個單元你都在處理結構：使用者是誰、資訊怎麼分類、流程怎麼走、畫面上要放什麼。Unit 06、07 交出來的 Wireframe 到現在還是黑白灰的方塊，這份講義開始處理它們看起來該長什麼樣。內容從市場風格分析與風格故事化出發，接著把網格、留白、排版與色彩這幾樣視覺基礎各自管什麼講清楚，再用完形心理學與 Laws of UX 回頭檢查風格有沒有真的幫到理解。今天結束時你手上會多一份風格板——Unit 10 畫 Mockup 可以直接查的規格，以及它在 Figma 裡建成的樣式與元件，也就是設計系統的第一塊。</p>
   <div class="meta">
-    <span>閱讀時間約 20 分鐘</span><span class="d"></span>
-    <span>搭配 Unit 07 投影片</span><span class="d"></span>
-    <span>含練習、作業與 AI 提示詞</span>
+    <span>閱讀時間約 30 分鐘</span><span class="d"></span>
+    <span>搭配 Unit 08 投影片</span><span class="d"></span>
+    <span>對應作業 6：風格板</span>
   </div>
 </div>
 
 <div class="toc">
   <h2>目錄</h2>
   <ol>
-    <li><a href="#s1">你畫的那幾張，都假設一次就成功</a></li>
-    <li><a href="#s2">空狀態：不要留全空白</a></li>
-    <li><a href="#s3">錯誤訊息要同時做到五件事</a></li>
-    <li><a href="#s4">表單出錯的十條準則</a></li>
-    <li><a href="#s5">載入狀態：0.1 秒、1 秒、10 秒</a></li>
-    <li><a href="#s6">指示器、驗證、通知</a></li>
-    <li><a href="#s7">把散裝畫面接成 Wireflow</a></li>
-    <li><a href="#s8">標註：畫不出來的用文字寫</a></li>
-    <li><a href="#s9">設計說明：決策要指得回研究</a></li>
-    <li><a href="#s10">同儕檢核怎麼開</a></li>
-    <li><a href="#s11">檢核之後：修正紀錄</a></li>
+    <li><a href="#s1">風格不是挑你喜歡的顏色</a></li>
+    <li><a href="#s2">市場風格分析：把競品的視覺語言拆出來</a></li>
+    <li><a href="#s3">風格故事化：用形容詞把方向講清楚</a></li>
+    <li><a href="#s4">版面：網格、留白、對齊</a></li>
+    <li><a href="#s5">排版：字級、行距、階層</a></li>
+    <li><a href="#s6">色彩：給每個顏色一個工作</a></li>
+    <li><a href="#s7">一致性：風格板真正在解決的問題</a></li>
+    <li><a href="#s8">完形心理學：畫面是怎麼被分組的</a></li>
+    <li><a href="#s9">Laws of UX：四條會影響風格決策的定律</a></li>
+    <li><a href="#s10">Style Tile 與 Moodboard</a></li>
+    <li><a href="#s11">從風格板長成設計系統</a></li>
     <li><a href="#s12">課堂練習與回家作業</a></li>
     <li><a href="#s13">AI 協作提示詞</a></li>
   </ol>
@@ -516,465 +558,719 @@ tr:last-child td { border-bottom: none; }
 
   <section class="section" id="s1">
     <p class="sec-num">01</p>
-    <h2 class="sec-title">你畫的那幾張，都假設一次就成功</h2>
-    <p>把上一堂畫的 Wireframe 打開看一眼。商品列表上大概有十幾筆資料、表單每一格都填好了、資料好像瞬間就出現了、使用者一路往前沒有回頭。</p>
-    <p>這是<strong>最順的那一條路</strong>。它當然要畫，但真實使用裡，人會篩到沒東西、會填錯、會在訊號差的地方等，也會填到一半按上一頁。</p>
+    <h2 class="sec-title">風格不是挑你喜歡的顏色</h2>
+    <p>學生做風格板最常見的做法是這樣：打開 Pinterest，找幾張看起來很潮的圖，抓幾個順眼的顏色，選一個 Google Fonts 上排前面的字體，排一排交出去。</p>
+    <p>問題不在於好不好看，而在於<strong>沒有人能問你為什麼</strong>。老師問「為什麼用這個綠」，答案是「我覺得比較舒服」；客戶問「可以換成藍的嗎」，你沒有理由說不行，因為你當初也沒有理由說要用綠的。</p>
+    <p>風格決策的來源有四個，全部都在你前面幾個單元的作業裡：</p>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>你畫的</th><th>使用者實際會遇到的</th></tr></thead>
+        <thead><tr><th>來源</th><th>它決定什麼</th><th>你手上已經有的東西</th></tr></thead>
         <tbody>
-          <tr><td>商品列表有 12 筆</td><td>剛註冊，一筆都沒有；或篩了三個條件，命中 0 筆</td></tr>
-          <tr><td>表單每格都填好了</td><td>手機號碼少一碼、驗證碼過期、按了送出才發現有必填沒填</td></tr>
-          <tr><td>資料立刻出現</td><td>訊號差轉了八秒；第三方付款要等十幾秒</td></tr>
-          <tr><td>使用者一路往前</td><td>填到一半按上一頁、按了返回鍵、切出去接電話再切回來</td></tr>
+          <tr><td>產品定位</td><td>這個產品在市場上想被當成什麼——便宜好用？專業可信？有質感？</td><td>Unit 03 競品分析的洞察</td></tr>
+          <tr><td>使用情境</td><td>什麼時候、在哪裡用——通勤路上單手滑？在辦公室久坐操作？</td><td>Unit 04 用戶旅程地圖</td></tr>
+          <tr><td>目標族群</td><td>誰在用——年齡、對介面的熟悉度、對什麼視覺語言有反應</td><td>Unit 03 Persona</td></tr>
+          <tr><td>競品差異</td><td>怎麼不撞衫——同類產品都長一樣的時候，你憑什麼被記得</td><td>Unit 03 競品分析表</td></tr>
         </tbody>
       </table>
     </div>
-    <p>上一堂在 Flowchart 上其實已經把這些畫成節點了——就是那六種例外路徑。當時只要求「有畫到這個節點」，這堂課要把節點畫成真的畫面。一個 Flowchart 上的菱形，通常會展開成兩三張長得不一樣的畫面。</p>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th>Unit 06 的例外路徑</th><th>Unit 07 要畫成</th><th>本講義哪一節</th></tr></thead>
-        <tbody>
-          <tr><td>沒資料 · 找不到</td><td>空狀態</td><td>第 2 節</td></tr>
-          <tr><td>出錯 · 沒權限</td><td>錯誤狀態</td><td>第 3、4 節</td></tr>
-          <tr><td>要等</td><td>載入狀態</td><td>第 5 節</td></tr>
-          <tr><td>反悔</td><td>回到前一個畫面，且保留已填內容</td><td>第 3 節末</td></tr>
-        </tbody>
-      </table>
+    <p>所以這堂課要練的能力，是把上面這四件事<strong>翻譯</strong>成視覺決策，並且每一個決策都講得出翻譯的過程。「主色用深藍」不是決策，「因為使用者要在裡面填自己的身分證字號，深藍在同類金融服務裡是可信任的共同語言，所以主色用深藍」才是。</p>
+    <div class="callout warn">
+      <strong>要小心的地方：</strong>顏色的意義不是全世界通用的。同一個顏色在不同文化、不同產業裡的聯想差很多——白色在西方是婚禮，在部分亞洲文化是喪禮。所以理由不能只寫「藍色代表信任」，要寫「在<em>我的目標族群常用的同類產品裡</em>，藍色是共同語言」。前者是背來的，後者是你查得出證據的。
     </div>
-    <div class="callout">「反悔」不是一張新畫面，是<span class="hl">同一張畫面帶著使用者剛剛填的東西</span>。最常見的錯誤做法是按上一步就把表單清空，等於逼人重打一次。</div>
   </section>
 
   <section class="section" id="s2">
     <p class="sec-num">02</p>
-    <h2 class="sec-title">空狀態：不要留全空白</h2>
-    <p><strong>空狀態</strong>指的是一個容器、畫面或面板還沒有內容、或是無法顯示內容時的樣子。它最常出現在兩個時刻：剛註冊完的頭幾分鐘，以及篩選條件沒有命中任何資料的時候。</p>
-    <p>NN/g 的建議講得很直接：<strong>不要預設留全空白。</strong>因為使用者分不出來這是「還在載入」「壞掉了」還是「真的沒東西」。他會多按幾次、重新整理，最後直接離開。</p>
+    <h2 class="sec-title">市場風格分析：把競品的視覺語言拆出來</h2>
+    <p>Unit 03 的競品分析看的是功能：誰有什麼、誰沒有什麼。這裡要再看一次同一批競品，但只看外觀。</p>
+    <p>看的時候不要寫「這個好看」「那個很醜」——那是評價，不能拿來設計。要寫的是<strong>可以被複製或被閃避的具體特徵</strong>。</p>
 
-    <h3>三條準則</h3>
-    <ol class="steps">
-      <li><strong>講清楚系統狀態。</strong>流程跑完但沒東西可顯示，就直說。像是「目前所選日期區間沒有紀錄」——這句話同時告訴使用者「查詢有成功執行」，他才會相信這個結果。</li>
-      <li><strong>順便教這個功能怎麼用。</strong>「把喜歡的項目加星號，就會列在這裡」。這種提示比開場的導覽有效，因為它是使用者真的碰到這個區塊的時候才出現的，不是一開始就硬塞給他的。</li>
-      <li><strong>給一條直達關鍵任務的路。</strong>不要只寫「沒有資料」，要放可以直接點的東西：一顆「新增第一筆」按鈕，或一個「用示範資料先看看」的連結。</li>
-    </ol>
-    <p>三條不是三選一。好的空狀態通常同時做到——一句狀態說明、一句用法提示、一顆按鈕。</p>
-
-    <h3>「還沒有」跟「找不到」要寫不一樣的話</h3>
-    <p>最常見的做法是兩種情況都寫「查無資料」。但使用者的處境完全不同，該給的下一步也不同。</p>
-    <div class="cards">
-      <div class="card">
-        <h3>還沒有（第一次使用）</h3>
-        <p>資料本來就是空的。使用者不知道這個功能能幹嘛，也不知道怎麼開始。<br><br>要給：這個區塊的用途一句話，加一顆開始按鈕。<br><br>例：「你這學期還沒有加選任何課程」＋「開始選課」。</p>
-      </div>
-      <div class="card">
-        <h3>找不到（篩選或搜尋沒命中）</h3>
-        <p>使用者知道自己要什麼，但條件沒撈到東西。他需要知道是哪個條件太嚴。<br><br>要給：重述目前的條件，加上放寬條件的方法。<br><br>例：「找不到符合『星期一 早上 通識』的課程，要不要拿掉時段限制？」</p>
-      </div>
+    <h3>拆解的六個欄位</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>看什麼</th><th>要記下來的東西</th></tr></thead>
+        <tbody>
+          <tr><td>主色與用色量</td><td>主色大概是什麼色系？整個畫面有幾種顏色？滿版彩色還是大面積留白？</td></tr>
+          <tr><td>字體與字重</td><td>黑體還是明體？標題字重多粗？中英文混排怎麼處理？</td></tr>
+          <tr><td>資訊密度</td><td>一個畫面塞多少東西？卡片之間的間距是緊還是鬆？</td></tr>
+          <tr><td>圖像策略</td><td>用實拍照片、插畫、還是純色塊？照片是去背商品圖還是情境照？</td></tr>
+          <tr><td>圓角與陰影</td><td>直角、小圓角還是大圓角？有沒有陰影？陰影重不重？</td></tr>
+          <tr><td>品牌語氣</td><td>按鈕與提示文字怎麼寫——「立即搶購」跟「加入收藏」是兩種人格</td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="callout green">空狀態出現的時機，剛好是使用者決定要不要繼續用下去的時候。那塊空白是產品最好的教學位置，別浪費。</div>
+
+    <h3>一個實際的對照</h3>
+    <p>拿兩個你們手機裡大概都有的 App 來看：<strong>蝦皮</strong>與 <strong>Pinkoi</strong>。兩個都是網購，視覺語言完全不同——你自己打開來滑一分鐘就能驗證下面這張表。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th></th><th>蝦皮</th><th>Pinkoi</th></tr></thead>
+        <tbody>
+          <tr><td>用色</td><td>高飽和橘為主，紅、黃、綠的促銷標籤同時出現</td><td>大量白底，彩色幾乎只出現在商品照片本身</td></tr>
+          <tr><td>密度</td><td>高，一屏塞入輪播、分類、限時特賣、商品牆</td><td>低，商品卡之間留白多，一屏看到的商品數少</td></tr>
+          <tr><td>圖像</td><td>去背商品圖、紅字大標的促銷banner</td><td>情境攝影為主，構圖與色調偏一致</td></tr>
+          <tr><td>語氣</td><td>急促、數量與倒數（「限時」「剩 N 件」）</td><td>平緩、描述性（設計師、材質、故事）</td></tr>
+          <tr><td>你會感覺到</td><td>怕買貴、怕錯過</td><td>慢慢逛、看質感</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>這兩種都不是錯的，它們對應不同的產品策略。蝦皮要的是<em>促成當下這一筆交易</em>，所以視覺上把稀缺感放到最大；Pinkoi 要的是<em>建立品味上的信任</em>，所以把干擾減到最少。<strong>你的風格要選哪一邊，取決於你的產品靠什麼賺錢、你的使用者在什麼心情下打開它。</strong></p>
+    <h3>常見版面模式：分出「類別慣例」與「這家的風格」</h3>
+    <p>拆完視覺特徵，再看一次版面。方法是把同類的 3 個競品的<strong>同一種頁面</strong>擺在一起看——三個購物 App 的商品詳情頁、三個新聞網的首頁——然後把重複出現的區塊順序抄下來。</p>
+    <p>例如電商的商品詳情頁，大多是這個順序：商品圖輪播 → 價格與標題 → 規格選擇 → 賣家資訊 → 評價 → 推薦商品，底部固定一條「加入購物車 / 立即購買」。三家都這樣排，那就不是巧合。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>看到什麼</th><th>怎麼判斷</th><th>你該怎麼做</th></tr></thead>
+        <tbody>
+          <tr><td>三個競品都有，順序也一樣</td><td>類別慣例，使用者已經預期</td><td>照著排。改它要有明確理由</td></tr>
+          <tr><td>只有一家這樣做</td><td>那家的品牌選擇，或是它的特殊策略</td><td>先問「它為什麼要這樣做」，再決定要不要學</td></tr>
+          <tr><td>三家都有但長相差很多</td><td>功能是慣例，表現方式是風格空間</td><td>這裡就是你可以做出差異的地方</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>這張表的價值在於把「一定要有的東西」跟「可以自由發揮的東西」分開。做風格最容易出的意外剛好是反過來：在慣例的地方發揮創意（把購物車藏起來），卻在該有差異的地方原封照抄（配色跟競品一模一樣）。</p>
+    <div class="callout green">
+      分析競品的時候順便問一句：<strong>這個類別裡大家都在做的事，有哪些是我不能不做的？</strong>例如購物車圖示放右上角、主要按鈕用產品主色。這些是使用者的既有習慣（下面第 9 節的 Jakob's Law 會再談），不是可以隨便創新的地方。真正要差異化的，是氣質與情緒，不是操作慣例。
+    </div>
   </section>
 
   <section class="section" id="s3">
     <p class="sec-num">03</p>
-    <h2 class="sec-title">錯誤訊息要同時做到五件事</h2>
-    <p>NN/g 把錯誤訊息定義成「系統主動打斷使用者流程，告知他現在的狀況不完整、不相容或不理想」。既然是打斷，那就要換得起這個打斷——一句好的錯誤訊息要同時做到五件事。</p>
+    <h2 class="sec-title">風格故事化：用形容詞把方向講清楚</h2>
+    <p>「風格故事化」聽起來很虛，實際上是一個很具體的動作：<strong>在動手選顏色之前，先用文字把方向寫死。</strong></p>
+    <p>這個做法來自 Style Tiles 的原始流程。設計師在開始畫之前，會先用問卷或訪談問利害關係人一些問題，把回答裡反覆出現的形容詞整理出來，形成一段「線上品牌願景」的敘述，之後所有視覺決策都對著這段敘述檢查。</p>
+
+    <h3>三個好用的提問法</h3>
+    <ol class="steps">
+      <li><strong>比喻題。</strong>「如果這個產品是一輛車，它會是什麼車？」回答「機車」跟回答「休旅車」，導出來的視覺完全不同。也可以換成餐廳、店面、一個人。</li>
+      <li><strong>語意差異量表。</strong>給幾組相反的形容詞，讓人在中間畫一個點：現代 ←→ 傳統、活潑 ←→ 沉穩、親切 ←→ 專業、繁複 ←→ 簡潔。這比直接問「你想要什麼風格」有用得多，因為它逼人做取捨。</li>
+      <li><strong>反向題。</strong>「你絕對不想被誤認成哪一個競品？為什麼？」排除法通常比正面表列更快收斂。</li>
+    </ol>
+
+    <h3>從形容詞到風格故事</h3>
+    <p>整理完形容詞之後，寫成一段話。這段話就是<strong>風格故事</strong>，也是作業 6 要交的說明文字。它有固定的骨架：</p>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>要件</th><th>意思</th><th>✕ 不好的</th><th>✓ 好的</th></tr></thead>
+        <thead><tr><th>欄位</th><th>要寫什麼</th><th>範例：校園二手書交易 App</th></tr></thead>
         <tbody>
-          <tr><td>明確</td><td>指出到底哪裡有問題</td><td>「輸入有誤」</td><td>「手機號碼要 10 碼，你輸入了 9 碼」</td></tr>
-          <tr><td>看得懂</td><td>不要丟系統術語與代碼</td><td>「Error 422: unprocessable entity」</td><td>「這個信箱已經註冊過了」</td></tr>
-          <tr><td>有禮貌</td><td>不要指責使用者</td><td>「你輸入了無效的資料」</td><td>「這個日期已經過了，請選今天以後的日期」</td></tr>
-          <tr><td>精準</td><td>講具體，不要模糊帶過</td><td>「密碼不符合規定」</td><td>「密碼還差一個數字」</td></tr>
-          <tr><td>給下一步</td><td>告訴他怎麼修</td><td>「此欄位為空白」</td><td>「請填寫收件地址」</td></tr>
+          <tr><td>給誰</td><td>目標族群，一句話</td><td>在通勤路上單手操作、對介面沒耐性的大學生</td></tr>
+          <tr><td>在什麼情境</td><td>什麼時候、在哪裡用</td><td>在校車上或排隊時，快速確認某本二手書還在不在</td></tr>
+          <tr><td>要感覺到</td><td>三到五個形容詞</td><td>乾淨、可靠、像跟同學面交一樣沒有壓力</td></tr>
+          <tr><td>而不是</td><td>每個形容詞的對照</td><td>熱鬧、促銷感、像在拍賣場搶標</td></tr>
+          <tr><td>所以視覺上</td><td>可以直接執行的決策</td><td>大面積留白、單一主色、字體選圓一點的黑體、不用紅色與倒數計時、按鈕做大、圓角明顯</td></tr>
         </tbody>
       </table>
     </div>
-
-    <h3>還有三件常被忘記的</h3>
-    <ul class="bullets">
-      <li><strong>位置貼近出錯的地方，樣式要看得見。</strong>NN/g 的建議是粗體、高對比、紅色，並且搭配圖示。</li>
-      <li><strong>保留使用者已經填好的內容。</strong>出錯不該讓整張表單清空。這一條同時解決 Unit 06 的「反悔」路徑——按上一步回去的時候，剛剛填的東西要還在。</li>
-      <li><strong>主動偵測常見失誤。</strong>與其等使用者按了送出才報錯，不如在他犯錯的當下就攔下來——信件內文寫了「附件」卻沒有附檔、收件地址的縣市與郵遞區號對不上。這一類提醒放在按鈕旁邊，比事後的錯誤訊息有用得多。</li>
-      <li><strong>區分嚴重程度。</strong>「這個優惠碼過期了，但你還是可以結帳」跟「信用卡被拒絕，無法完成訂單」不該長成同一個樣子。前者是警告，後者是真的擋住流程。</li>
-    </ul>
-    <div class="callout">NN/g 有一句話值得記起來：<span class="hl">使用者犯錯不是他的錯，錯誤是在指出設計的缺陷。</span>同一個錯誤如果重複出現，要回頭看那個欄位的規則是不是根本沒講清楚，而不是把訊息寫得更兇。</div>
+    <p>最後一列是關鍵。<strong>形容詞如果不接到具體的視覺決策，等於沒寫。</strong>「乾淨」是形容詞，「大面積留白、只用一個主色」才是可以執行的。</p>
+    <div class="callout warn">
+      <strong>最常見的問題：</strong>形容詞挑了一堆互相打架的。「專業又活潑又溫暖又高級又年輕」——這種風格故事等於沒有方向，因為任何設計都符合。<strong>三到五個形容詞就夠，而且要能寫出對應的「而不是」。</strong>寫不出「而不是」的形容詞，通常是廢話（沒有人會說自己的產品要「難用」）。
+    </div>
   </section>
 
   <section class="section" id="s4">
     <p class="sec-num">04</p>
-    <h2 class="sec-title">表單出錯的十條準則</h2>
-    <p>表單是最容易出錯、也最容易做壞的地方。NN/g 整理了十條，五條該做、五條不要做。</p>
+    <h2 class="sec-title">版面：網格、留白、對齊</h2>
+    <p>網格、留白與對齊在 Wireframe 階段你已經碰過一點，但那時候只求「東西有排好」。到了風格階段，這三樣要變成<strong>風格板上寫得出來、後面每一頁都要遵守的規格</strong>——接下來三節談的視覺基礎都是這樣。</p>
 
-    <h3>該做的五條</h3>
-    <ol class="steps">
-      <li><strong>盡量用 inline 驗證。</strong>使用者填完一格、游標離開之後，就在旁邊顯示結果，不要等到按送出才一次全部報出來。</li>
-      <li><strong>難填的欄位，填對了也要說。</strong>密碼、統一編號、信用卡號這種有規則的欄位，出現一個綠色勾勾，可以省掉使用者的猜測。</li>
-      <li><strong>訊息貼著欄位放。</strong>使用者要能一邊看訊息一邊改。把所有錯誤集中在頁首，他得先記住訊息再捲下去找欄位，記憶負擔全丟給他。</li>
-      <li><strong>用顏色分狀態。</strong>紅色是錯誤、橘或黃是警告、綠或藍是成功。整張表單要一致。</li>
-      <li><strong>顏色之外再加一個圖示。</strong>訊息左邊放一個驚嘆號圖示。這不只是好看——<strong>色盲的使用者只靠紅色是看不出來的</strong>。</li>
-    </ol>
+    <h3>網格：先決定骨架，再決定裝飾</h3>
+    <p>網格是把版面切成固定的欄與間隔，讓每個區塊有地方對齊。Web 常見的做法是 12 欄，因為 12 可以被 2、3、4、6 整除，一列要放兩張、三張還是四張卡都排得下。</p>
+    <p>間距則建議鎖在一組固定數值上，最常見的做法是<strong>用 4 或 8 的倍數</strong>：4、8、12、16、24、32、48、64。這不是什麼定律，而是一個實用的自我約束——一旦決定只用這幾個值，你就不會出現 13px、17px、21px 這種「憑感覺調」的間距，畫面自然會整齊，交給工程師的時候也好溝通。</p>
+    <div class="callout">
+      <strong>寫在風格板上：</strong>基準單位（4 或 8）、欄數、區塊之間的標準間距（例如區塊間 48、卡片內 16）。有這三個數字，Unit 09 排多斷點版面的時候就不用重猜一次。
+    </div>
 
-    <h3>不要做的五條</h3>
-    <ol class="steps">
-      <li><strong>不要動不動就跳 modal。</strong>它打斷流程，而且使用者關掉之後還得記住剛剛寫了什麼，才回得去改。</li>
-      <li><strong>不要在人家還沒填完就報錯。</strong>信箱才打到「abc@」就跳紅字說格式錯誤——他知道，他還沒打完。等他離開這一格再說。</li>
-      <li><strong>不要只放頁首的彙總訊息。</strong>「有 3 個欄位填寫錯誤」會逼使用者自己去找是哪三個。彙總可以放，但欄位旁邊也一定要標。</li>
-      <li><strong>不要用 tooltip 報錯。</strong>警示小圖示在資訊密的畫面裡很難被注意到，何況還要 hover 才看得到內容——手機上根本沒有 hover 這回事。</li>
-      <li><strong>同一個錯誤重複出現，要給額外協助。</strong>同一格連錯三次以上，別再重播同一句訊息——補上輸入範例或規則說明，同時回去查根因。三次不是規定，是一個提醒你「這裡設計有問題」的訊號。</li>
-    </ol>
+    <h3>先把版型與導覽的位置定下來</h3>
+    <p>網格不只拿來排卡片，也要先決定頁面的固定骨架：頁首、主要內容、側欄與頁尾各占哪裡。主要功能不多、需要把內容寬度留給畫面時，常見做法是頂部導覽；功能多、層級深，而且使用者需要在不同模組間頻繁切換時，側邊導覽通常更容易掃讀。這不是二選一的公式，還要回到內容量與使用情境判斷。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>導覽檢查</th><th>要確認的事</th></tr></thead>
+        <tbody>
+          <tr><td>位置與可見性</td><td>大畫面不要把常用選項全部藏起來；Logo、主要選單、登入或購物車放在使用者熟悉的位置。</td></tr>
+          <tr><td>現在在哪裡</td><td>目前選單要有清楚的選取狀態；層級較深時，用麵包屑補充返回路徑，而且中間層級應可點擊。</td></tr>
+          <tr><td>互動回饋</td><td>連結要看得出可以點，並補上 hover、focus 與選取狀態；手機版則確認選單圖示容易辨識。</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-    <div class="callout">Wireframe 階段沒有顏色，第 4、5 條要怎麼畫？<span class="hl">用標註寫</span>：「此處為錯誤狀態，之後用紅色加驚嘆號圖示標示，顏色於風格板階段決定」。狀態本身要畫出來，配色留到 Unit 08。</div>
+    <h3>常見內容區塊各有一個核心任務</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>區塊</th><th>風格階段要先決定</th></tr></thead>
+        <tbody>
+          <tr><td>輪播</td><td>目前位置、前後控制與暫停方式要看得見；圖片先壓縮，文字不要壓在難讀的背景上。</td></tr>
+          <tr><td>表格</td><td>欄位對齊、排序、搜尋、分頁與行動按鈕的層級；窄螢幕要決定橫向捲動或改成卡片。</td></tr>
+          <tr><td>對話框</td><td>只留完成當下任務需要的內容，關閉方式要清楚，主要動作不能被次要按鈕搶走。</td></tr>
+          <tr><td>頁尾</td><td>放次要導覽、聯絡或訂閱、社群、版權與隱私資訊；不要跟主要內容搶視覺焦點。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>留白不是沒放東西</h3>
+    <p>留白是設計決策，不是版面沒填滿。它至少在做三件事：讓眼睛知道哪些東西是一組的（下面第 8 節的接近性）、讓重要的東西有呼吸空間所以顯得重要、以及降低一次要處理的資訊量。</p>
+    <p>一個好認的症狀是<strong>留白平均分配</strong>：所有東西之間都空 16px。結果就是畫面很整齊，但看不出哪裡是一組、哪裡是分界。<strong>留白要有大小差異</strong>——同一組裡面空 8，組跟組之間空 32，分組關係一眼就看得出來。</p>
+
+    <h3>對齊：一條看不見的線</h3>
+    <p>對齊的判斷方式很簡單：把畫面瞇著眼看，或直接在 Figma 裡拉幾條輔助線，看每個元素的左邊緣是不是落在同一條線上。中文介面絕大多數情況用<strong>左對齊</strong>，因為每一行的起點固定，眼睛掃讀最快。置中適合短標題與空狀態，不適合整段內文——每一行起點都不一樣，讀起來會累。</p>
   </section>
 
   <section class="section" id="s5">
     <p class="sec-num">05</p>
-    <h2 class="sec-title">載入狀態：0.1 秒、1 秒、10 秒</h2>
-    <p>要不要畫載入狀態、要畫哪一種，取決於使用者要等多久。這三個數字是 Nielsen 在 1993 年就寫下來的，到今天沒有變過——因為變的是機器，不是人的注意力。</p>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th>門檻</th><th>使用者的感受</th><th>介面該給什麼</th></tr></thead>
-        <tbody>
-          <tr><td>0.1 秒</td><td>覺得系統是「立刻」在反應</td><td>不用畫任何回饋，直接出結果</td></tr>
-          <tr><td>1 秒</td><td>思緒還接得上，但已經察覺到延遲</td><td>還是不用特別畫，但別再更久</td></tr>
-          <tr><td>10 秒</td><td>注意力的上限，再久就會分心</td><td>一定要有進度指示，而且要能中斷</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p>超過 10 秒，使用者會想去做別的事。這時候要告訴他<strong>大概什麼時候會好</strong>，而不是讓他盯著一顆轉不停的圈圈。</p>
+    <h2 class="sec-title">排版：字級、行距、階層</h2>
+    <p>介面上絕大部分的內容是文字。字排不好，配色再漂亮也救不回來。</p>
 
-    <h3>進度指示的三種型別</h3>
+    <h3>字級：做一組級距，不要每次現調</h3>
+    <p>不要每次要放標題就隨手打一個數字。先定好一組固定的字級，之後只能從裡面選。一組夠用的級距長這樣：</p>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>畫什麼</th><th>用在多長的等待</th><th>為什麼</th></tr></thead>
+        <thead><tr><th>角色</th><th>大小（參考值）</th><th>用在哪</th></tr></thead>
         <tbody>
-          <tr><td>什麼都不畫</td><td>1 秒以內</td><td>閃一下的 spinner 比不畫還干擾</td></tr>
-          <tr><td>循環動畫（spinner）</td><td>2–10 秒</td><td>告訴使用者系統還活著。但它沒有「進度」的資訊，等太久人會覺得沒在前進</td></tr>
-          <tr><td>百分比進度條</td><td>10 秒以上</td><td>使用者要看得到自己在前進。速度要穩定，或先慢後快——中途變慢會被察覺，滿意度直接掉</td></tr>
-          <tr><td>只寫「Loading…」</td><td>都不要用</td><td>資訊量太少，該換成上面任何一種</td></tr>
+          <tr><td>大標</td><td>28–32</td><td>頁面標題，一頁只有一個</td></tr>
+          <tr><td>小標</td><td>20–24</td><td>區塊標題、卡片標題</td></tr>
+          <tr><td>內文</td><td>16</td><td>說明文字、清單項目</td></tr>
+          <tr><td>輔助</td><td>13–14</td><td>時間、標籤、次要說明</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="callout green">NN/g 引的研究：看得到動態進度回饋的人，<span class="hl2">願意等的時間平均是沒有回饋的三倍</span>。同樣的等待時間，畫不畫差這麼多。</div>
-    <p>Wireframe 上怎麼表現？畫一個灰色的區塊，中間放一個圈圈或一條進度條，旁邊標註「載入時間預期 3–5 秒，超過 10 秒改為顯示預估剩餘時間並提供取消」。要畫的是<strong>那個畫面存在</strong>，不是把動畫做出來。</p>
+    <p>行動裝置上內文<strong>不要小於 14</strong>，16 是比較安全的起點。這不是美感問題，是能不能讀的問題。</p>
+
+    <h3>行距：跟著字級走</h3>
+    <p>行距太擠，一行會黏到下一行；太鬆，段落會散開變成一堆獨立的句子。內文的行高抓字級的 <strong>1.5 到 1.75 倍</strong>是常見的安全範圍，標題因為字大，可以收到 1.2 到 1.3。中文因為字面方正、沒有英文的字母高低起伏，通常需要比英文再鬆一點。</p>
+
+    <h3>階層：靠對比，不是靠尺寸一直加</h3>
+    <p>視覺階層是引導眼睛依照重要性的順序看過去。做出階層的手段有四種，可以疊加使用：大小、字重、顏色深淺、以及周圍的留白。</p>
+    <div class="callout warn">
+      <strong>要小心的症狀：</strong>每個東西都想強調，所以標題加大、加粗、換顏色，副標也加粗，重要提示再加個底色。結果全部都在喊，等於都沒有喊。這個階段先用一條嚴格一點的自我限制：<strong>一個畫面只留一個最強調的東西</strong>——先問「如果使用者只看到一樣，那應該是哪一樣」。等到做儀表板那種一頁多任務的畫面時，可以有多個局部焦點，但那是各區塊內部各自有一個焦點，不是全部一起喊。
+    </div>
+    <p>另一個實用的限制：<strong>字體最多兩種</strong>。一種標題、一種內文，或者乾脆同一種字體用不同字重去分。字體種類一多，畫面就會散，而且中英文混排時要處理的組合會爆炸。</p>
   </section>
 
   <section class="section" id="s6">
     <p class="sec-num">06</p>
-    <h2 class="sec-title">指示器、驗證、通知</h2>
-    <p>這三種東西都是「系統想跟使用者說一件事」，但觸發的原因、範圍和該有的強度都不一樣。用錯了，使用者不是漏看就是被煩到。</p>
+    <h2 class="sec-title">色彩：給每個顏色一個工作</h2>
+    <p>配色不是挑幾個好看的顏色湊在一起，是<strong>給每個顏色一個工作</strong>。定義好工作之後，畫新頁面的時候就不用再猶豫「這裡該用什麼顏色」。</p>
+
+    <div class="swatches">
+      <div class="sw"><span class="chip" style="background:#0066cc"></span><span class="lbl"><b>品牌主色</b>識別、大面積品牌表面、導覽列</span></div>
+      <div class="sw"><span class="chip" style="background:#0f766e"></span><span class="lbl"><b>強調色</b>主要動作按鈕、連結、當前選取狀態</span></div>
+      <div class="sw"><span class="chip" style="background:#c2410c"></span><span class="lbl"><b>語意色</b>成功、警告、錯誤、危險動作</span></div>
+      <div class="sw"><span class="chip" style="background:linear-gradient(90deg,#1d1d1f 0 33%,#6e6e73 33% 66%,#f5f5f7 66%)"></span><span class="lbl"><b>中性色</b>文字、背景、分隔線、停用狀態</span></div>
+    </div>
+
+    <h3>每個角色在管什麼</h3>
+    <ul class="bullets">
+      <li><strong>品牌主色。</strong>整個產品最會被記住的顏色，也是識別的核心。它<strong>可以</strong>大面積使用——鋪滿導覽列、當登入頁背景、當品牌區塊的底色都很常見。</li>
+      <li><strong>強調色（互動色）。</strong>專門標記「這裡可以點」的顏色：主要按鈕、連結、被選中的分頁。這個才是<strong>要省著用</strong>的——一個畫面上到處都是強調色，主要動作就浮不出來了。</li>
+      <li><strong>兩者可以是同一個顏色，但要想清楚。</strong>很多產品的品牌主色就是強調色，這沒問題；問題出在你把主色大面積鋪在背景上，同時又拿它當按鈕色——按鈕會直接消失在背景裡。共用一色的話，就得靠深淺差異或反白按鈕把互動區分出來。</li>
+      <li><strong>輔助色。</strong>做次要的區分，例如不同分類的標籤、圖表的分組。一到兩個就夠。</li>
+      <li><strong>語意色。</strong>成功綠、警告黃、錯誤紅。這組不要拿來玩創意，因為使用者對它們已經有既定認知。要特別注意<strong>不能只靠顏色傳達訊息</strong>——色盲使用者分不出紅綠，錯誤訊息旁邊要有圖示或文字說明。</li>
+      <li><strong>中性色。</strong>用量其實最大：文字、背景、卡片邊框、分隔線、停用狀態。至少準備深、中、淺三階，例如深灰放主要文字、中灰放次要文字、淺灰放背景與分隔線。</li>
+    </ul>
+
+    <h3>用量的分配</h3>
+    <p>常聽到的 <strong>60-30-10</strong>：60% 中性（大面積背景）、30% 次要色塊、10% 重點色。這是幫助你收斂的經驗法則，不是規定——它真正在提醒的是「強調色是拿來點的，不是拿來鋪的」。</p>
+
+    <h3>對比：這一項有硬標準</h3>
+    <p>前面的都是判斷，這一項有可以量的門檻。WCAG 對文字與背景的對比度要求是：</p>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th></th><th>指示器 Indicator</th><th>驗證 Validation</th><th>通知 Notification</th></tr></thead>
+        <thead><tr><th>對象</th><th>最低對比度</th><th>備註</th></tr></thead>
         <tbody>
-          <tr><td>誰觸發的</td><td>內容變動了</td><td>使用者剛輸入的東西</td><td>系統發生的事</td></tr>
-          <tr><td>要不要使用者動作</td><td>不用</td><td>要，他得回去改</td><td>看類型</td></tr>
-          <tr><td>範圍</td><td>某個元件旁邊</td><td>某個輸入欄旁邊</td><td>可能局部，也可能全域</td></tr>
-          <tr><td>長什麼樣</td><td>紅點、粗體、顏色、大小、小動畫</td><td>貼著欄位的訊息</td><td>徽章數字、橫幅、彈窗</td></tr>
-          <tr><td>例子</td><td>訊息列表上的未讀藍點</td><td>「密碼還差一個數字」</td><td>「你的訂單已出貨」</td></tr>
+          <tr><td>一般文字</td><td>4.5 : 1</td><td>未加粗且小於 18pt，或加粗但小於 14pt</td></tr>
+          <tr><td>大型文字</td><td>3 : 1</td><td>未加粗但 18pt 以上，或加粗且 14pt 以上</td></tr>
         </tbody>
       </table>
     </div>
-    <p>指示器有一個特性值得記：它是<strong>有條件才出現的</strong>——不是一直都在，而是在某些狀況下才冒出來或改變樣子。所以 Wireframe 上要標註「什麼條件下這個紅點會出現」。</p>
-    <p>通知還要再分兩類。<strong>需要動作的</strong>通常比較急，可以做得強勢一點，例如 modal；<strong>不急的</strong>就要低調，常見做法是一個 badge（角落的小紅點或數字）。</p>
-    <div class="callout">用錯的代價：NN/g 記錄過一位行動裝置的受測者<span class="hl">花了五分鐘等內容載入，只因為她沒注意到那個小小的錯誤訊息</span>——那則錯誤被做成一閃即逝的提示。反過來，把該當指示器的資訊做成通知，使用者會直接忽略，還覺得你很煩。</div>
+    <p>最常不及格的兩種情況：<strong>淺灰字放在白底上</strong>，還有<strong>把文字直接壓在照片上</strong>。前者用檢測工具一測就知道不及格；後者因為照片每個區域亮度不同，要加半透明遮罩或色塊才能穩定達標。</p>
+    <div class="callout">
+      <strong>怎麼檢查：</strong>Figma 有對比度檢測的外掛（搜尋 contrast / A11y 相關的 plugin），或直接把前景與背景的色碼貼進線上的 contrast checker。風格板上的每一組「文字色 + 背景色」都測一次，測過的組合才寫上去。
+    </div>
   </section>
 
   <section class="section" id="s7">
     <p class="sec-num">07</p>
-    <h2 class="sec-title">把散裝畫面接成 Wireflow</h2>
-    <p>畫面補齊之後，你手上會有一疊圖，但它們是散的。別人打開你的 Figma 只會看到十幾個框，不知道誰接誰、點哪裡會過去。</p>
-    <p><strong>Wireflow</strong> 的定義（NN/g）是「wireframe 式的版面設計，加上簡化過的、流程圖式的互動表示法」。它補的是兩邊各自的缺口：Flowchart 能記錄複雜流程但缺少畫面脈絡，Wireframe 擅長表達版面但不擅長記錄互動。</p>
+    <h2 class="sec-title">一致性：風格板真正在解決的問題</h2>
+    <p>假設沒有風格板，你直接開始畫五個頁面。第一頁的按鈕圓角 8、主色 #2E7D32；第三頁畫的時候忘記了，圓角變成 12、綠色調成 #388E3C；第五頁又改了一次。</p>
+    <p>單獨看每一頁都沒問題，放在一起看就會覺得「不像同一個產品」。而且要修的時候，你得一頁一頁找出來改。</p>
+    <p><strong>一致性的價值不只在於美觀，更在於降低使用者的學習成本。</strong>當所有「可以點的東西」都長同一個樣子，使用者學一次就會了；當每一頁的主要按鈕位置都在同樣的地方，他不用每一頁重新找。</p>
 
-    <h3>四條實作準則</h3>
-    <ol class="steps">
-      <li><strong>節點是畫面「狀態」，不是畫面。</strong>同一頁的空狀態、正常狀態、錯誤狀態，在 Wireflow 上是三個節點。這也是為什麼要先做完第 2 到第 5 節的東西才能接。</li>
-      <li><strong>箭頭要從具體可點的元件出發。</strong>不要從整張畫面的邊緣拉一條線出去，要從那顆按鈕、那一列、那個連結拉出去。看的人才知道是點哪裡才會過去。</li>
-      <li><strong>結果畫面要明確。</strong>包含確認彈窗、顏色變化這類視覺回饋，也算一種結果，要畫出來。</li>
-      <li><strong>桌機不用每個節點都畫整頁。</strong>畫面大，只畫有變動的區塊就好，不然一張圖根本塞不下。手機因為畫面小，一個節點畫一整張剛剛好——Wireflow 最早就是行動 App 團隊在用的。</li>
-    </ol>
-
-    <h3>接的時候的順序</h3>
-    <ol class="steps">
-      <li>把 Unit 06 的 Flowchart 攤在旁邊當清單，一條路徑一條路徑對。</li>
-      <li>先接主線：入口 → 中間 → 完成。確認這條走得完。</li>
-      <li>再接例外：從主線的哪一個元件會岔出去？岔出去之後要回得來，還是就結束了？</li>
-      <li>最後檢查有沒有<strong>斷掉的箭頭</strong>——指向空白處，或某個節點進得去出不來。</li>
-    </ol>
-    <div class="callout green">檢查方法：找一個沒看過你專題的人，讓他從入口用手指沿著箭頭走一次。走到卡住的地方，就是斷點。</div>
+    <h3>一致性要一致到什麼程度</h3>
+    <div class="cards">
+      <div class="card">
+        <h3>要一致的</h3>
+        <p>同一種元件的長相（所有主要按鈕）、同一種資訊的位置（價格永遠在標題下面）、互動的回饋方式（點下去都會變暗）、詞彙（別一下叫「收藏」一下叫「加入最愛」）。</p>
+      </div>
+      <div class="card">
+        <h3>可以不一致的</h3>
+        <p>刻意要被注意到的東西。危險動作（刪除）本來就該長得跟一般按鈕不一樣；空狀態頁面可以用插畫打破規律。<strong>不一致要是刻意的，而且說得出理由。</strong></p>
+      </div>
+    </div>
+    <h3>圖卡要一致，但也要能承受不同內容</h3>
+    <p>圖卡很容易在範例資料裡看起來整齊，換成真實內容就壞掉。先固定圖片、標題、摘要、標籤與行動按鈕的順序，再測試長標題、沒有圖片、不同數量標籤等情況。卡片內間距要小於卡片之間的間距；框線與陰影只要足以表示邊界，不要每張都做成浮很高的物件。</p>
+    <div class="callout">
+      <strong>放進風格板的圖卡規格：</strong>網格欄數、卡片內距、圖片比例、標題最多幾行、內容超長時怎麼處理，以及 default、hover、focus、selected 等需要的互動狀態。固定高度可以讓列表整齊，但要先決定截斷規則，不能讓文字直接溢出。
+    </div>
+    <div class="callout green">
+      風格板就是把「要一致的那些」寫成一份可以查的規格。Unit 10 畫 Mockup 時，你不是憑印象回想上次用什麼綠，而是回來看風格板上寫的色碼。這也是為什麼風格板上一定要有<strong>具體數值</strong>——色碼、字級、圓角、間距，寫「深綠色」是沒有用的。<br><br>
+      再往前一步，是把這份規格變成 Figma 裡真的可以套用的東西，讓一致性不靠你記得，而是靠工具保證——那就是第 11 節的設計系統。
+    </div>
   </section>
 
   <section class="section" id="s8">
     <p class="sec-num">08</p>
-    <h2 class="sec-title">標註：畫不出來的用文字寫</h2>
-    <p>Wireframe 是靜態的。時間、條件、規則、動態行為這四類東西，怎麼畫都畫不出來，只能寫。</p>
+    <h2 class="sec-title">完形心理學：畫面是怎麼被分組的</h2>
+    <p>完形（Gestalt）原則講的是：人看畫面的時候，不是一個一個元素分開看，而是自動把它們組成一個整體。<strong>你不決定使用者怎麼分組，他也會自己分——所以你最好讓他分對。</strong></p>
+    <div class="callout">
+      中文延伸閱讀：<a href="https://www.71next.com/userDoc/%e5%ae%8c%e5%bd%a2%e5%bf%83%e7%90%86%e5%ad%b8%ef%bc%88gestalt-psychology%ef%bc%89-%e5%a6%82%e4%bd%95%e5%a2%9e%e5%8a%a0%e8%a8%ad%e8%a8%88%e7%9a%84%e5%a5%bd%e6%84%9f%e5%ba%a6/" target="_blank" rel="noopener">71NEXT：完形心理學如何增加設計的好感度</a>。這篇適合先快速看中文案例，再回來用本節的檢查表套到自己的畫面。
+    </div>
+    <p>所以風格做完之後，拿下面這五條回頭檢查：你的視覺決策到底在幫使用者分組，還是在誤導他。</p>
+
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>標什麼</th><th>寫法範例</th></tr></thead>
+        <thead><tr><th>原則</th><th>人怎麼看</th><th>介面上怎麼用</th></tr></thead>
         <tbody>
-          <tr><td>資料從哪來</td><td>「此列表依上架時間排序，一次載入 20 筆，捲到底自動載入下一批」</td></tr>
-          <tr><td>什麼條件才出現</td><td>「僅登入且已完成實名認證的使用者看得到這個區塊」</td></tr>
-          <tr><td>互動之後會怎樣</td><td>「按下收藏後圖示由空心變實心，不跳頁，右下角出現 2 秒提示」</td></tr>
-          <tr><td>狀態與樣式的意圖</td><td>「此處為錯誤狀態，之後用紅色加圖示標示；顏色於風格板階段決定」</td></tr>
-          <tr><td>刻意不做的事</td><td>「這一版不做批次刪除，因為訪談中沒有人提到有這個需求」</td></tr>
+          <tr><td>接近性 Proximity</td><td>靠得近的東西被當成同一組</td><td>欄位標籤貼近它的輸入框；卡片內部的間距要小於卡片之間的間距</td></tr>
+          <tr><td>相似性 Similarity</td><td>長得像的東西被當成同一類</td><td>所有可點的連結用同一個顏色；同一層級的標題用同一個字級</td></tr>
+          <tr><td>連續性 Continuity</td><td>眼睛傾向沿著平順的線、曲線或排列方向繼續看下去，並把同一條路徑上的東西當成相關的</td><td>把元素對齊成一條線，引導視線走完一段；商品列表橫向排列時露出半張卡，同時暗示「這排還沒完」與「可以滑」</td></tr>
+          <tr><td>封閉性 Closure</td><td>圖形沒畫完，大腦會自動補起來</td><td>圖示可以用簡化的線條；進度環沒接起來也看得懂是圓形</td></tr>
+          <tr><td>共同區域 Common Region</td><td>在同一個框線或底色範圍內的東西是一組</td><td>卡片、面板、分隔區塊；用底色把工具列跟內容區分開</td></tr>
         </tbody>
       </table>
     </div>
-    <p>最後一列很多人不寫，但它最有用。<strong>寫下你決定不做什麼，別人就不會一直問你為什麼沒做</strong>，你也不用每次都重新解釋一遍。</p>
 
-    <h3>標註的寫法</h3>
-    <ul class="bullets">
-      <li>編號放在畫面上，說明寫在畫面旁邊的欄位裡。不要把長句子直接壓在版面上，會遮住結構。</li>
-      <li>一條標註講一件事。一條裡面塞三個規則，別人只會記得第一個。</li>
-      <li>寫規則，不要寫感想。「這裡放大一點比較好看」不是標註。</li>
-      <li>用數字。「一次 20 筆」「2 秒後消失」「最多 5 個標籤」——沒有數字的規則沒辦法被實作，也沒辦法被檢查。</li>
-    </ul>
+    <h3>表單除了間距，還要把狀態與控制項選對</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>檢查項目</th><th>做法</th></tr></thead>
+        <tbody>
+          <tr><td>欄位與標籤</td><td>保留清楚、持續可見的標籤；提示文字用來補格式範例，不要拿 placeholder 取代標籤。</td></tr>
+          <tr><td>控制項</td><td>少量互斥選項可直接用 radio；選項較多再用下拉選單。多選用 checkbox，開關即時生效時才用 toggle。</td></tr>
+          <tr><td>狀態</td><td>至少檢查一般、聚焦、已填、錯誤與停用；focus 要看得出鍵盤目前停在哪個欄位。</td></tr>
+          <tr><td>錯誤回饋</td><td>錯誤訊息貼近對應欄位，說明哪裡錯、怎麼改；不要只靠紅色框線。</td></tr>
+          <tr><td>完成負擔</td><td>刪掉非必要欄位，能自動帶入就不要重填；長表單分段並顯示進度，送出後給立即回饋。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>接近性最常被違反</h3>
+    <p>表單是重災區。標籤跟自己的輸入框距離，如果大於等於它跟上一個輸入框的距離，使用者就會看錯——他會以為那個標籤是在說明上面那一格。修法很簡單：把標籤跟它的欄位靠緊，欄位與欄位之間拉開。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>做法</th><th>標籤到它的欄位</th><th>欄位到下一個欄位</th><th>使用者看到的結果</th></tr></thead>
+        <tbody>
+          <tr><td class="bad">✗ 平均分配</td><td>16</td><td>16</td><td>兩段距離一樣，看不出「電話」這個標籤是在說明上面那格還是下面那格</td></tr>
+          <tr><td class="hl2">✓ 有大小差異</td><td>8</td><td>32</td><td>標籤明顯屬於下面那一格，一眼就對得起來</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>共同區域很強，但不要濫用</h3>
+    <p>共同區域的強度<strong>可以壓過接近性與相似性</strong>——兩個東西就算靠得很近，只要中間有框線把它們分到不同的框裡，人就會當成兩組。所以當留白已經分不清楚的時候，加框或加底色是有效的手段。</p>
+    <div class="callout warn">
+      <strong>但反過來就是問題。</strong>什麼都加框、什麼都做成卡片，畫面會變得很吵，而且容易做出「假底部」——一條橫跨整個畫面的分隔線或色塊，會讓使用者以為頁面到這裡就結束了，不再往下捲。<strong>順序是：先用留白分組，留白不夠才加框線。</strong>
+    </div>
   </section>
 
   <section class="section" id="s9">
     <p class="sec-num">09</p>
-    <h2 class="sec-title">設計說明：決策要指得回研究</h2>
-    <p>等一下同學會問你版面決策。「我覺得這樣比較順」撐不過第三個問題。撐得住的答案長這樣：<strong>這個決策 ← 來自研究裡的哪一段 ← 所以會有什麼結果</strong>。</p>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th>被問到</th><th>撐不住的回答</th><th>撐得住的回答</th></tr></thead>
-        <tbody>
-          <tr><td>欄位順序</td><td>「這樣排比較順」</td><td>「Persona 是通勤中單手操作，所以最常用的搜尋放在拇指構得到的下方」</td></tr>
-          <tr><td>多一個步驟</td><td>「多一個確認比較安全」</td><td>「旅程地圖上『付款前反悔』是痛點，所以送出前加一頁摘要，而且可以往回改」</td></tr>
-          <tr><td>砍掉一個功能</td><td>「太複雜了先拿掉」</td><td>「IA 圖上它在第三層，訪談 6 個人沒有人提過，這一版不做，標註寫進去」</td></tr>
-          <tr><td>用這種導覽</td><td>「別人都這樣做」</td><td>「卡片分類結果有 5 群，超過底部標籤列能放的數量，所以第 5 群收進『更多』」</td></tr>
-        </tbody>
-      </table>
+    <h2 class="sec-title">Laws of UX：四條會影響風格決策的定律</h2>
+    <p><a href="https://lawsofux.com/" target="_blank" rel="noopener">Laws of UX</a> 收了二十幾條心理學原則。這裡挑四條跟這堂課最有關的——它們會直接影響你在風格板上決定的東西。</p>
+    <div class="callout">
+      中文延伸閱讀：<a href="https://www.71next.com/userDoc/category/ui/laws-of-ux/" target="_blank" rel="noopener">71NEXT：使用者介面定律 / Laws of UX</a>。這個分類可以當作中文入口；正式定義仍以 lawsofux.com 與各條定律原始來源為準。
     </div>
-    <p>右欄的共同點：每一句都指得出是 Unit 03 到 Unit 05 哪一份產出的哪一段。訪談逐字稿、旅程地圖上的痛點、卡片分類的分群結果、IA 圖的層級——這些就是你的證據。</p>
-    <div class="callout">指不出來的決策，就是你自己的偏好。<span class="hl">那不是不行，但要老實說是偏好</span>，不要包裝成研究結論。偏好被推翻不痛，假的研究結論被拆穿才難看。</div>
+
+    <h3>Hick's Law：選項越多，決定越慢</h3>
+    <p>定義是「做決定所需的時間，會隨著選項的數量與複雜度增加」。</p>
+    <p>對風格的影響：三個顏色一樣、大小一樣的按鈕擺在一起，使用者要花時間一個一個比較；把其中一個做成主要按鈕、另外兩個降成文字連結，他一眼就知道該按哪個。</p>
+    <p>講精確一點：<strong>調視覺階層並不會減少選項的數量，減少的是「比較與辨識」的成本。</strong>要跟 Hick's Law 直接扯上關係，得是那幾個東西真的是使用者必須二選一的互斥選項。原始研究談的也是這種情況下的反應時間，所以不要把它當成「選項一律要少」的絕對規則——官方的提醒裡有一條是<strong>「不要簡化到變得抽象」</strong>，把功能藏起來只是把問題換個地方。</p>
+
+    <h3>Fitts's Law：目標越小越遠，越難點</h3>
+    <p>定義是「取得目標所需的時間，是目標距離與大小的函數」。三個實作重點：<strong>點擊目標要夠大、彼此要有足夠間距、要放在容易到達的位置。</strong></p>
+    <p>具體的數字：WCAG 2.2 要求指標輸入的目標至少 <code>24 × 24</code> CSS px（有間距等例外條款）；Apple 的介面指南建議可點擊元素至少 <code>44 × 44</code> pt。手機上還要考慮拇指範圍——單手握持時，畫面上方角落是最難按到的地方，所以主要動作通常放在下方。</p>
+    <div class="callout">
+      這條直接影響風格板：<strong>按鈕高度要在風格板上寫死</strong>。如果你的風格追求「輕巧細緻」，很容易把按鈕做得又扁又小，做出來就是使用者按不到。輕巧可以靠字重與留白達成，不必靠縮小點擊面積。
+    </div>
+
+    <h3>Miller's Law：7±2 這個數字是怎麼被用壞的</h3>
+    <p>1956 年 Miller 的研究發現，人一次能記住的資訊單位大約是 7±2 個。這條是四條裡最常被誤用的——<strong>它不是「選單最多放七項」，也不是任何介面的硬性上限。</strong>Laws of UX 上的第一條提醒就是「不要拿『神奇數字七』來合理化不必要的設計限制」。</p>
+    <p>真正能用的是<strong>分塊（chunking）</strong>：把長串資訊拆成小塊，人比較好處理。手機號碼寫成 <code>0912-345-678</code> 比 <code>0912345678</code> 好記；一個有二十個欄位的表單，分成三段各附小標，比一路排到底好填。而且能記多少因人而異，跟這個人原本懂多少、當下在什麼情境都有關——所以那個數字本身不能拿來當設計規格。</p>
+
+    <h3>Jakob's Law：使用者大部分時間都在別人的網站上</h3>
+    <p>定義是使用者會期待你的產品跟他已經熟悉的其他產品運作方式一樣。</p>
+    <p>這條是<strong>風格創新的煞車</strong>。使用者已經知道：右上角的購物車圖示可以看購物車、底部那排 tab 是主要分頁、底線的藍字可以點。這些期待是他從別的產品帶過來的，你把它改掉，得到的通常不是「有創意」，是使用者找不到東西。</p>
+    <p>但這不等於慣例完全不能動。<strong>正確的說法是：慣例優先沿用；要偏離，得說得出是哪個任務需求逼你偏離，而且要拿去測。</strong>純粹因為「想做得不一樣」而換掉的慣例，幾乎都會付出代價。</p>
+    <div class="callout green">
+      實務上的分工是：<strong>操作慣例先照沿用，視覺氣質才是你做自己的地方。</strong>圖示的意思、主要元件的位置、互動的方式，先跟著大家走；顏色、字體、留白、圖像風格、文案語氣，是你差異化的空間。第 2 節的競品分析剛好可以拿來對照——那張表裡的「主色、圖像、語氣」是你可以不一樣的，「購物車在哪裡」要改就得有理由。
+    </div>
   </section>
 
   <section class="section" id="s10">
     <p class="sec-num">10</p>
-    <h2 class="sec-title">同儕檢核怎麼開</h2>
-    <p><strong>Design critique</strong>（設計檢核）的定義是：分析一份設計、判斷它有沒有達成<strong>它自己設定的目標</strong>。NN/g 的說法是「一場以改善設計為最終目的的群體對話」。</p>
-    <p>要跟 <strong>design review</strong> 分開。Review 是依據一套 heuristic 做評估，常常帶有核可性質——過或不過。Critique 沒有在打分數，唯一的目的是讓這份設計變好。學生一被檢核就進入防衛狀態，通常就是誤以為在被評分。</p>
+    <h2 class="sec-title">Style Tile 與 Moodboard</h2>
+    <p>課綱把作業 6 寫成「風格板（Style Tile / Moodboard）」，兩種形式都收。但它們解決的問題不一樣，選之前先搞清楚差別。</p>
+    <div class="pin-grid">
+      <div class="pin-embed">
+        <h3>UI Design - Style Tiles</h3>
+        <a data-pin-do="embedBoard" data-pin-board-width="340" data-pin-scale-height="320" data-pin-scale-width="100" href="https://www.pinterest.com/nbradystudio/ui-design-style-tiles/"></a>
+        <p class="pin-note">觀察重點：色票、字體、元件與說明文字是否組成可執行規格。</p>
+      </div>
+      <div class="pin-embed">
+        <h3>Style Tiles, Mood Boards, Branding</h3>
+        <a data-pin-do="embedBoard" data-pin-board-width="340" data-pin-scale-height="320" data-pin-scale-width="100" href="https://www.pinterest.com/kingside/style-tiles-mood-boards-branding/"></a>
+        <p class="pin-note">觀察重點：Moodboard 怎麼收斂情緒，再轉成品牌與介面元素。</p>
+      </div>
+    </div>
+    <div class="callout warn">
+      <strong>使用界線：</strong>Pinterest 內嵌圖只作課堂觀察與引用來源入口。交作業或放作品集時，不要把 Pinterest 圖片當成自己的素材；要改用自己拍攝、有授權圖庫、AI 生成素材，或明確標註「暫用參考」。
+    </div>
 
-    <h3>要有用，得先有三件事</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th></th><th>Moodboard 情緒板</th><th>Style Tile 風格板</th></tr></thead>
+        <tbody>
+          <tr><td>在做什麼</td><td>收集參考、定調氣氛</td><td>把氣氛翻譯成介面元素</td></tr>
+          <tr><td>上面有什麼</td><td>圖片、材質、色調、字體氛圍、任何有感覺的東西</td><td>色票與色碼、字體與字級、按鈕、輸入框、標籤等介面元素</td></tr>
+          <tr><td>什麼時候做</td><td>更前面，方向還在收斂的時候</td><td>方向定了，要把它變成可執行規格的時候</td></tr>
+          <tr><td>拿來幹嘛</td><td>對齊感覺：「我們講的是同一種氣質嗎」</td><td>對齊執行：「所以按鈕到底長這樣對嗎」</td></tr>
+          <tr><td>弱點</td><td>主觀，同一張圖不同人解讀不同</td><td>還不是完整頁面，看不出版面組合起來的效果</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <strong>兩者不是二選一，是前後關係。</strong>正常的做法是先做 Moodboard 收斂方向，再把方向翻譯成 Style Tile。所以作業 6 如果你交的是 Moodboard，就要<strong>另外附一份最小規格</strong>：色碼、字級、按鈕長相。少了這些，Unit 10 畫 Mockup 的時候沒有東西可以查，等於每一頁又要重新猜一次。
+    </div>
+
+    <h3>怎麼做一張有用的 Moodboard</h3>
+    <p>Moodboard 的難處不是找圖，是<strong>找完之後別人不知道你在指哪裡</strong>。同一張咖啡廳照片，你看到的是木頭的溫暖，別人看到的是暗色調的高級感。修法有三個：</p>
     <ol class="steps">
-      <li><strong>清楚的範圍。</strong>今天只看流程完整性與狀態設計。沒有界線的檢核會失控——十分鐘後大家會在吵字體。</li>
-      <li><strong>講好的設計目標。</strong>要判斷一份設計有沒有達成目標，得先對「要解決什麼問題」有共識。所以提案者要先講 persona、痛點與使用者任務。</li>
-      <li><strong>是對話不是命令。</strong>用命令的口氣講話，會把討論關掉。要問問題，不要下指令。</li>
+      <li><strong>先有形容詞，再找圖。</strong>拿第 3 節寫好的 3–5 個形容詞當關鍵字去找，不要先滑到喜歡的圖再回頭湊形容詞——那樣找到的是你的個人品味，不是產品的方向。</li>
+      <li><strong>每張圖標註你在指什麼。</strong>圖旁邊寫一句：「取這張的<em>配色</em>，不是取它的排版」。這一句話就是 Moodboard 跟 Pinterest 收藏夾的差別。</li>
+      <li><strong>放反例。</strong>另外挑 2–3 張「絕對不要變成這樣」的圖，一樣標理由。排除的方向通常比嚮往的方向更快讓人對齊。</li>
     </ol>
+    <p>圖的數量控制在 <strong>10–15 張</strong>就好。收一百張的結果是每個方向都沾一點，看完還是不知道要往哪走。找完之後把明顯不同調的挑掉——留下來的圖擺在一起應該要像同一個世界。</p>
 
-    <h3>開場之前，引導者要先做完的事</h3>
-    <p>檢核當場才開始講規則就來不及了。這幾件事要在開始前完成：</p>
-    <ul class="bullets">
-      <li>事前把範圍與議程發出去，讓大家知道哪些該談、哪些不該談。</li>
-      <li>事先把作品發給參與者。當場才第一次看到，收到的會是反射式的第一印象，不是想過的意見。</li>
-      <li>訂好規則與期待——例如「今天不討論配色」「先收完回饋再討論解法」。</li>
-      <li>確認大家對 persona、痛點與使用者任務有共識。沒有這個共識，後面每一句都只是個人品味。</li>
-    </ul>
-    <p>課堂上的兩人互評時間短，這幾件事由提案者自己在開場的一分鐘內講完。</p>
+    <h3>Style Tile 卡在中間是刻意的</h3>
+    <p>Style Tile 的原始定義是「一份參照網站介面元素的設計交付物，透過字體、色彩與樣式的組合來呈現」——它<strong>比 Moodboard 具體，但比 Mockup 抽象</strong>，而且這個位置是故意選的。</p>
+    <p>直接畫完整 Mockup 給人看，會有兩個副作用：對方以為設計快做完了；以及對方開始東挑西選——「我要 A 版的配色配 B 版的排版加 C 版的按鈕」，拼出一個沒有整體邏輯的<em>Frankencomp</em>（縫合怪稿）。Style Tile 把討論限縮在元素上——它可以用小範圍的組合示意元素之間的關係，但不承諾完整的頁面配置，剛好避開這件事。</p>
 
-    <h3>角色</h3>
+    <h3>一張 Style Tile 上該有什麼</h3>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>角色</th><th>做什麼</th></tr></thead>
+        <thead><tr><th>區塊</th><th>要放什麼</th><th>旁邊那句說明要寫什麼</th></tr></thead>
         <tbody>
-          <tr><td>提案者</td><td>先重述目標與 persona，講作品的來龍去脈，然後指定你要哪一種回饋</td></tr>
-          <tr><td>評論者</td><td>對著設計目標問問題，不講個人偏好</td></tr>
-          <tr><td>記錄者</td><td>當場公開記錄，讓大家看得到、可以即時補充</td></tr>
-          <tr><td>引導者</td><td>控制範圍與時間，把偏掉的意見拉回目標上</td></tr>
+          <tr><td>風格故事</td><td>三到五個形容詞 + 一段說明</td><td>這些形容詞是從哪一份研究推出來的</td></tr>
+          <tr><td>色票</td><td>品牌主色、強調色、語意色、中性三階，全部標色碼</td><td>每個顏色負責什麼工作</td></tr>
+          <tr><td>字體</td><td>標題字體與字級、內文字體與字級／行距</td><td>為什麼是這個字體、這組級距</td></tr>
+          <tr><td>介面元素</td><td>主要／次要按鈕、停用狀態、輸入框（一般 + 錯誤）、標籤、卡片</td><td>圓角與高度是依哪個決策訂的</td></tr>
+          <tr><td>質感規格</td><td>圓角、陰影、間距基準單位</td><td>基準單位是 4 還是 8，為什麼</td></tr>
+          <tr><td>圖像方向</td><td>兩三張示意圖</td><td>為什麼是這種圖：實拍、插畫，還是圖示加色塊</td></tr>
         </tbody>
       </table>
     </div>
-    <p>提案者最重要的一句話是<strong>「我今天想聽的是 ______」</strong>。沒講的話，你會收到一堆你現在還用不到的意見。另外，講快一點，不要一直替每個決策辯解——你花在辯解的時間，就是別人不能提問的時間。</p>
+    <p>注意最後一欄。<strong>每一區旁邊都要寫一句話說明理由</strong>，這是風格板跟拼貼圖的差別。沒有說明文字的風格板，交出去只會得到「我不喜歡這個顏色」這種沒辦法討論的回饋。</p>
 
-    <h3>把「我覺得不好」改寫成對著目標的問題</h3>
+    <h3>圖片方向怎麼決定</h3>
+    <p>「圖片方向」是風格板上最容易被跳過的一欄，但它決定了 Mockup 上面積最大的那塊東西長什麼樣。先做一個選擇：</p>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>你原本想講的</th><th>改寫成</th></tr></thead>
+        <thead><tr><th>選項</th><th>什麼時候適合</th><th>代價</th></tr></thead>
         <tbody>
-          <tr><td>「這顆按鈕位置不對。」</td><td>「如果目標是讓人快速完成註冊，按鈕放這裡會不會讓錯的東西變顯眼？」</td></tr>
-          <tr><td>「哇……這版面。」</td><td>「這個版面怎麼幫使用者又快又順地完成他要做的事？」</td></tr>
-          <tr><td>「欄位太多了吧。」</td><td>「這幾個欄位裡，哪幾個是這個任務當下非填不可的？」</td></tr>
-          <tr><td>「我覺得應該改成分頁。」</td><td>「使用者要一次看幾筆？捲動跟分頁哪個比較貼近他們的使用情境？」</td></tr>
+          <tr><td>實拍照片</td><td>賣的是真實存在的東西（商品、餐點、空間、人）；要建立可信度</td><td>沒有品質一致的圖來源就會很慘——每張色調光線都不一樣，畫面立刻散掉</td></tr>
+          <tr><td>插畫</td><td>講的是抽象的東西（流程、概念、情緒）；要柔化嚴肅或尷尬的情境（錯誤、空狀態、金融）</td><td>風格一致的插畫很貴，混用不同來源會很明顯</td></tr>
+          <tr><td>圖示 + 色塊</td><td>工具型、資訊型產品；資訊密度高，圖片會變成干擾</td><td>畫面容易變單調，要靠排版與留白撐起來</td></tr>
         </tbody>
       </table>
     </div>
-    <p>左欄不是壞人，是<strong>沒辦法接下去做事</strong>。「位置不對」對方只能問「那要放哪」，然後你們開始互相猜。右欄的每一句都把討論拉回這份設計自己設定的目標，提案者可以自己判斷要不要改、怎麼改。</p>
+    <p>選完之後，在風格板上放兩三張示意圖，並寫下<strong>可以被檢查的規則</strong>，例如：「商品照一律去背白底、正方形」「情境照色溫偏暖、人物不看鏡頭」「插畫只用兩個顏色、線條粗細一致」。</p>
+    <div class="callout warn">
+      示意圖如果是網路上抓的，<strong>在風格板上要註明是暫用參考</strong>。這一步不寫，很容易一路帶進 Mockup、甚至帶進作品集——那就變成用了別人的作品。自己拍、用有授權的免費圖庫、或用 AI 生圖，都要在旁邊寫清楚來源。
+    </div>
 
-    <h3>兩種帶法</h3>
-    <ul class="bullets">
-      <li><strong>Round robin：</strong>每個人輪流講一輪，確保安靜的人也有出聲。</li>
-      <li><strong>Quotas：</strong>引導者要求每人講固定數量的正面與負面意見，例如「兩好一壞」。用來破冰特別有效。</li>
-    </ul>
-
-    <h3>五個常見失敗</h3>
-    <ul class="bullets">
-      <li>沒先講好 persona 與目標——接下來每一句都只是個人品味的比拚。</li>
-      <li>一場開太久，品質會掉。今天每人十分鐘，剛好。</li>
-      <li>把回饋當成針對自己。被問的是那張圖，不是你。</li>
-      <li>急著在現場把問題解掉。檢核是把問題攤開，不是當場改圖——聽到一半就開始拉元件，後面的意見你一句都不會聽進去。</li>
-      <li>只講缺點。什麼地方做對了也要講，不然對方下一版可能把對的那部分一起改掉。</li>
-    </ul>
+    <h3>做兩到三版，不要只做一版</h3>
+    <p>Style Tile 的原始流程就是提出兩到三個版本，各自代表對同一段風格故事的不同詮釋，讓對方選、讓對方指出偏好，再收斂成最終版。</p>
+    <div class="callout">
+      <strong>兩三版怎麼分才有意義：</strong>不要做「同一個方向的三個微調版」（主色深一點、淺一點、再淺一點），那不是選項。要做<strong>取捨不同</strong>的版本，例如 A 版把「可靠」放最大（深色、方正、資訊密）、B 版把「沒壓力」放最大（淺色、圓角、大留白）。對方選了哪一版，你才知道他真正在意的是什麼。
+    </div>
   </section>
 
   <section class="section" id="s11">
     <p class="sec-num">11</p>
-    <h2 class="sec-title">檢核之後：修正紀錄</h2>
-    <p>檢核不是散會就結束。收到的每一則回饋，不管採不採用，都用同一個四步交代清楚。</p>
-    <ol class="steps">
-      <li><strong>點名。</strong>把那則回饋的原話寫下來，不要寫你的摘要——摘要會不小心把你不想面對的部分濾掉。</li>
-      <li><strong>決定。</strong>改、不改、還是之後再說。講死，不要寫「再想想」。</li>
-      <li><strong>理由。</strong>為什麼。不採用也要有理由，而且理由要接得回研究或設計目標。</li>
-      <li><strong>下一步。</strong>要改的話，改哪一張、什麼時候改。</li>
-    </ol>
-    <p>這個範本對「有道理但這次不做」跟「被使用者測試數據推翻」都適用，不用換寫法。</p>
+    <h2 class="sec-title">從風格板長成設計系統</h2>
+    <p>風格板做完，你手上有一組色碼、一組字級、幾個元件的長相。如果這個產品只做五頁，到這裡就夠了。但如果它要繼續長大——多人一起畫、頁面越來越多、之後還要交給工程師——就需要把這些決策變成一套<strong>可以被重複使用、而且改一次全部跟著改</strong>的東西。那就是設計系統。</p>
 
-    <h3>什麼時候要回頭交代</h3>
-    <p>不是每一則回饋都要立刻回覆，但這三個時刻一定要：</p>
-    <ol class="steps">
-      <li><strong>設計有重大改動之後。</strong>把改動前後的截圖發出去，並註明是誰的意見促成的。</li>
-      <li><strong>交給開發之前。</strong>讓相關的人在 demo 或上線前就知道最終決定，不要讓他們在成品裡才發現。</li>
-      <li><strong>某則回饋影響了大方向的時候。</strong>把當初那句話與後來的決策明確接起來。</li>
-    </ol>
-    <p>收尾的方式有兩種，可以搭配用。<strong>即時摘要</strong>是散會後一則短訊息，寫「我們要往前做的是什麼、還在查的是什麼、決定不做的是什麼」；<strong>後續文件</strong>是比較長的一份，把每一項改動接回當時的對話。</p>
-
-    <h3>紀錄表長這樣</h3>
+    <h3>設計系統、Style Guide、風格板，差在哪</h3>
+    <p>NN/g 對設計系統的定義是「一整套用來在規模化的情況下管理設計的標準，做法是透過可重複使用的元件與模式」。關鍵字是<em>規模化</em>與<em>可重複使用</em>——它要解決的是「東西一多就開始走鐘」這件事。</p>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>#</th><th>回饋原話</th><th>決定</th><th>理由</th><th>下一步</th></tr></thead>
+        <thead><tr><th></th><th>在回答什麼問題</th><th>形式</th></tr></thead>
         <tbody>
-          <tr><td>1</td><td>「搜尋沒結果的時候我不知道要幹嘛。」</td><td>改</td><td>空狀態只寫了「查無資料」，沒給放寬條件的方法</td><td>改 P3 空狀態，加「清除篩選」按鈕，今晚做</td></tr>
-          <tr><td>2</td><td>「應該要有收藏夾分類功能。」</td><td>不改</td><td>訪談 6 人沒有人提到分類需求，超出這一版範圍</td><td>寫進標註「刻意不做」欄</td></tr>
-          <tr><td>3</td><td>「付款那邊等很久會不會有問題？」</td><td>改</td><td>超過 10 秒的等待沒有畫進度指示</td><td>補一張載入狀態畫面，標註預估時間與取消</td></tr>
+          <tr><td>風格板</td><td>這個產品應該長什麼樣？</td><td>一張圖，給人看方向</td></tr>
+          <tr><td>Style Guide 樣式指南</td><td>這些樣式該怎麼用？</td><td>文件：色彩、字體、Logo、語氣、互動規則</td></tr>
+          <tr><td>元件庫</td><td>這個按鈕實際上長怎樣、有哪些狀態？</td><td>可以直接拿來用的元件，含說明與規格</td></tr>
+          <tr><td>設計系統</td><td>以上全部，加上「誰維護、怎麼更新」</td><td>標準 + 元件庫 + 文件，是一個持續運作的東西</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="callout green">NN/g 有一句話很好記：<span class="hl2">「這裡改了，因為你當時說了那句話」——這樣才算把回饋接回去。</span>不然給回饋的人會覺得白講了，下一次就不講真話。</div>
+    <p>所以順序是這樣的：<strong>風格板是設計系統的第一塊。</strong>你在風格板上決定的主色與字級，之後就是系統裡最底層的那組值；你畫的按鈕，之後就是元件庫裡的第一個元件。</p>
+
+    <h3>三層結構</h3>
+    <p>不管規模大小，設計系統大致都是這三層疊起來的。上面一層一定是用下面一層做出來的——這就是「改一次全部跟著改」的來源。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>層</th><th>裡面有什麼</th><th>它在整套系統裡的角色</th></tr></thead>
+        <tbody>
+          <tr><td>③ 規範</td><td>什麼時候用哪個、不能怎麼用</td><td>文件，管的是使用方式</td></tr>
+          <tr><td>② 元件</td><td>按鈕、輸入框、卡片、導覽列</td><td>用 ① 組出來，拿來組頁面</td></tr>
+          <tr><td>① Token</td><td>色彩、字級、間距、圓角、陰影</td><td>最小的決策單位，其他兩層都建在它上面</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="bullets">
+      <li><strong>① Token（設計代幣）。</strong>Figma 的說法是「儲存團隊核心設計決策的具名數值」。白話講就是：不要在畫面上直接填 <code>#2E7D32</code>，而是給它一個名字，畫面上用名字。改的時候改一個地方就好。</li>
+      <li><strong>② 元件。</strong>用 Token 組成的可重複使用單位。同一個按鈕不管出現在哪一頁，都是同一個東西的複製品。</li>
+      <li><strong>③ 規範。</strong>光有元件不夠——還要寫清楚「主要按鈕一頁只能有一個」「破壞性操作用紅色，而且要有二次確認」。沒有這層，每個人拿同一套元件還是會拼出不一樣的東西。</li>
+    </ul>
+
+    <h3>Token 為什麼要取名字：原始值與語意層</h3>
+    <p>Token 有兩種寫法，差別很大。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>層</th><th>長什麼樣</th><th>它在說什麼</th></tr></thead>
+        <tbody>
+          <tr><td>原始值 raw</td><td><code>green-600 = #2E7D32</code><br><code>gray-900 = #1A1A1A</code></td><td>只交代「這個顏色叫什麼」，不說它拿來幹嘛</td></tr>
+          <tr><td>語意層 semantic</td><td><code>button-primary-bg → green-600</code><br><code>text-primary → gray-900</code></td><td>不存顏色，指向原始值，並說明它的用途</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>語意層不存顏色，它<strong>指向</strong>原始值，並且說明這個顏色是拿來幹嘛的。這一層看起來多餘，但它是兩件事的關鍵：</p>
+    <ul class="bullets">
+      <li><strong>換色。</strong>之後主色從綠改成藍，你只要把 <code>button-primary-bg</code> 指到 <code>blue-600</code>，所有按鈕一起變。如果當初到處填的是 <code>green-600</code>，你得一個一個找出哪些綠是按鈕、哪些綠是成功訊息。</li>
+      <li><strong>深色模式。</strong><code>text-primary</code> 在淺色模式指向深灰、在深色模式指向淺灰——名字不變，值換掉。這就是深色模式能做得動的原理。</li>
+    </ul>
+
+    <h3>Figma 上怎麼做</h3>
+    <p>上面三層在 Figma 各有對應的功能。你在這堂課要用到的是前兩層。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>你風格板上的東西</th><th>Figma 功能</th><th>做完之後</th></tr></thead>
+        <tbody>
+          <tr><td>色票</td><td>Color Styles（或 Variables）</td><td>右側面板點一下就上色，不用再複製色碼</td></tr>
+          <tr><td>字級與行距</td><td>Text Styles</td><td>選好文字點一下，字體字級行距一次到位</td></tr>
+          <tr><td>陰影</td><td>Effect Styles</td><td>陰影不會每次都調得不一樣</td></tr>
+          <tr><td>按鈕、輸入框、卡片</td><td>Component（元件）</td><td>改主元件，所有實例一起改</td></tr>
+          <tr><td>按鈕的各種版本</td><td>Variants（變體）</td><td>主要／次要、一般／停用收成一個元件，用下拉選單切換</td></tr>
+          <tr><td>之後要換色或做深色模式</td><td>Variables + Modes</td><td>同一個名字，切換模式就換一整套值</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Styles 與 Variables 該用哪個</h3>
+    <p>兩個都能存色彩，功能有重疊，所以很多人卡在這裡。差別是：<strong>Styles 適合排版、漸層這種比較複雜的樣式；Variables 適合色彩與間距這種單一數值，而且只有 Variables 能做模式切換（深色模式）與直接對接程式碼。</strong></p>
+    <div class="callout">
+      這堂課的建議：<strong>色彩用 Variables，文字用 Text Styles。</strong>色彩之後最可能要換、也最可能要做深色模式；文字樣式牽涉字體、字級、行距、字重一整組，用 Styles 比較單純。如果覺得 Variables 太複雜，全部先用 Styles 也可以——重點是<strong>不要直接填色碼</strong>。
+    </div>
+
+    <h3>Component 與 Variants</h3>
+    <p>把一組圖層選起來按 <code>⌥ ⌘ K</code>（Windows 是 <code>Ctrl Alt K</code>）就變成<strong>主元件（main component）</strong>。之後複製出去用的每一個都是<strong>實例（instance）</strong>，主元件一改，所有實例跟著改。實例上可以個別改文字、改圖片這類覆寫，改壞了可以重設回主元件的樣子。</p>
+    <p><strong>Variants（變體）</strong>則是把同一個元件的不同版本收進一個容器裡。主要按鈕、次要按鈕、停用中的按鈕，不必做成三個各自獨立的元件，而是一個元件加上幾個屬性。用的時候在右側面板換選項就好。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>按鈕狀態</th><th>要讓使用者知道什麼</th></tr></thead>
+        <tbody>
+          <tr><td>Normal / Hover / Pressed</td><td>按鈕可以操作、游標已經移到上面，以及動作已被按下。</td></tr>
+          <tr><td>Loading</td><td>系統正在處理；避免重複送出，同時保留動作文字或足以辨識任務的提示。</td></tr>
+          <tr><td>Disabled</td><td>目前不能操作；若原因不明，要在附近說明還缺哪個條件。</td></tr>
+          <tr><td>Focus</td><td>鍵盤焦點目前停在這裡，焦點樣式不能只依賴滑鼠 hover。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>按鈕文字要直接說動作，例如「儲存草稿」「送出申請」，不要只寫「確定」。主要與次要按鈕可用色彩、填色與視覺重量拉開層級，但同一個產品裡的用法要一致。</p>
+    <p>注意這裡有<strong>兩個不同維度</strong>：主要／次要是這顆按鈕的<em>種類</em>，一般／停用是它<em>當下的狀態</em>。兩件事不一樣，所以要開成兩個屬性——<code>Type</code>（主要／次要）與 <code>State</code>（一般／停用）。開對了，兩兩組合就涵蓋四種情況；開錯了，之後想要「次要的停用版」就得再補一個值。</p>
+    <div class="callout warn">
+      <strong>設定屬性時最常搞錯的地方：</strong>把好幾個維度塞進同一個屬性。不要做一個叫 <code>Style</code> 的屬性，值寫成「主要大顆」「次要小顆」——這樣兩個維度綁死，之後想要「次要大顆」就得再開一個值。<strong>拆成 <code>Type</code>（主要／次要／文字）與 <code>Size</code>（大／中／小）兩個屬性</strong>，能組合出來的就是所有情況。<br><br>
+      另外，同一個變體容器裡的所有變體，要用同一組屬性；每個變體必須是這些屬性的一種獨特組合，不能重複。
+    </div>
+
+    <h3>什麼時候該把一個東西變成元件</h3>
+    <p>不是所有東西都要做成元件。做元件是有成本的——要命名、要維護、改的時候要想會不會影響到別的地方。判斷標準有兩個，符合任一個就值得做：</p>
+    <ol class="steps">
+      <li><strong>出現三次以上。</strong>第一次畫，第二次複製，第三次再複製的時候就該停下來做成元件。這時候你已經確定它會重複，而且還沒多到要改很多份。</li>
+      <li><strong>它有多種狀態。</strong>就算只出現一次，只要它有一般／停用／錯誤／選中這些狀態要管，做成帶 Variants 的元件比較不會漏掉其中一種。</li>
+    </ol>
+    <div class="callout green">
+      <strong>學生專題不需要做完整的設計系統。</strong>NN/g 也講得很直接：設計系統需要有人專職維護、需要花時間教別人怎麼用，公司如果把每個案子當一次性專案，這件事根本推不動。你一個人做一份專題，維護成本大於收益。<br><br>
+      這堂課要你做到的是<strong>最小可用的那一層</strong>：色彩建成 Color Styles 或 Variables、字級建成 Text Styles，按鈕做成一個帶 Variants 的元件。這樣 Unit 10 畫 Mockup 的時候，你改一次主色，所有頁面一起變——這個好處你馬上就感受得到，其他的等真的需要再說。
+    </div>
   </section>
 
   <section class="section" id="s12">
     <p class="sec-num">12</p>
     <h2 class="sec-title">課堂練習與回家作業</h2>
-    <h3>先挑一條流程</h3>
-    <p>今天整堂都在改同一條流程。你可以用自己專題的流程，也可以直接用下面三個指定題目其中一題——<strong>題目本身沒有分數差別</strong>，挑你比較有把握說得出使用者情境的那一條。題目卡在<a href="https://www.figma.com/design/X0nEWewUts2YSRElqN6dE3?node-id=6-2" target="_blank" rel="noopener">課堂範本檔的「作業題目」分頁</a>，裡面有情境、Persona、必須畫出的狀態、容易踩的坑與交件清單，還有空白畫框可以直接畫。</p>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th>題目</th><th>情境</th><th>這題在練什麼</th></tr></thead>
-        <tbody>
-          <tr><td>1 · 會員註冊與登入</td><td>校園二手書交易 App，從商品頁被導去註冊，到第一次登入成功</td><td>Unit 06 練過的基準題。信箱已被註冊、密碼規則、驗證碼過期，加上註冊完要回得到他原本要買的那一頁</td></tr>
-          <tr><td>2 · 結帳付款出錯</td><td>外送 App 結帳，人在捷運上趕著到站前點完</td><td><strong>錯誤狀態</strong>。四種錯誤不能長成同一個樣子：inline 驗證、可繼續的警告、擋住流程的失敗、系統狀態改變。再加一段超過 10 秒的付款等待</td></tr>
-          <tr><td>3 · 中途離開與返回</td><td>學校活動報名的三步驟表單，在校車上填，會被打斷三次</td><td><strong>返回與反悔</strong>。五種「往回」不是同一件事：上一步、手機返回鍵、切出去再切回來、按取消、送出後想改。哪幾種要攔他、哪幾種不要</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="callout">題目 2 與 3 是這個單元新出的，各自對著今天講最久的兩件事——<span class="hl">錯誤狀態</span>與<span class="hl">反悔路徑</span>。用自己專題的人也先看一眼那兩張題目卡的「容易踩的坑」，那幾條你八成也會踩。</div>
+    <p>這堂課 3 小時，時間大致是：講述 70 分、課堂練習 80 分、成果分享 15 分、休息 15 分。</p>
 
-    <h3>課堂四階段</h3>
-    <p>課堂 85 分鐘分四段，完整步驟、檢查表與配分在<a href="exercises.html">練習與作業頁</a>。四個階段各有對應的空白範本，在<a href="https://www.figma.com/design/X0nEWewUts2YSRElqN6dE3" target="_blank" rel="noopener">課堂範本檔</a>裡——把區塊複製到你自己的 Figma 檔再填。</p>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th>階段</th><th>時間</th><th>做什麼</th></tr></thead>
-        <tbody>
-          <tr><td><a href="exercises.html#ex1">Exercise 01</a></td><td>15 分</td><td>狀態盤點：把上一堂的 Wireframe 攤開，逐頁列出還缺哪些狀態</td></tr>
-          <tr><td><a href="exercises.html#ex2">Exercise 02</a></td><td>25 分</td><td>補畫空狀態、錯誤狀態、載入狀態各至少一張</td></tr>
-          <tr><td><a href="exercises.html#ex3">Exercise 03</a></td><td>20 分</td><td>接成 Wireflow，補上標註</td></tr>
-          <tr><td><a href="exercises.html#ex4">Exercise 04</a></td><td>25 分</td><td>兩人一組互相檢核，各 10 分鐘，最後 5 分鐘整理修正清單</td></tr>
-        </tbody>
-      </table>
+    <div class="callout">
+      <strong>課前要準備好的東西：</strong>2 個競品的截圖（各抓首頁與一個內頁）、你的 Persona 摘要、以及一份空白的 Style Tile 骨架檔。這三樣沒帶，80 分鐘會全部花在找素材上。
     </div>
-    <p>第四階段<strong>要跟不同專題的人配對</strong>。同組的人已經知道你的來龍去脈，問不出外人會卡住的地方。</p>
-    <p><a href="exercises.html#hw">回家作業</a>是把課堂上的東西收成可以交的一份，對齊課綱作業 5：1 張 Flow 加 3–5 個 Wireframe。上一堂交的是初版，這次交的是接起來、補完狀態、被問過也改過的版本。配分與「不及格的樣子」在<a href="exercises.html#submit">繳交清單</a>。</p>
+
+    <h3>課堂練習：從競品拆到風格板雛形（80 分鐘）</h3>
+    <p>個人作業，用自己的專題。課堂上只做<strong>一個方向的核心版</strong>，完整元件狀態與第二版留到回家做。四階段結束後另有 15 分鐘各組互相看成果。</p>
+    <ol class="steps">
+      <li><strong>競品視覺拆解（20 分）</strong>：用第 2 節的六個欄位拆 2 個競品，再比對同一種頁面的版面順序，標出哪些是類別慣例。不要寫好看難看，只寫具體特徵。</li>
+      <li><strong>形容詞與風格故事（15 分）</strong>：用第 3 節的三個提問法收斂出 3–5 個形容詞，寫成一段風格故事，每個形容詞都要配一個「而不是」。個人專題沒有客戶可訪，就拿你的 Persona 當回答的人——回答時要指得出是根據研究裡的哪一段，不是你自己的偏好。</li>
+      <li><strong>色彩與字體（20 分）</strong>：定出品牌主色、強調色、語意色、中性三階，全部標色碼；選 1–2 個字體，定出四級字級。時間不夠時，優先測「內文色＋背景色」這一組的對比度，其餘留到回家補。</li>
+      <li><strong>組出 Style Tile（25 分）</strong>：把上面的東西放進第 10 節的骨架，加上按鈕與輸入框兩種元件，每一區寫一句理由。</li>
+    </ol>
+    <div class="callout green">
+      <strong>最後 15 分鐘的分享怎麼進行：</strong>兩人一組互看，只問三題——① 你看到的前三個形容詞是什麼？② 這一版最想被記住的是哪個決策？③ 哪一項你看不出理由？<br><br>第一題是重點：<strong>對方講出來的形容詞，如果跟作者寫在風格故事裡的對不起來，就代表這個風格沒有傳達到。</strong>這比「好不好看」有用得多，因為它可以被驗證。
+    </div>
+
+    <h3>回家作業：作業 6 風格板</h3>
+    <ol class="steps">
+      <li>把課堂上的<strong>風格板補完整</strong>——不管你用 Style Tile 還是「Moodboard + 最小規格」的形式，下面這些都要有：色票、字體字級、按鈕（主要／次要，各含一般與停用）、輸入框（一般／錯誤）、標籤、卡片，質感規格（圓角、陰影、間距基準），以及圖片方向與其規則。</li>
+      <li>再做<strong>第二版</strong>，取捨方向要跟第一版明顯不同，不是微調。</li>
+      <li>寫風格故事說明：給誰、什麼情境、要感覺到什麼、而不是什麼、所以視覺上怎麼做。每個形容詞都要接到具體決策。</li>
+      <li><strong>在風格板上就能查的</strong>：對比度、相似性（可點的東西有沒有共用特徵）、元件的各種狀態、按鈕與輸入框的高度夠不夠好按、色彩角色有沒有分清楚。逐項檢查並記下你改了什麼。</li>
+      <li><strong>要套回畫面才查得出來的</strong>：把風格套到 Unit 07 其中一張 Wireframe 上（不用做到精緻，換色換字換間距即可），再用接近性、共同區域、連續性、Hick's Law、Jakob's Law 各檢查一次。</li>
+      <li>對比度全部測過，把不及格的組合改掉——這一項沒過，風格板等於不能用。</li>
+      <li>把風格板上的<strong>色票建成 Color Styles 或 Color Variables、字級建成 Text Styles</strong>；按鈕做成一個 <strong>Component</strong>，開 <code>Type</code>（主要／次要）與 <code>State</code>（一般／停用）兩個 <strong>Variants</strong> 屬性。做完之後試著改一次主色，確認所有用到的地方都跟著變。</li>
+    </ol>
+    <div class="callout green">
+      第 4 步跟第 5 步分開，是因為<strong>有些原則在只有元件的風格板上根本看不出來</strong>。「選項會不會太多」「分組清不清楚」要有完整版面才有得判斷。這也是 Style Tile 的先天限制——它保證了元素的一致，但保證不了組合起來的效果。
+    </div>
+    <div class="callout">
+      <strong>繳交：</strong>依課綱作業 6 的規格，交<strong>風格板 + 風格故事說明</strong>。風格板上的每個決策都要有具體數值（色碼、字級、圓角、間距），寫形容詞不算。
+    </div>
+    <div class="callout warn">
+      <strong>兩個不及格的樣子：</strong>一是<strong>拼貼圖</strong>——一堆網路上抓的漂亮圖片，沒有色碼、沒有元件、沒有說明；二是<strong>跟研究脫鉤</strong>——風格故事裡的使用者，跟你 Unit 03 的 Persona 對不起來。評圖的時候這兩件事最容易被問，因為一眼就看得出來。
+    </div>
   </section>
 
   <section class="section" id="s13">
     <p class="sec-num">13</p>
     <h2 class="sec-title">AI 協作提示詞</h2>
-    <p>這三個提示詞是拿來<strong>檢查你已經做出來的東西</strong>，不是拿來生成畫面的。AI 沒有做過你的使用者研究，它生出來的 Wireframe 跟你的研究沒有關係。</p>
+    <p>AI 在這個階段可以幫你<strong>整理形容詞、檢查一致性、找出你沒想到的取捨</strong>，但不能幫你決定風格——它沒看過你的使用者，也沒看過你的競品。下面每一段都要先貼上你自己的東西再問。</p>
 
-    <h3>① 盤點缺漏的狀態</h3>
+    <h3>① 從研究資料整理出風格形容詞</h3>
     <div class="prompt">
-      <button class="copy-btn">複製</button>
-      <pre>我在做一個 [產品類型] 的 Wireframe。以下是我目前畫好的畫面清單，每一行是「畫面名稱：畫面上有什麼」：
+      <button class="copy-btn" type="button">複製</button>
+      <pre>以下是我的專題資料：
+Persona 摘要：[貼上]
+使用情境（來自旅程地圖）：[貼上，包含情緒起伏最大的段落]
+競品分析的洞察：[貼上]
 
-[貼上你的畫面清單]
+請幫我：
+1. 從這些資料裡歸納 5 個形容詞，描述這個產品應該給人的感覺，
+   每個都要標出它是從哪一段資料推出來的。
+2. 每個形容詞配一個「而不是⋯⋯」的對照詞。
+3. 指出哪幾個形容詞彼此有衝突，需要我做取捨。
 
-以下是我的流程圖上有的路徑：
-
-[貼上 Flowchart 上的節點與例外路徑]
-
-請幫我逐一比對，列出：
-1. 流程圖上有、但我還沒畫成畫面的節點。
-2. 我畫的畫面裡，哪些頁面應該要有空狀態、錯誤狀態或載入狀態，但清單上沒有。
-3. 每一個缺漏，用一句話說明使用者會在什麼情況下遇到它。
-
-用表格回答。只能根據我提供的內容分析，不要自行補充不存在的資訊。</pre>
+只能根據我提供的內容分析，不要自行補充不存在的資訊。</pre>
     </div>
 
-    <h3>② 檢查錯誤訊息與空狀態的寫法</h3>
+    <h3>② 檢查風格故事有沒有接到具體決策</h3>
     <div class="prompt">
-      <button class="copy-btn">複製</button>
-      <pre>以下是我 Wireframe 上寫的錯誤訊息與空狀態文案：
+      <button class="copy-btn" type="button">複製</button>
+      <pre>以下是我寫的風格故事與視覺決策：
+風格故事：[貼上整段]
+視覺決策清單：[一行一項，例如「主色 #2E7D32」「按鈕圓角 12」
+「內文 16／行高 1.6」「大量留白」]
 
-[貼上你的文案，一行一則，註明出現在哪個畫面]
+請幫我檢查：
+1. 哪些形容詞沒有對應到任何一項具體決策？
+2. 哪些決策我講不出是從哪個形容詞來的？
+3. 有沒有哪兩項決策互相矛盾（例如同時追求「輕巧」跟「資訊密集」）？
+4. 如果只留三項最能代表這個風格的決策，你會留哪三項？為什麼？
 
-請用下列標準逐條檢查，每一條指出通過或沒通過，沒通過的說明原因：
-
-錯誤訊息五要件：明確（指出哪裡有問題）、看得懂（沒有技術術語）、有禮貌（不指責使用者）、精準（不模糊帶過）、給下一步（說得出怎麼修）。
-
-空狀態三準則：有講清楚系統狀態、有教這個功能怎麼用、有給一條直達關鍵任務的路。
-
-另外請指出：哪幾則是「還沒有資料」的情況，哪幾則是「篩選找不到」的情況，兩者的文案是不是被寫成一樣了。
-
-不要幫我改寫，只要指出問題在哪。只能根據我提供的內容分析，不要自行補充不存在的資訊。</pre>
+把「明確缺少的」跟「你的推測」分開列。
+只能根據我提供的內容分析，不要自行補充不存在的資訊。</pre>
     </div>
 
-    <h3>③ 把課堂回饋整理成修正清單</h3>
+    <h3>③ 用完形原則與 Laws of UX 檢查風格板</h3>
     <div class="prompt">
-      <button class="copy-btn">複製</button>
-      <pre>以下是同學在設計檢核時給我的回饋原話：
+      <button class="copy-btn" type="button">複製</button>
+      <pre>以下是我風格板上的規格：
+色彩：[主色／輔助／語意／中性各階，附色碼]
+字體與字級：[貼上]
+間距與圓角：[基準單位、常用間距、圓角值]
+元件：[按鈕高度、輸入框高度、卡片內距]
 
-[逐條貼上回饋，盡量保留原句]
+請幫我檢查：
+1. 接近性：我設的間距階層，分得出「同一組」跟「不同組」嗎？
+2. 相似性：可點擊的元素有沒有共用一個可辨識的特徵？
+3. 連續性：我的對齊與間距，會把視線帶往我希望的順序嗎？
+4. 封閉性：圓角、框線、卡片有沒有哪裡「開口」開得太大，
+   讓人看不出那是一個完整的區塊？
+5. 共同區域：框線會不會用太多，或做出讓人不想往下捲的假底部？
+6. Fitts's Law：按鈕與輸入框的高度，在手機上夠好按嗎？
+7. Hick's Law：同一畫面上被同等強調的元素會不會太多？
+8. 對比度：請先依字級與字重判斷每一組文字適用 4.5:1 還是 3:1，
+   再標出哪幾組可能不及格，讓我實測。
 
-以下是我這個專題的設計目標與研究依據摘要：
+第 3、5、7 題如果光看規格判斷不了，請直接說「需要完整畫面才能判斷」，
+不要用猜的。
 
-[貼上 persona 一句話、主要痛點、核心任務]
+只能根據我提供的內容分析，不要自行補充不存在的資訊。</pre>
+    </div>
 
-請把每一則回饋整理成四欄的表格：
-1. 回饋原話（照抄，不要改寫）
-2. 這則回饋是在質疑哪一個設計目標或哪一段流程
-3. 如果要採用，具體要改哪裡
-4. 如果不採用，可以用哪一段研究依據來說明理由
-
-請不要替我決定改或不改，只要把兩邊的理由都列出來。只能根據我提供的內容分析，不要自行補充不存在的資訊。</pre>
+    <div class="callout warn">
+      <strong>使用界線：</strong>不要叫 AI 直接生一套配色或一張風格板。它給你的會是「這類產品通常長這樣」的平均值，跟你前面四個單元做的研究完全脫鉤——而風格板要被檢驗的，正好就是「你憑什麼這樣選」。AI 產出的東西，你答不出這一題。
     </div>
   </section>
 
-</div>
+</div><!-- /.article -->
 
 <div class="refs">
   <h2>參考資料</h2>
+  <h3 id="ui-component-refs">UI 元件與內容設計｜重要參考</h3>
   <ul>
-    <li><a href="https://www.nngroup.com/articles/empty-state-interface-design/" target="_blank" rel="noopener">Designing Empty States in Complex Applications: 3 Guidelines</a> — NN/g，第 2 節空狀態三條準則的出處。</li>
-    <li><a href="https://www.nngroup.com/articles/error-message-guidelines/" target="_blank" rel="noopener">Error-Message Guidelines</a> — NN/g，第 3 節錯誤訊息五要件的出處。</li>
-    <li><a href="https://www.nngroup.com/articles/errors-forms-design-guidelines/" target="_blank" rel="noopener">10 Design Guidelines for Reporting Errors in Forms</a> — NN/g，第 4 節十條準則的出處。</li>
-    <li><a href="https://www.nngroup.com/articles/response-times-3-important-limits/" target="_blank" rel="noopener">Response Times: The 3 Important Limits</a> — NN/g，第 5 節三個時間門檻的出處。</li>
-    <li><a href="https://www.nngroup.com/articles/progress-indicators/" target="_blank" rel="noopener">Progress Indicators Make a Slow System Less Insufferable</a> — NN/g，第 5 節進度指示三型別的出處。</li>
-    <li><a href="https://www.nngroup.com/articles/indicators-validations-notifications/" target="_blank" rel="noopener">Indicators, Validations, and Notifications</a> — NN/g，第 6 節的出處。</li>
-    <li><a href="https://www.nngroup.com/articles/wireflows/" target="_blank" rel="noopener">Wireflows: A UX Deliverable for Workflows and Apps</a> — NN/g，第 7 節 Wireflow 定義與四條準則的出處。</li>
-    <li><a href="https://www.nngroup.com/articles/design-critiques/" target="_blank" rel="noopener">Design Critiques: Encourage a Positive Culture to Improve Products</a> — NN/g，第 10 節的出處。</li>
-    <li><a href="https://www.nngroup.com/articles/after-design-critique/" target="_blank" rel="noopener">Closing the Loop: What to Do After a Design Critique Ends</a> — NN/g，第 11 節四步範本的出處。</li>
-    <li>本單元的中文來源整理：Unit_07/resources/guide.md。</li>
-    <li>第 7 節 Wireflow 的來源整理沿用 Unit_06/resources/guide.md 第 1 節。</li>
+    <li><a href="https://spiny-cheese-0b2.notion.site/e7e379c1c6814148906e17a8bbd0e9ff" target="_blank" rel="noopener">好的設計表單與按鈕</a> — 按鈕層級、即時回饋、欄位分組與表單檢核原則。</li>
+    <li><a href="https://spiny-cheese-0b2.notion.site/678dcf6e6cb6462392a44f80333795af" target="_blank" rel="noopener">導覽列的設計</a> — 導覽可見性、當前位置、麵包屑與分頁。</li>
+    <li><a href="https://spiny-cheese-0b2.notion.site/41c4e8daa2bd45009b61a88296ba378b" target="_blank" rel="noopener">圖卡的設計</a> — 圖卡結構、資訊層級、網格、內容長度與互動狀態。</li>
+    <li><a href="https://spiny-cheese-0b2.notion.site/e5b6a66d1e7e4c8c84d3f7090aea3c8d" target="_blank" rel="noopener">內容設計</a> — 輪播、版型、表格、對話框與頁尾的設計檢核。</li>
+    <li><a href="https://spiny-cheese-0b2.notion.site/5838d84fa2074405b83f7345c4480e0b" target="_blank" rel="noopener">按鈕設計</a> — 按鈕用途、文字、可點範圍與常見狀態。</li>
+    <li><a href="https://spiny-cheese-0b2.notion.site/fcc0fa71afe647258576c11e0640f56e" target="_blank" rel="noopener">表單設計</a> — 表單控制項、標籤、錯誤訊息與操作按鈕。</li>
+  </ul>
+  <h3>設計靈感與工具</h3>
+  <ul>
+    <li><a href="https://webdesignclip.com/" target="_blank" rel="noopener">Web Design Clip</a> — 日本網站設計案例庫，適合找視覺風格、版面與分類案例。</li>
+    <li><a href="https://responsive-jp.com/" target="_blank" rel="noopener">Responsive Web Design JP</a> — 日本響應式網站案例，可觀察桌機與手機版面如何轉換。</li>
+    <li><a href="https://colorhunt.co/" target="_blank" rel="noopener">Color Hunt</a> — 配色靈感與色票收藏，適合做風格板初步色彩探索。</li>
+    <li><a href="https://materialui.co/" target="_blank" rel="noopener">Material UI Colors</a> — Material / Flat color palette 與色彩素材。</li>
+    <li><a href="https://hao.uisdc.com/" target="_blank" rel="noopener">優設導航</a> — 設計資源入口，含靈感、工具、素材與文章。</li>
+    <li><a href="https://designsystemsrepo.com/" target="_blank" rel="noopener">Design Systems Repo</a> — 設計系統案例、文章、工具與資源集合。</li>
+    <li><a href="https://ant.design/index-cn/" target="_blank" rel="noopener">Ant Design</a> — 企業級 UI 設計語言與 React 元件庫，可參考元件規範與設計原則的寫法。</li>
+  </ul>
+  <h3>概念與官方文件</h3>
+  <ul>
+    <li><a href="https://alistapart.com/article/style-tiles-and-how-they-work/" target="_blank" rel="noopener">Style Tiles and How They Work</a> — A List Apart，Samantha Warren，Style Tile 的定義、訪談流程與為什麼做兩三版。</li>
+    <li><a href="https://styletil.es/" target="_blank" rel="noopener">Style Tiles</a> — Style Tile 官方網站與範本下載。</li>
+    <li><a href="https://www.nngroup.com/articles/gestalt-proximity/" target="_blank" rel="noopener">Proximity Principle in Visual Design</a> — NN/g，接近性與分組。</li>
+    <li><a href="https://www.nngroup.com/articles/gestalt-similarity/" target="_blank" rel="noopener">Similarity Principle in Visual Design</a> — NN/g，相似性。</li>
+    <li><a href="https://www.nngroup.com/articles/principle-closure/" target="_blank" rel="noopener">Principle of Closure in Visual Design</a> — NN/g，封閉性。</li>
+    <li><a href="https://www.nngroup.com/articles/common-region/" target="_blank" rel="noopener">The Principle of Common Region: Containers Create Groupings</a> — NN/g，共同區域、它壓過其他原則的強度，以及假底部的警告。</li>
+    <li><a href="https://www.nngroup.com/videos/continuation-gestalt/" target="_blank" rel="noopener">Continuation: Gestalt Principle for User Interface Design</a> — NN/g，連續性。</li>
+    <li><a href="https://www.nngroup.com/articles/principles-visual-design/" target="_blank" rel="noopener">5 Principles of Visual Design in UX</a> — NN/g，比例、視覺階層、平衡、對比與完形。</li>
+    <li><a href="https://www.71next.com/userDoc/%e5%ae%8c%e5%bd%a2%e5%bf%83%e7%90%86%e5%ad%b8%ef%bc%88gestalt-psychology%ef%bc%89-%e5%a6%82%e4%bd%95%e5%a2%9e%e5%8a%a0%e8%a8%ad%e8%a8%88%e7%9a%84%e5%a5%bd%e6%84%9f%e5%ba%a6/" target="_blank" rel="noopener">完形心理學如何增加設計的好感度</a> — 71NEXT，中文說明接近性、相似性、封閉性、連續性、圖形與背景、共通命運等 UI 應用。</li>
+    <li><a href="https://lawsofux.com/" target="_blank" rel="noopener">Laws of UX</a> — 本單元四條定律的出處；各條的 takeaways 值得直接讀。</li>
+    <li><a href="https://www.71next.com/userDoc/category/ui/laws-of-ux/" target="_blank" rel="noopener">使用者介面定律 / Laws of UX</a> — 71NEXT，中文 Laws of UX 相關文章分類入口。</li>
+    <li><a href="https://lawsofux.com/millers-law/" target="_blank" rel="noopener">Miller's Law</a> — 特別注意第一條提醒：不要拿「神奇數字七」當設計限制的藉口。</li>
+    <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" target="_blank" rel="noopener">WCAG 2.2 — Contrast (Minimum)</a> — 4.5:1 與 3:1 的門檻與大型文字定義。</li>
+    <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" target="_blank" rel="noopener">WCAG 2.2 — Target Size (Minimum)</a> — 24×24 CSS px 與例外條款。</li>
+    <li><a href="https://developer.apple.com/design/human-interface-guidelines/accessibility" target="_blank" rel="noopener">Apple Human Interface Guidelines — Accessibility</a> — 44×44 pt 可點擊區域建議。</li>
+    <li><a href="https://m3.material.io/foundations/layout/grids-spacing/spacing" target="_blank" rel="noopener">Material Design 3 — Grids &amp; spacing</a> — 網格與間距系統的完整範例。</li>
+    <li><a href="https://www.nngroup.com/articles/design-systems-101/" target="_blank" rel="noopener">Design Systems 101</a> — NN/g，設計系統的定義、Style Guide／元件庫／模式庫的差別，以及維護成本。</li>
+    <li><a href="https://www.figma.com/resource-library/design-tokens/" target="_blank" rel="noopener">Design Tokens: How to Sync Design and Code in Figma</a> — Figma，Token 的定義、Variables 與 Modes 的關係、Styles 與 Variables 的取捨。</li>
+    <li><a href="https://help.figma.com/hc/en-us/articles/360038662654-Guide-to-components-in-Figma" target="_blank" rel="noopener">Guide to components in Figma</a> — Figma 官方文件，主元件與實例、覆寫與重設。</li>
+    <li><a href="https://help.figma.com/hc/en-us/articles/360056440594-Create-and-use-variants" target="_blank" rel="noopener">Create and use variants</a> — Figma 官方文件，變體屬性與值的設定原則。</li>
+    <li><a href="https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables" target="_blank" rel="noopener">Modes for variables</a> — Figma 官方文件，模式切換與深色模式。</li>
   </ul>
 </div>
 
 <div class="foot-nav">
-  <a href="slides.html">回到 Unit 07 簡報</a>
-  <a href="exercises.html#ex1">開啟課堂練習</a>
-  <a href="exercises.html#hw">開啟回家作業</a>
-  <a href="https://www.figma.com/design/X0nEWewUts2YSRElqN6dE3" target="_blank" rel="noopener">課堂範本檔</a>
+  <a href="slides.html">回到 Unit 08 簡報</a>
+  <a href="#ui-component-refs">UI 元件與內容設計｜重要</a>
+  <a href="https://lawsofux.com/" target="_blank" rel="noopener">Laws of UX</a>
+  <a href="https://styletil.es/" target="_blank" rel="noopener">Style Tiles 範本</a>
   <a href="../Unit_06/article.html">Unit 06 講義：Flowchart 到 Wireframe</a>
-  <a href="https://www.figma.com/design/XKrTQ38VaU4PZeuwT0uocp/Wireframe_Web_UI_Kit-%E5%88%87%E7%89%88%E7%9A%84100%E7%A8%AE%E7%B7%B4%E7%BF%92?node-id=0-1" target="_blank" rel="noopener">線框元件庫</a>
   <a href="../index.html">回到課程總覽</a>
 </div>
 
@@ -1018,6 +1314,7 @@ tr:last-child td { border-bottom: none; }
   document.querySelectorAll('.prompt').forEach(prompt => {
     const btn = prompt.querySelector('.copy-btn');
     const pre = prompt.querySelector('pre');
+    if (!btn || !pre) return;
     btn.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(pre.innerText);
@@ -1034,5 +1331,6 @@ tr:last-child td { border-bottom: none; }
   });
 })();
 </script>
+<script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
 </body>
 </html>

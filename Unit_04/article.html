@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>產品設計流程 · 完整教材 · Unit 04</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #fbfbfd;
+  --dark: #1d1d1f;
+  --muted: #6e6e73;
+  --accent: #0066cc;
+  --accent2: #0f766e;
+  --accent3: #c2410c;
+  --surface: #f5f5f7;
+  --border: #d2d2d7;
+  --code-bg: #1d1d1f;
+  --max-w: 760px;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang TC", sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+  padding: 0 24px 96px;
+  line-height: 1.75;
+}
+
+#prog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: var(--accent);
+  z-index: 200;
+}
+
+.topbar {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 24px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: .04em;
+}
+.back-link:hover { opacity: .75; }
+.back-link::before { content: '←'; }
+.unit-pill {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.09);
+  padding: 4px 11px;
+  border-radius: 8px;
+}
+
+.hero {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 56px 0 40px;
+  border-bottom: 1px solid var(--border);
+}
+.overline {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 18px;
+}
+.hero .lead { font-size: 1.05rem; color: var(--muted); line-height: 1.75; }
+.hero .meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+  font-size: 12px;
+  color: var(--muted);
+  align-items: center;
+}
+.hero .meta .d { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
+
+.toc {
+  max-width: var(--max-w);
+  margin: 36px auto 0;
+  padding: 26px 30px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.toc h2 {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.toc ol { list-style: none; counter-reset: toc; columns: 2; column-gap: 32px; }
+.toc li { counter-increment: toc; margin-bottom: 10px; break-inside: avoid; }
+.toc a { font-size: .92rem; color: var(--dark); text-decoration: none; display: flex; gap: 10px; }
+.toc a:hover { color: var(--accent); }
+.toc a::before {
+  content: counter(toc, decimal-leading-zero);
+  font-size: .72rem;
+  font-weight: 800;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  padding-top: 3px;
+}
+
+.article { max-width: var(--max-w); margin: 0 auto; }
+.section { padding-top: 56px; }
+.sec-num {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+h2.sec-title {
+  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+  font-weight: 800;
+  line-height: 1.22;
+  margin-bottom: 20px;
+}
+h3 {
+  font-size: clamp(1.05rem, 2.2vw, 1.28rem);
+  font-weight: 800;
+  margin: 32px 0 12px;
+}
+p { font-size: 1rem; color: #2c2c2e; margin-bottom: 16px; }
+strong { font-weight: 800; color: var(--dark); }
+em {
+  font-style: normal;
+  background: rgba(0,102,204,.09);
+  color: var(--accent);
+  padding: 1px 6px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+.hl { color: var(--accent); font-weight: 800; }
+.hl2 { color: var(--accent2); font-weight: 800; }
+.bad { color: var(--accent3); font-weight: 800; }
+code {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .88em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+
+.fig { margin: 24px 0; }
+.fig img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.fig figcaption {
+  margin-top: 10px;
+  font-size: .88rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+ul.bullets, ol.steps { margin: 4px 0 20px; padding-left: 0; list-style: none; }
+ul.bullets li, ol.steps li {
+  font-size: 1rem;
+  color: #2c2c2e;
+  line-height: 1.7;
+  margin-bottom: 12px;
+  padding-left: 26px;
+  position: relative;
+}
+ul.bullets li::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: .65em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+ol.steps { counter-reset: step; }
+ol.steps li { counter-increment: step; padding-left: 38px; }
+ol.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0,102,204,.1);
+  color: var(--accent);
+  font-size: .78rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.callout {
+  margin: 24px 0;
+  padding: 18px 20px;
+  background: rgba(0,102,204,.05);
+  border: 1px solid rgba(0,102,204,.16);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  font-size: .95rem;
+  line-height: 1.7;
+  color: var(--dark);
+}
+.callout.green {
+  background: rgba(15,118,110,.06);
+  border-color: rgba(15,118,110,.2);
+  border-left-color: var(--accent2);
+}
+.callout.warn {
+  background: rgba(194,65,12,.06);
+  border-color: rgba(194,65,12,.2);
+  border-left-color: var(--accent3);
+}
+
+.tbl-wrap { overflow-x: auto; margin: 24px 0; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font-size: .94rem; min-width: 560px; }
+th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.06);
+  border-bottom: 2px solid var(--border);
+}
+th:first-child { color: var(--muted); background: transparent; }
+td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+  color: #2c2c2e;
+  line-height: 1.6;
+  vertical-align: top;
+}
+td:first-child { font-weight: 800; color: var(--muted); font-size: .9em; white-space: nowrap; }
+tr:last-child td { border-bottom: none; }
+
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 22px 0; }
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+}
+.card h3 { margin: 0 0 8px; font-size: 1rem; }
+.card p { margin: 0; font-size: .93rem; color: var(--muted); line-height: 1.65; }
+
+.tree, .dia {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 22px;
+  margin: 22px 0;
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .82rem;
+  line-height: 1.9;
+  color: #2c2c2e;
+  white-space: pre;
+  overflow-x: auto;
+}
+.tree .n1 { color: var(--accent); font-weight: 700; }
+.tree .cm { color: var(--muted); }
+.dia .n { color: var(--accent); font-weight: 700; }
+.dia .d { color: var(--accent2); font-weight: 700; }
+.dia .x { color: var(--accent3); font-weight: 700; }
+.dia .c { color: var(--muted); }
+
+.prompt {
+  position: relative;
+  background: var(--code-bg);
+  border-radius: 8px;
+  padding: 22px 22px 24px;
+  margin: 18px 0 26px;
+}
+.prompt pre {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .8rem;
+  line-height: 1.75;
+  color: #e8e8ed;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #c7c7cc;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+  padding: 5px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.copy-btn:hover { background: rgba(255,255,255,.16); color: #fff; }
+.copy-btn.done { color: #30d158; border-color: rgba(48,209,88,.45); }
+
+/* ── 互動範例彈窗（共用） ─────────────── */
+.demo-launch {
+  display: flex; align-items: center; gap: 14px;
+  width: 100%; margin: 26px 0; padding: 18px 22px;
+  background: rgba(0,102,204,.05);
+  border: 1px solid rgba(0,102,204,.2);
+  border-radius: 8px; cursor: pointer; text-align: left;
+  font-family: inherit;
+  transition: background .2s, border-color .2s;
+}
+.demo-launch:hover { background: rgba(0,102,204,.1); border-color: var(--accent); }
+.demo-launch .dl-icon {
+  flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  display: grid; place-items: center; font-size: 14px;
+}
+.demo-launch b { display: block; font-size: 1rem; color: var(--dark); margin-bottom: 2px; }
+.demo-launch .dl-text > span { display: block; font-size: .88rem; color: var(--muted); line-height: 1.5; }
+
+#demo-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(0,0,0,.55);
+  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+  opacity: 0; visibility: hidden;
+  transition: opacity .25s ease, visibility 0s .25s;
+}
+#demo-overlay.open { opacity: 1; visibility: visible; transition: opacity .25s ease; }
+.demo-modal {
+  background: #fff; border-radius: 12px;
+  max-width: 640px; width: 100%; max-height: 86vh; overflow-y: auto;
+  padding: 34px 36px 30px; position: relative;
+  transform: translateY(14px) scale(.98);
+  transition: transform .25s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 24px 60px rgba(0,0,0,.3);
+}
+#demo-overlay.open .demo-modal { transform: none; }
+.demo-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 32px; height: 32px; border: none; border-radius: 50%;
+  background: var(--surface); color: var(--dark);
+  font-size: 17px; cursor: pointer; display: grid; place-items: center;
+}
+.demo-close:hover { background: #e8e8ed; }
+.d-tag {
+  font-size: 11px; font-weight: 800; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+}
+.demo-modal h3 { font-size: 1.35rem; margin: 0 0 8px; }
+
+.d-task {
+  margin: 16px 0 18px; padding: 14px 16px;
+  background: rgba(15,118,110,.07);
+  border-left: 4px solid var(--accent2);
+  border-radius: 0 8px 8px 0;
+  font-size: .95rem; line-height: 1.7;
+}
+.d-crumb { font-size: .82rem; color: var(--muted); margin-bottom: 10px; min-height: 1.2em; }
+.d-crumb b { color: var(--accent); font-weight: 700; }
+.d-list { list-style: none; margin: 0 0 14px; padding: 0; }
+.d-list li { margin: 0 0 8px; }
+.d-list button {
+  width: 100%; text-align: left; padding: 13px 16px;
+  font-family: inherit; font-size: .96rem; color: var(--dark);
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 8px; cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.d-list button:hover { border-color: var(--accent); background: rgba(0,102,204,.04); }
+.d-list button:disabled { opacity: .45; cursor: default; }
+.d-list button .d-arrow { float: right; color: var(--muted); font-size: .85rem; }
+.d-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+.d-btn {
+  font-family: inherit; font-size: .85rem; font-weight: 700;
+  padding: 9px 16px; border-radius: 8px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--surface); color: var(--dark);
+}
+.d-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.d-verdict {
+  padding: 16px 18px; border-radius: 8px; margin-bottom: 16px;
+  font-size: .95rem; line-height: 1.7;
+}
+.d-verdict.ok { background: rgba(15,118,110,.08); border: 1px solid rgba(15,118,110,.25); }
+.d-verdict.no { background: rgba(194,65,12,.07); border: 1px solid rgba(194,65,12,.25); }
+.d-verdict b { display: block; margin-bottom: 6px; font-size: 1.02rem; }
+.d-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0 18px; }
+.d-stat { border: 1px solid var(--border); border-radius: 8px; padding: 12px 10px; text-align: center; }
+.d-stat b { display: block; font-size: 1.5rem; color: var(--accent); line-height: 1.1; }
+.d-stat span { display: block; font-size: .74rem; color: var(--muted); margin-top: 5px; line-height: 1.4; }
+.d-note {
+  font-size: .9rem; line-height: 1.7; color: #2c2c2e;
+  background: var(--surface); border-radius: 8px;
+  padding: 14px 16px; margin-bottom: 16px;
+}
+.d-progress { font-size: .8rem; color: var(--muted); margin-bottom: 12px; }
+
+/* 卡片分類互動 */
+.d-cards { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 16px; }
+.d-card {
+  font-family: inherit; font-size: .88rem;
+  padding: 8px 13px; border-radius: 6px; cursor: pointer;
+  background: #fff8dd; border: 1px solid #e6d38a; color: var(--dark);
+}
+.d-card.sel { background: var(--accent); border-color: var(--accent); color: #fff; }
+.d-card.done { opacity: .35; cursor: default; }
+.d-bins { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
+.d-bin {
+  font-family: inherit; text-align: left;
+  padding: 11px 13px; border-radius: 8px; cursor: pointer;
+  background: #fff; border: 1px solid var(--border);
+}
+.d-bin:hover { border-color: var(--accent); }
+.d-bin b { display: block; font-size: .92rem; margin-bottom: 3px; }
+.d-bin span { display: block; font-size: .76rem; color: var(--muted); line-height: 1.45; min-height: 1.4em; }
+.d-rows { margin: 4px 0 16px; }
+.d-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 0; border-bottom: 1px solid var(--border); font-size: .88rem;
+}
+.d-row:last-child { border-bottom: 0; }
+.d-row .r-name { min-width: 96px; font-weight: 700; }
+.d-row .r-bar { flex: 1; height: 8px; background: var(--surface); border-radius: 4px; overflow: hidden; }
+.d-row .r-bar i { display: block; height: 100%; background: var(--accent); }
+.d-row.low .r-bar i { background: var(--accent3); }
+.d-row .r-num { min-width: 52px; text-align: right; color: var(--muted); font-size: .82rem; }
+
+@media (max-width: 560px) {
+  .demo-modal { padding: 28px 20px 24px; }
+  .d-stats, .d-bins { grid-template-columns: 1fr; }
+}
+
+.refs {
+  max-width: var(--max-w);
+  margin: 64px auto 0;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.refs h2 {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.refs ul { list-style: none; }
+.refs li {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 10px;
+  padding-left: 18px;
+  position: relative;
+}
+.refs li::before { content: '-'; position: absolute; left: 0; color: var(--border); }
+.refs a { color: var(--accent); text-decoration: none; }
+.refs a:hover { text-decoration: underline; }
+
+.foot-nav {
+  max-width: var(--max-w);
+  margin: 48px auto 0;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.foot-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  border: 1px solid rgba(0,102,204,.18);
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.foot-nav a:hover { background: rgba(0,102,204,.14); }
+.foot-nav a::after { content: '↗'; font-size: 11px; opacity: .8; }
+
+.side-nav {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: calc(50% - (var(--max-w) / 2) - 258px);
+  transform: translateY(-50%);
+  width: 220px;
+  max-height: 72vh;
+  overflow-y: auto;
+  z-index: 150;
+}
+.side-nav-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+  padding-left: 15px;
+}
+.side-nav ol { list-style: none; counter-reset: sidenav; border-left: 2px solid var(--border); }
+.side-nav li { counter-increment: sidenav; }
+.side-nav a {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: .82rem;
+  line-height: 1.45;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 7px 0 7px 15px;
+  margin-left: -2px;
+  border-left: 2px solid transparent;
+  transition: color .15s, border-color .15s;
+}
+.side-nav a::before {
+  content: counter(sidenav, decimal-leading-zero);
+  font-size: .68rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--border);
+  flex-shrink: 0;
+}
+.side-nav a:hover { color: var(--dark); }
+.side-nav a.active { color: var(--accent); font-weight: 700; border-left-color: var(--accent); }
+.side-nav a.active::before { color: var(--accent); }
+
+@media (min-width: 1400px) { .side-nav { display: block; } }
+
+@media (max-width: 768px) {
+  body { padding-left: 18px; padding-right: 18px; }
+  .toc ol { columns: 1; }
+  .cards { grid-template-columns: 1fr; }
+  .hero { padding: 40px 0 32px; }
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<nav class="side-nav" aria-label="大綱導覽">
+  <p class="side-nav-label">大綱</p>
+  <ol>
+    <li><a href="#s1">什麼是資訊架構？</a></li>
+    <li><a href="#s2">IA、導覽與 Sitemap</a></li>
+    <li><a href="#s3">使用者怎麼找資訊</a></li>
+    <li><a href="#s4">組織結構的取捨</a></li>
+    <li><a href="#s5">導覽設計</a></li>
+    <li><a href="#s6">從洞察到功能清單</a></li>
+    <li><a href="#s7">Functional Map</a></li>
+    <li><a href="#s8">卡片分類法</a></li>
+    <li><a href="#s9">樹狀測試</a></li>
+    <li><a href="#s10">內容模型</a></li>
+    <li><a href="#s11">命名與標籤</a></li>
+    <li><a href="#s12">IA 圖製作</a></li>
+    <li><a href="#s13">先把四個詞分開</a></li>
+    <li><a href="#s14">什麼時候用哪一種</a></li>
+    <li><a href="#s15">Flowchart 怎麼畫</a></li>
+    <li><a href="#s16">例外路徑</a></li>
+    <li><a href="#s17">從 IA 到 Flow</a></li>
+    <li><a href="#s18">Wireframe 在回答什麼</a></li>
+    <li><a href="#s19">保真度</a></li>
+    <li><a href="#s20">Wireframe 的內容</a></li>
+    <li><a href="#s21">Auto Layout</a></li>
+    <li><a href="#s22">Constraints</a></li>
+    <li><a href="#s23">課堂練習與作業</a></li>
+    <li><a href="#s24">AI 協作提示詞</a></li>
+  </ol>
+</nav>
+
+<div class="topbar">
+  <a class="back-link" href="slides.html">回到投影片</a>
+  <span class="unit-pill">Unit 04</span>
+</div>
+
+<div class="hero">
+  <p class="overline">Design Process · 完整教材</p>
+  <h1>產品設計流程</h1>
+  <p class="lead">研究資料如果沒有整理成結構，就無法進入介面設計。這份講義帶你走完一條完整的路：把 Persona、競品分析與旅程地圖的洞察轉成功能清單，用資訊架構決定內容怎麼分組、命名與導覽，再用卡片分類法找出使用者真正的心智模型，產出 IA 圖；接著把 IA 圖上的核心路徑畫成 Flowchart，補齊使用者一定會遇到的例外狀況，最後畫出第一批低保真 Wireframe，並用 Figma Auto Layout 建立不會一改就垮的版面骨架。</p>
+  <div class="meta">
+    <span>閱讀時間約 35 分鐘</span><span class="d"></span>
+    <span>搭配 Unit 04 投影片</span><span class="d"></span>
+    <span>含課堂練習、回家作業與 AI 提示詞</span>
+  </div>
+  <div class="callout warn" style="margin-top:24px">
+    <strong>合併單元說明：</strong>本單元整合了「產品結構與資訊架構」與「Flowchart 到 Wireframe」兩個舊單元的教材於一場 3 小時的課。原本兩堂課各自有完整的 80–95 分鐘課堂實作，合併後第 23 節的課堂練習已壓縮成一套 40 分鐘的精簡流程——這是<em>第一版草稿</em>的時間安排，實際教學時請依班級狀況再調整。
+  </div>
+</div>
+
+<div class="toc">
+  <h2>目錄</h2>
+  <ol>
+    <li><a href="#s1">什麼是資訊架構？</a></li>
+    <li><a href="#s2">IA、導覽與 Sitemap 的差異</a></li>
+    <li><a href="#s3">使用者怎麼找資訊</a></li>
+    <li><a href="#s4">組織結構的取捨</a></li>
+    <li><a href="#s5">導覽設計：把 IA 變成看得到的東西</a></li>
+    <li><a href="#s6">從研究洞察到功能清單</a></li>
+    <li><a href="#s7">Functional Map：核心路徑與邊緣案例</a></li>
+    <li><a href="#s8">卡片分類法</a></li>
+    <li><a href="#s9">樹狀測試：驗證你的分類</a></li>
+    <li><a href="#s10">內容模型</a></li>
+    <li><a href="#s11">命名與標籤：4 個 S</a></li>
+    <li><a href="#s12">IA 圖與 Sitemap 製作</a></li>
+    <li><a href="#s13">先把四個詞分開</a></li>
+    <li><a href="#s14">什麼時候用哪一種</a></li>
+    <li><a href="#s15">Flowchart 怎麼畫</a></li>
+    <li><a href="#s16">你一定會漏掉的例外路徑</a></li>
+    <li><a href="#s17">從 IA 圖轉成 Flow</a></li>
+    <li><a href="#s18">Wireframe 在回答什麼問題</a></li>
+    <li><a href="#s19">保真度：三個可以分開調的維度</a></li>
+    <li><a href="#s20">Wireframe 上該放什麼</a></li>
+    <li><a href="#s21">Figma Auto Layout</a></li>
+    <li><a href="#s22">Constraints 與 Auto Layout 的分工</a></li>
+    <li><a href="#s23">課堂練習與回家作業</a></li>
+    <li><a href="#s24">AI 協作提示詞</a></li>
+  </ol>
+</div>
+
+<div class="article">
+
+  <section class="section" id="s1">
+    <p class="sec-num">01</p>
+    <h2 class="sec-title">什麼是資訊架構？</h2>
+    <p>資訊架構（Information Architecture, IA）是決定<strong>內容與功能如何被組織、命名與連結</strong>的實務。它是產品的資訊骨幹：使用者看不到它，但每一次「我該點哪裡」的判斷，都被它決定。</p>
+    <p>做 IA 的時候，你其實在回答四個問題：</p>
+    <ul class="bullets">
+      <li><strong>組織：</strong>這些內容要分成哪幾群？依主題、依任務、依對象、還是依時間？</li>
+      <li><strong>命名：</strong>每一群要叫什麼？這個名字使用者看得懂嗎？</li>
+      <li><strong>關係：</strong>誰是誰的上層？哪些內容需要跨分類交叉連結？</li>
+      <li><strong>尋找：</strong>使用者要靠導覽、搜尋、篩選還是推薦抵達？</li>
+    </ul>
+    <p>對課程專題來說，IA 的價值很直接：<em>先把結構確定，Wireframe 才不用一直重畫</em>。每次改導覽、改分類、改頁面關係，畫面都得跟著改一次。這也是為什麼 IA 排在畫 Flowchart 與 Wireframe 之前——本單元的後半段就是接著把 IA 圖變成 Flow 與畫面。</p>
+    <div class="callout">
+      <strong>這堂課在整條研究鏈的位置：</strong><br>
+Unit 02 AI 輔助訪談與分析（含競品分析、Persona、使用者旅程地圖） → <span class="hl">本單元（Unit 04）：功能清單、資訊架構、Flowchart、Wireframe</span> → Unit 05 產品設計基本元素 → Unit 07 UI 設計定律與視覺心理學 → Unit 09 Design System。
+    </div>
+  </section>
+
+  <section class="section" id="s2">
+    <p class="sec-num">02</p>
+    <h2 class="sec-title">IA、導覽與 Sitemap 的差異</h2>
+    <p>這三個詞在討論中最常被混用，但它們處在不同層次。搞混會讓團隊討論一直卡住——有人在講後台的資料結構，有人在講首頁選單要放幾個字。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>名詞</th><th>它是什麼</th><th>位置</th><th>典型產出</th></tr></thead>
+        <tbody>
+          <tr><td>資訊架構 IA</td><td>底層的內容組織邏輯與命名規則，是持續維護的一整套實務。</td><td>看不見，在結構層。</td><td>分類原則、命名規範、內容模型。</td></tr>
+          <tr><td>導覽 Navigation</td><td>把 IA 呈現給使用者的一組 UI 元件，目標是幫使用者找到內容並鼓勵行動。</td><td>看得見，在介面層。</td><td>主選單、側欄、麵包屑、頁尾。</td></tr>
+          <tr><td>網站地圖 Sitemap</td><td>用節點與線條把結構畫出來的視覺文件，是 IA 的一個切片。</td><td>設計文件，不是產品。</td><td>Figma／FigJam 結構圖。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>NN/g 說得很直接：<strong>A sitemap is only one part of the site's information architecture.</strong> 畫完一張漂亮的 Sitemap，不代表 IA 做完了——Sitemap 刻意省略了命名規範、UI 元件（搜尋、麵包屑、分頁）與後台的分類規則。</p>
+
+    <h3>資訊架構的三個關鍵模型</h3>
+    <p>要特別注意：<strong>Sitemap 不是這三個模型之一</strong>。NN/g 影片講的三個模型是<em>底層 IA 結構</em>、<em>分類法 Taxonomy</em> 與<em>導覽 Navigation</em>——它們是描述同一個產品結構的三種互補視角，Sitemap 只是把其中的底層結構畫出來的一張文件。這三個模型是回家作業的分析框架，請務必看懂：</p>
+    <div class="cards">
+      <div class="card">
+        <h3>① 底層 IA 結構</h3>
+        <p>內容之間真正的層級與關係，是整個產品的資訊骨幹。使用者接觸不到它，但每個導覽決策都源自它。</p>
+      </div>
+      <div class="card">
+        <h3>② 分類法 Taxonomy</h3>
+        <p>一套正式的分類與命名規則：類別、標籤、屬性、受控詞彙與 facet（可組合的篩選維度）。它讓內容能被一致地檢索與重組。它有幕後的一面（後台 metadata），也有台前的一面（篩選器、標籤列）。</p>
+      </div>
+      <div class="card">
+        <h3>③ 導覽 Navigation</h3>
+        <p>使用者實際接觸的 UI 元件。它是 IA 的呈現方式，而且只會露出結構的一部分——沒露出的不代表不存在。</p>
+      </div>
+      <div class="card">
+        <h3>為什麼要分開看</h3>
+        <p>同一套底層結構可以有很多種導覽呈現；同一個導覽項目背後可能對應好幾組分類法規則。分開看，才知道問題出在哪一層。</p>
+      </div>
+    </div>
+    <div class="callout green">
+      <strong>指定影片：</strong>Information Architecture — 3 Key Models（NN/g，約 5 分鐘）。<a href="https://www.youtube.com/watch?v=v39z0JPeIc8" target="_blank" rel="noopener">https://www.youtube.com/watch?v=v39z0JPeIc8</a><br>
+      回家作業會要求你用這三個模型去拆解一個真實網站，請先看完再動手。
+    </div>
+
+    <h3>一個具體例子</h3>
+    <p>以電商網站為例：商品其實同時屬於「女裝 → 上衣 → 針織衫」（底層結構），也帶有「顏色＝米白、材質＝羊毛、季節＝秋冬、價格帶＝1000–2000」等屬性（分類法）。而主選單上只露出「女裝」「男裝」「配件」三個入口（導覽），左側篩選器則是分類法的可視化。三層都在，只是使用者只看得到後兩層的一部分。</p>
+
+    <h3>分類法為什麼能補 Sitemap 的不足</h3>
+    <p>Sitemap 通常畫成一棵樹，一個節點預設只掛在一個地方，需要多重層級的項目才會額外標注交叉連結，不容易一眼看出。但真實世界的內容常常同時屬於好幾個維度——一件商品同時是「羊毛的」「秋冬的」「米白的」「1000–2000 元的」。這些維度沒辦法用一棵樹表達，這就是分類法登場的時機。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>元素</th><th>意思</th><th>電商的例子</th></tr></thead>
+        <tbody>
+          <tr><td>類別</td><td>樹狀的階層分類，通常對應導覽。</td><td>女裝 → 上衣 → 針織衫</td></tr>
+          <tr><td>Facet</td><td>可自由組合的篩選維度，彼此獨立。</td><td>顏色 × 材質 × 價格帶 × 尺寸</td></tr>
+          <tr><td>受控詞彙</td><td>某個欄位只能填的固定選項清單，避免同義詞亂長。</td><td>顏色只能是「米白／杏色／象牙白」擇一，不能自由填寫</td></tr>
+          <tr><td>同義詞對照</td><td>把使用者的說法對應到系統的正式用語。</td><td>使用者搜「毛衣」→ 對應到「針織衫」</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout green">
+      <strong>實務判斷：</strong>當你發現「這個東西該放哪一類」怎麼想都不對，通常代表它不該用階層解決，而該用 facet。與其在樹上多開一個分類，不如加一個篩選維度。
+    </div>
+  </section>
+
+  <section class="section" id="s3">
+    <p class="sec-num">03</p>
+    <h2 class="sec-title">使用者怎麼找資訊</h2>
+
+    <h3>可尋性 vs. 可發現性</h3>
+    <p>這兩件事需要完全不同的設計手法，混在一起談會做出錯的決定。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>面向</th><th>可尋性 Findability</th><th>可發現性 Discoverability</th></tr></thead>
+        <tbody>
+          <tr><td>使用者狀態</td><td>已經知道自己要什麼。</td><td>不知道這個功能／內容存在。</td></tr>
+          <tr><td>對應設計</td><td>清楚的分類與標籤、搜尋、篩選、麵包屑。</td><td>首頁曝光、引導、空狀態提示、推薦、新功能提示。</td></tr>
+          <tr><td>檢驗方式</td><td>樹狀測試、任務式可用性測試。</td><td>觀察是否從來沒有人點過那個入口。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <strong>常見誤判：</strong>「使用者找不到 → 加一個搜尋框就好。」如果問題是可發現性，加搜尋框完全沒用——使用者根本不知道要搜什麼關鍵字。
+    </div>
+
+    <h3>資訊氣味（Information Scent）</h3>
+    <p>使用者不會讀完整頁再決定，而是像動物覓食一樣「順著氣味走」：從連結文字判斷「點下去會不會離我的目標更近」。</p>
+    <ul class="bullets">
+      <li><strong>氣味強：</strong>連結文字直接對應使用者心中的目標詞，例如「退貨與換貨」。</li>
+      <li><strong>氣味弱：</strong>模糊或行銷式用語，例如「服務中心」「了解更多」「探索」。</li>
+      <li><strong>氣味斷掉：</strong>點進去的內容與連結文字不符，使用者會退回，並且從此不信任這一區。</li>
+    </ul>
+    <p>這帶出一個重要的實務含意：<strong>導覽的用字不是文案問題，是架構問題</strong>。命名錯了，結構再乾淨也沒有用。</p>
+
+    <h3>「三次點擊原則」是假的</h3>
+    <p>「任何頁面都不應該超過三次點擊才能到達」是流傳最廣的 IA 迷思。研究顯示，使用者放棄與否跟點擊次數沒有直接關係——只要每一步都確定自己走對方向，多點幾次也願意。</p>
+    <p>真正要避免的不是「點很多次」，而是<strong>「點下去才發現走錯，要退回重來」</strong>。為了湊足三次而硬把分類壓扁，反而會造出一個選項爆炸、無法掃視的主選單。</p>
+  </section>
+
+  <section class="section" id="s4">
+    <p class="sec-num">04</p>
+    <h2 class="sec-title">組織結構的取捨</h2>
+
+    <h3>扁平 vs. 深層</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>結構</th><th>特徵</th><th>優點</th><th>風險</th></tr></thead>
+        <tbody>
+          <tr><td>扁平 Flat</td><td>層級少（1–2 層），每層選項多。</td><td>點擊次數少，內容一眼看得到，容易被發現。</td><td>單層選項爆炸、掃視成本高、難以擴充。</td></tr>
+          <tr><td>深層 Deep</td><td>層級多（3 層以上），每層選項少。</td><td>每個決策都簡單，分類乾淨，好擴充。</td><td>路徑長，中間層命名不清就會迷路。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>多數產品的答案是中間值：用<strong>巨型選單（Mega Menu）</strong>或<strong>左側垂直導覽</strong>，把深層結構在一個畫面裡攤開，既保有分類邏輯，又維持可掃視性。</p>
+
+    <h3>多重層級（Polyhierarchy）</h3>
+    <p>不是每個項目都只能屬於一個分類。「無線耳機」可以同時出現在「音訊配件」與「手機周邊」底下；「退貨政策」可以同時掛在「客服」與「訂單」之下。這種交叉列出的做法叫多重層級，能明顯提升模糊項目的可尋性。</p>
+    <div class="callout">
+      <strong>判斷時機：</strong>當卡片分類的結果顯示某張卡片<span class="hl">被不同人放進不同群組</span>，而且雙方的理由都合理時，那就是多重層級的訊號——不要硬選一邊。
+    </div>
+
+    <h3>邊緣分類項目</h3>
+    <p>總會有幾個項目哪一群都塞不進去。三種處理方式：一是<strong>放進最接近的分類並用交叉連結補強</strong>；二是<strong>調整分類定義</strong>讓它有地方去；三是誠實建立一個「其他」——但「其他」超過 3 項就代表你的分類邏輯需要重想。</p>
+
+    <h3>常見的 IA 錯誤</h3>
+    <ul class="bullets">
+      <li>用<span class="bad">公司內部組織架構</span>當分類，而不是使用者的心智模型。</li>
+      <li>用<span class="bad">受眾別</span>切主導覽（學生／教師／企業），使用者常不確定自己算哪一種。</li>
+      <li>分類名稱是<span class="bad">行銷詞或自創詞</span>，使用者從來沒聽過。</li>
+      <li>主導覽塞了<span class="bad">十幾個項目</span>，什麼都重要等於什麼都不重要。</li>
+      <li>分類彼此<span class="bad">語意重疊</span>（「服務」「解決方案」「產品」），使用者無法判斷差別。</li>
+      <li>只設計<span class="bad">理想路徑</span>，沒想過搜尋無結果、權限不足、資料為空的狀況。</li>
+    </ul>
+  </section>
+
+  <section class="section" id="s5">
+    <p class="sec-num">05</p>
+    <h2 class="sec-title">導覽設計：把 IA 變成看得到的東西</h2>
+    <p>IA 決定結構，導覽決定使用者看到結構的哪一部分、以什麼形式看到。這一節談的是把架構落地成介面時的常見選擇——不需要在這個階段全部做完，但畫 Wireframe 之前你必須知道有哪些選項。</p>
+
+    <h3>導覽不是只有主選單</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>類型</th><th>作用</th><th>常見位置</th></tr></thead>
+        <tbody>
+          <tr><td>全站導覽</td><td>露出主要分類，出現在每一頁，是使用者的定位基準。</td><td>頂部主選單、左側垂直導覽。</td></tr>
+          <tr><td>區域導覽</td><td>在使用者目前所在的區塊內，展示同層級的其他選項。</td><td>側欄子選單、分頁標籤。</td></tr>
+          <tr><td>工具導覽</td><td>與內容分類無關、但隨時要能用到的功能。</td><td>登入、購物車、語言切換、搜尋、客服。</td></tr>
+          <tr><td>情境導覽</td><td>依當下內容推薦的相關連結。</td><td>相關文章、你可能也喜歡、下一步。</td></tr>
+          <tr><td>頁尾導覽</td><td>低頻但必要的項目，以及使用者滑到底時的下一步。</td><td>條款、關於、聯絡、網站地圖。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>學生專題最常見的狀況，是只設計了全站導覽，然後在第二層之後就沒有任何導覽——使用者進去之後不知道旁邊還有什麼，也不知道怎麼回去。</p>
+
+    <h3>「有搜尋就不需要導覽」是錯的</h3>
+    <p>搜尋只服務「已經知道要找什麼、而且說得出關鍵字」的使用者。導覽則同時做兩件搜尋做不到的事：</p>
+    <ul class="bullets">
+      <li><strong>告訴使用者這裡有什麼。</strong>沒有導覽，使用者無從得知產品的範圍與能力——這是可發現性的問題。</li>
+      <li><strong>告訴使用者自己在哪裡。</strong>搜尋結果頁是一個沒有上下文的孤島，導覽提供的是位置感。</li>
+    </ul>
+    <p>所以<strong>不要廢除全站導覽</strong>。搜尋與導覽是互補的，不是替代關係。</p>
+
+    <h3>尋路與定向（Wayfinding）</h3>
+    <p>使用者在任何一頁都應該能回答三個問題：<em>我在哪裡</em>、<em>我還可以去哪裡</em>、<em>我怎麼回去</em>。</p>
+    <ul class="bullets">
+      <li><strong>「你在此處」指示：</strong>當前所在的導覽項目要有明顯的視覺標示。這是最常被忘記、成本卻最低的一件事。</li>
+      <li><strong>麵包屑：</strong>顯示從首頁到當前頁的層級路徑。層級 3 層以上、或使用者常從搜尋引擎直接進入內頁時特別必要。麵包屑是<strong>輔助</strong>，不能拿來取代主導覽。</li>
+      <li><strong>區域導覽：</strong>讓使用者看到「同一區還有哪些兄弟項目」，這是深層結構能不能被接受的關鍵。</li>
+    </ul>
+
+    <h3>桌機端常見模式</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>模式</th><th>什麼時候用</th><th>要注意</th></tr></thead>
+        <tbody>
+          <tr><td>巨型選單 Mega Menu</td><td>分類多、階層深，想讓使用者一眼看完全部選項。</td><td>要分組、要有標題，不能只是一長串連結。</td></tr>
+          <tr><td>左側垂直導覽</td><td>分類數量多或名稱長、未來還會增加。後台系統很常用。</td><td>佔水平空間；行動端需另一套方案。</td></tr>
+          <tr><td>置頂標頭</td><td>長頁面，希望導覽隨時可用。</td><td>高度要壓低，不要蓋掉太多內容。</td></tr>
+          <tr><td>頁尾</td><td>低頻但必要的連結；也是滑到底的使用者的下一步。</td><td>不是垃圾桶，仍要分組與命名。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <strong>桌機端要小心漢堡選單。</strong>研究顯示，把導覽藏在漢堡圖示後面會明顯降低使用率、拉長任務時間，也降低使用者對整體內容的認知。桌機有空間，就把導覽露出來。
+    </div>
+
+    <h3>行動端常見模式</h3>
+    <ul class="bullets">
+      <li><strong>底部標籤列（Tab Bar）：</strong>核心路徑 3–5 個時最有效，永遠可見、可發現性最高。</li>
+      <li><strong>漢堡選單：</strong>行動端空間有限，是常見的妥協——但只適合放次要與工具類項目，不要把核心路徑藏進去。</li>
+      <li><strong>手風琴（Accordion）子導覽：</strong>展開／收合多層分類。圖示的選擇會影響使用者知不知道它可以展開，用「＋／－」或「∨」這類明確的意象符號，不要只用箭頭。</li>
+    </ul>
+    <div class="callout">
+      <strong>對你的專題的意思：</strong>IA 圖畫完之後，先問一句「這個結構在手機上怎麼呈現？」如果答案是「全部塞進漢堡選單」，那通常代表第一層分類太多，該回頭調整結構，而不是靠導覽元件硬撐。
+    </div>
+  </section>
+
+  <section class="section" id="s6">
+    <p class="sec-num">06</p>
+    <h2 class="sec-title">從研究洞察到功能清單</h2>
+    <p>功能清單是 IA 的原料。做法的核心原則只有一句：<strong>每一個功能都要能回答「它服務誰的哪個需求，證據在哪裡」</strong>。沒有證據的功能不是不能做，但要誠實標成「待驗證」，不要偷偷混進核心功能裡。</p>
+    <ol class="steps">
+      <li><strong>需求：</strong>回到訪談逐字稿與旅程地圖，找出痛點與甜點。</li>
+      <li><strong>功能：</strong>寫成「使用者可以做什麼」，動詞開頭，不要寫成名詞堆疊。</li>
+      <li><strong>證據：</strong>標註來源——第幾位受訪者、哪個競品、旅程地圖的哪個階段。</li>
+      <li><strong>優先級：</strong>核心／次要／邊緣／待驗證，並寫下判斷理由。</li>
+    </ol>
+    <p>以線上課程平台為例，功能清單長這樣（這也是回家作業「功能清單」的欄位範本）：</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>功能</th><th>對應需求</th><th>證據來源</th><th>優先級</th></tr></thead>
+        <tbody>
+          <tr><td>依剩餘時間篩選課程</td><td>下班後只有 20 分鐘，想找當下看得完的內容。</td><td>受訪者 A、C；旅程地圖「挑選」階段痛點。</td><td>核心</td></tr>
+          <tr><td>斷點續播</td><td>通勤中斷後不想重找進度。</td><td>受訪者 B、D；競品 Hahow 已有。</td><td>核心</td></tr>
+          <tr><td>課後提問區</td><td>卡關時找不到人問，只能自己 Google。</td><td>受訪者 A、B、E 皆提到。</td><td>次要</td></tr>
+          <tr><td>學習時數統計</td><td>想知道自己有沒有進步。</td><td>僅受訪者 C 提到一次。</td><td>邊緣</td></tr>
+          <tr><td>社群動態牆</td><td>—</td><td>無訪談證據，來自團隊發想。</td><td>待驗證</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout green">
+      <strong>檢查方法：</strong>把功能清單念給組員聽，每念一項就問「這是誰說的？」。答不出來的，就移到待驗證區。
+    </div>
+  </section>
+
+  <section class="section" id="s7">
+    <p class="sec-num">07</p>
+    <h2 class="sec-title">Functional Map：核心路徑與邊緣案例</h2>
+    <p>有了功能清單，下一步是依「對主要任務的貢獻」分層，這會直接決定它們在 IA 中的位置。</p>
+    <div class="cards">
+      <div class="card">
+        <h3>核心路徑</h3>
+        <p>Persona 完成主要目標一定會經過的功能。IA 位置：主導覽第一層、首頁明顯入口。數量控制在 3–5 個。</p>
+      </div>
+      <div class="card">
+        <h3>次要功能</h3>
+        <p>支援核心任務，但不是每次都會用到。IA 位置：第二層、情境入口、工具導覽（Utility Navigation）。</p>
+      </div>
+      <div class="card">
+        <h3>邊緣案例</h3>
+        <p>少數情境或例外狀態：錯誤、空資料、權限不足、退款、帳號刪除。需要時才出現，但一定要有位置。</p>
+      </div>
+      <div class="card">
+        <h3>系統邊界</h3>
+        <p>明確寫下「這個版本不做什麼」。沒有邊界的產品結構會無限膨脹，Wireframe 永遠畫不完。</p>
+      </div>
+    </div>
+    <div class="callout warn">
+      <strong>最容易被忽略的一塊：</strong>邊緣案例。這卻是專題講評時最常被問到的地方——「搜尋不到結果的時候畫面長什麼樣？」「還沒有任何資料的新使用者看到什麼？」提前想好，Wireframe 階段會省下大量時間。
+    </div>
+  </section>
+
+  <section class="section" id="s8">
+    <p class="sec-num">08</p>
+    <h2 class="sec-title">卡片分類法</h2>
+    <p>卡片分類法（Card Sorting）是一種 UX 研究技術：讓參與者把寫著內容或功能的卡片，分成他們覺得合理的群組。它最常用在<strong>發想階段</strong>，目的是揭露使用者的心智模型；但它也能用來評估——封閉式與混合式卡片分類，就是拿既有或草案中的分類去測試使用者放不放得進去。</p>
+
+    <h3>它能給你什麼</h3>
+    <ul class="bullets">
+      <li>使用者<strong>自然的分群邏輯</strong>，而不是你以為的邏輯。</li>
+      <li>使用者<strong>實際使用的詞彙</strong>，可以作為導覽標籤的參考依據——最後仍要綜合其他分析判斷。</li>
+      <li><strong>被反覆放錯位置的項目</strong>——那通常代表命名有問題，或該項目本來就跨分類。</li>
+      <li>成本低：不需要做出任何畫面，早期就能執行。</li>
+    </ul>
+
+    <h3>兩種類型</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>類型</th><th>做法</th><th>回答的問題</th><th>用在什麼時候</th></tr></thead>
+        <tbody>
+          <tr><td>開放式 Open</td><td>參與者自由分群，並自己替每一群命名。</td><td>使用者怎麼看這些內容？他們會怎麼稱呼？</td><td>從零建立 IA，還沒有分類方案。</td></tr>
+          <tr><td>封閉式 Closed</td><td>你先給定分類，參與者把卡片放進去。</td><td>我這套分類，使用者放得進去嗎？</td><td>已有分類草案，要驗證或改版既有 IA。</td></tr>
+          <tr><td>混合式 Hybrid</td><td>給定分類，但允許參與者新增分類。</td><td>既有分類夠不夠？少了什麼？</td><td>改版時想同時驗證與發現。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>四個步驟</h3>
+    <ol class="steps">
+      <li><strong>準備卡片。</strong>一張卡片一個內容或功能。用使用者看得懂的詞，避免內部術語。建議 30–60 張，課堂練習用 13 張即可。</li>
+      <li><strong>招募參與者。</strong>找目標使用者，不是找同組同學。開放式建議 15 人以上才能看出穩定模式，課堂內至少 3–5 人。</li>
+      <li><strong>進行分類。</strong>不引導、不解釋卡片的意思。請參與者邊分邊說出理由——這比分類結果本身更有價值。</li>
+      <li><strong>分析結果。</strong>找共通模式：哪些卡片總是被放在一起？哪些每個人放的位置都不同？</li>
+    </ol>
+
+    <h3>最容易做壞的地方</h3>
+    <ul class="bullets">
+      <li><span class="bad">卡片用詞洩題：</span>卡片上直接寫「訂單查詢」「訂單取消」，參與者只是在做字詞配對，不是真的在分類。</li>
+      <li><span class="bad">卡片比例失衡：</span>某個功能區塞了 20 張卡、其他區只有 2 張，結果一定偏向那一區。</li>
+      <li><span class="bad">卡片太多：</span>超過 60 張參與者會疲勞、隨便分，品質急速下降。</li>
+      <li><span class="bad">中途解釋卡片：</span>一旦你開始解釋，你就把自己的心智模型灌給參與者了。</li>
+      <li><span class="bad">只看結果不問理由：</span>分群結果只是表面，「為什麼這樣分」才是能拿來設計的東西。</li>
+    </ul>
+
+    <button class="demo-launch" data-demo="sort" type="button">
+      <span class="dl-icon">▶</span>
+      <span class="dl-text">
+        <b>自己分一次看看</b>
+        <span>用課堂練習那 13 張電商後台卡片，把它們放進 5 個分類。分完會拿你的結果對照 20 人的共識度，看出哪幾張是真正的分歧卡片。</span>
+      </span>
+    </button>
+
+    <h3>結果怎麼分析</h3>
+    <p>把每位參與者的分群疊起來，計算哪些卡片「一起出現」的次數最高。線上工具會畫成<strong>樹狀圖（Dendrogram）</strong>：兩張卡片合併的位置越靠左，代表共識越高。課堂內用手算共識比例就夠了。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>共識程度</th><th>判讀</th><th>怎麼處理</th></tr></thead>
+        <tbody>
+          <tr><td>高（80% 以上）</td><td>使用者對這群的認知一致。</td><td>納入分類候選，仍要綜合其他分析與驗證再定案。</td></tr>
+          <tr><td>中（50–80%）</td><td>大致合理，但分界模糊。</td><td>檢查命名，或考慮合併相鄰分類。</td></tr>
+          <tr><td>低（50% 以下）</td><td>使用者對它沒有共同認知。</td><td>命名可能不清、或該用多重層級同時掛兩處。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <strong>分歧的卡片不是雜訊，是最有價值的發現。</strong>它代表三件事之一：命名不清、該項目本來就跨分類、或使用者對它沒有既定認知——每一種都指向一個具體的設計決策。
+    </div>
+  </section>
+
+  <section class="section" id="s9">
+    <p class="sec-num">09</p>
+    <h2 class="sec-title">樹狀測試：驗證你的分類</h2>
+    <p>卡片分類幫你「建立」架構，樹狀測試（Tree Testing）幫你「驗證」架構。做法是把 UI 全部拿掉，只留純文字的層級結構，然後請使用者「去找某個東西」。找不到，就是架構有問題，不能怪視覺設計。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>比較</th><th>卡片分類法</th><th>樹狀測試</th></tr></thead>
+        <tbody>
+          <tr><td>階段</td><td>發想 / 建立架構</td><td>驗證 / 評估架構</td></tr>
+          <tr><td>問題</td><td>使用者會怎麼分類？</td><td>使用者找得到嗎？</td></tr>
+          <tr><td>輸入</td><td>一堆未分類的卡片</td><td>一套已經做好的分類樹</td></tr>
+          <tr><td>產出</td><td>分群模式、使用者詞彙</td><td>成功率、直接率、放棄點</td></tr>
+          <tr><td>時機</td><td>IA 草案之前</td><td>IA 草案之後、Wireframe 之前</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>三個關鍵指標：<strong>成功率</strong>（找到正確位置的比例）、<strong>直接率</strong>（沒有走回頭路就找到的比例）、<strong>放棄點</strong>（使用者最常卡住的那一層）。</p>
+
+    <button class="demo-launch" data-demo="tree" type="button">
+      <span class="dl-icon">▶</span>
+      <span class="dl-text">
+        <b>親自跑一次樹狀測試</b>
+        <span>用一個購物 App 的分類樹當題目。你只會看到文字，沒有任何介面——這就是受測者的處境。走完會看到你的路徑，以及 20 人測試的統計結果。</span>
+      </span>
+    </button>
+    <p>成功率高但直接率低，代表使用者<strong>繞了路才找到</strong>——最後有找到，過程卻不順。這時不要只看總分，要回頭看工具記錄的錯誤路徑：使用者先點了哪一個分類、在第幾層折返。問題可能出在任何一層的分類或標籤，不一定是第一層。</p>
+    <div class="callout green">
+      課堂實作只做卡片分類。樹狀測試留給有餘力的同學，可以在等一下畫完 Flow 之後回頭補做，用來檢查 IA 是不是真的站得住。
+    </div>
+  </section>
+
+  <section class="section" id="s10">
+    <p class="sec-num">10</p>
+    <h2 class="sec-title">內容模型</h2>
+    <p>IA 決定內容放在哪裡；內容模型（Content Model）決定每一種內容<strong>由哪些欄位組成</strong>。它是 Wireframe 上每個區塊的依據，也是跟工程師溝通資料結構的共同語言。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>元素</th><th>定義</th><th>線上課程平台的例子</th></tr></thead>
+        <tbody>
+          <tr><td>內容類型</td><td>內容的不同類別或結構。</td><td>課程、講師、評價、文章。</td></tr>
+          <tr><td>屬性</td><td>描述該類型特性的欄位。</td><td>課程名稱、時數、難度、價格、封面圖、章節數。</td></tr>
+          <tr><td>關聯</td><td>不同類型之間的關係。</td><td>一堂課屬於一位講師；一堂課可有多則評價。</td></tr>
+          <tr><td>元數據</td><td>用來組織、搜尋與管理的資料。</td><td>標籤、分類、上架日期、狀態（草稿／已發布）。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>建立內容模型的順序：識別內容類型 → 定義屬性與關聯 → 設計元數據策略 → 建立內容管理流程（誰創建、誰審核、誰更新）。</p>
+    <div class="callout">
+      <strong>對你的專題的實務價值：</strong>先寫清楚欄位，Wireframe 階段就不用再猜「這張課程卡片上要放什麼」。同時，結構化的內容更容易在不同斷點與裝置上重組，也對 SEO 有幫助。
+    </div>
+  </section>
+
+  <section class="section" id="s11">
+    <p class="sec-num">11</p>
+    <h2 class="sec-title">命名與標籤：4 個 S</h2>
+    <p>NN/g 提出四個原則檢查導覽項目與連結文字。這四個 S 要一起看——只顧其中一個會出問題。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>原則</th><th>意思</th><th>不好的寫法</th><th>好的寫法</th></tr></thead>
+        <tbody>
+          <tr><td>Specific 具體</td><td>明確說出點下去會看到什麼。</td><td>服務</td><td>維修預約</td></tr>
+          <tr><td>Sincere 誠實</td><td>點進去的內容要與標籤承諾一致。</td><td>免費試用（實際要先綁卡）</td><td>免費試用 14 天，需綁定信用卡</td></tr>
+          <tr><td>Substantial 充分</td><td>脫離上下文也看得懂，能獨立成立。</td><td>了解更多</td><td>查看退款條件</td></tr>
+          <tr><td>Succinct 精簡</td><td>在滿足前三項的前提下越短越好。</td><td>點此以查看關於我們公司的更多相關資訊</td><td>關於我們</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <button class="demo-launch" data-demo="label" type="button">
+      <span class="dl-icon">▶</span>
+      <span class="dl-text">
+        <b>四題標籤測驗</b>
+        <span>給你一個使用者目標，從四個候選標籤裡挑一個。每題會告訴你其他選項各違反了哪一個 S。</span>
+      </span>
+    </button>
+
+    <p>注意 Succinct 排在最後。連結<strong>沒有固定的字數上限</strong>：11 個字的連結只要具體、誠實、能獨立看懂，就比 3 個字的「了解更多」有效得多。但這不代表可以無限拉長——NN/g 的原則是「需要多長就多長，但不能再更長」。精簡是在滿足前三項之後才追求的，不是可以被犧牲的。</p>
+  </section>
+
+  <section class="section" id="s12">
+    <p class="sec-num">12</p>
+    <h2 class="sec-title">IA 圖與 Sitemap 製作</h2>
+    <p>IA 圖用節點與線條表示層級，一層一層往下展開。這就是回家作業要交的東西之一。</p>
+    <div class="tree"><span class="n1">首頁</span>
+├── <span class="n1">探索課程</span>
+│   ├── 依主題瀏覽　<span class="cm">（設計 / 程式 / 行銷）</span>
+│   ├── 依時長篩選　<span class="cm">（＜20 分 / 20–60 分 / ＞60 分）</span>
+│   └── 課程詳情　　<span class="cm">（大綱・講師・評價・試看）</span>
+├── <span class="n1">我的學習</span>
+│   ├── 進行中　　　<span class="cm">← 核心路徑，含斷點續播</span>
+│   ├── 已完成
+│   └── 收藏
+├── <span class="n1">提問與討論</span>
+│   └── 課後提問區　<span class="cm">← 次要功能</span>
+└── <span class="n1">帳號</span>
+    ├── 訂單與發票
+    ├── 通知設定
+    └── 訂閱管理　　<span class="cm">← 含退訂（邊緣案例）</span></div>
+
+    <h3>畫的時候要標注的三件事</h3>
+    <ol class="steps">
+      <li><strong>核心路徑用顏色標出來。</strong>看圖的人要能一眼看出主要任務怎麼走。</li>
+      <li><strong>交叉連結用虛線。</strong>多重層級的項目，兩條線都要畫，不要只挑一邊。</li>
+      <li><strong>空狀態與錯誤狀態寫在旁邊註解。</strong>「搜尋無結果」「尚未購買任何課程」也是結構的一部分。</li>
+    </ol>
+
+    <h3>常見的 IA 圖問題</h3>
+    <ul class="bullets">
+      <li>只有階層、沒有標注優先級——看不出哪個是核心路徑。</li>
+      <li>把每一個 UI 元件都畫上去，變成 Wireframe 而不是結構圖。</li>
+      <li>節點命名用內部術語，別人看不懂。</li>
+      <li>沒有任何例外狀態，看起來像所有事情都會順利發生。</li>
+    </ul>
+    <div class="callout green">
+      <strong>Figma 實作範本：</strong><a href="https://www.figma.com/board/KtPtouN73pY8SBP90Uz1j2" target="_blank" rel="noopener">課堂練習板</a>（卡片與六個工作區已建好）｜參考範例：<a href="https://www.figma.com/board/K0a0hIcnHdfyH09bRjhIeW/%E5%8D%A1%E7%89%87%E5%88%86%E9%A1%9E" target="_blank" rel="noopener">1</a>、<a href="https://www.figma.com/board/Dx2liUBXBgKuXg8psCjN4a/%E5%8D%A1%E7%89%87%E5%88%86%E9%A1%9E-2" target="_blank" rel="noopener">2</a>
+    </div>
+  </section>
+
+  <section class="section" id="s13">
+    <p class="sec-num">13</p>
+    <h2 class="sec-title">先把四個詞分開</h2>
+    <p>前面 12 節畫出的 IA 圖是一張靜態地圖：你看得到有哪些站、怎麼轉乘，但它沒有告訴任何人使用者實際上怎麼走。接下來要做的，是把地圖上的核心路徑走成一條路線——這就是 User Flow。</p>
+    <p>User Journey、User Flow、Flowchart、Wireflow——這四個詞在網路文章裡常常混著用。開會的時候你說 A、對方腦中想的是 B，討論就會空轉半小時。</p>
+    <p>分法其實很簡單：<strong>前兩個是尺度，後兩個是畫法。</strong>這是課堂上用來理清關係的整理法，不是業界所有文件都照這樣分類——看別人的文件時還是要看他怎麼定義。</p>
+
+    <h3>User Journey 與 User Flow：兩種尺度</h3>
+    <p>NN/g 的定義是這樣的。User Journey 是「使用者為了達成一個高層目標所走過的、以情境為基礎的步驟序列」；User Flow 則是「一組互動，描述在產品裡完成某個常見任務所需要的典型或理想步驟」。</p>
+    <p>用外送 App 舉例：<em>肚子餓到吃飽</em>是 Journey，中間可能包含看到朋友限動、想起某家店、Google 評價、打開 App、下單、等外送、吃完評分。<em>打開 App 到按下送出訂單</em>是 Flow。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>面向</th><th>User Journey（Unit 02 做過）</th><th>User Flow（這個單元）</th></tr></thead>
+        <tbody>
+          <tr><td>尺度</td><td>宏觀，看整段體驗</td><td>微觀，看一個任務</td></tr>
+          <tr><td>時間</td><td>數天、數週、數月</td><td>數分鐘到數小時</td></tr>
+          <tr><td>範圍</td><td>跨通路，廣告、朋友、客服電話都算</td><td>只在產品裡面</td></tr>
+          <tr><td>畫什麼</td><td>行動、情緒、想法、接觸點</td><td>操作與系統的回應</td></tr>
+          <tr><td>產出物</td><td>旅程地圖</td><td>Wireflow、Flowchart、Task diagram</td></tr>
+          <tr><td>資料來源</td><td>田野研究、日記研究、訪談</td><td>可用性測試、後台數據</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>兩者不是二選一的關係。<strong>Flow 是 Journey 裡某一段的放大</strong>——你在旅程地圖上標紅的那個痛點，放大之後就是這堂課要畫的 Flow。</p>
+
+    <h3>Flowchart 與 Wireflow：兩種畫法</h3>
+    <p>同一條 User Flow，可以用不同格式畫出來。而這兩種格式各自看不到一些東西。</p>
+    <div class="cards">
+      <div class="card">
+        <h3>Flowchart 的盲點</h3>
+        <p>邏輯分支再完整，都缺少畫面脈絡。「選擇付款方式」在圖上是一個方塊，但實際上是整頁跳轉、還是底部彈出？使用者的感受差很多，圖上看不出來。</p>
+      </div>
+      <div class="card">
+        <h3>Wireframe 的盲點</h3>
+        <p>版面畫得再清楚，都不擅長記錄互動。尤其頁面沒換、內容卻變了的情況——點篩選器之後列表就地更新，一張張靜態畫面表達不出來。</p>
+      </div>
+    </div>
+    <p>Wireflow 就是為了補這兩個洞而出現的：它把 wireframe 風格的版面設計，跟簡化過的流程圖式互動表示法結合起來。用畫面設計取代抽象符號，讓討論的焦點留在使用者實際會操作的東西上。</p>
+    <figure class="fig">
+      <img src="from-flowchart-wireframe/resources/wireflow-example.jpg"
+           alt="Wireflow 範例：存錢目標 App 的六個畫面，以箭頭標示觸發的互動" loading="lazy">
+      <figcaption>一份存錢目標 App 的 Wireflow。注意兩件事：箭頭上都寫了觸發的互動（Select safe category、Button enabled、Choose avatar），不是只拉一條線；編號用 1 / 1.2、2 / 2.1 / 2.2 區分「新畫面」與「同一畫面的不同狀態」。</figcaption>
+    </figure>
+    <p>畫 Wireflow 有幾個要注意的地方：每個節點呈現的是<strong>畫面狀態</strong>，可以是整個畫面，也可以只畫有變動的區塊；箭頭要從<strong>具體可點的 UI 元件</strong>出發，不能只拉一條線；桌機因為畫面大，建議只畫變動的部分，不然圖會大到看不完。</p>
+    <div class="callout green">
+      Wireflow 低保真、高保真都能畫。草圖階段拿來想事情，規格階段拿來交付給工程師。它最早是行動 App 團隊發展出來的作法，每個步驟就是一張完整的手機畫面。<br><br>
+      上面那張是簡化過的示意圖。想看真實的 Wireflow 長什麼樣，<a href="https://www.nngroup.com/articles/wireflows/" target="_blank" rel="noopener">NN/g 原文</a>裡有實際的圖例；<a href="https://www.uxtweak.com/ux-glossary/wireflow/" target="_blank" rel="noopener">UXtweak 的詞條</a>也有一份簡短說明可以對照。
+    </div>
+  </section>
+
+  <section class="section" id="s14">
+    <p class="sec-num">14</p>
+    <h2 class="sec-title">什麼時候用哪一種</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>你的產品長這樣</th><th>畫這個</th><th>理由</th></tr></thead>
+        <tbody>
+          <tr><td>頁面多、每頁內容相對固定的網站</td><td>Wireframe</td><td>重點在每一頁該放什麼；頁面之間的關係用 IA 圖表達就夠了</td></tr>
+          <tr><td>流程長、分支多、需要窮盡記錄</td><td>Flowchart</td><td>邏輯分支是主角，畫面長什麼樣先不重要</td></tr>
+          <tr><td>頁面少、內容隨互動一直變的 App 或 Web App</td><td>Wireflow</td><td>不畫出畫面狀態，就講不清楚「到底哪裡變了」</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>學生專題大多屬於第三種。所以這堂課的順序是：<strong>先用 Flowchart 把邏輯理乾淨，再畫 Wireframe，把兩者合成 Wireflow 留給有餘力的同學課後練習。</strong>一開始就想直接畫 Wireflow，通常會卡在「邏輯還沒想清楚就要決定畫面」。</p>
+  </section>
+
+  <section class="section" id="s15">
+    <p class="sec-num">15</p>
+    <h2 class="sec-title">Flowchart 怎麼畫</h2>
+    <p>工程用的流程圖符號有幾十種，你們不用背。畫使用者流程，四個符號就夠了。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>符號</th><th>代表什麼</th><th>寫法</th></tr></thead>
+        <tbody>
+          <tr><td>◯ 起訖符號</td><td>起點與終點</td><td>正式畫法是圓角矩形（膠囊形），課堂上畫成圓形也通。一張圖只有一個起點；終點可以有多個（成功、放棄、失敗）</td></tr>
+          <tr><td>▭ 矩形</td><td>動作或畫面</td><td>用動詞開頭：「輸入手機號碼」，不要寫「手機號碼頁」</td></tr>
+          <tr><td>◇ 菱形</td><td>判斷點</td><td>裡面寫成是非題：「已登入？」不要寫「登入判斷」</td></tr>
+          <tr><td>→ 箭頭</td><td>路徑</td><td>從菱形出去的每一條都要標條件：是／否、成功／失敗</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout green">
+      <strong>範例板：</strong><a href="https://www.figma.com/board/3spteOmEz92MCnVtpi2wxC/Flow-Chart--%E6%B5%81%E7%A8%8B%E5%9C%96--%E7%AF%84%E4%BE%8B?node-id=0-1" target="_blank" rel="noopener">Flow Chart 流程圖範例</a>。裡面有符號說明區，以及「鬧鐘」與「會員登入」兩個畫完整的流程——後者含忘記密碼、驗證碼、密碼錯三次這些分支，正好可以看例外路徑怎麼接。<br><br>
+      注意那份多示範了一個「資料輸出／輸入」的平行四邊形（工程流程圖的符號）。你們畫使用者流程用不到，看到不用理它。
+    </div>
+
+    <div class="callout warn">
+      <strong>最常見的錯：</strong>菱形只畫「是」那一條線出去。如果一個判斷點只有一條路徑，那它就不該是判斷點——把它改成矩形，或者去想清楚「否」的時候會怎樣。
+    </div>
+
+    <h3>一條流程要交代三件事</h3>
+    <div class="dia">     ◯ <span class="n">起點：從首頁點「我的課程」</span>
+     │
+     ▼
+   ┌──────────────┐
+   │ 顯示課程列表  │
+   └──────────────┘
+     │
+     ▼
+   ◇ <span class="d">有進行中的課程嗎？</span>
+     │
+     ├── <span class="d">有</span> ──▶ 顯示上次看到第幾分鐘 ──▶ 點「繼續看」──▶ ◯ <span class="n">終點：播放器開始播</span>
+     │
+     └── <span class="x">沒有</span> ─▶ <span class="x">空狀態：「還沒開始任何課程」＋ 去逛課程的按鈕</span></div>
+    <ol class="steps">
+      <li><strong>入口：</strong>使用者從哪裡進到這條流程？如果不只一個入口（首頁按鈕、推播通知、分享連結），全部畫出來。</li>
+      <li><strong>判斷點：</strong>中間哪裡會分岔？條件寫清楚。</li>
+      <li><strong>終點：</strong>怎樣算完成？成功跟失敗要分開畫成兩個終點。</li>
+    </ol>
+  </section>
+
+  <section class="section" id="s16">
+    <p class="sec-num">16</p>
+    <h2 class="sec-title">你一定會漏掉的例外路徑</h2>
+    <p>畫流程圖的時候，理想路徑十分鐘就畫完了。剩下的時間全部花在這一節的東西上——而評圖的時候，老師問的也都是這些。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>狀況</th><th>要問自己</th><th>畫面上會是什麼</th></tr></thead>
+        <tbody>
+          <tr><td>沒資料</td><td>第一次使用的人打開這一頁，看到什麼？</td><td>空狀態：一句說明 + 一個引導動作</td></tr>
+          <tr><td>找不到</td><td>搜尋沒結果、篩選之後一個都不剩？</td><td>無結果頁：放寬條件的建議、熱門推薦</td></tr>
+          <tr><td>沒權限</td><td>沒登入、沒付費、帳號被停用？</td><td>擋在哪一步、擋下來之後給什麼出路</td></tr>
+          <tr><td>出錯</td><td>網路斷掉、付款失敗、檔案太大？</td><td>錯誤訊息要說「怎麼辦」，不是只說「失敗」</td></tr>
+          <tr><td>要等</td><td>需要載入三秒以上的地方？</td><td>載入狀態、進度提示</td></tr>
+          <tr><td>反悔</td><td>中途想退出、想改剛剛填的？</td><td>返回、取消、編輯的入口</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>這六條當檢查表用。畫完理想路徑之後，一條一條問自己「這個情況我畫了嗎」。第一次做通常會漏掉好幾種，這很正常，逐條核對就補得回來。</p>
+    <div class="callout">
+      <strong>為什麼重要：</strong>這些狀態在 Wireframe 階段補，成本是多畫幾個灰階方塊。等到 Mockup 或切版才發現，成本是整個版面重排。
+    </div>
+  </section>
+
+  <section class="section" id="s17">
+    <p class="sec-num">17</p>
+    <h2 class="sec-title">從 IA 圖轉成 Flow</h2>
+    <ol class="steps">
+      <li><strong>挑一條。</strong>從 IA 圖上標了顏色的核心路徑挑<em>一條</em>，不要一次畫全部。</li>
+      <li><strong>拆步驟。</strong>把這條路徑拆成使用者實際會做的動作，動詞開頭。</li>
+      <li><strong>找分岔。</strong>每一步問一次「這裡會不會有人走不下去」，會的話就是判斷點。</li>
+      <li><strong>補例外。</strong>拿上一節那六條逐一補上。</li>
+    </ol>
+    <div class="callout green">
+      一堂課能畫完<strong>一條完整的核心路徑</strong>就夠了。畫三條半成品，不如一條把例外都補齊——半成品的流程圖沒辦法拿來畫 Wireframe，因為你不知道要畫幾個畫面。
+    </div>
+  </section>
+
+  <section class="section" id="s18">
+    <p class="sec-num">18</p>
+    <h2 class="sec-title">Wireframe 在回答什麼問題</h2>
+    <p>只有三個問題：<strong>這一頁要放哪些資訊、使用者可以做哪些動作、下一步在哪裡。</strong>其他都先不管。</p>
+    <p>Wireframe 是灰階方塊，看起來很陽春，這是刻意的。看到彩色跟圖片，所有人的注意力都會跑到「這個藍色好看嗎」，而不是「這裡少了一個返回按鈕」。</p>
+    <div class="callout warn">
+      <strong>學生最常做的事：</strong>Wireframe 畫到一半忍不住開始調圓角、選字體、找圖片。一旦開始，這張圖就不再是 Wireframe 了，而是一張很醜的 Mockup——兩邊的好處都拿不到。
+    </div>
+  </section>
+
+  <section class="section" id="s19">
+    <p class="sec-num">19</p>
+    <h2 class="sec-title">保真度：三個可以分開調的維度</h2>
+    <p>很多人以為保真度就是「畫得精不精緻」，是一條從粗到細的刻度。實際上它是三個可以各自調整的維度——你完全可以做出一個視覺很粗糙、但互動很完整的原型。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>維度</th><th>低保真</th><th>高保真</th></tr></thead>
+        <tbody>
+          <tr><td>互動 Interactivity</td><td>需要有人在旁邊手動換畫面</td><td>連結與選單真的點得下去</td></tr>
+          <tr><td>視覺 Visuals</td><td>手繪草圖、灰階方塊</td><td>完整的層級、間距、版面</td></tr>
+          <tr><td>內容 Content</td><td>摘要與佔位符</td><td>真實的文案與圖片</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>各自的好處</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th></th><th>低保真</th><th>高保真</th></tr></thead>
+        <tbody>
+          <tr><td>準備時間</td><td>快，省下的時間可以多迭代幾輪</td><td>慢，做一版就用掉不少時間</td></tr>
+          <tr><td>測試中途</td><td>當場拿筆畫一畫就改好了</td><td>要回去改檔案，下一場才能用</td></tr>
+          <tr><td>受測者</td><td>壓迫感低，比較不怕做錯，更願意給負面回饋</td><td>當成真的軟體在用，行為更接近真實</td></tr>
+          <tr><td>能測到什麼</td><td>概念、流程順不順、資訊夠不夠</td><td>特定元件、工作流程、可視線索、易讀性</td></tr>
+          <tr><td>測試時誰在忙</td><td>設計師要一邊操作原型一邊觀察，容易分心也容易操作失誤</td><td>原型自己會動，設計師可以專心觀察使用者</td></tr>
+          <tr><td>設計師心態</td><td>還沒投入太多，願意打掉重來</td><td>做很久了，捨不得改</td></tr>
+          <tr><td>利害關係人</td><td>看得出還沒完成，預期還會再改</td><td>容易誤以為快做完了</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>最後兩列才是關鍵。<strong>高保真的成本不只是工時，還有你捨不得改的心理投入。</strong>投入越多，越傾向於說服自己「這樣其實也還好」，而不是把它砍掉。</p>
+
+    <h3>為什麼這個單元刻意停在低保真</h3>
+    <ul class="bullets">
+      <li>畫面一漂亮，評圖的回饋就會全部集中在配色跟字體，結構問題被蓋住。</li>
+      <li>結構問題留到 Mockup 才發現，要重畫的量是現在的十倍。</li>
+      <li>你自己也會捨不得——花三小時調好的版面，誰想砍掉重來。</li>
+    </ul>
+    <div class="callout">
+      這堂課的規則：<strong>只能用黑、白、灰</strong>。要標重點就用一個藍色，只准一個。內容維度例外——文字要用真的，見下一節。
+    </div>
+  </section>
+
+  <section class="section" id="s20">
+    <p class="sec-num">20</p>
+    <h2 class="sec-title">Wireframe 上該放什麼</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>要放</h3>
+        <p>真實的標題與按鈕文字、資訊的先後順序與分組、每一個可以點的東西、這一頁唯一最明顯的主要動作、空狀態與錯誤狀態的版本。</p>
+      </div>
+      <div class="card">
+        <h3>先不要放</h3>
+        <p>顏色、漸層、陰影、真實照片（用灰方塊加一個叉代替）、精挑的字體、圖示細節（畫個圈標「icon」就好）、動畫與轉場。</p>
+      </div>
+    </div>
+    <p>文字一定要用真的。<strong>Lorem ipsum 會騙你</strong>——假字排起來永遠很整齊，等到真的標題塞進去才發現會爆版、或者短到留一大片空白。按鈕也一樣，寫「加入購物車」，不要寫「按鈕」。</p>
+
+    <h3>可以用現成的元件庫</h3>
+    <p>不用每個方塊都自己畫。<a href="https://www.figma.com/design/XKrTQ38VaU4PZeuwT0uocp/Wireframe_Web_UI_Kit-%E5%88%87%E7%89%88%E7%9A%84100%E7%A8%AE%E7%B7%B4%E7%BF%92?node-id=0-1" target="_blank" rel="noopener">Wireframe Web UI Kit</a> 收了大量現成區塊——導覽列、Hero、卡片列表、表單、頁尾，桌機與手機尺寸都有，命名是「類型＿編號＿寬度」。</p>
+    <p>它適合拿來當<strong>零件來源</strong>（找接近的區塊複製過來改）、當<strong>參考</strong>（卡住時看看這種頁面通常有哪些區塊）、以及當 <strong>Auto Layout 範例</strong>（拆開別人做好的區塊，看它哪一層用 Hug 哪一層用 Fill）。</p>
+    <div class="callout warn">
+      <strong>但順序不能反過來。</strong>先看流程圖決定這一頁要放什麼，再去元件庫找對應的區塊；不是先看庫裡有什麼，再回頭決定頁面長怎樣。判斷方式：如果你選某個區塊的理由是「它看起來不錯」而不是「我的流程需要這個」，那就是反過來了——這樣等於把這個階段要練的結構思考跳過去。
+    </div>
+    <p>另外，Kit 裡的區塊通常比低保真再精緻一點。複製過來之後把顏色拿掉、圖片換成灰方塊，維持黑白灰。</p>
+
+    <h3>畫完一張，問自己這六題</h3>
+    <ol class="steps">
+      <li>第一眼會看到什麼？那是這一頁最重要的東西嗎？</li>
+      <li>這一頁的主要動作是哪一個？它有比其他按鈕明顯嗎？</li>
+      <li>使用者從哪裡來的？他知道自己在哪一層嗎？</li>
+      <li>如果這裡沒有資料，畫面長什麼樣？</li>
+      <li>按下去之後會發生什麼？成功跟失敗分別看到什麼？</li>
+      <li>想回上一步的話，回得去嗎？</li>
+    </ol>
+    <div class="callout green">
+      六題都答得出來，這張 Wireframe 才算畫完。答不出來的那一題，通常就是流程圖上漏掉的那條線——回去補流程圖，不要在畫面上硬掰。
+    </div>
+  </section>
+
+  <section class="section" id="s21">
+    <p class="sec-num">21</p>
+    <h2 class="sec-title">Figma Auto Layout</h2>
+    <p>沒用 Auto Layout 的時候，元素靠絕對座標擺放：你把標題改成兩行，下面所有東西都要手動往下推。用了之後，它們自己會讓開。</p>
+    <p>Auto Layout 讓 frame 隨內容變動自動反應——裡面的元素會依照<strong>方向、間距、內距、對齊</strong>自動排列。快捷鍵是選好圖層按 <code>⇧ A</code>（Windows 是 <code>Shift A</code>）。</p>
+
+    <h3>三種排列方向</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>方向</th><th>行為</th><th>典型用途</th></tr></thead>
+        <tbody>
+          <tr><td>垂直 Vertical</td><td>沿 y 軸往下排</td><td>清單、表單欄位、卡片內部的標題與說明</td></tr>
+          <tr><td>水平 Horizontal</td><td>沿 x 軸往右排，可設定換行</td><td>按鈕列、標籤列、導覽項目</td></tr>
+          <tr><td>網格 Grid</td><td>排成行與列，格子可跨欄</td><td>商品列表、儀表板</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>實務上幾乎都在<strong>巢狀</strong>使用：一張商品卡內部是垂直（圖片／標題／價格），一排卡片是水平或網格。每一層 frame 各自有獨立的 padding 與 gap。</p>
+
+    <h3>Padding 與 Gap</h3>
+    <p>兩個都是留白，差別在留在哪裡。這兩個搞混，版面就會怎麼調都不對。</p>
+    <div class="dia">┌─────────────────────────────────┐  ◀── 容器邊界
+│ ↕ <span class="d">padding-top</span>                    │
+│   ┌─────────────────────────┐   │
+│   │        項目 A            │   │
+│   └─────────────────────────┘   │
+│   ↕ <span class="n">gap</span>                           │
+│   ┌─────────────────────────┐   │
+│   │        項目 B            │   │
+│   └─────────────────────────┘   │
+│ ↕ <span class="d">padding-bottom</span>                 │
+└─────────────────────────────────┘
+  ↔ <span class="d">padding-left</span>        <span class="d">padding-right</span> ↔</div>
+    <ul class="bullets">
+      <li><strong>Padding：</strong>容器邊緣與裡面東西之間的留白。可以四邊統一、上下左右分開，或四個值各自設定。</li>
+      <li><strong>Gap between：</strong>裡面的東西彼此之間的距離。給固定數值，或設成 <code>Auto</code> 讓它們平均散開。</li>
+    </ul>
+
+    <h3>三種尺寸模式</h3>
+    <p>這是 Auto Layout 最容易卡住的地方。先記一句話：<strong>Hug 只能給容器，Fill 只能給裡面的東西。</strong></p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>模式</th><th>能套在誰身上</th><th>行為</th><th>什麼時候用</th></tr></thead>
+        <tbody>
+          <tr><td>Hug contents</td><td>只有 Auto Layout 容器</td><td>縮到剛好包住內容</td><td>按鈕：文字多長，按鈕就多寬</td></tr>
+          <tr><td>Fill container</td><td>只有子元件</td><td>撐滿父容器剩下的空間（會遵守間距設定）</td><td>輸入框：不管視窗多寬都填滿</td></tr>
+          <tr><td>Fixed</td><td>容器與子元件都可以</td><td>尺寸固定不變</td><td>頭像、圖示這類固定尺寸的東西</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <strong>一定要記住這條規則：</strong>只要 Auto Layout 容器裡有任何一個子元件設成 Fill container，容器在那個軸向就<strong>不再是 Hug，會自動變成 Fixed</strong>。「我明明設了 Hug 怎麼沒反應」，九成是這個原因。
+    </div>
+    <p>另外可以疊加最小／最大尺寸限制。兩個最常用的時機：文字容器加 <code>max width</code>，避免視窗拉很寬時一行變成八十個字；卡片或區塊加 <code>min height</code>，避免內容很少的時候整塊塌掉。作業的壓力測試如果發現拉寬會爆版，通常就是少了這兩個其中之一。</p>
+
+    <h3>Absolute position：跳出排列流程</h3>
+    <p>有些東西不該排在流程裡——例如卡片右上角的收藏愛心、蓋在圖片上的標籤。把它設成 absolute position，它會留在 frame 內但不參與排列，位置相對於父容器精確定位。Mac 按住 <code>Ctrl</code> 拖曳，Windows 按住 <code>S</code> 拖曳。</p>
+
+    <h3>快捷鍵</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>動作</th><th>Mac</th><th>Windows</th></tr></thead>
+        <tbody>
+          <tr><td>加上 Auto Layout</td><td><code>⇧ A</code></td><td><code>Shift A</code></td></tr>
+          <tr><td>移除 Auto Layout</td><td><code>⌥ ⇧ A</code></td><td><code>Alt Shift A</code></td></tr>
+          <tr><td>設為 Hug contents</td><td colspan="2">雙擊 frame 邊緣</td></tr>
+          <tr><td>設為 Fill container</td><td><code>⌥</code> + 雙擊</td><td><code>Alt</code> + 雙擊</td></tr>
+          <tr><td>調整對齊</td><td colspan="2">方向鍵 <code>↑ ↓ ← →</code>；靠邊 <code>W A S D</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="s22">
+    <p class="sec-num">22</p>
+    <h2 class="sec-title">Constraints 與 Auto Layout 的分工</h2>
+    <p>Constraints 管的是另一件事：<strong>當 frame 被拉大拉小的時候，圖層要怎麼跟著動。</strong></p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>設定</th><th>水平方向的行為</th></tr></thead>
+        <tbody>
+          <tr><td>Left / Right</td><td>與左邊界（或右邊界）保持固定距離</td></tr>
+          <tr><td>Left and Right</td><td>兩邊都固定，所以圖層自己會變寬變窄</td></tr>
+          <tr><td>Center</td><td>永遠對齊 frame 的水平中線</td></tr>
+          <tr><td>Scale</td><td>尺寸與位置都按 frame 的比例縮放</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>垂直方向同理：Top、Bottom、Top and Bottom、Center、Scale。</p>
+    <div class="callout warn">
+      <strong>兩套機制是獨立的。</strong>Auto Layout 容器裡的一般子元件<strong>用不了 Constraints</strong>——它們用的是 Hug／Fill／Fixed。只有設成 absolute position、跳出排列流程的元件，才會回到 Constraints。
+    </div>
+    <p>什麼時候會用到 Constraints：做多裝置的響應式版面、frame 縮放時要維持元素位置、控制巢狀 frame 內部的行為。Unit 05 做產品設計基本元素時會再深入。</p>
+  </section>
+
+  <section class="section" id="s23">
+    <p class="sec-num">23</p>
+    <h2 class="sec-title">課堂練習與回家作業</h2>
+
+    <h3>課堂練習：從卡片分類到第一張 Wireframe（40 分鐘）</h3>
+    <p>個人作業，用自己的專題。時間比原本「資訊架構」與「Flowchart／Wireframe」兩堂課各自 80–95 分鐘的實作壓縮許多——這是合併後的<em>第一版草稿</em>安排，重點是走完整條流程，不是每一步做到完美。</p>
+    <ol class="steps">
+      <li><strong>快速卡片分類（10 分）</strong>：用自己的功能清單做一輪開放式分類，整理出第一版 IA。</li>
+      <li><strong>畫 Flowchart（10 分）</strong>：從 IA 挑一條核心路徑，補上判斷點與至少 2 種例外路徑。</li>
+      <li><strong>畫 Wireframe（15 分）</strong>：用 Auto Layout 畫 1–2 張低保真 Wireframe，涵蓋流程的頭與尾。</li>
+      <li><strong>自我檢查（5 分）</strong>：對照六題檢查清單，寫下答不出來的那一題。</li>
+    </ol>
+    <p>結束後另有 15 分鐘各組成果分享與作業說明。</p>
+
+    <h3>回家作業</h3>
+    <p>這是整條「產品設計流程」的完整交件，涵蓋功能清單、資訊架構、Flowchart 與 Wireframe。</p>
+    <ol class="steps">
+      <li>看完 <a href="https://www.youtube.com/watch?v=v39z0JPeIc8" target="_blank" rel="noopener">Information Architecture — 3 Key Models</a>（NN/g，約 5 分鐘）。</li>
+      <li>選一個網站（電商、政府、學校、媒體皆可），畫出它現有的 Sitemap，至少 3 層、20 個節點，用三個模型分別標注：底層結構、分類法、導覽。找出 3 個 IA 問題並各寫一句改善建議。</li>
+      <li>回到自己的專題，把功能清單與 IA 圖修正完整。</li>
+      <li>把課堂上那條 Flowchart 補完整：六種例外路徑一條都不能少。</li>
+      <li>Wireframe 補到 3–5 個畫面，整組至少涵蓋一個關鍵的例外狀態，每張旁邊寫下六題檢查清單的答案。</li>
+      <li>主要容器與會重複的元件用 Auto Layout 做，交件前把 Frame 拉寬拉窄各一次，看會不會爆版。</li>
+    </ol>
+    <div class="callout">
+      <strong>繳交：</strong>Figma 連結一份，含網站 Sitemap 分析、功能清單、專題 IA 圖、1 張 Flow 與 3–5 個 Wireframe。下次上課抽點分享。完整步驟與檢查清單見<a href="from-ia/exercises.html#hw">練習頁 ①</a>、<a href="from-flowchart-wireframe/exercises.html#hw">練習頁 ②</a>，配分見<a href="from-ia/exercises.html#submit">IA 部分</a>、<a href="from-flowchart-wireframe/exercises.html#submit">Flow/Wireframe 部分</a>。
+    </div>
+  </section>
+
+  <section class="section" id="s24">
+    <p class="sec-num">24</p>
+    <h2 class="sec-title">AI 協作提示詞</h2>
+    <p>AI 可以幫你整理卡片分類結果、檢查命名、檢查流程有沒有漏，但它<strong>不能取代真實使用者的分類行為，也不知道你的使用者是誰</strong>。以下提示詞的共同限制：只能根據你提供的內容分析，不可自行編造資料。</p>
+
+    <h3>資訊架構與卡片分類</h3>
+
+    <h4 style="font-size:1rem;font-weight:800;margin:20px 0 8px">① 從功能清單產生卡片</h4>
+    <div class="prompt">
+      <button class="copy-btn" type="button">複製</button>
+      <pre>以下是我的產品功能清單：
+[貼上功能清單]
+
+請幫我轉成卡片分類法用的卡片，規則：
+1. 一張卡片一個功能或內容，用使用者看得懂的日常用語。
+2. 避免使用會洩題的命名（例如多張卡片共用同一個前綴詞）。
+3. 各功能區的卡片數量盡量平均，不要讓某一區佔比過高。
+4. 總數控制在 30-40 張。
+5. 標註每張卡片來自哪一條原始功能，方便我回溯。
+
+只能根據我提供的清單產生，不要自行新增我沒寫的功能。</pre>
+    </div>
+
+    <h4 style="font-size:1rem;font-weight:800;margin:20px 0 8px">② 整理卡片分類結果</h4>
+    <div class="prompt">
+      <button class="copy-btn" type="button">複製</button>
+      <pre>以下是 5 位參與者的卡片分類結果：
+[貼上每位參與者的分群與命名]
+
+請幫我分析：
+1. 哪些卡片被放在一起的次數最高？列出共識度（幾人／總人數）。
+2. 哪些卡片分歧最大？分別被放進哪些不同群組？
+3. 參與者替各群命名時用了哪些詞？哪些詞重複出現？
+4. 根據以上，提出 1-2 套可能的分類方案，並說明各自的取捨。
+5. 哪些項目適合用多重層級同時掛在兩個分類下？
+
+只根據我提供的資料分析，不要補充不存在的參與者或卡片。</pre>
+    </div>
+
+    <h4 style="font-size:1rem;font-weight:800;margin:20px 0 8px">③ 檢查導覽命名（4 個 S）</h4>
+    <div class="prompt">
+      <button class="copy-btn" type="button">複製</button>
+      <pre>以下是我的導覽項目與連結文字：
+[貼上導覽清單]
+
+請用 NN/g 的 4 個 S 原則逐項檢查：
+- Specific：是否明確說出點下去會看到什麼？
+- Sincere：標籤承諾與實際內容是否一致？
+- Substantial：脫離上下文能否獨立看懂？
+- Succinct：在滿足前三項的前提下是否夠精簡？
+
+輸出格式：每個項目一列，標示通過／不通過的 S，並給一個改寫版本。
+指出哪些項目彼此語意重疊，使用者可能分不出差別。</pre>
+    </div>
+
+    <h4 style="font-size:1rem;font-weight:800;margin:20px 0 8px">④ 檢查 IA 是否有遺漏</h4>
+    <div class="prompt">
+      <button class="copy-btn" type="button">複製</button>
+      <pre>以下是我的 Persona、核心任務與 IA 草案：
+[貼上 Persona 摘要]
+[貼上核心任務]
+[貼上 IA 樹狀結構]
+
+請幫我檢查：
+1. 這個 Persona 完成核心任務的路徑，在 IA 中是否完整？缺哪一步？
+2. 哪些節點沒有對應到任何使用者需求，可能是多餘的？
+3. 我漏掉了哪些例外狀態（搜尋無結果、資料為空、權限不足、錯誤、取消／退出）？
+4. 有沒有分類彼此語意重疊、或層級明顯過深的地方？
+
+請把「有證據支持的問題」與「你的推測」分開列出。</pre>
+    </div>
+
+    <h3>流程與 Wireframe</h3>
+
+    <h4 style="font-size:1rem;font-weight:800;margin:20px 0 8px">⑤ 檢查流程有沒有漏掉例外</h4>
+    <div class="prompt">
+      <button class="copy-btn" type="button">複製</button>
+      <pre>以下是我畫的使用者流程，用文字描述：
+[貼上流程步驟，一行一步，分岔的地方寫清楚條件]
+
+我的使用者是：[貼上 Persona 摘要]
+
+請幫我檢查：
+1. 這條流程有哪些判斷點是我沒標出來的？
+2. 下面六種狀況我分別漏掉了哪些：沒資料、找不到、沒權限、出錯、要等、反悔。
+3. 有沒有哪一步，使用者可能不知道下一步要做什麼？
+4. 終點只有「成功」嗎？失敗跟中途放棄的終點在哪裡？
+
+請把「流程裡明確缺少的」跟「你的推測」分開列。
+不要幫我重寫整條流程，只指出缺口。</pre>
+    </div>
+
+    <h4 style="font-size:1rem;font-weight:800;margin:20px 0 8px">⑥ 從流程推出需要哪些畫面</h4>
+    <div class="prompt">
+      <button class="copy-btn" type="button">複製</button>
+      <pre>以下是我補完例外路徑之後的流程：
+[貼上完整流程]
+
+請幫我整理：
+1. 這條流程總共需要幾個畫面？各自是什麼？
+2. 哪些是同一個畫面的不同狀態（例如空狀態、載入中、錯誤），
+   不需要另外算一個畫面？
+3. 如果只能先畫 3 個，你建議畫哪 3 個？為什麼？
+4. 每個畫面上必須有的資訊與動作各是什麼？
+
+只根據我提供的流程分析，不要自行新增我沒寫的功能。</pre>
+    </div>
+
+    <h4 style="font-size:1rem;font-weight:800;margin:20px 0 8px">⑦ 檢查 Wireframe 的資訊層級</h4>
+    <div class="prompt">
+      <button class="copy-btn" type="button">複製</button>
+      <pre>以下是我某一張 Wireframe 上，由上到下的所有元素：
+[一行一個元素，照實際順序寫，標註哪些是可點的]
+
+這一頁的主要任務是：[一句話]
+
+請幫我檢查：
+1. 最重要的資訊有沒有排在使用者第一眼會看到的位置？
+2. 這一頁有幾個可點的東西？主要動作夠不夠明顯，還是被淹沒了？
+3. 有沒有哪些元素其實跟主要任務無關，可以拿掉？
+4. 依這個順序，使用者讀完會知道下一步要做什麼嗎？
+
+只根據我列出的元素判斷，不要假設畫面上還有其他東西。</pre>
+    </div>
+
+    <div class="callout warn">
+      <strong>使用界線：</strong>不要讓 AI 直接生成流程圖、Wireframe 或分類方案。它不知道你的使用者研究結果，產出的會是「一般電商大概長這樣」的通用版本——那跟你前面幾個單元做的研究完全脫鉤，評圖時很容易被看出跟研究資料脫節。AI 產出的分類方案只是假設，真正的分類依據必須來自使用者的卡片分類結果。
+    </div>
+  </section>
+
+</div><!-- /.article -->
+
+<div class="refs">
+  <h2>參考資料</h2>
+  <ul>
+    <li><a href="https://www.nngroup.com/articles/ia-study-guide/" target="_blank" rel="noopener">Information Architecture: Study Guide</a> — NN/g，資訊架構部分教材的主要來源（中譯見 <code>from-ia/resources/guide.md</code>）。</li>
+    <li><a href="https://www.youtube.com/watch?v=v39z0JPeIc8" target="_blank" rel="noopener">Information Architecture: 3 Key Models</a> — NN/g 影片，回家作業指定觀看。</li>
+    <li><a href="https://www.nngroup.com/articles/information-architecture-sitemaps/" target="_blank" rel="noopener">Information Architecture vs. Sitemaps: What's the Difference?</a> — NN/g。</li>
+    <li><a href="https://www.nngroup.com/articles/ia-vs-navigation/" target="_blank" rel="noopener">The Difference Between Information Architecture (IA) and Navigation</a> — NN/g。</li>
+    <li><a href="https://www.nngroup.com/articles/card-sorting-definition/" target="_blank" rel="noopener">Card Sorting: Uncover Users' Mental Models for Better Information Architecture</a> — NN/g。</li>
+    <li><a href="https://www.nngroup.com/articles/tree-testing/" target="_blank" rel="noopener">Tree Testing: Fast, Iterative Evaluation of Menu Labels and Categories</a> — NN/g。</li>
+    <li><a href="https://www.nngroup.com/articles/information-scent/" target="_blank" rel="noopener">Information Scent: How Users Decide Where to Go Next</a> — NN/g。</li>
+    <li><a href="https://www.nngroup.com/articles/flat-vs-deep-hierarchy/" target="_blank" rel="noopener">Flat vs. Deep Website Hierarchies</a> — NN/g。</li>
+    <li><a href="https://www.nngroup.com/articles/3-click-rule/" target="_blank" rel="noopener">The 3-Click Rule for Navigation Is False</a> — NN/g。</li>
+    <li><a href="https://www.nngroup.com/articles/top-10-ia-mistakes/" target="_blank" rel="noopener">Top 10 Information Architecture (IA) Mistakes</a> — NN/g。</li>
+    <li><a href="https://www.nngroup.com/articles/better-link-labels/" target="_blank" rel="noopener">Better Link Labels: 4 Ss for Encouraging Clicks</a> — NN/g。</li>
+    <li><a href="https://www.nngroup.com/articles/taxonomy-101/" target="_blank" rel="noopener">Taxonomy 101: Definition, Best Practices</a> — NN/g。</li>
+    <li><a href="https://www.nngroup.com/articles/wireflows/" target="_blank" rel="noopener">Wireflows: A UX Deliverable for Workflows and Apps</a> — NN/g，Wireflow 定義、實作準則與實際圖例。</li>
+    <li><a href="https://www.nngroup.com/articles/user-journeys-vs-user-flows/" target="_blank" rel="noopener">User Journeys vs. User Flows</a> — NN/g，兩種尺度的定義與對照。</li>
+    <li><a href="https://www.nngroup.com/articles/ux-prototype-hi-lo-fidelity/" target="_blank" rel="noopener">UX Prototypes: Low Fidelity vs. High Fidelity</a> — NN/g，保真度三維度與取捨。</li>
+    <li><a href="https://www.nngroup.com/articles/ux-deliverables-glossary/" target="_blank" rel="noopener">UX Deliverables: Glossary</a> — NN/g，產出物名詞定義。</li>
+    <li><a href="https://help.figma.com/hc/en-us/articles/360040451373-Guide-to-auto-layout" target="_blank" rel="noopener">Guide to auto layout</a> — Figma 官方文件。</li>
+    <li><a href="https://help.figma.com/hc/en-us/articles/360039957734-Apply-constraints-to-define-how-layers-resize" target="_blank" rel="noopener">Apply constraints to define how layers resize</a> — Figma 官方文件。</li>
+    <li><a href="https://www.figma.com/design/XKrTQ38VaU4PZeuwT0uocp/Wireframe_Web_UI_Kit-%E5%88%87%E7%89%88%E7%9A%84100%E7%A8%AE%E7%B7%B4%E7%BF%92?node-id=0-1" target="_blank" rel="noopener">Wireframe Web UI Kit</a> — 課堂使用的線框區塊庫。</li>
+    <li>課程資源：<code>Unit_04/from-ia/resources/</code>、<code>Unit_04/from-flowchart-wireframe/resources/</code>（上述來源的中文整理與課程對照，含 Wireflow 範例圖）。</li>
+  </ul>
+</div>
+
+<div id="demo-overlay" role="dialog" aria-modal="true" aria-labelledby="demoTitle">
+  <div class="demo-modal">
+    <button class="demo-close" id="demoClose" type="button" aria-label="關閉">&times;</button>
+    <p class="d-tag" id="demoTag"></p>
+    <h3 id="demoTitle"></h3>
+    <div id="demoBody"></div>
+  </div>
+</div>
+
+<div class="foot-nav">
+  <a href="slides.html">回到 Unit 04 簡報</a>
+  <a href="from-ia/exercises.html#ex1">課堂練習：卡片分類法</a>
+  <a href="from-flowchart-wireframe/exercises.html#ex1">課堂練習：Flow 與 Wireframe</a>
+  <a href="https://www.figma.com/board/KtPtouN73pY8SBP90Uz1j2" target="_blank" rel="noopener">卡片分類板</a>
+  <a href="https://www.figma.com/board/80weQpwuu9BGHrlos8Emhy" target="_blank" rel="noopener">流程圖練習檔</a>
+  <a href="https://www.figma.com/design/3rw5NBkNFX2ZOHvJGXS2Mt" target="_blank" rel="noopener">Auto Layout 練習檔</a>
+  <a href="https://www.youtube.com/watch?v=v39z0JPeIc8" target="_blank" rel="noopener">指定影片</a>
+  <a href="../index.html">回到課程總覽</a>
+</div>
+
+<script>
+(function () {
+  const prog = document.getElementById('prog');
+  function updateProgress() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? window.scrollY / max * 100 : 0;
+    prog.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+})();
+
+(function () {
+  const nav = document.querySelector('.side-nav');
+  if (!nav || !('IntersectionObserver' in window)) return;
+  const links = Array.from(nav.querySelectorAll('a'));
+  const sections = links
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  const linkFor = new Map(sections.map((sec, i) => [sec, links[i]]));
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const link = linkFor.get(entry.target);
+      if (!link) return;
+      links.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  }, { rootMargin: '-10% 0px -75% 0px', threshold: 0 });
+
+  sections.forEach(sec => observer.observe(sec));
+})();
+
+// ── 互動範例（樹狀測試 / 卡片分類 / 標籤命名） ───────────────
+(function () {
+  const overlay = document.getElementById('demo-overlay');
+  const body = document.getElementById('demoBody');
+  const tagEl = document.getElementById('demoTag');
+  const titleEl = document.getElementById('demoTitle');
+  if (!overlay || !body) return;
+
+  const esc = t => String(t).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  let active = null;
+  function setTitle(tag, title) {
+    if (tagEl) tagEl.textContent = tag;
+    if (titleEl) titleEl.textContent = title;
+  }
+
+  /* ---------- 範例一：樹狀測試（四題隨機） ---------- */
+  const tree = (function () {
+    const SCENARIOS = [
+      {
+        title: '購物 App：你要去哪裡退貨？',
+        task: '你在這個購物 App 買了一雙鞋，尺寸不合想退掉。請找到可以「申請退貨」的地方。',
+        tree: {
+          '商品分類': { '女裝': null, '男裝': null, '鞋類': null, '3C 家電': null },
+          '優惠活動': { '折價券': null, '限時特賣': null, '會員專屬': null },
+          '訂單查詢': { '訂單列表': null, '物流追蹤': null, '退貨與換貨': null, '發票管理': null },
+          '客戶服務': { '常見問題': null, '線上客服': null, '服務條款': null, '檢舉賣家': null },
+          '我的帳戶': { '個人資料': null, '收件地址': null, '付款方式': null, '通知設定': null }
+        },
+        answer: ['訂單查詢', '退貨與換貨'],
+        stats: [['75%', '成功率<br>15／20 找到正確位置'], ['45%', '直接率<br>9／20 沒走回頭路'], ['客戶服務', '放棄點<br>8 人先點這裡']],
+        notes: [
+          '<strong>怎麼讀這組數字。</strong>成功率 75% 看起來還行，但直接率只有 45%——代表<strong>一半的人是繞路才找到的</strong>。這種「成功率高、直接率低」的組合，代表使用者繞了路才找到，得回頭看錯誤路徑與折返層級才知道問題出在哪一層，不一定是第一步。<br><br>再看放棄點：20 人裡有 8 人第一步先點「客戶服務」。這不是使用者笨，是他們把退貨理解成<strong>「客服問題」</strong>，而產品把它放在<strong>「訂單操作」</strong>底下。兩邊都有道理，這就是典型的分歧項目。',
+          '<strong>所以要改什麼？</strong>不是把「退貨與換貨」搬到客戶服務，那只會讓原本走對的人變成走錯。正解是<strong>多重層級</strong>：兩邊都放，客戶服務底下放一個指向同一頁的入口。這正是卡片分類遇到分歧卡片的處理方式——樹狀測試只是用數據把它再確認一次。'
+        ]
+      },
+      {
+        title: '銀行 App：你要去哪裡調高信用卡額度？',
+        task: '你下個月要出國，想把信用卡的額度調高。請找到可以「申請調整額度」的地方。',
+        tree: {
+          '存款業務': { '台幣帳戶': null, '外幣帳戶': null, '定期存款': null, '約定轉帳': null },
+          '信用卡服務': { '帳單查詢': null, '繳款設定': null, '額度調整': null, '紅利點數': null, '掛失補發': null },
+          '貸款專區': { '信用貸款': null, '房屋貸款': null, '車貸專案': null, '額度試算': null },
+          '投資理財': { '基金申購': null, '外匯交易': null, '保險服務': null },
+          '個人設定': { '基本資料': null, '通知偏好': null, '安全設定': null }
+        },
+        answer: ['信用卡服務', '額度調整'],
+        stats: [['60%', '成功率<br>12／20 找到正確位置'], ['30%', '直接率<br>6／20 沒走回頭路'], ['貸款專區', '放棄點<br>9 人先點這裡']],
+        notes: [
+          '<strong>成功率掉到 60%，直接率只剩 30%。</strong>9 個人第一步先進「貸款專區」——因為那裡有「額度試算」，<strong>同樣出現「額度」兩個字</strong>。使用者不是在讀分類邏輯，是在掃描關鍵字。',
+          '<strong>問題出在分類的切法。</strong>存款業務、信用卡服務、貸款專區——這是<strong>銀行內部的部門</strong>。使用者腦中沒有這張組織圖，他只知道自己要「調額度」。這正是最常見的 IA 錯誤第一條：用公司內部組織架構當分類，而不是使用者的心智模型。',
+          '<strong>怎麼改？</strong>把部門名稱全部重寫不現實，銀行內部也不會同意。實務上的解法是<strong>另外開一條任務導向的路徑</strong>：首頁放「常用服務」快捷區，把調額度、掛失、繳費這些高頻任務直接露出來，繞過部門分類。原本的部門結構留給知道自己要找哪一區的人。'
+        ]
+      },
+      {
+        title: '大學網站：補繳學分費的截止日在哪？',
+        task: '你這學期加簽了一門課，要補繳學分費。請找到公告繳費截止日的地方。',
+        tree: {
+          '未來學生': { '招生資訊': null, '獎學金說明': null, '校園導覽': null, '線上申請': null },
+          '在校學生': { '課程查詢': null, '學籍規定': null, '註冊繳費': null, '宿舍申請': null, '社團活動': null },
+          '教職員工': { '差勤系統': null, '研究計畫': null, '教學資源': null },
+          '校友專區': { '校友卡': null, '募款專案': null, '返校活動': null },
+          '關於本校': { '校史沿革': null, '行政單位': null, '交通位置': null, '聯絡我們': null }
+        },
+        answer: ['在校學生', '註冊繳費'],
+        stats: [['70%', '成功率<br>14／20 找到正確位置'], ['40%', '直接率<br>8／20 沒走回頭路'], ['關於本校', '放棄點<br>7 人先點這裡']],
+        notes: [
+          '<strong>7 個人第一步點了「關於本校」</strong>，想從「行政單位」找出納組。他們的推理沒有錯：繳費是行政程序，行政程序當然找行政單位。',
+          '<strong>問題出在用受眾別切導覽。</strong>未來學生、在校學生、教職員、校友——使用者要先回答「我算哪一種人」才能開始找。多數人可以，但延畢生、休學復學、旁聽生、剛畢業還在辦離校的人就會卡住。而且「補繳學分費」在使用者腦中是<strong>一件事</strong>，不是<strong>一種身分</strong>。這是最常見的 IA 錯誤第二條。',
+          '<strong>怎麼改？</strong>受眾別當首頁入口沒問題，它幫新訪客快速收斂。但任務型的內容不能只掛在受眾底下——要另外做一條任務導向的路徑（「我想繳費／查成績／申請證明」），並且讓搜尋能直接命中。同一頁掛在兩處，就是多重層級。'
+        ]
+      },
+      {
+        title: '串流平台：你要去哪裡取消訂閱？',
+        task: '這個月開始你不想再續訂了。請找到可以「取消訂閱」的地方。',
+        tree: {
+          '首頁推薦': { '熱門影集': null, '新片上架': null, '為你推薦': null },
+          '我的片單': { '待看清單': null, '已看過': null, '下載管理': null },
+          '帳戶': {
+            '個人資料': null,
+            '觀看紀錄': null,
+            '裝置管理': null,
+            '訂閱與付款': { '付款方式': null, '帳單紀錄': null, '變更方案': null, '取消訂閱': null }
+          },
+          '客服中心': { '常見問題': null, '聯絡我們': null, '退款政策': null },
+          '設定': { '播放品質': null, '語言與字幕': null, '通知設定': null }
+        },
+        answer: ['帳戶', '訂閱與付款', '取消訂閱'],
+        stats: [['55%', '成功率<br>11／20 找到正確位置'], ['20%', '直接率<br>4／20 沒走回頭路'], ['5.2 次', '平均點擊<br>其他三題都在 3 次以內']],
+        notes: [
+          '<strong>這題四題裡最難：成功率 55%、直接率只有 20%。</strong>而且平均要點 5.2 次——其他三題都在 3 次以內。有 6 個人先跑去「客服中心」找退款政策，另外有人卡在「變更方案」，以為降到最低方案就等於取消。',
+          '<strong>三層深本身不是問題。</strong>問題是「取消訂閱」被埋在第三層，而第二層叫<strong>「訂閱與付款」</strong>——使用者看到這個名字會以為裡面是繳費相關，不會想到取消也在那。回到扁平 vs 深層那一節：深層結構適合內容量大、分類邏輯明確的產品，但<strong>使用者高頻需要的動作不該埋在最深處</strong>。',
+          '<strong>要誠實面對一件事：</strong>取消流程被藏深，很多時候是<strong>刻意</strong>的。把退出路徑做難一點，短期留存數字會好看。但這是黑暗模式，代價是使用者對整個產品的信任——而且各國法規已經開始要求「取消要和訂閱一樣容易」。做 IA 的時候，你會遇到有人要求你把某個東西藏起來，這時候要知道自己在做什麼。'
+        ]
+      }
+    ];
+
+    let sc = null, prev = -1;
+    let path = [], back = 0, clicks = 0;
+    const at = keys => keys.reduce((n, k) => n[k], sc.tree);
+
+    function pick() {
+      let i = Math.floor(Math.random() * SCENARIOS.length);
+      if (SCENARIOS.length > 1 && i === prev) i = (i + 1) % SCENARIOS.length;
+      prev = i;
+      sc = SCENARIOS[i];
+    }
+
+    function render() {
+      const node = at(path);
+      const items = Object.keys(node).map(k =>
+        '<li><button type="button" data-key="' + esc(k) + '">' + esc(k) +
+        '<span class="d-arrow">' + (node[k] === null ? '選這個' : '›') + '</span></button></li>').join('');
+      body.innerHTML =
+        '<p class="d-task"><strong>任務：</strong>' + esc(sc.task) + '<br>' +
+        '<span style="color:var(--muted);font-size:.88rem">沒有搜尋框、沒有圖示、沒有版面——樹狀測試就是這樣，只剩分類名稱。</span></p>' +
+        '<p class="d-crumb">你在：<b>' + (path.length ? esc(path.join(' → ')) : '首頁（第一層）') + '</b></p>' +
+        '<ul class="d-list">' + items + '</ul>' +
+        '<div class="d-actions">' +
+        (path.length ? '<button class="d-btn" data-act="back">← 回上一層</button>' : '') +
+        '<button class="d-btn" data-act="reset">換一題</button></div>';
+    }
+
+    function finish(choice) {
+      const chosen = path.concat(choice);
+      const ok = chosen.join('/') === sc.answer.join('/');
+      const direct = ok && back === 0;
+      const stats = sc.stats.map(st =>
+        '<div class="d-stat"><b>' + st[0] + '</b><span>' + st[1] + '</span></div>').join('');
+      const notes = sc.notes.map(n => '<div class="d-note">' + n + '</div>').join('');
+      body.innerHTML =
+        (ok
+          ? '<div class="d-verdict ok"><b>找到了。</b>你的路徑：' + esc(chosen.join(' → ')) +
+            '｜點了 ' + clicks + ' 次，走回頭路 ' + back + ' 次。' +
+            (direct ? '一次到位，統計上算「直接成功」。' : '有走回頭路，算「成功但不直接」——總分會過，過程是卡的。') + '</div>'
+          : '<div class="d-verdict no"><b>這裡沒有你要找的東西。</b>你的路徑：' + esc(chosen.join(' → ')) +
+            '｜點了 ' + clicks + ' 次，走回頭路 ' + back + ' 次。<br>正確位置是「' + esc(sc.answer.join(' → ')) +
+            '」。走錯不代表你不會用——下面的統計會告訴你，多數人也走錯同一個地方。</div>') +
+        '<p style="font-size:.95rem;margin:0 0 10px"><strong>20 位受測者跑同一題的結果：</strong></p>' +
+        '<div class="d-stats">' + stats + '</div>' + notes +
+        '<div class="d-actions"><button class="d-btn primary" data-act="reset">換一題再玩</button>' +
+        '<button class="d-btn" data-act="close">關閉</button></div>';
+    }
+
+    return {
+      tag: 'Tree Testing · 互動範例',
+      title: '',
+      start() {
+        pick();
+        this.title = sc.title;
+        setTitle(this.tag, this.title);
+        path = []; back = 0; clicks = 0;
+        render();
+      },
+      click(btn) {
+        const act = btn.dataset.act;
+        if (act === 'back') { path.pop(); back++; render(); return; }
+        if (act === 'reset') { this.start(); return; }
+        const key = btn.dataset.key;
+        if (!key) return;
+        clicks++;
+        if (at(path)[key] === null) finish(key); else { path.push(key); render(); }
+      }
+    };
+  })();
+
+  /* ---------- 範例二：封閉式卡片分類 ---------- */
+  const sort = (function () {
+    const BINS = ['訂單處理', '商品資訊', '客戶關係', '行銷與數據', '系統設定'];
+    // consensus：多數人放的分類 + 幾人／20 + 分歧時的第二選擇
+    const CARDS = [
+      ['訂單管理', '訂單處理', 20, null],
+      ['產品管理', '商品資訊', 20, null],
+      ['物流資訊', '訂單處理', 19, null],
+      ['庫存管理', '商品資訊', 19, null],
+      ['客戶服務', '客戶關係', 18, null],
+      ['站點設置', '系統設定', 18, null],
+      ['用戶管理', '客戶關係', 16, null],
+      ['退貨處理', '訂單處理', 15, '客戶關係'],
+      ['報告和分析', '行銷與數據', 15, null],
+      ['用戶反饋', '客戶關係', 14, '行銷與數據'],
+      ['安全設置', '系統設定', 13, '客戶關係'],
+      ['促銷活動設置', '行銷與數據', 12, '商品資訊'],
+      ['支付處理', '訂單處理', 11, '系統設定']
+    ];
+    let picked = {}, sel = null;
+
+    function render() {
+      const done = Object.keys(picked).length;
+      const cards = CARDS.map(([name]) =>
+        '<button class="d-card' + (picked[name] ? ' done' : '') + (sel === name ? ' sel' : '') + '" type="button" ' +
+        'data-card="' + esc(name) + '"' + (picked[name] ? ' disabled' : '') + '>' + esc(name) + '</button>').join('');
+      const bins = BINS.map(bin => {
+        const inside = CARDS.filter(([n]) => picked[n] === bin).map(([n]) => n);
+        return '<button class="d-bin" type="button" data-bin="' + esc(bin) + '"><b>' + esc(bin) + '</b>' +
+          '<span>' + (inside.length ? esc(inside.join('、')) : '（還沒有卡片）') + '</span></button>';
+      }).join('');
+      body.innerHTML =
+        '<p class="d-task"><strong>任務：</strong>先點一張卡片，再點你覺得它該去的分類。這 5 個分類是研究人員先給定的——這就是<strong>封閉式</strong>卡片分類。</p>' +
+        '<p class="d-progress">已分配 ' + done + '／13' + (sel ? '　·　已選：' + esc(sel) + '，現在點分類' : '') + '</p>' +
+        '<div class="d-cards">' + cards + '</div>' +
+        '<div class="d-bins">' + bins + '</div>' +
+        '<div class="d-actions">' +
+        (done === 13 ? '<button class="d-btn primary" data-act="check">看共識度對照</button>' : '') +
+        '<button class="d-btn" data-act="reset">重新開始</button></div>';
+    }
+
+    function result() {
+      let match = 0;
+      const rows = CARDS.map(([name, top, votes, second]) => {
+        const mine = picked[name];
+        if (mine === top) match++;
+        const pct = Math.round(votes / 20 * 100);
+        const low = votes <= 13;
+        return '<div class="d-row' + (low ? ' low' : '') + '"><span class="r-name">' + esc(name) + '</span>' +
+          '<span class="r-bar"><i style="width:' + pct + '%"></i></span>' +
+          '<span class="r-num">' + votes + '／20</span></div>';
+      }).join('');
+      const diverge = CARDS.filter(c => c[2] <= 13);
+      body.innerHTML =
+        '<div class="d-verdict ' + (match >= 10 ? 'ok' : 'no') + '"><b>你和多數人一致的有 ' + match + '／13 張。</b>' +
+        '這個數字本身不重要——重要的是下面哪幾張卡片<strong>大家都分不定</strong>。</div>' +
+        '<p style="font-size:.95rem;margin:0 0 8px"><strong>20 人的共識度</strong>（橘色＝共識低於 70%）：</p>' +
+        '<div class="d-rows">' + rows + '</div>' +
+        '<div class="d-note"><strong>高共識的直接採用。</strong>訂單管理、產品管理這種 19–20 人都放同一格的，不用再討論。<br><br>' +
+        '<strong>低共識的才是產出。</strong>這次有三張：' +
+        diverge.map(c => '<strong>' + esc(c[0]) + '</strong>（' + c[2] + '／20，另外 ' + (20 - c[2]) + ' 人放到「' + esc(c[3]) + '」）').join('、') +
+        '。這三張不是雜訊，是告訴你使用者的心智模型跟你的分類有落差。</div>' +
+        '<div class="d-note"><strong>三種處理方式，看情況選：</strong><br>' +
+        '「支付處理」11／20 —— 兩邊理由都成立（它既是訂單流程的一環，也是系統設定），這種用<strong>多重層級</strong>，兩邊都掛。<br>' +
+        '「促銷活動設置」12／20 —— 分歧來自命名太籠統，使用者不確定它是行銷工具還是商品設定，先<strong>改名</strong>再測一次。<br>' +
+        '「安全設置」13／20 —— 使用者對它根本沒有既定認知，這種要在介面上<strong>補說明</strong>，或考慮併進更大的分類。</div>' +
+        '<div class="d-actions"><button class="d-btn primary" data-act="reset">再分一次</button>' +
+        '<button class="d-btn" data-act="close">關閉</button></div>';
+    }
+
+    return {
+      tag: 'Card Sorting · 互動範例',
+      title: '封閉式卡片分類：13 張電商後台卡片',
+      start() { picked = {}; sel = null; render(); },
+      click(btn) {
+        const act = btn.dataset.act;
+        if (act === 'reset') { this.start(); return; }
+        if (act === 'check') { result(); return; }
+        if (btn.dataset.card) { sel = (sel === btn.dataset.card) ? null : btn.dataset.card; render(); return; }
+        if (btn.dataset.bin && sel) { picked[sel] = btn.dataset.bin; sel = null; render(); }
+      }
+    };
+  })();
+
+  /* ---------- 範例三：標籤命名 4 個 S ---------- */
+  const label = (function () {
+    const Q = [
+      {
+        goal: '你想知道「退貨要不要自己付運費」。',
+        options: [
+          ['了解更多', false, '違反 Substantial：脫離上下文完全看不出內容，也違反 Specific。'],
+          ['服務中心', false, '違反 Specific：範圍太大，退貨、維修、客訴全都可能在裡面。'],
+          ['退貨與換貨說明', true, '四個 S 都過：具體、誠實、能獨立看懂，長度也剛好。'],
+          ['點此查看關於退貨換貨的完整說明與相關費用規定', false, '前三個 S 都過，但違反 Succinct：滿足前三項之後就該收，這句多了一半。']
+        ]
+      },
+      {
+        goal: '你想換掉綁定的信用卡。',
+        options: [
+          ['付款方式', true, '具體且精簡，使用者一看就知道信用卡在這裡。'],
+          ['我的錢包', false, '違反 Specific：自創的比喻詞，使用者不確定裡面是餘額、點數還是信用卡。'],
+          ['帳戶設定', false, '違反 Specific：範圍太大，付款、密碼、通知都可能在裡面。'],
+          ['更多', false, '四個 S 全違反，這是最沒有資訊氣味的一種標籤。']
+        ]
+      },
+      {
+        goal: '你想知道這堂線上課程上完之後，你能做出什麼東西。',
+        options: [
+          ['詳細資訊', false, '違反 Specific 與 Substantial：什麼都可能在裡面。'],
+          ['學習成果', true, '直接對應使用者心裡的問題「我學完會什麼」。'],
+          ['課程介紹', false, '不算錯，但偏向介紹課程本身，沒有回答「我能做出什麼」。'],
+          ['開始學習', false, '違反 Sincere：這是行動按鈕，點下去會直接進課程，不是說明頁。']
+        ]
+      },
+      {
+        mode: 'bad',
+        goal: '以下哪一個標籤最可能讓使用者覺得「被騙了」？',
+        options: [
+          ['免費試用', true, '這就是違反 Sincere 的典型——如果點進去要先綁信用卡，標籤承諾與實際內容不符。使用者不會怪自己看漏，只會不再信任這一區。'],
+          ['查看方案與價格', false, '誠實，點進去就是價格，沒有落差。'],
+          ['下載使用手冊（PDF, 2.4MB）', false, '不但誠實，還先告知格式與檔案大小，減少意外。'],
+          ['聯絡客服', false, '具體且誠實。']
+        ]
+      }
+    ];
+    let i = 0, score = 0, answered = false;
+
+    function render(feedback) {
+      const q = Q[i];
+      const opts = q.options.map((opt, idx) =>
+        '<li><button type="button" data-opt="' + idx + '"' + (answered ? ' disabled' : '') + '>' +
+        esc(opt[0]) + '</button></li>').join('');
+      body.innerHTML =
+        '<p class="d-progress">第 ' + (i + 1) + ' 題／共 ' + Q.length + '　·　答對 ' + score + ' 題</p>' +
+        '<p class="d-task"><strong>' + (q.mode === 'bad' ? '題目：' : '使用者目標：') + '</strong>' + esc(q.goal) +
+        (q.mode === 'bad' ? '' : '<br><span style="color:var(--muted);font-size:.88rem">哪一個標籤最能讓他放心點下去？</span>') + '</p>' +
+        '<ul class="d-list">' + opts + '</ul>' +
+        (feedback || '') +
+        (answered
+          ? '<div class="d-actions">' +
+            (i < Q.length - 1
+              ? '<button class="d-btn primary" data-act="next">下一題 →</button>'
+              : '<button class="d-btn primary" data-act="done">看總結</button>') +
+            '</div>'
+          : '');
+    }
+
+    function answer(idx) {
+      const q = Q[i];
+      const ok = q.options[idx][1];
+      if (ok) score++;
+      answered = true;
+      const lines = q.options.map((opt, k) =>
+        '<div style="padding:5px 0"><strong>' + (opt[1] ? '✓ ' : '✗ ') + esc(opt[0]) + '</strong>　' + esc(opt[2]) + '</div>').join('');
+      render('<div class="d-verdict ' + (ok ? 'ok' : 'no') + '"><b>' +
+        (ok ? '答對了。' : '再看一次每個選項：') + '</b>' + lines + '</div>');
+    }
+
+    function summary() {
+      body.innerHTML =
+        '<div class="d-verdict ' + (score >= 3 ? 'ok' : 'no') + '"><b>' + score + '／' + Q.length + ' 題</b>' +
+        (score >= 3 ? '標籤的敏感度不錯。' : '多練幾次，這是最容易忽略但影響最大的一環。') + '</div>' +
+        '<div class="d-note"><strong>四題各測一個 S：</strong><br>' +
+        '第 1 題 —— Succinct 排在最後。那個超長選項前三個 S 都過，但滿足之後就該收。<br>' +
+        '第 2 題 —— Specific。「我的錢包」「帳戶設定」「更多」都是範圍太大或自創詞。<br>' +
+        '第 3 題 —— Substantial。標籤要能回答使用者心裡的問題，不是描述你的內容。<br>' +
+        '第 4 題 —— Sincere。標籤承諾與點進去看到的東西不符，代價是整區都不再被信任。</div>' +
+        '<div class="d-note"><strong>回到 IA。</strong>導覽的用字不是文案問題，是架構問題。' +
+        '一個看不懂的標籤，等於那一整支分類在使用者眼中不存在——結構做得再乾淨也沒用。</div>' +
+        '<div class="d-actions"><button class="d-btn primary" data-act="reset">再測一次</button>' +
+        '<button class="d-btn" data-act="close">關閉</button></div>';
+    }
+
+    return {
+      tag: 'Labeling · 互動範例',
+      title: '四題標籤測驗：哪一個氣味最強？',
+      start() { i = 0; score = 0; answered = false; render(); },
+      click(btn) {
+        const act = btn.dataset.act;
+        if (act === 'reset') { this.start(); return; }
+        if (act === 'next') { i++; answered = false; render(); return; }
+        if (act === 'done') { summary(); return; }
+        if (btn.dataset.opt && !answered) answer(Number(btn.dataset.opt));
+      }
+    };
+  })();
+
+  const DEMOS = { tree: tree, sort: sort, label: label };
+
+  function open(key) {
+    active = DEMOS[key];
+    if (!active) return;
+    active.start();
+    setTitle(active.tag, active.title);
+    overlay.classList.add('open');
+  }
+  function close() {
+    overlay.classList.remove('open');
+    body.innerHTML = '';
+    active = null;
+  }
+
+  body.addEventListener('click', event => {
+    const btn = event.target.closest('button');
+    if (!btn || !active) return;
+    if (btn.dataset.act === 'close') { close(); return; }
+    active.click(btn);
+  });
+
+  document.querySelectorAll('.demo-launch[data-demo]').forEach(btn =>
+    btn.addEventListener('click', () => open(btn.dataset.demo)));
+  document.getElementById('demoClose').addEventListener('click', close);
+  overlay.addEventListener('click', event => { if (event.target === overlay) close(); });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && overlay.classList.contains('open')) close();
+  });
+})();
+
+(function () {
+  document.querySelectorAll('.prompt').forEach(prompt => {
+    const btn = prompt.querySelector('.copy-btn');
+    const pre = prompt.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        btn.textContent = '已複製';
+        btn.classList.add('done');
+        setTimeout(() => {
+          btn.textContent = '複製';
+          btn.classList.remove('done');
+        }, 1400);
+      } catch (error) {
+        btn.textContent = '複製失敗';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

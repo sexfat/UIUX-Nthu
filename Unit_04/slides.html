@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unit 04 · 用戶旅程地圖與設計目標</title>
+<title>Unit 04 · 產品設計流程</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
@@ -28,7 +28,7 @@
 
 html, body { height: 100%; overflow: hidden; }
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang TC", sans-serif;
   background: var(--bg);
   color: var(--dark);
   -webkit-font-smoothing: antialiased;
@@ -71,7 +71,7 @@ body {
   flex-shrink: 0;
   height: 28px;
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 .slide-body {
   flex: 1;
@@ -92,12 +92,9 @@ body {
   padding: 4px 11px;
   border-radius: 8px;
 }
-.slide-num, .course-label {
-  font-size: 12px;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
+.slide-num { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .course-label { font-size: 11px; color: #a1a1a6; }
+
 .dots { display: flex; gap: 5px; align-items: center; }
 .dot {
   width: 5px;
@@ -136,7 +133,7 @@ h2 {
   color: var(--muted);
   line-height: 1.65;
   margin-top: 14px;
-  max-width: 940px;
+  max-width: 900px;
 }
 
 .cover-eyebrow {
@@ -285,13 +282,14 @@ h2 {
   margin-bottom: 18px;
   width: fit-content;
 }
-
 .matrix {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 14px;
   margin-top: 26px;
 }
+.matrix.c3 { grid-template-columns: repeat(3, 1fr); }
+.matrix.c4 { grid-template-columns: repeat(4, 1fr); }
 .mini-card.accent { border-color: rgba(15,118,110,.22); background: rgba(15,118,110,.06); }
 .mini-card.warn { border-color: rgba(194,65,12,.22); background: rgba(194,65,12,.06); }
 
@@ -334,80 +332,13 @@ h2 {
 .note a { color: var(--accent); font-weight: 700; text-decoration: none; }
 .note a:hover { text-decoration: underline; }
 
-.journey-grid {
-  display: grid;
-  grid-template-columns: 122px repeat(5, 1fr);
-  margin-top: 22px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-  background: var(--card);
-  font-size: clamp(.64rem, .82vw, .78rem);
-}
-.journey-grid > div {
-  min-height: 50px;
-  padding: 9px 10px;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  line-height: 1.35;
-}
-.journey-grid > div:nth-child(6n) { border-right: 0; }
-.journey-grid > div:nth-last-child(-n+6) { border-bottom: 0; }
-.journey-grid .row-label {
-  font-weight: 700;
-  color: var(--muted);
-  background: var(--surface);
-}
-.journey-grid .phase {
-  font-weight: 700;
-  color: var(--accent);
-  background: rgba(0,102,204,.06);
-}
-.journey-grid .pain { color: var(--negative); font-weight: 600; }
-.journey-grid .sweet { color: var(--positive); font-weight: 600; }
-
-.chart-wrap {
-  position: relative;
-  height: clamp(220px, 34vh, 310px);
-  margin-top: 18px;
-  padding: 14px 18px 8px;
-  border: 1px solid #3a3a3c;
-  border-radius: 10px;
-  background: rgba(255,255,255,.035);
-}
-.chart-wrap canvas {
-  width: 100% !important;
-  height: 100% !important;
-  opacity: 0;
-  transition: opacity .2s ease;
-}
-.chart-wrap.chart-ready canvas { opacity: 1; }
-.chart-fallback {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  color: #a1a1a6;
-  font-size: .86rem;
-}
-.chart-wrap.chart-ready .chart-fallback { display: none; }
-.chart-caption-row {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-  margin-top: 8px;
-  color: #a1a1a6;
-  font-size: clamp(.62rem, .84vw, .76rem);
-  text-align: center;
-}
-.chart-caption-row strong { display: block; color: #f5f5f7; margin-bottom: 3px; }
-
 .chain {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
   margin-top: 34px;
 }
+.chain.c5 { grid-template-columns: repeat(5, 1fr); gap: 16px; }
 .chain-step {
   position: relative;
   padding: 22px 20px;
@@ -432,6 +363,117 @@ h2 {
 .stat b { display: block; font-size: clamp(2.1rem, 4.4vw, 3.3rem); line-height: 1; color: var(--accent); }
 .stat span { display: block; margin-top: 9px; color: var(--muted); line-height: 1.5; font-size: .9rem; }
 
+/* 卡片分類示意 */
+.sort-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 26px;
+}
+.sort-col {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  padding: 14px 13px 16px;
+}
+.sort-col b {
+  display: block;
+  font-size: .78rem;
+  color: var(--accent);
+  margin-bottom: 11px;
+  letter-spacing: .02em;
+}
+.sort-card {
+  font-size: clamp(.68rem, .88vw, .82rem);
+  color: var(--dark);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 10px;
+  margin-bottom: 7px;
+  line-height: 1.4;
+}
+.sort-card:last-child { margin-bottom: 0; }
+.sort-card.q { color: var(--accent3); border-color: rgba(194,65,12,.3); background: rgba(194,65,12,.06); }
+
+/* IA 樹狀示意 */
+.ia-tree {
+  margin-top: 26px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  padding: 20px 22px;
+  font-size: clamp(.72rem, .95vw, .88rem);
+  line-height: 1.9;
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  color: var(--dark);
+  white-space: pre;
+  overflow-x: auto;
+}
+.ia-tree .lv1 { color: var(--accent); font-weight: 700; }
+.ia-tree .lv3 { color: var(--muted); }
+
+/* 流程圖 */
+.flow-dia {
+  margin-top: 24px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  padding: 20px 22px;
+  font-size: clamp(.68rem, .92vw, .85rem);
+  line-height: 1.85;
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  color: var(--dark);
+  white-space: pre;
+  overflow-x: auto;
+}
+.flow-dia .n { color: var(--accent); font-weight: 700; }
+.flow-dia .d { color: var(--accent2); font-weight: 700; }
+.flow-dia .x { color: var(--accent3); font-weight: 700; }
+.flow-dia .c { color: var(--muted); }
+
+.slide-img {
+  display: block;
+  max-width: 100%;
+  max-height: 52vh;
+  width: auto;
+  margin: 22px auto 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  object-fit: contain;
+}
+.slide.dark .slide-img { border-color: #3a3a3c; }
+
+/* 線框示意 */
+.wf-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 26px; }
+.wf {
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-height: 250px;
+}
+.wf .bar { background: var(--surface); border-radius: 3px; }
+.wf .bar.h { height: 26px; }
+.wf .bar.t { height: 13px; width: 62%; }
+.wf .bar.s { height: 9px; width: 88%; }
+.wf .bar.box { flex: 1; }
+.wf .bar.btn { height: 22px; width: 44%; background: rgba(0,102,204,.16); }
+.wf-cap { font-size: .78rem; color: var(--muted); margin-top: 9px; text-align: center; }
+
+.slide-body a.ilink {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,102,204,.35);
+}
+.slide-body a.ilink:hover { border-bottom-color: var(--accent); }
+.slide.dark .slide-body a.ilink { color: #58a6ff; border-bottom-color: rgba(88,166,255,.42); }
+.slide.dark .slide-body a.ilink:hover { border-bottom-color: #58a6ff; }
+
 .res-links {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -447,6 +489,7 @@ h2 {
   border: 1px solid var(--border);
   border-radius: 8px;
   text-decoration: none;
+  transition: border-color .2s, transform .2s;
 }
 .res-link:hover { border-color: var(--accent); transform: translateY(-2px); }
 .res-link strong { font-size: .94rem; color: var(--dark); }
@@ -469,6 +512,7 @@ h2 {
   color: var(--dark);
   cursor: pointer;
   font-size: 15px;
+  transition: background .2s, transform .15s;
 }
 #ctrls button:hover { background: rgba(29,29,31,.12); transform: scale(1.04); }
 #ctrls.on-dark button { background: rgba(255,255,255,.16); color: #fff; }
@@ -480,7 +524,9 @@ h2 {
 .slide.dark .divider, .slide.dark .dot.on { background: #58a6ff; }
 .slide.dark .unit-pill, .slide.dark .layer-badge { background: rgba(88,166,255,.13); }
 .slide.dark .bg-n { color: #2c2c2e; }
-.slide.dark .blist li, .slide.dark .agenda-card, .slide.dark .mini-card, .slide.dark .chain-step {
+.slide.dark .blist li, .slide.dark .agenda-card, .slide.dark .mini-card,
+.slide.dark .chain-step, .slide.dark .sort-col, .slide.dark .ia-tree,
+.slide.dark .flow-dia, .slide.dark .wf {
   background: rgba(255,255,255,.055);
   color: #f5f5f7;
   border-color: #3a3a3c;
@@ -488,6 +534,14 @@ h2 {
 .slide.dark .blist li::before { color: #58a6ff; background: rgba(88,166,255,.15); }
 .slide.dark .mini-card strong, .slide.dark .a-time, .slide.dark .chain-step span { color: #f5f5f7; }
 .slide.dark .mini-card span, .slide.dark .a-desc { color: #a1a1a6; }
+.slide.dark .chain-step b, .slide.dark .sort-col b, .slide.dark .ia-tree .lv1, .slide.dark .flow-dia .n { color: #58a6ff; }
+.slide.dark .sort-card { background: rgba(255,255,255,.06); border-color: #3a3a3c; color: #f5f5f7; }
+.slide.dark .ia-tree .lv3 { color: #a1a1a6; }
+.slide.dark .flow-dia .c, .slide.dark .wf-cap { color: #a1a1a6; }
+.slide.dark .wf .bar { background: rgba(255,255,255,.10); }
+.slide.dark .wf .bar.btn { background: rgba(88,166,255,.28); }
+.slide.dark .stat b { color: #58a6ff; }
+.slide.dark .stat span { color: #a1a1a6; }
 .slide.dark .dot { background: #3a3a3c; }
 .slide.dark .note { background: rgba(255,255,255,.055); color: #a1a1a6; border-left-color: #58a6ff; }
 .slide.dark .note a { color: #58a6ff; }
@@ -502,17 +556,14 @@ h2 {
   :root { --px: 20px; --py: 20px; }
   .slide { overflow-y: auto; -webkit-overflow-scrolling: touch; }
   .slide-body { justify-content: flex-start; padding: 12px 0; }
-  .agenda-grid, .matrix, .res-links, .chain { grid-template-columns: 1fr; gap: 10px; margin-top: 16px; }
+  .agenda-grid, .matrix, .matrix.c3, .matrix.c4,
+  .res-links, .chain, .chain.c5, .sort-board, .wf-row { grid-template-columns: 1fr; gap: 10px; margin-top: 16px; }
   .chain-step:not(:last-child)::after { display: none; }
-  .cmp-table, .journey-grid { overflow-x: auto; min-width: 760px; }
-  .journey-grid { display: grid; }
-  .chart-wrap { min-height: 230px; }
-  .chart-caption-row { min-width: 720px; }
+  .cmp-table { display: block; overflow-x: auto; }
   .blist { margin-top: 16px; gap: 8px; }
   .stat-row { gap: 24px; margin-top: 20px; }
   .cover-sub { margin-bottom: 22px; }
   .bg-n, .course-label, .dots { display: none; }
-  #ctrls { bottom: 16px; right: 16px; }
 }
 
 /* 封面回到課程總覽 */
@@ -523,775 +574,1057 @@ h2 {
 </style>
 </head>
 <body>
+
 <div id="prog"></div>
 
 <div id="deck">
+
+  <!-- 01 Cover -->
   <section class="slide active">
     <div class="slide-head"><span style="display:inline-flex;align-items:center;gap:10px"><span class="unit-pill">Unit 04</span><a class="to-index" href="../index.html" title="回到課程總覽">↩ 課程總覽</a></span><span class="slide-num"></span></div>
     <div class="slide-body">
       <div class="cover-eyebrow">UI 設計實作課程 · 2026</div>
-      <h1 class="cover-title">用戶旅程地圖<br>與設計目標</h1>
-      <p class="cover-sub">情境界定 × 行動與情緒 × 峰值體驗 × 甜點與痛點 × 設計機會</p>
+      <h1 class="cover-title">產品設計流程</h1>
+      <p class="cover-sub">Functional Map（功能地圖）× Flow Chart（流程圖）× Wireframe</p>
       <div class="cover-meta">
-        <span>07/28 全天</span><span class="meta-dot"></span><span>41 張投影片</span><span class="meta-dot"></span><span>含課堂實作</span>
+        <span>10/7</span><span class="meta-dot"></span><span>43 張投影片</span><span class="meta-dot"></span><span>合併單元：資訊架構 + Flowchart/Wireframe</span>
       </div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
-  <section class="slide">
+  <!-- 02 Agenda -->
+  <section class="slide dark">
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
       <p class="overline">Agenda</p>
-      <h1>今天把研究變成一條<br>可被看見的體驗</h1>
+      <h1>從研究洞察，走到第一張 Wireframe</h1>
       <div class="agenda-grid">
-        <div class="agenda-card"><span class="a-step">Part 1</span><span class="a-time">看懂旅程</span><span class="a-desc">理解 Journey Map 的用途、邊界、五個必要元素，以及它和 Persona、User Flow 的差異。</span></div>
-        <div class="agenda-card"><span class="a-step">Part 2</span><span class="a-time">找出關鍵時刻</span><span class="a-desc">把行動、想法、情緒與接觸點排進時間軸，辨識峰值、甜點、痛點與證據缺口。</span></div>
-        <div class="agenda-card"><span class="a-step">Part 3</span><span class="a-time">轉成設計目標</span><span class="a-desc">從洞察提出機會、設定優先順序，完成專題 Journey Map 與下一階段設計目標。</span></div>
+        <div class="agenda-card">
+          <span class="a-step">Part 1 · 45 min</span>
+          <span class="a-time">資訊架構觀念</span>
+          <span class="a-desc">IA 是什麼、IA 與導覽／Sitemap 的差別、扁平與深層的取捨、從洞察到功能清單、Functional Map。</span>
+        </div>
+        <div class="agenda-card">
+          <span class="a-step">Part 2 · 40 min</span>
+          <span class="a-time">卡片分類與 IA 圖</span>
+          <span class="a-desc">卡片分類法怎麼做、樹狀測試怎麼驗證、內容模型、命名的 4 個 S、IA 圖怎麼畫。</span>
+        </div>
+        <div class="agenda-card">
+          <span class="a-step">Part 3 · 40 min</span>
+          <span class="a-time">Flowchart 與 Wireframe 觀念</span>
+          <span class="a-desc">從 IA 圖轉成 Flow、四個常被混用的詞、Flowchart 符號與例外路徑、Wireframe 該放什麼、保真度。</span>
+        </div>
+        <div class="agenda-card">
+          <span class="a-step">Part 4 · 40 min</span>
+          <span class="a-time">Figma 實作</span>
+          <span class="a-desc">Auto Layout 與 Constraints 觀念，接著動手：卡片分類 → 挑一條核心路徑畫 Flow → 畫 1-2 張低保真 Wireframe。</span>
+        </div>
+        <div class="agenda-card">
+          <span class="a-step">Part 5 · 15 min</span>
+          <span class="a-time">分享與作業說明</span>
+          <span class="a-desc">各組成果分享，說明回家作業的交件規格。</span>
+        </div>
       </div>
+      <div class="note">講述與範例 125 分 + 實作 40 分 + 分享與作業說明 15 分 = 180 分。<br><span class="warn-text">本場課由「資訊架構」與「Flowchart／Wireframe」兩個舊單元合併而成，此議程為壓縮後的草案</span>——原本兩堂課各自的實作時間都是 80–95 分鐘，合併後 Part 4 只留 40 分鐘做完整套流程（卡片分類 → Flow → Wireframe），步調會比原本緊。開始前先把 Persona、競品分析與旅程地圖（Unit 02）開起來，等一下要用。</div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
-  <section class="slide">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">Warm-up</p>
-      <h1>先回想一段<br>讓你有情緒的服務經驗</h1>
-      <div class="matrix">
-        <div class="mini-card accent"><strong>發生了什麼？</strong><span>你原本想完成什麼？從哪一刻開始，到哪一刻才算結束？</span></div>
-        <div class="mini-card"><strong>接觸了誰與什麼？</strong><span>搜尋、網站、App、電話、人員、空間或通知，哪些環節共同形成體驗？</span></div>
-        <div class="mini-card warn"><strong>哪一刻最有感？</strong><span>情緒最高或最低的時刻是什麼？它改變了你的選擇或信任嗎？</span></div>
-        <div class="mini-card"><strong>如果只改一件事？</strong><span>你會先改善哪個階段？為什麼它比其他問題更重要？</span></div>
-      </div>
-      <p class="note">兩人一組分享 3 分鐘。先說故事，不要急著提出功能解法。</p>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
+  <!-- 03 什麼是資訊架構 -->
   <section class="slide dark">
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
-      <p class="overline">The Big Picture</p>
-      <h1>介面只是旅程中的<br>一個接觸點</h1>
-      <div class="divider"></div>
-      <h2>使用者的體驗可能從搜尋、詢問朋友開始，跨過網站、App、Email 與現場服務，最後才形成「這個產品好不好用」的整體感受。</h2>
-      <ul class="blist plain">
-        <li>Journey Map 幫助團隊<span class="hl">拉遠鏡頭</span>，看見跨時間、跨通路的完整經驗</li>
-        <li>不是先問「這頁怎麼畫」，而是先問「使用者一路上發生了什麼」</li>
-      </ul>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
+      <span class="bg-n">IA</span>
       <p class="overline">Definition</p>
-      <h1>什麼是用戶旅程地圖？</h1>
+      <h1>什麼是資訊架構？</h1>
       <div class="divider"></div>
-      <h2>用時間軸視覺化一位特定使用者，為了完成某個目標所經歷的階段、行動、想法、情緒與接觸點，並從中找出改善機會。</h2>
+      <h2>Information Architecture 是決定「內容與功能如何被組織、命名、連結」的實務。它是產品的<span class="hl">資訊骨幹</span>，決定使用者能不能靠自己找到下一步。</h2>
       <ul class="blist plain">
-        <li>主角必須明確：<span class="hl">誰</span>正在經歷這段旅程？</li>
-        <li>情境必須具體：他在什麼狀況下，想完成<span class="hl">什麼目標</span>？</li>
-        <li>每張地圖只描述一個觀點，避免把所有人混成「平均使用者」</li>
+        <li><span class="hl">組織（Organization）</span>：內容要分成哪幾群？依什麼邏輯分？</li>
+        <li><span class="hl">命名（Labeling）</span>：每一群要叫什麼名字？使用者看得懂嗎？</li>
+        <li><span class="hl">關係（Relationship）</span>：誰是誰的上層？哪些內容要交叉連結？</li>
+        <li><span class="hl">尋找（Findability）</span>：使用者要透過導覽、搜尋還是篩選抵達？</li>
       </ul>
-      <p class="note">「顧客旅程」常用於購買與服務關係，「用戶旅程」常用於產品使用；方法相同，本課程依情境選詞。參考：<a href="https://www.nngroup.com/articles/journey-mapping-101/" target="_blank" rel="noopener">NN/g · Journey Mapping 101</a></p>
+      <div class="note">先把結構確定，Wireframe 才不用一直重畫——每次改導覽、改分類，畫面都要跟著改一次。這也是為什麼 IA 排在畫 Wireframe 之前。</div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
+  <!-- 04 IA vs 導覽 vs Sitemap -->
   <section class="slide">
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
-      <p class="overline">Research Inputs</p>
-      <h1>Journey Map 不靠想像<br>它靠證據拼出旅程</h1>
-      <div class="matrix">
-        <div class="mini-card accent"><strong>觀察 Observation</strong><span>看使用者實際怎麼做、在哪裡停頓、繞路、求助或放棄。</span></div>
-        <div class="mini-card"><strong>訪談 Interview</strong><span>理解當時的目標、期待、判斷、顧慮與情緒原因。</span></div>
-        <div class="mini-card"><strong>數據 Data</strong><span>用轉換、流失、等待時間、客服紀錄或評論判斷問題規模。</span></div>
-        <div class="mini-card warn"><strong>待驗證 Assumption</strong><span>資料不足時可以先寫，但要明確標註，不能包裝成使用者事實。</span></div>
-      </div>
-      <p class="note">先帶著研究問題蒐集資料，再把跨來源證據依時間排序；不要為了填滿模板而補故事。</p>
+      <p class="overline">Common Confusion</p>
+      <h1>IA、導覽、Sitemap 不是同一件事</h1>
+      <h2>三個詞常被混用，但它們處在不同層次。搞混會讓討論一直卡住。</h2>
+      <table class="cmp-table">
+        <thead><tr><th>名詞</th><th>它是什麼</th><th>存在的位置</th><th>典型產出</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>資訊架構 IA</td>
+            <td>底層的內容組織邏輯與命名規則，是一整套持續維護的實務。</td>
+            <td>看不見，在結構層。</td>
+            <td>分類原則、命名規範、內容模型。</td>
+          </tr>
+          <tr>
+            <td>導覽 Navigation</td>
+            <td>把 IA 呈現給使用者的一組 UI 元件，引導使用者抵達內容。</td>
+            <td>看得見，在介面層。</td>
+            <td>主選單、側欄、麵包屑、頁尾。</td>
+          </tr>
+          <tr>
+            <td>網站地圖 Sitemap</td>
+            <td>用節點與線條把網站結構「畫」出來的視覺文件，是 IA 的其中一個切片。</td>
+            <td>設計文件，不是產品本身。</td>
+            <td>Figma／FigJam 上的結構圖。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note">NN/g 的說法：<span class="hl2">A sitemap is only one part of the site's information architecture.</span> 畫完 Sitemap 不等於 IA 做完了。</div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
+  <!-- 05 三個關鍵模型 -->
   <section class="slide dark">
-    <div class="bg-n">1</div>
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
-      <span class="layer-badge">Current-state vs. Future-state</span>
-      <h1>先理解現在<br>再設計未來</h1>
-      <div class="matrix">
-        <div class="mini-card warn"><strong>Current-state · 現況旅程</strong><span>描繪今天真實發生的行動、想法、情緒與接觸點，用證據定位斷點、甜點與痛點。</span></div>
-        <div class="mini-card accent"><strong>Future-state · 未來旅程</strong><span>把優先機會轉成理想體驗，說明未來希望使用者如何更順利、更安心地完成目標。</span></div>
-        <div class="mini-card"><strong>先別混在一起</strong><span>現況寫「已知事實」；未來寫「設計假設」。混在一起會讓團隊誤判證據。</span></div>
-        <div class="mini-card"><strong>共同語言</strong><span>兩張地圖讓設計、PM、工程與服務人員看見差距，對齊改善位置與責任。</span></div>
+      <span class="layer-badge">影片參考 · NN/g</span>
+      <h1>資訊架構的三個關鍵模型</h1>
+      <h2>同一個產品的結構，可以用三種模型來描述。三者互補，不能互相取代。</h2>
+      <div class="matrix c3">
+        <div class="mini-card">
+          <strong>① 底層 IA 結構</strong>
+          <span>內容之間真正的層級與關係，是整個產品的資訊骨幹。使用者看不到它，但每個決策都被它決定。</span>
+        </div>
+        <div class="mini-card">
+          <strong>② 分類法 Taxonomy</strong>
+          <span>一套正式的分類與命名規則：類別、標籤、屬性、受控詞彙與 facet。有幕後的一面（後台 metadata），也有台前的一面（篩選器、標籤列）。</span>
+        </div>
+        <div class="mini-card">
+          <strong>③ 導覽 Navigation</strong>
+          <span>使用者實際接觸的 UI 元件。它是 IA 的「呈現方式」，只會露出結構的一部分。</span>
+        </div>
       </div>
+      <div class="note">課前／課後請看：Information Architecture — 3 Key Models（<a href="https://www.youtube.com/watch?v=v39z0JPeIc8" target="_blank" rel="noopener">YouTube</a>）。回家作業會用這三個模型去拆解一個真實網站。</div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
+  <!-- 06 可尋性 vs 可發現性 -->
   <section class="slide">
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
-      <p class="overline">Breadth × Depth</p>
-      <h1>先決定要畫多寬<br>再決定每一格要多深</h1>
+      <p class="overline">Findability vs. Discoverability</p>
+      <h1>使用者是「在找」還是「還不知道有」？</h1>
+      <h2>這兩件事需要不同的設計手法，混在一起談會做出錯的決定。</h2>
       <div class="matrix">
-        <div class="mini-card accent"><strong>Breadth · 廣度</strong><span>旅程跨多久、幾個階段、哪些通路？例如「第一次找牙醫到完成看診」或只看「線上預約」。</span></div>
-        <div class="mini-card"><strong>Depth · 深度</strong><span>每階段要記錄哪些層次？行動、想法、情緒、接觸點、證據、痛點與機會。</span></div>
-        <div class="mini-card warn"><strong>太寬的風險</strong><span>「從認識品牌到忠誠」容易變成空泛長表，細節不足以支持設計決策。</span></div>
-        <div class="mini-card"><strong>太深的風險</strong><span>把單一畫面操作拆得過細，會退化成 User Flow，失去跨通路與情緒脈絡。</span></div>
+        <div class="mini-card accent">
+          <strong>可尋性 Findability</strong>
+          <span>使用者<b>已經知道</b>自己要什麼，問題是能不能找到。<br><br>對應設計：清楚的分類與標籤、搜尋、篩選、麵包屑。<br><br>檢驗方式：樹狀測試、任務式可用性測試。</span>
+        </div>
+        <div class="mini-card warn">
+          <strong>可發現性 Discoverability</strong>
+          <span>使用者<b>不知道</b>某個功能或內容存在。<br><br>對應設計：首頁曝光、引導、空狀態提示、推薦、新功能提示。<br><br>檢驗方式：觀察使用者是否從沒點過那個入口。</span>
+        </div>
       </div>
-      <p class="note">判斷標準：這個範圍是否足以回答研究問題，又能讓團隊採取下一步？</p>
+      <div class="note">常見誤判：「使用者找不到 → 加一個搜尋框就好」。如果問題是可發現性，加搜尋框沒用——使用者根本不知道要搜什麼。</div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
-  <section class="slide">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">Research Continuity</p>
-      <h1>Persona 定義「誰」<br>Journey Map 描述「如何經歷」</h1>
-      <div class="matrix">
-        <div class="mini-card"><strong>Persona</strong><span>目標、動機、情境、行為模式與痛點。提供旅程的主角與觀點。</span></div>
-        <div class="mini-card accent"><strong>Journey Map</strong><span>主角如何跨時間完成目標；在哪裡思考、感受、接觸服務並遇到阻力。</span></div>
-        <div class="mini-card"><strong>Design Goal</strong><span>哪些體驗結果最值得改善，以及改善後希望發生什麼變化。</span></div>
-        <div class="mini-card warn"><strong>IA / Flow / Wireframe</strong><span>把設計目標轉成產品結構、任務流程與介面骨架。</span></div>
-      </div>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
+  <!-- 07 資訊氣味 -->
   <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <span class="bg-n">?</span>
+      <p class="overline">Information Scent</p>
+      <h1>資訊氣味：使用者怎麼決定下一步</h1>
+      <div class="divider"></div>
+      <h2>使用者不會讀完整頁再決定，而是像動物覓食一樣「順著氣味走」——從連結文字判斷點下去會不會離目標更近。</h2>
+      <ul class="blist">
+        <li data-n="強"><span class="hl">氣味強</span>：連結文字直接對應使用者心中的目標詞，例如「退貨與換貨」。</li>
+        <li data-n="弱"><span class="warn-text">氣味弱</span>：模糊或行銷式用語，例如「服務中心」「了解更多」「探索」。</li>
+        <li data-n="斷"><span class="warn-text">氣味斷掉</span>：點進去的內容跟連結文字不符，使用者會退回並失去信任。</li>
+      </ul>
+      <div class="note">實務含意：導覽的用字不是文案問題，是<span class="hl">架構問題</span>。命名錯了，結構再漂亮也沒用。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 08 扁平 vs 深層 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Structure Patterns</p>
+      <h1>扁平 vs. 深層層級</h1>
+      <h2>沒有哪一種一定比較好，取捨在於「一次要看多少選項」與「要點幾次才到」。</h2>
+      <table class="cmp-table">
+        <thead><tr><th>結構</th><th>特徵</th><th>優點</th><th>風險</th><th>適合</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>扁平 Flat</td>
+            <td>層級少（1–2 層），每層選項多。</td>
+            <td>點擊次數少，內容一眼看得到，容易發現。</td>
+            <td>單層選項爆炸，掃視成本高，難以擴充。</td>
+            <td>內容量少、分類界線不清的產品。</td>
+          </tr>
+          <tr>
+            <td>深層 Deep</td>
+            <td>層級多（3 層以上），每層選項少。</td>
+            <td>每個決策簡單，分類乾淨，好擴充。</td>
+            <td>路徑長，中間層若命名不清就會迷路。</td>
+            <td>內容量大、分類邏輯明確的產品。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note">多數產品的答案是<span class="hl">中間值</span>：用巨型選單（Mega Menu）或左側垂直導覽，把深層結構在一個畫面裡攤開，同時保有分類與可掃視性。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 09 從洞察到功能清單 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Research → Features</p>
+      <h1>從洞察到功能清單</h1>
+      <div class="divider"></div>
+      <h2>每一個功能都要能回答一句話：<span class="hl">它服務誰的哪個需求，證據在哪裡。</span>沒有證據的功能，先放進待驗證區。</h2>
+      <div class="chain">
+        <div class="chain-step"><b>01 需求</b><span>來自訪談逐字稿、旅程地圖上的痛點與甜點。</span></div>
+        <div class="chain-step"><b>02 功能</b><span>寫成「使用者可以做什麼」，動詞開頭。</span></div>
+        <div class="chain-step"><b>03 證據</b><span>標註來源：第幾位受訪者、哪個競品、哪段觀察。</span></div>
+        <div class="chain-step"><b>04 優先級</b><span>核心／次要／邊緣／不做，並寫下理由。</span></div>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 10 功能清單表格 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Feature List</p>
+      <h1>功能清單長什麼樣子</h1>
+      <h2>以線上課程平台為例。這張表是作業「功能清單」的欄位範本。</h2>
+      <table class="cmp-table">
+        <thead><tr><th>功能</th><th>對應需求</th><th>證據來源</th><th>優先級</th></tr></thead>
+        <tbody>
+          <tr><td>依剩餘時間篩選課程</td><td>下班後只有 20 分鐘，想找當下看得完的內容。</td><td>受訪者 A、C；旅程地圖「挑選」階段痛點。</td><td>核心</td></tr>
+          <tr><td>斷點續播</td><td>通勤中斷後不想重找進度。</td><td>受訪者 B、D；競品 Hahow 已有。</td><td>核心</td></tr>
+          <tr><td>課後提問區</td><td>卡關時找不到人問，只能自己 Google。</td><td>受訪者 A、B、E 皆提到。</td><td>次要</td></tr>
+          <tr><td>學習時數統計</td><td>想知道自己有沒有進步。</td><td>僅受訪者 C 提到一次。</td><td>邊緣</td></tr>
+          <tr><td>社群動態牆</td><td>—</td><td>無訪談證據，來自團隊發想。</td><td>待驗證</td></tr>
+        </tbody>
+      </table>
+      <div class="note">「待驗證」這一欄很重要：它讓你把想做的功能誠實地標出來，而不是偷偷混進核心功能裡。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 11 Functional Map -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Functional Map</p>
+      <h1>核心路徑、次要功能、邊緣案例</h1>
+      <h2>把功能清單依「對主要任務的貢獻」分層，決定它們在 IA 中的位置。</h2>
+      <div class="matrix c3">
+        <div class="mini-card">
+          <strong>核心路徑</strong>
+          <span>Persona 完成主要目標一定會經過的功能。<br><br><b>IA 位置：</b>主導覽第一層、首頁明顯入口。<br><br>數量控制在 3–5 個。</span>
+        </div>
+        <div class="mini-card">
+          <strong>次要功能</strong>
+          <span>支援核心任務，但不是每次都會用到。<br><br><b>IA 位置：</b>第二層、情境入口、工具導覽。</span>
+        </div>
+        <div class="mini-card">
+          <strong>邊緣案例</strong>
+          <span>少數情境或例外狀態：錯誤、空資料、權限不足、退款、帳號刪除。<br><br><b>IA 位置：</b>需要時才出現，但一定要有位置。</span>
+        </div>
+      </div>
+      <div class="note">邊緣案例最常被學生忘記，卻是專題講評時最常被問到的地方：「找不到結果的時候畫面長怎樣？」</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 12 卡片分類法是什麼 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <span class="bg-n">05</span>
+      <p class="overline">Card Sorting</p>
+      <h1>卡片分類法</h1>
+      <div class="divider"></div>
+      <h2>讓參與者把寫著內容或功能的卡片，分成他們覺得合理的群組。最常用在<span class="hl">發想階段</span>揭露使用者的心智模型，也能用<span class="hl">封閉式</span>去評估既有分類。</h2>
+      <ul class="blist plain">
+        <li>發現使用者<span class="hl">自然的分群邏輯</span>，而不是你以為的邏輯。</li>
+        <li>發現使用者<span class="hl">實際使用的詞彙</span>，作為導覽標籤的參考依據。</li>
+        <li>找出<span class="warn-text">被反覆放錯位置</span>的項目——那通常代表命名有問題。</li>
+        <li>成本低、不需要做出畫面，早期就能做。</li>
+      </ul>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 13 開放式 vs 封閉式 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Open vs. Closed</p>
+      <h1>開放式與封閉式卡片分類</h1>
+      <div class="matrix">
+        <div class="mini-card">
+          <strong>開放式 Open</strong>
+          <span><b>做法：</b>參與者自由分群，並且自己替每一群命名。<br><br><b>回答：</b>使用者怎麼看這些內容？他們會怎麼稱呼？<br><br><b>用在：</b>從零開始建立 IA，還沒有分類方案時。</span>
+        </div>
+        <div class="mini-card">
+          <strong>封閉式 Closed</strong>
+          <span><b>做法：</b>你先給定分類，參與者把卡片放進去。<br><br><b>回答：</b>我這套分類，使用者放得進去嗎？<br><br><b>用在：</b>已有分類草案，要驗證或改版既有 IA。</span>
+        </div>
+      </div>
+      <div class="note">等一下的實作時間有限，只做<span class="hl">開放式</span>：看使用者怎麼自然分群。封閉式驗證留給有餘力的同學課後補做；混合式（Hybrid）則是給定分類但允許新增。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 14 四步驟 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Process</p>
+      <h1>卡片分類法四步驟</h1>
+      <div class="chain">
+        <div class="chain-step"><b>01 準備卡片</b><span>一張卡片一個內容或功能。用使用者看得懂的詞，避免內部術語。建議 30–60 張。</span></div>
+        <div class="chain-step"><b>02 招募參與者</b><span>找目標使用者，不是找同組同學。開放式建議 15 人以上，課堂內至少 3–5 人。</span></div>
+        <div class="chain-step"><b>03 進行分類</b><span>不引導、不解釋卡片意思。請參與者邊分邊說出理由，這比結果更有價值。</span></div>
+        <div class="chain-step"><b>04 分析結果</b><span>找共通模式：哪些卡片總是被放在一起？哪些每個人放的位置都不同？</span></div>
+      </div>
+      <div class="note">線上工具：Optimal Workshop、Maze、UXtweak；課堂內用 <span class="hl">FigJam 便利貼</span>就夠了。課堂用板（卡片已建好）：<a class="ilink" href="https://www.figma.com/board/KtPtouN73pY8SBP90Uz1j2" target="_blank" rel="noopener">練習板</a>；參考範例：<a class="ilink" href="https://www.figma.com/board/K0a0hIcnHdfyH09bRjhIeW/%E5%8D%A1%E7%89%87%E5%88%86%E9%A1%9E" target="_blank" rel="noopener">1</a>、<a class="ilink" href="https://www.figma.com/board/Dx2liUBXBgKuXg8psCjN4a/%E5%8D%A1%E7%89%87%E5%88%86%E9%A1%9E-2" target="_blank" rel="noopener">2</a>。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 15 常見錯誤 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Pitfalls</p>
+      <h1>卡片分類最容易做壞的地方</h1>
+      <ul class="blist compact">
+        <li data-n="01"><span class="warn-text">卡片用詞洩題</span>：卡片上直接寫「訂單查詢」「訂單取消」，參與者只是在做字詞配對，不是真的在分類。</li>
+        <li data-n="02"><span class="warn-text">卡片比例失衡</span>：某個功能區塞了 20 張卡，其他區只有 2 張，結果一定偏向那一區。</li>
+        <li data-n="03"><span class="warn-text">卡片太多</span>：超過 60 張參與者會疲勞、隨便分，品質急速下降。</li>
+        <li data-n="04"><span class="warn-text">中途解釋卡片</span>：一旦你開始解釋，你就把自己的心智模型灌給參與者了。</li>
+        <li data-n="05"><span class="warn-text">只看結果不問理由</span>：分群結果只是表面，「為什麼這樣分」才是可以拿來設計的東西。</li>
+      </ul>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 16 樹狀圖分析 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Analysis</p>
+      <h1>結果怎麼看</h1>
+      <h2>把每位參與者的分群疊起來，看哪些卡片「一起出現」的次數最高。工具會畫成樹狀圖（Dendrogram），課堂內用手算也可以。</h2>
+      <div class="sort-board">
+        <div class="sort-col">
+          <b>共識高 · 5/5</b>
+          <div class="sort-card">訂單管理</div>
+          <div class="sort-card">退貨處理</div>
+          <div class="sort-card">物流資訊</div>
+        </div>
+        <div class="sort-col">
+          <b>共識高 · 5/5</b>
+          <div class="sort-card">產品管理</div>
+          <div class="sort-card">庫存管理</div>
+        </div>
+        <div class="sort-col">
+          <b>共識中 · 3/5</b>
+          <div class="sort-card">用戶管理</div>
+          <div class="sort-card">客戶服務</div>
+          <div class="sort-card">用戶反饋</div>
+        </div>
+        <div class="sort-col">
+          <b>分歧 · 需處理</b>
+          <div class="sort-card q">支付處理</div>
+          <div class="sort-card q">促銷活動設置</div>
+          <div class="sort-card q">安全設置</div>
+        </div>
+      </div>
+      <div class="note">分歧的卡片不是雜訊，是<span class="hl">最有價值的發現</span>。它代表：命名不清、該項目本來就跨分類（考慮多重層級），或使用者對它沒有既定認知。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 17 樹狀測試 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Tree Testing</p>
+      <h1>分類做好了，要怎麼驗證？</h1>
+      <h2>樹狀測試把 UI 全部拿掉，只留純文字的層級結構，請使用者「去找某個東西」。找不到就是架構有問題，不能怪視覺。</h2>
+      <table class="cmp-table">
+        <thead><tr><th>比較</th><th>卡片分類法</th><th>樹狀測試</th></tr></thead>
+        <tbody>
+          <tr><td>階段</td><td>發想 / 建立架構</td><td>驗證 / 評估架構</td></tr>
+          <tr><td>問題</td><td>使用者會怎麼分類？</td><td>使用者找得到嗎？</td></tr>
+          <tr><td>輸入</td><td>一堆未分類的卡片</td><td>一套已經做好的分類樹</td></tr>
+          <tr><td>產出</td><td>分群模式、使用者詞彙</td><td>成功率、直接率、放棄點</td></tr>
+          <tr><td>什麼時候做</td><td>IA 草案之前</td><td>IA 草案之後、Wireframe 之前</td></tr>
+        </tbody>
+      </table>
+      <div class="note">課堂實作只做卡片分類；樹狀測試留給有餘力的同學，可以在等一下畫完 Flow 之後回頭補做。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 18 內容模型 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Content Model</p>
+      <h1>內容模型：每一頁到底裝了什麼</h1>
+      <h2>IA 決定內容放在哪裡；內容模型決定每一種內容<span class="hl">由哪些欄位組成</span>。它是 Wireframe 上每個區塊的依據。</h2>
+      <div class="matrix c4">
+        <div class="mini-card">
+          <strong>內容類型</strong>
+          <span>內容的類別。<br><br>例：課程、講師、評價、文章。</span>
+        </div>
+        <div class="mini-card">
+          <strong>屬性</strong>
+          <span>描述該類型的欄位。<br><br>例：課程名稱、時數、難度、價格、封面圖。</span>
+        </div>
+        <div class="mini-card">
+          <strong>關聯</strong>
+          <span>類型之間的關係。<br><br>例：一堂課屬於一位講師、可有多則評價。</span>
+        </div>
+        <div class="mini-card">
+          <strong>元數據</strong>
+          <span>用來組織與檢索的資料。<br><br>例：標籤、分類、上架日期。</span>
+        </div>
+      </div>
+      <div class="note">實務價值：先寫清楚欄位，Wireframe 就不用再猜「這張卡片要放什麼」，也能直接讓工程師理解資料結構。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 19 命名 4S -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Labeling · 4 S's</p>
+      <h1>標籤怎麼命名</h1>
+      <div class="divider"></div>
+      <h2>NN/g 提出的四個原則，用來檢查你的導覽項目與連結文字。</h2>
+      <ul class="blist">
+        <li data-n="S1"><span class="hl">Specific 具體</span>：明確說出點下去會看到什麼。✕「服務」 ✓「維修預約」</li>
+        <li data-n="S2"><span class="hl">Sincere 誠實</span>：點進去的內容要與標籤承諾一致，不要標題殺人。</li>
+        <li data-n="S3"><span class="hl">Substantial 充分</span>：脫離上下文也看得懂。✕「了解更多」 ✓「查看退款條件」</li>
+        <li data-n="S4"><span class="hl">Succinct 精簡</span>：在滿足前三項的前提下越短越好——沒有字數上限，但不要多餘。</li>
+      </ul>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 20 IA 圖怎麼畫 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Deliverable</p>
+      <h1>IA 圖怎麼畫</h1>
+      <h2>用節點與線條表示層級，一層一層往下展開。這就是回家作業要交的東西之一。</h2>
+      <div class="ia-tree"><span class="lv1">首頁</span>
+├── <span class="lv1">探索課程</span>
+│   ├── 依主題瀏覽　<span class="lv3">（設計 / 程式 / 行銷）</span>
+│   ├── 依時長篩選　<span class="lv3">（＜20 分 / 20–60 分 / ＞60 分）</span>
+│   └── 課程詳情　　<span class="lv3">（大綱・講師・評價・試看）</span>
+├── <span class="lv1">我的學習</span>
+│   ├── 進行中　　　<span class="lv3">← 核心路徑，含斷點續播</span>
+│   ├── 已完成
+│   └── 收藏
+├── <span class="lv1">提問與討論</span>
+│   └── 課後提問區　<span class="lv3">← 次要功能</span>
+└── <span class="lv1">帳號</span>
+    ├── 訂單與發票
+    ├── 通知設定
+    └── 訂閱管理　　<span class="lv3">← 含退訂（邊緣案例）</span></div>
+      <div class="note">畫的時候標注三件事：<span class="hl">① 核心路徑用顏色標出來</span>、② 交叉連結用虛線、③ 空狀態與錯誤狀態寫在旁邊註解。<br>Figma 範本：<a class="ilink" href="https://www.figma.com/board/K0a0hIcnHdfyH09bRjhIeW/%E5%8D%A1%E7%89%87%E5%88%86%E9%A1%9E" target="_blank" rel="noopener">範例 1</a>、<a class="ilink" href="https://www.figma.com/board/Dx2liUBXBgKuXg8psCjN4a/%E5%8D%A1%E7%89%87%E5%88%86%E9%A1%9E-2" target="_blank" rel="noopener">範例 2</a>｜完整說明見<a class="ilink" href="article.html#s12" target="_blank" rel="noopener">講義第 12 節</a>。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 21 先把四個詞分開 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Terminology</p>
+      <h1>先把四個詞分開</h1>
+      <h2>這四個在網路上常常混著用，開會的時候你講 A 對方想 B，討論就會空轉。</h2>
+      <div class="matrix c4">
+        <div class="mini-card">
+          <strong>User Journey</strong>
+          <span>跨通路、跨天數的高層目標。Unit 02 畫的旅程地圖就是這個。</span>
+        </div>
+        <div class="mini-card">
+          <strong>User Flow</strong>
+          <span>在單一產品內完成一個任務的步驟。等一下要畫的是這個。</span>
+        </div>
+        <div class="mini-card">
+          <strong>Flowchart</strong>
+          <span>表達 User Flow 的一種畫法，用方塊跟菱形，強在邏輯分支。</span>
+        </div>
+        <div class="mini-card">
+          <strong>Wireflow</strong>
+          <span>另一種畫法，用畫面縮圖取代方塊，強在看得到頁面長怎樣。</span>
+        </div>
+      </div>
+      <div class="note">記法：<span class="hl">Journey 是尺度，Flow 也是尺度</span>；Flowchart 跟 Wireflow 是把 Flow 畫出來的兩種格式。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 22 Journey vs Flow -->
+  <section class="slide">
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
       <p class="overline">Journey vs. Flow</p>
-      <h1>Journey 看整體經驗<br>Flow 看產品內的操作</h1>
+      <h1>旅程地圖跟流程圖差在哪</h1>
+      <h2>同一個外送 App，用旅程地圖看是「餓了到吃飽」，用 Flow 看是「打開 App 到按下送出訂單」。</h2>
       <table class="cmp-table">
-        <thead><tr><th>比較</th><th>User Journey</th><th>User Flow</th></tr></thead>
+        <thead><tr><th>面向</th><th>User Journey（Unit 02）</th><th>User Flow（今天）</th></tr></thead>
         <tbody>
-          <tr><td>視角</td><td>宏觀：跨時間、跨通路的完整經驗</td><td>微觀：一個產品內的具體任務步驟</td></tr>
-          <tr><td>內容</td><td>行動、想法、情緒、接觸點與機會</td><td>操作、畫面、判斷點與系統回應</td></tr>
-          <tr><td>時間</td><td>可能跨數天、數週或更久</td><td>通常是幾分鐘到幾小時</td></tr>
-          <tr><td>用途</td><td>理解問題與尋找改善方向</td><td>規劃與檢查任務流程</td></tr>
+          <tr><td>尺度</td><td>宏觀，看整段體驗</td><td>微觀，看一個任務</td></tr>
+          <tr><td>時間</td><td>數天、數週、數月</td><td>數分鐘到數小時</td></tr>
+          <tr><td>範圍</td><td>跨通路：廣告、朋友推薦、客服電話都算</td><td>只在產品裡面</td></tr>
+          <tr><td>畫什麼</td><td>行動、情緒、想法、接觸點</td><td>操作與系統的回應</td></tr>
+          <tr><td>產出物</td><td>旅程地圖</td><td>Flowchart、Wireflow、Task diagram</td></tr>
+          <tr><td>資料哪裡來</td><td>田野研究、日記研究、訪談</td><td>可用性測試、後台數據</td></tr>
         </tbody>
       </table>
-      <p class="note">參考：<a href="https://www.nngroup.com/articles/user-journeys-vs-user-flows/" target="_blank" rel="noopener">NN/g · User Journeys vs. User Flows</a></p>
+      <div class="note">兩者不是二選一。<span class="hl">Flow 是 Journey 裡某一段的放大</span>——你在旅程地圖上標的那個痛點，放大就是今天要畫的 Flow。</div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
+  <!-- 23 兩者的盲點 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Blind Spots</p>
+      <h1>Flowchart 跟 Wireframe 各自看不到的東西</h1>
+      <div class="matrix">
+        <div class="mini-card warn">
+          <strong>Flowchart 的盲點</strong>
+          <span>邏輯分支寫得再完整，都<b>沒有畫面脈絡</b>。<br><br>「選擇付款方式」在圖上是一個方塊，但實際上是全螢幕的頁面、還是底部彈出的選單？使用者的感受差很多，圖上看不出來。</span>
+        </div>
+        <div class="mini-card warn">
+          <strong>Wireframe 的盲點</strong>
+          <span>版面畫得再清楚，都<b>不擅長記錄互動</b>。<br><br>尤其是頁面沒換、內容卻變了的情況：點篩選器之後商品列表就地更新，這在一張張靜態的 Wireframe 上根本表達不出來。</span>
+        </div>
+      </div>
+      <div class="note">這兩個盲點合在一起，就是為什麼會有第三種東西：Wireflow。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 24 Wireflow -->
   <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Wireflow</p>
+      <h1>Wireflow：把畫面塞進流程圖</h1>
+      <h2>節點不再是抽象的方塊，而是那個畫面本身。箭頭從「你點的那顆按鈕」出發，指向點完之後看到的東西。</h2>
+      <img class="slide-img" src="from-flowchart-wireframe/resources/wireflow-example.jpg"
+           alt="Wireflow 範例：存錢目標 App 的六個畫面，以箭頭標示觸發的互動" loading="lazy">
+      <div class="note">看箭頭上的標籤：<span class="hl">Select safe category</span>、<span class="hl">Button enabled</span>、<span class="hl">Choose avatar</span>——每條線都寫了是什麼互動觸發的，不是只畫一條線。<br>也看編號：<span class="hl2">1 → 1.2</span> 是同一個畫面選了分類之後的狀態，<span class="hl2">2 → 2.1 → 2.2</span> 也是。用小數點區分「新畫面」與「同一畫面的不同狀態」，這是 Wireflow 最好用的地方。更多圖例見 <a class="ilink" href="https://www.nngroup.com/articles/wireflows/" target="_blank" rel="noopener">NN/g 原文</a>。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 25 什麼時候用哪一種 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">When to Use</p>
+      <h1>那我到底該畫哪一種？</h1>
+      <div class="divider"></div>
+      <table class="cmp-table">
+        <thead><tr><th>你的產品長這樣</th><th>畫這個</th><th>為什麼</th></tr></thead>
+        <tbody>
+          <tr><td>頁面多、每頁內容相對固定的網站</td><td>Wireframe</td><td>重點在每一頁該放什麼，頁面之間的關係用 IA 圖表達就夠了</td></tr>
+          <tr><td>流程長、分支多、要窮盡記錄</td><td>Flowchart</td><td>邏輯分支是主角，畫面長怎樣先不重要</td></tr>
+          <tr><td>頁面少、但內容隨互動一直變的 App</td><td>Wireflow</td><td>不畫出畫面狀態，就講不清楚「哪裡變了」</td></tr>
+        </tbody>
+      </table>
+      <div class="note">你們的專題多半是第三種。所以今天的順序是：<span class="hl">先用 Flowchart 把邏輯理清楚，再畫 Wireframe</span>；把兩者合成 Wireflow 留給有餘力的同學課後練習。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 26 Flowchart 符號 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Notation</p>
+      <h1>Flowchart 只要記四個符號</h1>
+      <h2>不用背工程用的完整符號表。你們畫的流程，這四個就夠了。</h2>
+      <div class="matrix c4">
+        <div class="mini-card"><strong>◯ 起點／終點</strong><span>正式畫法是圓角矩形，課堂上畫成圓形也可以。使用者從哪進來、任務在哪算完成。一張圖只有一個起點，終點可以有好幾個。</span></div>
+        <div class="mini-card"><strong>▭ 動作／畫面</strong><span>使用者做的一件事，或看到的一個畫面。用動詞開頭：「輸入手機號碼」。</span></div>
+        <div class="mini-card"><strong>◇ 判斷點</strong><span>系統或使用者要做選擇的地方。裡面寫成是非題：「已登入？」</span></div>
+        <div class="mini-card"><strong>→ 路徑</strong><span>從判斷點出去的每條線都要標條件：是／否、成功／失敗。</span></div>
+      </div>
+      <div class="note">最常見的錯：<span class="warn-text">判斷點只畫「是」那條線</span>。菱形只要有一條線出去，那它就不該是菱形。<br>範例板：<a class="ilink" href="https://www.figma.com/board/3spteOmEz92MCnVtpi2wxC/Flow-Chart--%E6%B5%81%E7%A8%8B%E5%9C%96--%E7%AF%84%E4%BE%8B?node-id=0-1" target="_blank" rel="noopener">Flow Chart 流程圖範例</a>——有符號說明，以及「鬧鐘」與「會員登入」兩個完整流程可以照著看。（那份多示範了一個「資料輸出／輸入」的平行四邊形，你們用不到，看到不用理它。）</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 27 一條流程要標三件事 -->
+  <section class="slide dark">
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
       <p class="overline">Anatomy</p>
-      <h1>完整 Journey Map<br>至少有五個元素</h1>
-      <ul class="blist">
-        <li data-n="01"><span class="hl">Actor</span>：一位明確的 Persona 或使用者觀點</li>
-        <li data-n="02"><span class="hl">Scenario + Expectations</span>：具體情境、目標與期待</li>
-        <li data-n="03"><span class="hl">Journey Phases</span>：旅程的高層階段</li>
-        <li data-n="04"><span class="hl">Actions, Mindsets, Emotions</span>：做什麼、想什麼、感受什麼</li>
-        <li data-n="05"><span class="hl">Opportunities</span>：洞察、改善機會、負責人與衡量方式</li>
-      </ul>
-      <p class="note">五個元素整理自 NN/g Journey Mapping 101；版面可依研究目的增減欄位，但主角與情境不能消失。</p>
+      <h1>一條流程要交代三件事</h1>
+      <div class="flow-dia">     ◯ <span class="n">起點：從首頁點「我的課程」</span>
+     │
+     ▼
+   ┌──────────────┐
+   │ 顯示課程列表  │
+   └──────────────┘
+     │
+     ▼
+   ◇ <span class="d">有進行中的課程嗎？</span>
+     │
+     ├── <span class="d">有</span> ──▶ 顯示上次看到第幾分鐘 ──▶ 點「繼續看」──▶ ◯ <span class="n">終點：播放器開始播</span>
+     │
+     └── <span class="x">沒有</span> ─▶ <span class="x">空狀態：「還沒開始任何課程」＋ 去逛課程的按鈕</span></div>
+      <div class="blist compact">
+        <li data-n="01"><span class="hl">入口</span>：使用者從哪裡進到這條流程？不只一個入口就全部畫出來。</li>
+        <li data-n="02"><span class="hl">判斷點</span>：中間哪裡會分岔？條件是什麼？</li>
+        <li data-n="03"><span class="hl">終點</span>：怎樣算「完成」？成功跟失敗要分開畫。</li>
+      </div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
+  <!-- 28 例外路徑 -->
   <section class="slide">
-    <div class="bg-n">1</div>
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
-      <span class="layer-badge">Element 01 · Actor</span>
-      <h1>一張地圖，只放一個主角</h1>
+      <span class="bg-n">!</span>
+      <p class="overline">Edge Cases</p>
+      <h1>你一定會漏掉的那幾條線</h1>
+      <h2>畫 Flow 的時候，理想路徑十分鐘就畫完了。剩下的時間都花在這些上面——而評圖的時候問的也都是這些。</h2>
+      <ul class="blist compact">
+        <li data-n="01"><span class="warn-text">沒資料</span>：第一次使用的人打開這一頁，看到什麼？</li>
+        <li data-n="02"><span class="warn-text">找不到</span>：搜尋沒有結果、篩選之後一個都不剩，畫面怎麼辦？</li>
+        <li data-n="03"><span class="warn-text">沒權限</span>：沒登入、沒付費、帳號被停用，擋在哪一步？</li>
+        <li data-n="04"><span class="warn-text">出錯</span>：網路斷掉、付款失敗、上傳的檔案太大。</li>
+        <li data-n="05"><span class="warn-text">要等</span>：需要載入三秒以上的地方，等待中顯示什麼？</li>
+        <li data-n="06"><span class="warn-text">反悔</span>：中途想退出、想改剛剛填的東西，回得去嗎？</li>
+      </ul>
+      <div class="note">練習的時候用這六條當檢查表，一條一條問自己「這個情況我畫了嗎」。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 29 從 IA 到 Flow -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">IA → Flow</p>
+      <h1>怎麼把 IA 圖變成流程</h1>
       <div class="divider"></div>
-      <h2>同一個服務，不同 Persona 會有不同目標、資訊需求與情緒曲線。把他們混在一起，最後只會得到一條沒有人真正走過的旅程。</h2>
-      <ul class="blist plain">
-        <li>寫下 Persona 名稱、目標、關鍵情境與限制</li>
-        <li>行動與想法應來自研究資料，不是為了填滿格子而想像</li>
-        <li>若要比較兩種族群，畫兩張地圖，再找交集與差異</li>
-      </ul>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide dark">
-    <div class="bg-n">2</div>
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <span class="layer-badge">Element 02 · Scenario</span>
-      <h1>先把旅程的起點與終點說清楚</h1>
-      <div class="matrix">
-        <div class="mini-card"><strong>模糊情境</strong><span>「小安使用線上課程平台。」範圍太大，不知道何時開始、何時算完成。</span></div>
-        <div class="mini-card accent"><strong>可畫的情境</strong><span>「小安第一次為轉職挑選 UI/UX 課程，從搜尋比較到完成報名並收到確認。」</span></div>
-        <div class="mini-card"><strong>起點</strong><span>需求或事件發生：想轉職、朋友推薦、看到廣告、工作遇到問題。</span></div>
-        <div class="mini-card warn"><strong>終點</strong><span>目標達成或明確中止：完成報名、放棄購買、尋求客服或改選替代方案。</span></div>
-      </div>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide">
-    <div class="bg-n">3</div>
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <span class="layer-badge">Element 03 · Phases</span>
-      <h1>階段是使用者經驗的章節<br>不是網站選單</h1>
+      <h2>IA 圖是靜態的地圖，Flow 是走過去的路線。地圖上你標的那條核心路徑，就是要先畫的那條 Flow。</h2>
       <div class="chain">
-        <div class="chain-step"><b>需求出現</b><span>意識到問題，開始尋找可能解法</span></div>
-        <div class="chain-step"><b>探索比較</b><span>蒐集資訊、確認適配度與風險</span></div>
-        <div class="chain-step"><b>採取行動</b><span>報名、購買、預約或提交資料</span></div>
-        <div class="chain-step"><b>使用與後續</b><span>收到確認、開始使用、求助或分享</span></div>
+        <div class="chain-step"><b>01 挑一條</b><span>從 IA 圖上標了顏色的核心路徑挑一條，不要一次畫全部。</span></div>
+        <div class="chain-step"><b>02 拆步驟</b><span>把這條路徑拆成使用者實際的動作，動詞開頭。</span></div>
+        <div class="chain-step"><b>03 找分岔</b><span>每一步問一次「這裡會不會有人走不下去」，會的話就是判斷點。</span></div>
+        <div class="chain-step"><b>04 補例外</b><span>拿前一頁的六條檢查表逐一補上。</span></div>
       </div>
-      <p class="note">階段名稱要能跨通路成立。「首頁 → 列表頁 → 結帳頁」比較像 User Flow，不是完整 Journey。</p>
+      <div class="note">一堂課只要畫得完<span class="hl">一條完整的核心路徑</span>就夠了。畫三條半成品，不如一條把例外都補齊。</div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
-  <section class="slide dark">
-    <div class="bg-n">4</div>
+  <!-- 30 Wireframe 是什麼 -->
+  <section class="slide">
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
-      <span class="layer-badge">Element 04 · Touchpoints</span>
-      <h1>接觸點讓你看見<br>體驗在哪裡發生</h1>
+      <p class="overline">Wireframe</p>
+      <h1>Wireframe 在回答什麼問題</h1>
+      <h2>只有三個：<span class="hl">這頁要放哪些資訊、使用者可以做哪些動作、下一步在哪裡。</span>其他都先不管。</h2>
+      <div class="wf-row">
+        <div>
+          <div class="wf">
+            <div class="bar h"></div>
+            <div class="bar t"></div>
+            <div class="bar s"></div>
+            <div class="bar box"></div>
+            <div class="bar btn"></div>
+          </div>
+          <p class="wf-cap">課程列表</p>
+        </div>
+        <div>
+          <div class="wf">
+            <div class="bar h"></div>
+            <div class="bar box"></div>
+            <div class="bar t"></div>
+            <div class="bar s"></div>
+            <div class="bar btn"></div>
+          </div>
+          <p class="wf-cap">課程詳情</p>
+        </div>
+        <div>
+          <div class="wf">
+            <div class="bar h"></div>
+            <div class="bar t"></div>
+            <div class="bar box"></div>
+            <div class="bar s"></div>
+            <div class="bar btn"></div>
+          </div>
+          <p class="wf-cap">播放頁</p>
+        </div>
+      </div>
+      <div class="note">灰階方塊看起來很陽春，這是刻意的。看到彩色跟圖片，大家的注意力就會跑到「這個藍色好看嗎」，而不是「這裡少了一個返回」。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 31 保真度三維度 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Fidelity</p>
+      <h1>保真度不是一條刻度，是三條</h1>
+      <h2>很多人以為保真度就是「畫得精不精緻」。其實是三個可以各自調整的維度，你可以視覺很粗糙但互動很完整。</h2>
+      <div class="matrix c3">
+        <div class="mini-card">
+          <strong>互動 Interactivity</strong>
+          <span><b>低：</b>需要有人在旁邊幫忙換畫面。<br><b>高：</b>連結跟選單真的點得下去。</span>
+        </div>
+        <div class="mini-card">
+          <strong>視覺 Visuals</strong>
+          <span><b>低：</b>手繪草圖、灰階方塊。<br><b>高：</b>完整的層級、間距、版面。</span>
+        </div>
+        <div class="mini-card">
+          <strong>內容 Content</strong>
+          <span><b>低：</b>摘要跟佔位符。<br><b>高：</b>真實的文案跟圖片。</span>
+        </div>
+      </div>
+      <div class="note">今天做的是：<span class="hl">互動低、視覺低、內容中</span>——文字用真的，因為假字看不出資訊夠不夠。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 32 低保真 vs 高保真 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Trade-offs</p>
+      <h1>低保真跟高保真各自的好處</h1>
       <table class="cmp-table">
-        <thead><tr><th>通路</th><th>常見接觸點</th><th>可以觀察什麼</th></tr></thead>
+        <thead><tr><th></th><th>低保真</th><th>高保真</th></tr></thead>
         <tbody>
-          <tr><td>搜尋與社群</td><td>Google、YouTube、社群貼文、朋友推薦</td><td>資訊是否可信？關鍵差異是否容易理解？</td></tr>
-          <tr><td>數位產品</td><td>網站、App、Email、推播、聊天室</td><td>資訊與操作是否連續？狀態是否清楚？</td></tr>
-          <tr><td>人員服務</td><td>客服、門市、講師、顧問</td><td>承諾是否一致？交接是否造成重複說明？</td></tr>
-          <tr><td>實體環境</td><td>場地、包裝、設備、交通</td><td>數位承諾能否在現場被實現？</td></tr>
+          <tr><td>做起來</td><td>快，省下的時間可以多改幾輪</td><td>慢，做一版就用掉不少時間</td></tr>
+          <tr><td>測試中途</td><td>當場拿筆改就好</td><td>要回去改檔案，下一場才能用</td></tr>
+          <tr><td>受測者反應</td><td>壓力小，比較敢講難聽的話</td><td>當成真的軟體在用，行為更真實</td></tr>
+          <tr><td>能測到什麼</td><td>概念、流程順不順、資訊夠不夠</td><td>特定元件、可視線索、字好不好讀</td></tr>
+          <tr><td>設計師心態</td><td>還沒投入太多，願意打掉重來</td><td>做很久了，捨不得改</td></tr>
+          <tr><td>老闆的期待</td><td>看得出還沒完成，預期會再改</td><td>容易誤以為快做完了</td></tr>
         </tbody>
       </table>
+      <div class="note">最後兩列是關鍵。<span class="hl">高保真的成本不只是工時，還有你捨不得改的心理投入。</span></div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
-  <section class="slide">
-    <div class="bg-n">5</div>
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <span class="layer-badge">Element 05 · Experience</span>
-      <h1>從外在行為走進內在經驗<br>最後看見設計機會</h1>
-      <div class="matrix">
-        <div class="mini-card"><strong>外 · Outside</strong><span>階段、行動、接觸點與目標：使用者做了什麼？體驗在哪裡發生？</span></div>
-        <div class="mini-card warn"><strong>內 · Inside</strong><span>想法、期待、痛點與情緒：為什麼這樣做？哪裡安心、焦慮或困惑？</span></div>
-        <div class="mini-card accent"><strong>看見 · Seeing</strong><span>模式、需求、機會與新想法：跨欄位比較後，團隊因此看見了什麼？</span></div>
-        <div class="mini-card"><strong>證據 · Evidence</strong><span>每一層都連回訪談、觀察、客服紀錄、評論或數據；未知就標成假設。</span></div>
-      </div>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide dark" data-chart="emotion">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">Emotion Curve</p>
-      <h1>情緒曲線不是裝飾<br>它指出最需要理解的時刻</h1>
-      <div class="chart-wrap" id="emotionChartWrap">
-        <canvas id="emotionChart" role="img" aria-label="需求出現、搜尋比較、找到方案、付款確認到收到指引的情緒曲線"></canvas>
-        <div class="chart-fallback">圖表載入中；若無網路，請依下方文字判讀情緒轉折。</div>
-      </div>
-      <div class="chart-caption-row">
-        <span><strong>需求出現</strong>期待／不確定</span>
-        <span><strong>搜尋比較</strong>資訊過多／焦慮</span>
-        <span><strong>找到方案</strong>安心／有希望</span>
-        <span><strong>付款確認</strong>擔心失敗</span>
-        <span><strong>收到指引</strong>成功／可預期</span>
-      </div>
-      <p class="note">教學示意：曲線高低必須能指回使用者原話、行為或其他研究證據。</p>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
+  <!-- 33 為什麼停在低保真 -->
   <section class="slide dark">
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
-      <p class="overline">Reference Case · Dental Appointment</p>
-      <h1>案例：牙醫預約體驗<br>從搜尋一路看到離院</h1>
-      <div class="chain">
-        <div class="chain-step"><b>① 資訊搜尋</b><span>Google Maps、評分與評論</span></div>
-        <div class="chain-step"><b>②–③ 選擇與預約</b><span>比較診所、電話確認時段</span></div>
-        <div class="chain-step"><b>④–⑤ 準備與等待</b><span>行前提醒、報到與候診</span></div>
-        <div class="chain-step"><b>⑥–⑦ 看診與離院</b><span>說明、收據與後續安排</span></div>
-      </div>
-      <p class="note">完整 FigJam：<a href="https://www.figma.com/board/BwTlHzizgSCTknmCRPK6sb/%E7%89%99%E9%86%AB%E9%A0%90%E7%B4%84%E9%AB%94%E9%A9%97-%E2%80%94-%E9%A1%A7%E5%AE%A2%E6%97%85%E7%A8%8B%E5%9C%B0%E5%9C%96?node-id=0-1&t=TnckCjjKY6XXKTms-1" target="_blank" rel="noopener">牙醫預約體驗 — 顧客旅程地圖 ↗</a></p>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">How to Read the Case</p>
-      <h1>讀案例時，不只看格子<br>要看它如何推動設計</h1>
-      <div class="matrix">
-        <div class="mini-card warn"><strong>找跨階段痛點</strong><span>資訊不透明、等待不確定與術後資訊不足，是否在不同接觸點反覆出現？</span></div>
-        <div class="mini-card accent"><strong>看機會如何回應</strong><span>線上預約、候診狀態、白話說明與術後通知，是否直接對應痛點與情緒？</span></div>
-        <div class="mini-card"><strong>追到 Feature Breakdown</strong><span>案例把機會再拆成模組、優先級與 User Stories，示範研究如何接到產品規劃。</span></div>
-        <div class="mini-card"><strong>保持研究誠實</strong><span>這是一個結構參考；套用到專題前，仍要用自己的研究證據重畫內容。</span></div>
-      </div>
-      <p class="note">練習：從案例挑一個 P1 功能，指出它對應哪個階段、哪個痛點、哪個期待結果。</p>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide">
-    <div class="bg-n">↑</div>
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <span class="layer-badge">Peak Moments</span>
-      <h1>峰值是情緒最強烈的時刻</h1>
+      <p class="overline">Why Low-Fi</p>
+      <h1>今天不准上色</h1>
       <div class="divider"></div>
-      <h2>它可能是最高點，也可能是最低點。強烈情緒往往代表使用者的重要期待被滿足，或重要控制感被破壞。</h2>
+      <h2>不是為了為難你們。是因為視覺一上去，就沒有人會再討論結構了。</h2>
       <ul class="blist plain">
-        <li>標出情緒轉折最大的階段，而不是只看最後結果</li>
-        <li>追問「前一刻發生了什麼？」以及「使用者原本期待什麼？」</li>
-        <li>不要把所有低點都當成同等嚴重；先判斷是否影響核心目標</li>
+        <li>畫面一漂亮，評圖的回饋就會全部集中在配色跟字體。</li>
+        <li>結構的問題被掩蓋住，等到 Mockup 才發現，要重畫的量是現在的十倍。</li>
+        <li>你自己也會捨不得——花三小時調好的版面，誰想砍掉重來。</li>
+        <li><span class="hl">現在畫得越醜，後面改得越輕鬆。</span></li>
       </ul>
-      <p class="note">本課程的「峰值」指旅程中的強烈情緒時刻，不等同於直接套用 Peak-End Rule。</p>
+      <div class="note">今天的規則：<span class="warn-text">只能用黑、白、灰</span>。要標重點的話，用一個藍色，就一個。</div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
+  <!-- 34 放什麼不放什麼 -->
   <section class="slide">
-    <div class="bg-n">＋</div>
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
-      <span class="layer-badge">Sweet Spots</span>
-      <h1>甜點是值得保留與放大的<br>正向時刻</h1>
+      <p class="overline">Content</p>
+      <h1>Wireframe 上該放什麼</h1>
       <div class="matrix">
-        <div class="mini-card accent"><strong>期待被確認</strong><span>使用者快速知道「這適合我」，不必猜測產品是否符合需求。</span></div>
-        <div class="mini-card"><strong>進度可預期</strong><span>清楚知道目前狀態、剩餘步驟與接下來會發生什麼。</span></div>
-        <div class="mini-card"><strong>被理解</strong><span>內容與服務回應了真實情境，而不是只講產品功能。</span></div>
-        <div class="mini-card accent"><strong>超出期待</strong><span>在關鍵時刻提供剛好的提醒、支援或選擇，降低不安。</span></div>
+        <div class="mini-card accent">
+          <strong>要放</strong>
+          <span>• 真實的標題與按鈕文字（「加入購物車」不要寫「按鈕」）<br>
+          • 資訊的先後順序與分組<br>
+          • 每個可以點的東西<br>
+          • 這一頁的主要動作，只能有一個最明顯<br>
+          • 空狀態、錯誤狀態的版本</span>
+        </div>
+        <div class="mini-card warn">
+          <strong>先不要放</strong>
+          <span>• 顏色、漸層、陰影<br>
+          • 真實照片（用灰色方塊加一個叉）<br>
+          • 精挑的字體<br>
+          • 圖示的細節（畫個圈圈標「icon」就好）<br>
+          • 動畫與轉場</span>
+        </div>
       </div>
-      <p class="note">甜點不是多加動畫或贈品；先找出使用者真正重視的價值，再決定如何放大。</p>
+      <div class="note">文字一定要用真的。<span class="hl">Lorem ipsum 會騙你</span>——假字排起來永遠很整齊，真的標題塞進去才知道會不會爆版。</div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
+  <!-- 35 檢查清單 -->
   <section class="slide dark">
-    <div class="bg-n">−</div>
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
-      <span class="layer-badge">Pain Points</span>
-      <h1>痛點是阻礙目標的摩擦<br>不是所有抱怨的集合</h1>
-      <ul class="blist">
-        <li data-n="理解">資訊難懂、比較標準不清楚、不知道下一步</li>
-        <li data-n="操作">步驟過多、重複輸入、錯誤後無法恢復</li>
-        <li data-n="信任">價格或規則不透明、狀態不確定、承諾前後不一致</li>
-        <li data-n="情境">時間壓力、裝置限制、環境干擾、需要他人協助</li>
+      <p class="overline">Checklist</p>
+      <h1>畫完一張，問自己這六題</h1>
+      <ul class="blist compact">
+        <li data-n="01">第一眼會看到什麼？那是這頁最重要的東西嗎？</li>
+        <li data-n="02">這一頁的主要動作是哪一個？它有比別的按鈕明顯嗎？</li>
+        <li data-n="03">使用者從哪裡來的？他知道自己在哪一層嗎？</li>
+        <li data-n="04">如果這裡沒有資料，畫面長什麼樣？</li>
+        <li data-n="05">按下去之後會發生什麼？成功跟失敗分別看到什麼？</li>
+        <li data-n="06">想回上一步的話，回得去嗎？</li>
       </ul>
-      <p class="note">寫痛點時補上「發生在哪一階段、造成什麼影響、有哪些證據」，才能進入優先排序。</p>
+      <div class="note">六題都答得出來，這張 Wireframe 才算畫完。答不出來的那一題，通常就是流程圖上漏掉的那條線。</div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
+  <!-- 36 Auto Layout 為什麼 -->
   <section class="slide">
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
-      <p class="overline">Evidence</p>
-      <h1>把事實、解讀與假設分開</h1>
+      <p class="overline">Figma</p>
+      <h1>Auto Layout：讓版面自己會動</h1>
+      <h2>沒用 Auto Layout 的時候，你改一個標題變兩行，下面所有東西都要手動往下推。用了之後，它們自己會讓開。</h2>
+      <div class="matrix">
+        <div class="mini-card warn">
+          <strong>沒有 Auto Layout</strong>
+          <span>元素靠絕對座標擺放。<br><br>加一個項目 → 手動推下面全部<br>文字變長 → 手動改寬度<br>要做手機版 → 幾乎整個重排</span>
+        </div>
+        <div class="mini-card accent">
+          <strong>有 Auto Layout</strong>
+          <span>元素依方向、間距、內距自動排列。<br><br>加一個項目 → 自己往下長<br>文字變長 → 容器自己撐開<br>要做手機版 → 改一下寬度就好</span>
+        </div>
+      </div>
+      <div class="note">快捷鍵：選好圖層按 <span class="hl">⇧ A</span>（Windows 是 <span class="hl">Shift A</span>）就加上去了。移除是再加一個 ⌥／Alt。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 37 三種方向 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Flow Direction</p>
+      <h1>三種排列方向</h1>
+      <div class="matrix c3">
+        <div class="mini-card">
+          <strong>垂直 Vertical</strong>
+          <span>沿 y 軸往下排。<br><br>清單、表單欄位、卡片內部的標題與說明。</span>
+        </div>
+        <div class="mini-card">
+          <strong>水平 Horizontal</strong>
+          <span>沿 x 軸往右排，可以設定換行（wrap）。<br><br>按鈕列、標籤列、導覽項目。</span>
+        </div>
+        <div class="mini-card">
+          <strong>網格 Grid</strong>
+          <span>排成行與列，格子可以跨欄。<br><br>商品列表、儀表板。</span>
+        </div>
+      </div>
+      <div class="note">實務上幾乎都在<span class="hl">巢狀</span>：一張商品卡是垂直（圖／標題／價格），一排卡片是水平或網格。每一層各自有自己的間距設定。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 38 Padding 與 Gap -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Spacing</p>
+      <h1>Padding 跟 Gap 差在哪</h1>
+      <h2>兩個都是留白，差別在留在哪裡。這兩個搞混，版面就會怎麼調都不對。</h2>
+      <div class="flow-dia">┌─────────────────────────────────┐  ◀── 容器邊界
+│ ↕ <span class="d">padding-top</span>                    │
+│   ┌─────────────────────────┐   │
+│   │        項目 A            │   │
+│   └─────────────────────────┘   │
+│   ↕ <span class="n">gap</span>                           │
+│   ┌─────────────────────────┐   │
+│   │        項目 B            │   │
+│   └─────────────────────────┘   │
+│ ↕ <span class="d">padding-bottom</span>                 │
+└─────────────────────────────────┘
+  ↔ <span class="d">padding-left</span>        <span class="d">padding-right</span> ↔</div>
       <table class="cmp-table">
-        <thead><tr><th>層級</th><th>寫法</th><th>下一步</th></tr></thead>
+        <thead><tr><th>屬性</th><th>是什麼</th><th>可以怎麼設</th></tr></thead>
         <tbody>
-          <tr><td>觀察事實</td><td>3 位受訪者在比較課程時，反覆切換頁面確認費用與時數</td><td>保留原話、截圖或觀察紀錄</td></tr>
-          <tr><td>研究解讀</td><td>費用資訊分散，增加比較與記憶負擔</td><td>由多筆證據歸納模式</td></tr>
-          <tr><td>設計假設</td><td>若提供固定比較摘要，可能降低選擇焦慮</td><td>用原型與測試驗證</td></tr>
-          <tr><td>未知缺口</td><td>不確定使用者最在意總價、付款方式或退費規則</td><td>安排後續訪談或問卷</td></tr>
+          <tr><td>Padding</td><td>容器邊緣跟裡面的東西之間的留白</td><td>四邊統一、上下左右分開，或四個值各自設</td></tr>
+          <tr><td>Gap between</td><td>裡面的東西彼此之間的距離</td><td>給固定數值，或設成 Auto 讓它們平均散開</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
+  <!-- 39 三種尺寸模式 -->
   <section class="slide dark">
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
-      <p class="overline">Interview → Journey · Step 01</p>
-      <h1>先讀原話，不要一開始<br>就急著畫表格</h1>
-      <div class="matrix">
-        <div class="mini-card"><strong>受訪者 A</strong><span>「我先看很多轉職分享，但每個人講的課程都不一樣，我越看越不知道自己適合哪種。」</span></div>
-        <div class="mini-card accent"><strong>受訪者 B</strong><span>「我最在意上課時間，可是時數、請假與補課規則分散在不同頁面，只好自己做筆記。」</span></div>
-        <div class="mini-card warn"><strong>受訪者 C</strong><span>「付款後畫面跳掉，我不知道有沒有成功，直到收到 Email 才放心。」</span></div>
-        <div class="mini-card"><strong>第一次閱讀</strong><span>圈出目標、行動、接觸點、判斷、期待、情緒與結果；暫時不要提出功能。</span></div>
-      </div>
-      <p class="note">教學用模擬訪談資料，用來示範分析流程，不代表真實研究結論。</p>
+      <p class="overline">Resizing</p>
+      <h1>Hug、Fill、Fixed</h1>
+      <h2>這三個是 Auto Layout 最常卡住的地方。先記住一件事：<span class="hl">Hug 只能給容器，Fill 只能給裡面的東西。</span></h2>
+      <table class="cmp-table">
+        <thead><tr><th>模式</th><th>能套在誰身上</th><th>它會做什麼</th><th>什麼時候用</th></tr></thead>
+        <tbody>
+          <tr><td>Hug contents</td><td>只有 Auto Layout 容器</td><td>縮到剛好包住裡面的東西</td><td>按鈕：文字多長，按鈕就多寬</td></tr>
+          <tr><td>Fill container</td><td>只有子元件</td><td>撐滿父容器剩下的空間</td><td>輸入框：不管視窗多寬都填滿</td></tr>
+          <tr><td>Fixed</td><td>容器跟子元件都可以</td><td>尺寸就是不變</td><td>頭像、圖示這種固定尺寸的東西</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><span class="warn-text">一定要記住這條規則：</span>只要容器裡有任何一個子元件設成 Fill，容器在那個軸向就<span class="hl">不再是 Hug，會自動變成 Fixed</span>。「我明明設了 Hug 怎麼沒反應」，九成是這個原因。</div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
+  <!-- 40 Constraints -->
   <section class="slide">
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
-      <p class="overline">Interview → Journey · Step 02</p>
-      <h1>把一段話拆成<br>可以移動的證據卡</h1>
+      <p class="overline">Constraints</p>
+      <h1>那 Constraints 又是什麼</h1>
+      <h2>Constraints 管的是「frame 被拉大拉小的時候，圖層要怎麼跟著動」。跟 Auto Layout 是<span class="hl">兩套獨立的機制</span>。</h2>
       <table class="cmp-table">
-        <thead><tr><th>原話片段</th><th>證據卡</th><th>暫時標籤</th></tr></thead>
+        <thead><tr><th>設定</th><th>水平方向的行為</th></tr></thead>
         <tbody>
-          <tr><td>「我先看很多轉職分享」</td><td>行動：搜尋並閱讀轉職經驗</td><td>探索／社群</td></tr>
-          <tr><td>「越看越不知道適合哪種」</td><td>想法：缺少判斷適配度的標準</td><td>比較／困惑</td></tr>
-          <tr><td>「只好自己做筆記」</td><td>行動：跨頁整理時數與規則</td><td>比較／額外負擔</td></tr>
-          <tr><td>「收到 Email 才放心」</td><td>情緒：確認前焦慮，收到通知後安心</td><td>付款／狀態</td></tr>
+          <tr><td>Left / Right</td><td>跟左邊界（或右邊界）保持固定距離</td></tr>
+          <tr><td>Left and Right</td><td>兩邊都固定，所以圖層自己會跟著變寬變窄</td></tr>
+          <tr><td>Center</td><td>永遠對齊中線</td></tr>
+          <tr><td>Scale</td><td>尺寸跟位置都按比例縮放</td></tr>
         </tbody>
       </table>
-      <p class="note">一張卡只放一個意思，並保留受訪者代號與逐字稿位置，之後才能回查證據。</p>
+      <div class="note">垂直方向同理：Top、Bottom、Top and Bottom、Center、Scale。<br><span class="warn-text">重要：</span>Auto Layout 容器裡的一般子元件<span class="hl">用不了 Constraints</span>——它們用的是 Hug／Fill／Fixed。只有設成 absolute position（Mac 按住 <span class="hl">Ctrl</span> 拖曳）跳出排列流程的元件，才會回到 Constraints。</div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
+  <!-- 41 課堂練習 -->
   <section class="slide dark">
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
-      <p class="overline">Interview → Journey · Step 03</p>
-      <h1>先依「發生順序」排列<br>再為階段命名</h1>
+      <span class="layer-badge">課堂練習 · 40 分鐘</span>
+      <h1>從卡片分類到第一張 Wireframe</h1>
+      <h2>個人作業，用自己的專題。時間比原本的兩堂課壓縮很多，重點是走完整條流程，不是每一步都做到完美。</h2>
       <div class="chain">
-        <div class="chain-step"><b>需求出現</b><span>工作遇到瓶頸，開始考慮轉職</span></div>
-        <div class="chain-step"><b>搜尋探索</b><span>搜尋文章、社群分享與課程</span></div>
-        <div class="chain-step"><b>比較評估</b><span>整理費用、時間、規則與作品</span></div>
-        <div class="chain-step"><b>報名確認</b><span>填資料、付款、等待成功通知</span></div>
+        <div class="chain-step"><b>Step 1 · 10 min</b><span>用自己的功能清單做一輪快速卡片分類（開放式），整理出第一版 IA。</span></div>
+        <div class="chain-step"><b>Step 2 · 10 min</b><span>從 IA 挑一條核心路徑，畫成 Flowchart，補上判斷點與至少 2 種例外路徑。</span></div>
+        <div class="chain-step"><b>Step 3 · 15 min</b><span>用 Auto Layout 畫 1–2 張低保真 Wireframe，涵蓋流程的頭與尾。</span></div>
+        <div class="chain-step"><b>Step 4 · 5 min</b><span>對照六題檢查清單，寫下答不出來的那一題。</span></div>
       </div>
-      <ul class="blist compact">
-        <li data-n="排序">同一張卡可能有多個標籤，但只能放在實際發生的位置</li>
-        <li data-n="聚類">多位受訪者在相近時刻做相似的事，才聚成共同階段</li>
-        <li data-n="差異">少數但重要的不同路徑不要刪除，可標註分支或另畫一張地圖</li>
-      </ul>
+      <div class="note">課堂用檔：<a class="ilink" href="https://www.figma.com/board/KtPtouN73pY8SBP90Uz1j2" target="_blank" rel="noopener">卡片分類板</a>、<a class="ilink" href="https://www.figma.com/board/80weQpwuu9BGHrlos8Emhy" target="_blank" rel="noopener">流程圖（FigJam）</a>、<a class="ilink" href="https://www.figma.com/design/3rw5NBkNFX2ZOHvJGXS2Mt" target="_blank" rel="noopener">Auto Layout 與 Wireframe</a>。全程只能用黑白灰，加一個藍色標重點。詳細步驟見<a class="ilink" href="from-ia/exercises.html#ex1" target="_blank" rel="noopener">練習頁 ①</a>、<a class="ilink" href="from-flowchart-wireframe/exercises.html#ex1" target="_blank" rel="noopener">練習頁 ②</a>。</div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
+  <!-- 42 回家作業 -->
   <section class="slide">
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
-      <p class="overline">Interview → Journey · Step 04</p>
-      <h1>同一份證據，要放進<br>正確的旅程層次</h1>
-      <div class="journey-grid">
-        <div class="row-label">階段</div><div class="phase">需求出現</div><div class="phase">搜尋探索</div><div class="phase">比較評估</div><div class="phase">報名付款</div><div class="phase">等待確認</div>
-        <div class="row-label">行動</div><div>思考轉職</div><div>看分享與課程頁</div><div>跨頁做筆記</div><div>填表、付款</div><div>檢查 Email</div>
-        <div class="row-label">想法</div><div>我適合嗎？</div><div>哪一種可信？</div><div>規則差在哪？</div><div>資料正確嗎？</div><div>有成功嗎？</div>
-        <div class="row-label">情緒</div><div>期待／不安</div><div class="pain">資訊過多 ↓</div><div class="pain">比較疲累 ↓</div><div>緊張</div><div class="sweet">收到通知 ↑</div>
-        <div class="row-label">接觸點</div><div>工作情境</div><div>Google、社群</div><div>網站、筆記</div><div>表單、金流</div><div>Email</div>
-        <div class="row-label">證據</div><div>A</div><div>A</div><div>B</div><div>C</div><div>C</div>
-      </div>
-      <p class="note">同一段原話可能同時支持「行動、想法與情緒」，但每一格都要能回到原始資料。</p>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide dark">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">Interview → Journey · Step 05</p>
-      <h1>跨欄閱讀，才會從資料<br>走到洞察與機會</h1>
-      <div class="matrix">
-        <div class="mini-card warn"><strong>模式</strong><span>A 與 B 都需要自行拼接資訊，問題不是資料少，而是缺少一致的比較框架。</span></div>
-        <div class="mini-card"><strong>痛點</strong><span>比較負擔高；付款後狀態不明，讓使用者懷疑操作是否成功。</span></div>
-        <div class="mini-card accent"><strong>機會</strong><span>提供一致的比較摘要；在付款後立即顯示狀態、下一步與備援查詢方式。</span></div>
-        <div class="mini-card"><strong>設計目標</strong><span>讓第一次轉職者能理解課程差異，並在報名後確認狀態，降低選擇與付款焦慮。</span></div>
-      </div>
-      <p class="note">不要從一句抱怨直接跳到功能；先確認它是否跨受訪者、跨欄位形成可解釋的模式。</p>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide dark">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">5-Step Process</p>
-      <h1>畫 Journey Map 的五個步驟</h1>
-      <ul class="blist compact">
-        <li data-n="01">確認研究目的：這張地圖要幫助團隊回答什麼問題？</li>
-        <li data-n="02">選 Actor 與 Scenario：一位主角、一個目標、清楚起訖點</li>
-        <li data-n="03">整理研究資料：把行動與接觸點依時間排列，再分成階段</li>
-        <li data-n="04">補上想法與情緒：標出高低點、甜點、痛點與證據缺口</li>
-        <li data-n="05">收斂機會與目標：決定先改善什麼、為誰改善、期待什麼結果</li>
-      </ul>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">Teaching Example</p>
-      <h1>示意案例：第一次報名<br>UI/UX 轉職課程</h1>
-      <div class="matrix">
-        <div class="mini-card"><strong>Actor</strong><span>小安，初次轉職，工作日晚間蒐集資料；在意時間投入與是否適合零基礎。</span></div>
-        <div class="mini-card accent"><strong>Goal</strong><span>找到一門可信、時程可配合的課程，完成報名並確認下一步。</span></div>
-        <div class="mini-card"><strong>Start</strong><span>工作遇到瓶頸，開始搜尋 UI/UX 轉職資訊。</span></div>
-        <div class="mini-card warn"><strong>End</strong><span>收到報名與付款確認，知道開課前要準備什麼。</span></div>
-      </div>
-      <p class="note">此案例只用來示範方法，不代表真實研究結果；實作時請替換成各組自己的訪談與觀察資料。</p>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">Journey Map Example</p>
-      <h1>把資料排進同一條時間軸</h1>
-      <div class="journey-grid">
-        <div class="row-label">階段</div><div class="phase">需求出現</div><div class="phase">搜尋探索</div><div class="phase">比較評估</div><div class="phase">報名付款</div><div class="phase">等待開始</div>
-        <div class="row-label">行動</div><div>詢問朋友、搜尋轉職經驗</div><div>看課程頁與社群分享</div><div>比較費用、時數、作品</div><div>填資料、付款</div><div>查看 Email 與行前通知</div>
-        <div class="row-label">想法</div><div>「我真的適合嗎？」</div><div>「資訊好多，怎麼選？」</div><div>「這對零基礎有用嗎？」</div><div>「有成功嗎？」</div><div>「開課前要準備什麼？」</div>
-        <div class="row-label">情緒</div><div>期待／不安</div><div class="pain">焦慮 ↓</div><div class="sweet">逐漸安心 ↑</div><div class="pain">不確定 ↓</div><div class="sweet">有方向 ↑</div>
-        <div class="row-label">接觸點</div><div>Google、朋友</div><div>網站、YouTube、社群</div><div>課程頁、客服</div><div>表單、金流</div><div>Email、行事曆</div>
-        <div class="row-label">機會</div><div>提供能力自評</div><div>建立選課指南</div><div>集中比較資訊</div><div>即時顯示狀態</div><div>提供清楚準備清單</div>
-      </div>
-      <p class="note">示意案例：每一格都應在真實專題中連回研究證據或標註為待驗證假設。</p>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide dark">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">Interpretation</p>
-      <h1>真正的工作從畫完之後開始</h1>
-      <div class="matrix">
-        <div class="mini-card warn"><strong>最大低點</strong><span>比較資訊分散，使用者需要自己記住與拼接，選擇焦慮升高。</span></div>
-        <div class="mini-card accent"><strong>正向轉折</strong><span>當費用、時數、作品要求被集中說清楚，使用者開始建立信心。</span></div>
-        <div class="mini-card"><strong>關鍵斷點</strong><span>付款後沒有即時確認，讓使用者懷疑是否成功，甚至重複操作。</span></div>
-        <div class="mini-card"><strong>資料缺口</strong><span>仍需確認「零基礎適配」與「時間投入」哪一項最影響決策。</span></div>
-      </div>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">Insight</p>
-      <h1>洞察要說明「為什麼」<br>不能只重述痛點</h1>
-      <div class="chain">
-        <div class="chain-step"><b>證據</b><span>使用者反覆切換頁面確認費用與時數</span></div>
-        <div class="chain-step"><b>模式</b><span>比較時需要自己記住分散資訊</span></div>
-        <div class="chain-step"><b>原因</b><span>第一次轉職，缺乏判斷課程價值的標準</span></div>
-        <div class="chain-step"><b>洞察</b><span>他需要的不是更多資訊，而是能放心做決定的比較框架</span></div>
-      </div>
-      <p class="note">好洞察會改變團隊的理解：從「資訊不夠多」改成「缺少可用的判斷標準」。</p>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide dark">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">Design Goal</p>
-      <h1>設計目標描述體驗結果<br>不是直接指定功能</h1>
-      <table class="cmp-table">
-        <thead><tr><th>層級</th><th>寫法</th><th>判斷</th></tr></thead>
-        <tbody>
-          <tr><td>太抽象</td><td>「提升使用者體驗」</td><td>不知道改善誰、哪個階段、什麼結果</td></tr>
-          <tr><td>太快跳功能</td><td>「做一個課程比較按鈕」</td><td>把解法當目標，限制後續發想</td></tr>
-          <tr><td>可行的目標</td><td>「讓第一次轉職者能在比較階段快速理解差異，降低選擇焦慮並有信心進入報名」</td><td>有對象、情境、改變與期待結果</td></tr>
-        </tbody>
-      </table>
-      <p class="note"><span class="hl">句型：</span>讓［目標使用者］在［旅程階段／情境］能［期待改變］，以達成［體驗結果］。</p>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">Prioritization</p>
-      <h1>不是所有痛點都要立刻解決</h1>
-      <div class="matrix">
-        <div class="mini-card accent"><strong>使用者影響</strong><span>是否阻斷核心目標？發生頻率與情緒強度如何？</span></div>
-        <div class="mini-card"><strong>證據強度</strong><span>來自幾種資料？是否有一致模式？還只是團隊假設？</span></div>
-        <div class="mini-card warn"><strong>商業與風險</strong><span>是否影響轉換、信任、安全、法規或品牌承諾？</span></div>
-        <div class="mini-card"><strong>可行性與依賴</strong><span>需要哪些技術、內容、流程與跨部門協作？</span></div>
-      </div>
-      <p class="note">先選 1–3 個最重要機會，讓下一單元的資訊架構有清楚方向。</p>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide dark">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">AI Collaboration</p>
-      <h1>AI 可以整理旅程<br>但不能虛構旅程</h1>
+      <span class="layer-badge">回家作業</span>
+      <h1>把功能清單、IA 圖、Flow 與 Wireframe 都補完</h1>
+      <h2>這是整條「產品設計流程」的完整交件，涵蓋 Functional Map、IA 圖、Flowchart 與 Wireframe。</h2>
       <ul class="blist">
-        <li data-n="01">把訪談逐字稿依時間順序整理成行動、想法、情緒與接觸點</li>
-        <li data-n="02">協助比較多位受訪者，找出重複模式與矛盾資料</li>
-        <li data-n="03">用「證據 → 解讀 → 機會」格式產生洞察草稿</li>
-        <li data-n="04">檢查設計目標是否偷塞解法、太抽象或缺少明確使用者</li>
-        <li data-n="守則">沒有資料支撐的內容必須標成<span class="hl">待驗證假設</span>，不可寫成使用者事實</li>
+        <li data-n="01">看完 <a class="ilink" href="https://www.youtube.com/watch?v=v39z0JPeIc8" target="_blank" rel="noopener">Information Architecture — 3 Key Models</a>（NN/g，約 5 分鐘）。</li>
+        <li data-n="02">選一個網站逆向拆解 Sitemap（至少 3 層、20 個節點），對照自己的專題修正功能清單與 IA 圖。</li>
+        <li data-n="03">把課堂上的 Flowchart <span class="hl">補完整</span>：六種例外路徑一條都不能少。</li>
+        <li data-n="04">Wireframe 補到 <span class="hl">3–5 個畫面</span>，至少涵蓋一個關鍵的例外狀態，每張旁邊寫下六題檢查清單的答案。</li>
+        <li data-n="05">主要容器與重複元件用 Auto Layout 做，交件前把 Frame 拉寬拉窄各一次，看會不會爆版。</li>
       </ul>
+      <div class="note">繳交：Figma 連結一份，含<span class="hl">網站 Sitemap 分析、功能清單、IA 圖、1 張 Flow、3–5 個 Wireframe</span>。下次上課抽點分享。完整步驟見<a class="ilink" href="from-ia/exercises.html#hw" target="_blank" rel="noopener">練習頁 ①</a>、<a class="ilink" href="from-flowchart-wireframe/exercises.html#hw" target="_blank" rel="noopener">練習頁 ②</a>；配分見<a class="ilink" href="from-ia/exercises.html#submit" target="_blank" rel="noopener">IA 部分</a>、<a class="ilink" href="from-flowchart-wireframe/exercises.html#submit" target="_blank" rel="noopener">Flow/Wireframe 部分</a>。</div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
 
-  <section class="slide">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">Practice Brief</p>
-      <h1>練習題：第一次預約<br>寵物美容服務</h1>
-      <div class="matrix">
-        <div class="mini-card accent"><strong>Actor</strong><span>第一次替寵物預約美容、對流程與風險不熟悉的飼主。</span></div>
-        <div class="mini-card"><strong>Scenario</strong><span>從搜尋店家開始，跨過詢問、預約、到店、等待，直到接回寵物並付款。</span></div>
-        <div class="mini-card warn"><strong>任務</strong><span>用下一頁的三份訪談摘要，完成一張 Current-state Customer Journey Map。</span></div>
-        <div class="mini-card"><strong>交付</strong><span>至少 5 階段、情緒曲線、3 個痛點、1 個甜點、2 個機會與 1 個設計目標。</span></div>
-      </div>
-      <p class="note">35 分鐘小組練習；禁止先畫介面，所有內容都要標出 A、B、C 或「待驗證」。</p>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
+  <!-- 43 資源 -->
   <section class="slide dark">
     <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
     <div class="slide-body">
-      <p class="overline">Practice Data Pack</p>
-      <h1>三份訪談摘要<br>請先拆卡，再排旅程</h1>
-      <div class="agenda-grid">
-        <div class="agenda-card"><span class="a-step">受訪者 A</span><span class="a-time">搜尋與確認</span><span class="a-desc">看 Google 評論，但價格與服務內容不清楚；傳 LINE 後等了半天，收到明確時段才放心。</span></div>
-        <div class="agenda-card"><span class="a-step">受訪者 B</span><span class="a-time">預約與到店</span><span class="a-desc">電話預約又重複說一次寵物資料；到店不好停車，但美容師仔細確認需求，感覺被重視。</span></div>
-        <div class="agenda-card"><span class="a-step">受訪者 C</span><span class="a-time">等待與接回</span><span class="a-desc">從 IG 私訊預約，沒有行前提醒而漏帶疫苗資料；不知道何時完成，收到前後對照照片很驚喜。</span></div>
-      </div>
-      <p class="note">教學用模擬訪談摘要。先標 Actor、Start、End，再拆出行動、想法、情緒、接觸點與證據來源。</p>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">Hands-on Template</p>
-      <h1>先用空白骨架對齊<br>再開始填內容</h1>
-      <div class="journey-grid">
-        <div class="row-label">階段</div><div>① ______</div><div>② ______</div><div>③ ______</div><div>④ ______</div><div>⑤ ______</div>
-        <div class="row-label">行動</div><div>做了什麼？</div><div>做了什麼？</div><div>做了什麼？</div><div>做了什麼？</div><div>做了什麼？</div>
-        <div class="row-label">想法／情緒</div><div>想什麼？感受？</div><div>想什麼？感受？</div><div>想什麼？感受？</div><div>想什麼？感受？</div><div>想什麼？感受？</div>
-        <div class="row-label">接觸點</div><div>人／物／通路</div><div>人／物／通路</div><div>人／物／通路</div><div>人／物／通路</div><div>人／物／通路</div>
-        <div class="row-label">證據</div><div>原話／觀察</div><div>原話／觀察</div><div>原話／觀察</div><div>原話／觀察</div><div>原話／觀察</div>
-        <div class="row-label">機會</div><div>如何改善？</div><div>如何改善？</div><div>如何改善？</div><div>如何改善？</div><div>如何改善？</div>
-      </div>
-      <p class="note">開工前先寫 Actor、Scenario、Start、End；每一格若沒有證據，就標註「待驗證」。</p>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">Workshop</p>
-      <h1>課堂實作流程</h1>
-      <div class="stat-row">
-        <div class="stat"><b>30'</b><span>確認 Actor、Scenario<br>與旅程起訖點</span></div>
-        <div class="stat"><b>60'</b><span>整理行動、想法<br>接觸點與研究證據</span></div>
-        <div class="stat"><b>50'</b><span>完成階段與情緒曲線<br>標出峰值、甜點、痛點</span></div>
-        <div class="stat"><b>40'</b><span>收斂洞察、機會<br>與 1–3 個設計目標</span></div>
-      </div>
-      <p class="note">小組檢核：交換地圖後，另一組是否能說出「主角是誰、想完成什麼、最大低點在哪、為什麼重要」？</p>
-    </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
-  </section>
-
-  <section class="slide">
-    <div class="slide-head"><span class="unit-pill">Unit 04</span><span class="slide-num"></span></div>
-    <div class="slide-body">
-      <p class="overline">Assignment & Resources</p>
-      <h1>本單元產出</h1>
-      <h2>把專題從「我們知道使用者有問題」推進到「我們知道問題發生在哪裡，以及下一步要改善什麼」。</h2>
-      <ul class="blist compact">
-        <li data-n="作業 3"><span class="hl">用戶旅程地圖 1 份</span>：Actor、Scenario、階段、行動、想法、情緒、接觸點與機會。</li>
-        <li data-n="標註">標出峰值、甜點、痛點，以及每項內容的證據來源或假設狀態。</li>
-        <li data-n="目標">整理 1–3 個設計目標，作為 Unit 05 資訊架構與功能取捨的依據。</li>
-      </ul>
+      <p class="overline">Resources</p>
+      <h1>延伸資源</h1>
       <div class="res-links">
-        <a class="res-link" href="exercises.html" target="_blank" rel="noopener"><strong>Unit 04 · 互動練習</strong><span>選題、人物誌、模擬訪談、AI 提示與可編輯 Journey Map</span></a>
-        <a class="res-link" href="https://www.nngroup.com/articles/journey-mapping-101/" target="_blank" rel="noopener"><strong>NN/g · Journey Mapping 101</strong><span>定義、五個構成元素、用途與常見變體</span></a>
-        <a class="res-link" href="https://media.nngroup.com/media/articles/attachments/JMTemplate.pdf" target="_blank" rel="noopener"><strong>NN/g · Journey Map Template</strong><span>Persona、Scenario、Phases、Doing／Thinking／Saying</span></a>
-        <a class="res-link" href="https://www.figma.com/board/BwTlHzizgSCTknmCRPK6sb/%E7%89%99%E9%86%AB%E9%A0%90%E7%B4%84%E9%AB%94%E9%A9%97-%E2%80%94-%E9%A1%A7%E5%AE%A2%E6%97%85%E7%A8%8B%E5%9C%B0%E5%9C%96?node-id=0-1&t=TnckCjjKY6XXKTms-1" target="_blank" rel="noopener"><strong>案例 · 牙醫預約體驗</strong><span>完整顧客旅程地圖、優化機會與 Feature Breakdown</span></a>
+        <a class="res-link" href="article.html" target="_blank" rel="noopener">
+          <strong>Unit 04 完整教材</strong>
+          <span>資訊架構、卡片分類法、Flowchart、Wireframe、Auto Layout 全文</span>
+        </a>
+        <a class="res-link" href="https://www.youtube.com/watch?v=v39z0JPeIc8" target="_blank" rel="noopener">
+          <strong>IA: 3 Key Models（影片）</strong>
+          <span>NN/g · 回家作業指定觀看</span>
+        </a>
+        <a class="res-link" href="https://www.nngroup.com/articles/ia-study-guide/" target="_blank" rel="noopener">
+          <strong>NN/g 資訊架構學習指南</strong>
+          <span>資訊架構部分的主要參考來源</span>
+        </a>
+        <a class="res-link" href="https://www.figma.com/board/KtPtouN73pY8SBP90Uz1j2" target="_blank" rel="noopener">
+          <strong>卡片分類練習板</strong>
+          <span>13 張卡片與六個工作區已建好 · 上課直接複製</span>
+        </a>
+        <a class="res-link" href="https://www.figma.com/board/80weQpwuu9BGHrlos8Emhy" target="_blank" rel="noopener">
+          <strong>流程圖練習檔（FigJam）</strong>
+          <span>符號庫、動作便利貼、例外路徑檢查表</span>
+        </a>
+        <a class="res-link" href="https://www.figma.com/design/3rw5NBkNFX2ZOHvJGXS2Mt" target="_blank" rel="noopener">
+          <strong>Auto Layout 與 Wireframe 練習檔</strong>
+          <span>Auto Layout 素材與 3 個空白 Wireframe 畫框</span>
+        </a>
+        <a class="res-link" href="https://www.nngroup.com/articles/wireflows/" target="_blank" rel="noopener">
+          <strong>Wireflows</strong>
+          <span>NN/g · Flowchart 與 Wireframe 的結合</span>
+        </a>
+        <a class="res-link" href="https://www.figma.com/design/XKrTQ38VaU4PZeuwT0uocp/Wireframe_Web_UI_Kit-%E5%88%87%E7%89%88%E7%9A%84100%E7%A8%AE%E7%B7%B4%E7%BF%92?node-id=0-1" target="_blank" rel="noopener">
+          <strong>Wireframe Web UI Kit</strong>
+          <span>現成的線框區塊庫 · 桌機 1440 與手機 375 兩種尺寸</span>
+        </a>
       </div>
     </div>
-    <div class="slide-foot"><span class="course-label">用戶研究 ②：用戶旅程地圖與設計目標</span><div class="dots"></div></div>
+    <div class="slide-foot"><span class="course-label">產品設計流程</span><div class="dots"></div></div>
   </section>
-</div>
+
+</div><!-- /#deck -->
 
 <div id="ctrls">
   <button id="prev" aria-label="上一頁">&#8592;</button>
   <button id="next" aria-label="下一頁">&#8594;</button>
 </div>
 
-<script src="chart.umd.min.js"></script>
 <script>
 (function () {
   const slides = Array.from(document.querySelectorAll('.slide'));
   const total = slides.length;
   const prog = document.getElementById('prog');
+  const ctrls = document.getElementById('ctrls');
   const dotContainers = Array.from(document.querySelectorAll('.dots'));
   let cur = 0;
-  let emotionChart = null;
-
-  function ensureEmotionChart() {
-    if (emotionChart || !window.Chart) return;
-    const canvas = document.getElementById('emotionChart');
-    const wrap = document.getElementById('emotionChartWrap');
-    if (!canvas || !wrap) return;
-    emotionChart = new Chart(canvas, {
-      type: 'line',
-      data: {
-        labels: ['需求出現', '搜尋比較', '找到方案', '付款確認', '收到指引'],
-        datasets: [{
-          label: '情緒強度',
-          data: [0.4, -1.8, 1.6, -1.2, 2.2],
-          borderColor: '#58a6ff',
-          backgroundColor: 'rgba(88,166,255,.16)',
-          pointBackgroundColor: ['#58a6ff', '#ff8a65', '#34d399', '#ff8a65', '#34d399'],
-          pointBorderColor: '#1d1d1f',
-          pointBorderWidth: 3,
-          pointRadius: 7,
-          pointHoverRadius: 8,
-          borderWidth: 3,
-          tension: .32,
-          fill: true
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: false,
-        interaction: { intersect: false, mode: 'index' },
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: context => {
-                const words = ['期待，也不確定', '資訊過多、焦慮', '安心、看到希望', '擔心失敗或重複扣款', '確認成功、可預期'];
-                return words[context.dataIndex];
-              }
-            }
-          }
-        },
-        scales: {
-          x: {
-            grid: { display: false },
-            border: { color: '#48484a' },
-            ticks: { color: '#f5f5f7', font: { size: 12, weight: 600 } }
-          },
-          y: {
-            min: -3,
-            max: 3,
-            ticks: {
-              stepSize: 1,
-              color: '#a1a1a6',
-              callback: value => value === 3 ? '高點' : value === 0 ? '平穩' : value === -3 ? '低點' : ''
-            },
-            grid: { color: context => context.tick.value === 0 ? '#6e6e73' : 'rgba(255,255,255,.08)' },
-            border: { display: false }
-          }
-        }
-      }
-    });
-    wrap.classList.add('chart-ready');
-  }
 
   slides.forEach((slide, i) => {
     const num = slide.querySelector('.slide-num');
@@ -1314,11 +1647,10 @@ h2 {
     cur = (n + total) % total;
     slides[cur].classList.add('active');
     prog.style.width = ((cur + 1) / total * 100) + '%';
-    document.getElementById('ctrls').classList.toggle('on-dark', slides[cur].classList.contains('dark'));
+    ctrls.classList.toggle('on-dark', slides[cur].classList.contains('dark'));
     dotContainers.forEach(container => {
       Array.from(container.children).forEach((dot, i) => dot.classList.toggle('on', i === cur));
     });
-    if (slides[cur].dataset.chart === 'emotion') requestAnimationFrame(ensureEmotionChart);
   }
 
   document.getElementById('prev').addEventListener('click', () => go(cur - 1));
@@ -1338,7 +1670,7 @@ h2 {
   });
 
   prog.style.width = (1 / total * 100) + '%';
-  document.getElementById('ctrls').classList.toggle('on-dark', slides[0].classList.contains('dark'));
+  ctrls.classList.toggle('on-dark', slides[0].classList.contains('dark'));
 })();
 </script>
 </body>
