@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 03 · 課堂練習與回家作業</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #fbfbfd;
+  --dark: #1d1d1f;
+  --muted: #6e6e73;
+  --accent: #0066cc;
+  --accent2: #0f766e;
+  --accent3: #c2410c;
+  --surface: #f5f5f7;
+  --border: #d2d2d7;
+  --code: #1d1d1f;
+  --max-w: 860px;
+}
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang TC", sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+  padding: 28px 22px 88px;
+  line-height: 1.72;
+}
+.page { max-width: var(--max-w); margin: 0 auto; }
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 42px;
+}
+.back-link { color: var(--accent); text-decoration: none; font-size: 13px; font-weight: 700; }
+.back-link::before { content: '← '; }
+.unit-pill {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.09);
+  padding: 4px 11px;
+  border-radius: 8px;
+}
+.hero { padding-bottom: 34px; margin-bottom: 30px; border-bottom: 1px solid var(--border); }
+.overline {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; margin-bottom: 14px; }
+.lead { color: var(--muted); max-width: 720px; font-size: 1rem; }
+.toc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px 24px;
+  margin-bottom: 22px;
+}
+.toc h2 {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.toc ol { list-style: none; counter-reset: toc; }
+.toc li { counter-increment: toc; margin: 8px 0; }
+.toc a { color: var(--dark); text-decoration: none; display: flex; gap: 10px; font-size: .95rem; }
+.toc a:hover { color: var(--accent); }
+.toc a::before {
+  content: counter(toc, decimal-leading-zero);
+  color: var(--accent);
+  font-size: .75rem;
+  font-weight: 800;
+  padding-top: 3px;
+}
+
+.band {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 46px 0 6px;
+  padding-top: 26px;
+  border-top: 2px solid var(--border);
+}
+.band-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--accent);
+  padding: 5px 12px;
+  border-radius: 8px;
+}
+.band-tag.home { background: var(--accent2); }
+.band h2 { font-size: clamp(1.15rem, 2.4vw, 1.5rem); }
+.band-note { color: var(--muted); font-size: .9rem; margin: 6px 0 4px; }
+
+.exercise {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 18px 0;
+  overflow: hidden;
+}
+.exercise.home { border-color: rgba(15,118,110,.28); }
+.exercise-head { padding: 18px 22px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.exercise.home .exercise-head { background: rgba(15,118,110,.05); border-bottom-color: rgba(15,118,110,.2); }
+.exercise-tag {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.exercise.home .exercise-tag { color: var(--accent2); }
+h2 { font-size: clamp(1.25rem, 2.6vw, 1.7rem); line-height: 1.25; }
+.exercise-body { padding: 20px 22px 24px; }
+h3 { font-size: 1.02rem; margin: 20px 0 8px; }
+p { color: #2c2c2e; margin-bottom: 12px; }
+ul, ol { padding-left: 1.1rem; margin: 8px 0 16px; }
+li { margin-bottom: 8px; color: #2c2c2e; }
+strong { color: var(--dark); font-weight: 800; }
+.bad { color: var(--accent3); font-weight: 800; }
+.good { color: var(--accent2); font-weight: 800; }
+code {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .88em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+.meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.chip {
+  font-size: 12px;
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  border: 1px solid rgba(0,102,204,.16);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+.exercise.home .chip { color: var(--accent2); background: rgba(15,118,110,.07); border-color: rgba(15,118,110,.18); }
+
+.table-wrap { overflow-x: auto; margin: 14px 0; -webkit-overflow-scrolling: touch; }
+table { width: 100%; min-width: 660px; border-collapse: collapse; font-size: .92rem; }
+th {
+  text-align: left;
+  color: var(--accent);
+  background: rgba(0,102,204,.06);
+  border-bottom: 2px solid var(--border);
+  padding: 10px 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+td { padding: 11px 12px; border-bottom: 1px solid var(--border); color: #2c2c2e; vertical-align: top; }
+td:first-child { color: var(--muted); font-weight: 800; white-space: nowrap; }
+
+.prompt {
+  background: var(--code);
+  color: #f5f5f7;
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin: 14px 0 4px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .8rem;
+  line-height: 1.7;
+}
+.callout {
+  background: rgba(0,102,204,.05);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 16px;
+  margin: 16px 0;
+  color: #2c2c2e;
+}
+.callout.green { background: rgba(15,118,110,.06); border-left-color: var(--accent2); }
+.callout.warn { background: rgba(194,65,12,.06); border-left-color: var(--accent3); }
+.callout a { color: var(--accent); font-weight: 700; }
+
+.check { list-style: none; padding-left: 0; }
+.check li { position: relative; padding-left: 28px; }
+.check li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: .45em;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+}
+
+.foot-nav { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
+.foot-nav a {
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  border: 1px solid rgba(0,102,204,.18);
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+}
+@media print {
+  body { background: #fff; padding: 0; }
+  .topbar, .toc, .foot-nav { display: none; }
+  .exercise { break-inside: avoid; }
+}
+@media (max-width: 700px) {
+  .topbar { align-items: flex-start; flex-direction: column; }
+  .band { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <a class="back-link" href="article.html">回到 Unit 03 講義</a>
+    <span class="unit-pill">Unit 03</span>
+  </div>
+
+  <div class="hero">
+    <p class="overline">Practice &amp; Homework</p>
+    <h1>四個功能疊上去，做出一張真的卡片</h1>
+    <p class="lead">課堂練習用 70 分鐘，四個階段接著做：畫出一張卡片、幫卡片加 Auto Layout、把按鈕做成有 Variants 的 Component、最後把兩個畫面接成可以點的 Prototype。每個階段結束都會有東西可以看，卡住就先舉手，不要憋著往下做。</p>
+  </div>
+
+  <div class="toc">
+    <h2>本頁內容</h2>
+    <ol>
+      <li><a href="#ex1">Exercise 01 · 形狀與圖層：畫出一張卡片（15 分）</a></li>
+      <li><a href="#ex2">Exercise 02 · Auto Layout：加上標籤列（15 分）</a></li>
+      <li><a href="#ex3">Exercise 03 · Component：做一顆按鈕與 2 個 Variant（20 分）</a></li>
+      <li><a href="#ex4">Exercise 04 · Prototype：接出一次點擊互動（20 分）</a></li>
+      <li><a href="#hw">回家作業 · 擴充成小型元件庫</a></li>
+      <li><a href="#submit">繳交清單與評分配分</a></li>
+    </ol>
+  </div>
+
+  <div class="callout">
+    <strong>開始前：</strong>開一個新的 Figma Design 檔案，命名成「Unit03_你的名字」。四個練習都在同一個檔案裡接著做，不要每題開新檔——Exercise 04 的 Prototype 需要用到 Exercise 01–03 做出來的畫面。<br><br>另外開一份<a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=4-8" target="_blank" rel="noopener"><strong>課堂範本檔</strong></a>，裡面四個區塊對應下面四個練習（起始狀態、對照範例、核取清單）。<strong>把需要的區塊複製到你自己那個 Unit03 的檔案裡再操作</strong>，不要直接在範本檔上寫——那是全班共用的。<br><br>找不到工具面板或右側屬性欄時，先確認你選對了圖層——很多設定（Auto Layout、Resizing、Variant）只有選到<strong>正確層級</strong>的物件才會出現。
+  </div>
+
+  <div class="band">
+    <span class="band-tag">課堂練習 · 70 分鐘</span>
+    <h2>從一張卡片到可以點的 Prototype</h2>
+  </div>
+  <p class="band-note">四個階段接著做，中間不停。做不完的部分列進回家作業。</p>
+
+  <div class="exercise" id="ex1">
+    <div class="exercise-head">
+      <p class="exercise-tag">Exercise 01</p>
+      <h2>形狀與圖層：畫出一張卡片</h2>
+      <div class="meta"><span class="chip">15 分鐘</span><span class="chip">個人</span><span class="chip">Figma</span><span class="chip"><a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=4-11" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">範本檔 · 區塊 ①</a></span></div>
+    </div>
+    <div class="exercise-body">
+      <p>目標是重現講義第 1 節那張旅遊卡片的圖層結構——不用畫得一模一樣，重點是練到「形狀＋圖層堆疊」。</p>
+      <h3>步驟</h3>
+      <ol>
+        <li>按 <code>R</code> 畫一個矩形當作照片，填任意顏色，圓角調成 12px 左右。</li>
+        <li>按 <code>O</code> 畫一個小圓當頭像，疊在照片矩形的左下角——確認圖層面板裡頭像排在照片<strong>上面</strong>。</li>
+        <li>用 Text 工具加一行標題、一行副標，疊在照片下方或上方，確認文字圖層在最上層。</li>
+        <li>把照片圖層拖到圖層面板最上面，觀察畫面：頭像跟文字被蓋住了嗎？拖回原位。</li>
+      </ol>
+      <div class="callout"><strong>交件：</strong>一張至少 4 個圖層（照片、頭像、標題、副標）疊出來的卡片，圖層順序正確（頭像與文字在照片上面）。</div>
+    </div>
+  </div>
+
+  <div class="exercise" id="ex2">
+    <div class="exercise-head">
+      <p class="exercise-tag">Exercise 02</p>
+      <h2>Auto Layout：加上一排標籤</h2>
+      <div class="meta"><span class="chip">15 分鐘</span><span class="chip">個人</span><span class="chip">Figma</span><span class="chip"><a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=4-12" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">範本檔 · 區塊 ②</a></span></div>
+    </div>
+    <div class="exercise-body">
+      <p>在 Exercise 01 的卡片下方，加一排標籤（例如「親子」「三天兩夜」「秋季」），練習 Auto Layout 的 Gap 與 Hug。</p>
+      <h3>步驟</h3>
+      <ol>
+        <li>先手動排 3 個標籤（各自是一個小 Frame + 文字，寬度先固定），把其中一個標籤的文字改長一點，觀察文字有沒有溢出固定寬度的標籤框——這就是講義第 3 節講的手動排版問題。</li>
+        <li>刪掉重來：每個標籤自己先變成 Auto Layout Frame（選取文字，按 <code>Shift + A</code>），Padding 上下 6px、左右 12px，Resizing 選 <strong>Hug contents</strong>——這一步不能省，不然文字變長時標籤本身不會跟著撐開。</li>
+        <li>再建一個外層 Frame，選取後按 <code>Shift + A</code> 加上 Auto Layout，Flow 選 Horizontal，Gap 設成 8px 左右，Resizing 也選 Hug contents。</li>
+        <li>把 3 個已經是 Auto Layout 的標籤依序拖進這個外層 Frame 裡，再把其中一個文字改長，觀察標籤會不會自動撐開、不重疊。</li>
+        <li>打開外層 Frame 的 Wrap，把 Frame 寬度縮小，確認標籤會自動換行。</li>
+      </ol>
+      <div class="callout warn"><strong>常卡住：</strong>只對外層那排設定 Auto Layout 還不夠——如果每個標籤本身還是固定寬度的 Frame，文字變長只會在標籤內溢出，不會撐開標籤。<strong>每個標籤自己也要是 Auto Layout Frame，Resizing 設 Hug contents</strong>，外層的排列才會跟著正確撐開。Shift + A 完全沒反應時，改用右鍵選單的 Add auto layout 再檢查一次。</div>
+      <div class="callout"><strong>交件：</strong>一排用 Auto Layout 排出的標籤（外層跟每個標籤本身都是 Auto Layout Frame），文字變長時會自動撐開、不重疊，縮小寬度時會自動換行。</div>
+    </div>
+  </div>
+
+  <div class="exercise" id="ex3">
+    <div class="exercise-head">
+      <p class="exercise-tag">Exercise 03</p>
+      <h2>Component：做一顆按鈕與 2 個 Variant</h2>
+      <div class="meta"><span class="chip">20 分鐘</span><span class="chip">個人</span><span class="chip">Figma</span><span class="chip"><a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=4-13" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">範本檔 · 區塊 ③</a></span></div>
+    </div>
+    <div class="exercise-body">
+      <p>做一顆「查看行程」按鈕，練習 Component 與 Variants，之後 Exercise 04 會直接用到它。</p>
+      <h3>步驟</h3>
+      <ol>
+        <li>用 Auto Layout Frame 做一顆按鈕：Padding 上下 10px、左右 20px，裡面放一行文字「查看行程」，Fill 填藍色。</li>
+        <li>選取這個按鈕 Frame，右鍵選 <strong>Create component</strong>，變成 Main Component。</li>
+        <li>複製一份，把 Fill 改成淺色、文字改深色，當作第二種樣式（Secondary），一樣右鍵 Create component。</li>
+        <li>兩個 Component 都選取，右側面板點 <strong>Combine as variants</strong>。</li>
+        <li>把自動命名的屬性改成 <code>Type</code>，數值改成 <code>Primary</code>／<code>Secondary</code>——不要留著 Figma 預設的 Variant、Property 2 這種名字。</li>
+      </ol>
+      <div class="callout warn"><strong>常卡住：</strong>Combine as variants 按了沒用，通常是選到的物件不是 Component（還是一般 Frame）——先確認兩個物件都各自執行過 Create component。</div>
+      <div class="callout"><strong>交件：</strong>一個 Button Component Set，含 Type=Primary 與 Type=Secondary 兩個 Variant，屬性命名清楚（不是預設的 Property 1、Property 2）。</div>
+    </div>
+  </div>
+
+  <div class="exercise" id="ex4">
+    <div class="exercise-head">
+      <p class="exercise-tag">Exercise 04</p>
+      <h2>Prototype：接出一次點擊互動</h2>
+      <div class="meta"><span class="chip">20 分鐘</span><span class="chip">個人</span><span class="chip">Figma</span><span class="chip"><a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=4-14" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">範本檔 · 區塊 ④</a></span></div>
+    </div>
+    <div class="exercise-body">
+      <p>把 Exercise 01 的卡片、Exercise 03 的按鈕放進同一個 Frame，再複製一份當作「詳細頁」，接出一次可以點的互動。</p>
+      <h3>步驟</h3>
+      <ol>
+        <li>建立一個手機尺寸的 Frame（用 Frame 預設裡的 iPhone 尺寸），命名為「列表頁」。打開右側的 <strong>Assets 面板</strong>，找到 Exercise 03 做的 Button 元件，把它拖進畫面裡——這樣拖進來的就是一個 Instance。把 Exercise 01 的卡片也放進來（直接複製圖層即可，卡片這裡先不用做成 Component）。</li>
+        <li>複製整個 Frame，改名為「詳細頁」，換掉一些內容（例如放大照片、加一段說明文字），讓兩個畫面看得出差異。</li>
+        <li>按 <code>Shift + E</code> 切到 Prototype 分頁。</li>
+        <li>選取列表頁裡的按鈕，拖曳右側出現的「＋」到詳細頁的 Frame 邊界上。</li>
+        <li>在互動細節面板確認 Trigger 是 On click，Action 是 Navigate to，Destination 是「詳細頁」這個最上層 Frame。動畫先選 Push，方向 Left。</li>
+        <li>點右上角 Preview，實際點一次按鈕，確認畫面真的切換過去。</li>
+      </ol>
+      <div class="callout warn"><strong>常卡住：</strong>連接線拉不出去，通常是目標不是最上層 Frame（例如拖進了 Frame 裡面的某個圖層），或熱區選到的是文字圖層而不是外層可點的容器。</div>
+      <div class="callout"><strong>交件：</strong>Preview 模式下，點擊按鈕能從列表頁切換到詳細頁，且有 Push 動畫。</div>
+    </div>
+  </div>
+
+  <div class="band">
+    <span class="band-tag home">回家作業</span>
+    <h2>把卡片擴充成一頁小型元件庫</h2>
+  </div>
+  <p class="band-note">預估 2 小時。把課堂做出來的卡片、按鈕、Prototype，擴充成 Unit 04 開始會用到的一份基礎素材。</p>
+
+  <div class="exercise home" id="hw">
+    <div class="exercise-head">
+      <p class="exercise-tag">Homework</p>
+      <h2>2 個 Component、Auto Layout 卡片與 3 畫面 Prototype</h2>
+      <div class="meta"><span class="chip">約 2 小時</span><span class="chip">個人</span><span class="chip">Figma</span></div>
+    </div>
+    <div class="exercise-body">
+      <ol>
+        <li><strong>再做 1 個 Component，跟課堂的按鈕湊成 2 個。</strong>挑一個卡片上會重複出現的元素（例如標籤、小圖示按鈕），至少要有 2 個 Variant，屬性命名要看得懂，不要留 Figma 預設名稱。</li>
+        <li><strong>用 Auto Layout 重排整張卡片，同時保留頭像疊在照片上的效果。</strong>把照片、標題、副標三個「不重疊」的元素包進一個 Vertical Auto Layout Frame（Resizing 設 Hug contents），確認換一行更長的標題時卡片高度會自動跟著變。頭像維持疊在照片上——選取頭像圖層，在右側面板打開 <strong>Ignore auto layout</strong>，改用絕對定位疊在照片上，不要把它也塞進同一個 Auto Layout 排列裡（一般 Auto Layout 只會把子物件排開，不會讓它們重疊）。</li>
+        <li><strong>串成至少 3 個畫面的 Prototype Flow。</strong>在課堂的列表頁、詳細頁之外，至少再加一個畫面（例如「編輯頁」或「確認頁」），並且要有<strong>返回</strong>的連接——從詳細頁能點回列表頁。</li>
+        <li><strong>（加分，非必要）</strong>把其中一個轉場換成 Smart Animate，確認兩個畫面裡要做動畫的圖層名稱完全一致，不然不會生效。</li>
+      </ol>
+      <h3>交件前自己跑一次這個檢查</h3>
+      <ul class="check">
+        <li>2 個 Component 的 Variant 屬性名稱，別人不看畫面猜得出差異嗎？</li>
+        <li>卡片的 Auto Layout Frame，Resizing 是不是還留在 Fixed（改內容不會自動撐開）？</li>
+        <li>Prototype 裡有沒有進得去、出不來的畫面？</li>
+      </ul>
+      <h3>AI 使用界線</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>可以</th><th>不可以</th></tr></thead>
+          <tbody>
+            <tr><td>卡關排查</td><td>把 Auto Layout 設定貼給 AI，請它指出可能的問題屬性</td><td>讓 AI 決定版面該怎麼設計</td></tr>
+            <tr><td>命名檢查</td><td>讓 AI 檢查 Variant 屬性命名是否清楚、有沒有語意重疊</td><td>讓 AI 幫你決定要做哪些 Variant</td></tr>
+            <tr><td>連接檢查</td><td>把 Prototype 連接清單貼給 AI，讓它抓出斷掉或進不去的畫面</td><td>讓 AI 生成整個 Prototype 的畫面內容</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>界線的邏輯：<strong>AI 可以幫你檢查與排查問題，不能幫你做設計判斷。</strong>三段提示詞在<a href="article.html#s11">講義第 11 節</a>。</p>
+      <div class="callout green"><strong>交件方式：</strong>一份 Figma 連結，權限設為可檢視。下次上課抽點分享卡在哪、怎麼解的。</div>
+    </div>
+  </div>
+
+  <div class="band">
+    <span class="band-tag home">繳交</span>
+    <h2>繳交清單與評分配分</h2>
+  </div>
+
+  <div class="exercise home" id="submit">
+    <div class="exercise-head">
+      <p class="exercise-tag">Submission</p>
+      <h2>對應本單元回家作業</h2>
+      <div class="meta"><span class="chip">Figma 連結 1 份</span><span class="chip">下次上課抽點分享</span></div>
+    </div>
+    <div class="exercise-body">
+      <h3>要交的東西</h3>
+      <ul class="check">
+        <li>2 個 Component，至少 1 個有 2 個以上的 Variant，屬性命名清楚</li>
+        <li>1 張用 Auto Layout 排出的卡片，內容變動時會自動撐開，頭像仍疊在照片上</li>
+        <li>至少 3 個畫面串成的 Prototype Flow，含返回連接</li>
+        <li>（加分）至少 1 個轉場使用 Smart Animate</li>
+      </ul>
+      <h3>配分</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>項目</th><th>配分</th><th>通過的樣子</th><th>不及格的樣子</th></tr></thead>
+          <tbody>
+            <tr><td>Component 與 Variants</td><td>35</td><td>2 個 Component，至少 1 個有 2 個以上 Variant，屬性與數值命名看得懂差異</td><td>只有 1 個 Component；Variant 屬性還是 Figma 預設命名（Property 1、Property 2）</td></tr>
+            <tr><td>Auto Layout</td><td>35</td><td>卡片主體包在 Auto Layout Frame 裡，Resizing 設對，內容變動時自動撐開不重疊，頭像用 Ignore auto layout 維持疊在照片上</td><td>卡片主體還是手動排版；Resizing 留在 Fixed 沒有跟著內容變化；頭像被 Auto Layout 排開、不再疊在照片上</td></tr>
+            <tr><td>Prototype</td><td>30</td><td>至少 3 個畫面，能從入口點到底、有返回連接，沒有進得去出不來的畫面</td><td>只有 2 個畫面或更少；沒有返回連接；有連接指向非最上層 Frame</td></tr>
+            <tr><td>Smart Animate（加分）</td><td>+5</td><td>至少一個轉場用 Smart Animate，動畫確實生效</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn"><strong>特別說明：</strong>這份作業評的是<strong>工具操作的熟練度</strong>，不是視覺美感——顏色配得普通不扣分，Auto Layout 沒設對、Variant 命名亂寫才扣分。</div>
+    </div>
+  </div>
+
+  <div class="foot-nav">
+    <a href="slides.html" target="_blank" rel="noopener">回到 Unit 03 簡報</a>
+    <a href="article.html" target="_blank" rel="noopener">Unit 03 完整講義</a>
+    <a href="article.html#s11" target="_blank" rel="noopener">講義第 11 節：AI 協作提示詞</a>
+    <a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=4-8" target="_blank" rel="noopener">課堂範本檔</a>
+    <a href="https://help.figma.com/hc/en-us" target="_blank" rel="noopener">Figma Help Center</a>
+    <a href="../index.html" target="_blank" rel="noopener">回到課程總覽</a>
+  </div>
+</div>
+</body>
+</html>

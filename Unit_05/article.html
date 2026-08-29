@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>產品設計基本元素 · 完整教材 · Unit 05</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #fbfbfd;
+  --dark: #1d1d1f;
+  --muted: #6e6e73;
+  --accent: #0066cc;
+  --accent2: #0f766e;
+  --accent3: #c2410c;
+  --surface: #f5f5f7;
+  --border: #d2d2d7;
+  --code-bg: #1d1d1f;
+  --max-w: 760px;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang TC", sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+  padding: 0 24px 96px;
+  line-height: 1.75;
+}
+
+#prog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: var(--accent);
+  z-index: 200;
+}
+
+.topbar {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 24px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: .04em;
+}
+.back-link:hover { opacity: .75; }
+.back-link::before { content: '←'; }
+.unit-pill {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.09);
+  padding: 4px 11px;
+  border-radius: 8px;
+}
+
+.hero {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 56px 0 40px;
+  border-bottom: 1px solid var(--border);
+}
+.overline {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.1;
+  margin-bottom: 18px;
+}
+.hero .lead {
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.75;
+}
+.hero .meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+  font-size: 12px;
+  color: var(--muted);
+  align-items: center;
+}
+.hero .meta .d {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.toc {
+  max-width: var(--max-w);
+  margin: 36px auto 0;
+  padding: 26px 30px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.toc h2 {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.toc ol { list-style: none; counter-reset: toc; columns: 2; column-gap: 32px; }
+.toc li { counter-increment: toc; margin-bottom: 10px; break-inside: avoid; }
+.toc a {
+  font-size: .92rem;
+  color: var(--dark);
+  text-decoration: none;
+  display: flex;
+  gap: 10px;
+}
+.toc a:hover { color: var(--accent); }
+.toc a::before {
+  content: counter(toc, decimal-leading-zero);
+  font-size: .72rem;
+  font-weight: 800;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  padding-top: 3px;
+}
+
+.article { max-width: var(--max-w); margin: 0 auto; }
+.section { padding-top: 56px; }
+.sec-num {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+h2.sec-title {
+  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.22;
+  margin-bottom: 20px;
+}
+h3 {
+  font-size: clamp(1.05rem, 2.2vw, 1.28rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  margin: 32px 0 12px;
+}
+p { font-size: 1rem; color: #2c2c2e; margin-bottom: 16px; }
+strong { font-weight: 800; color: var(--dark); }
+em {
+  font-style: normal;
+  background: rgba(0,102,204,.09);
+  color: var(--accent);
+  padding: 1px 6px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+.hl { color: var(--accent); font-weight: 800; }
+.hl2 { color: var(--accent2); font-weight: 800; }
+
+ul.bullets, ol.steps {
+  margin: 4px 0 20px;
+  padding-left: 0;
+  list-style: none;
+}
+ul.bullets li, ol.steps li {
+  font-size: 1rem;
+  color: #2c2c2e;
+  line-height: 1.7;
+  margin-bottom: 12px;
+  padding-left: 26px;
+  position: relative;
+}
+ul.bullets li::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: .65em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+ol.steps { counter-reset: step; }
+ol.steps li {
+  counter-increment: step;
+  padding-left: 38px;
+}
+ol.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0,102,204,.1);
+  color: var(--accent);
+  font-size: .78rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.callout {
+  margin: 24px 0;
+  padding: 18px 20px;
+  background: rgba(0,102,204,.05);
+  border: 1px solid rgba(0,102,204,.16);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  font-size: .95rem;
+  line-height: 1.7;
+  color: var(--dark);
+}
+.callout.green {
+  background: rgba(15,118,110,.06);
+  border-color: rgba(15,118,110,.2);
+  border-left-color: var(--accent2);
+}
+
+.tbl-wrap { overflow-x: auto; margin: 24px 0; -webkit-overflow-scrolling: touch; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .94rem;
+  min-width: 560px;
+}
+th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.06);
+  border-bottom: 2px solid var(--border);
+}
+th:first-child { color: var(--muted); background: transparent; }
+td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+  color: #2c2c2e;
+  line-height: 1.6;
+  vertical-align: top;
+}
+td:first-child {
+  font-weight: 800;
+  color: var(--muted);
+  font-size: .9em;
+  white-space: nowrap;
+}
+tr:last-child td { border-bottom: none; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 22px 0;
+}
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+}
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+.card p {
+  margin: 0;
+  font-size: .93rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.fig { margin: 22px 0; }
+.fig > img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.fig figcaption {
+  margin-top: 10px;
+  font-size: .85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.prompt {
+  position: relative;
+  background: var(--code-bg);
+  border-radius: 8px;
+  padding: 22px 22px 24px;
+  margin: 18px 0 26px;
+}
+.prompt pre {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .8rem;
+  line-height: 1.75;
+  color: #e8e8ed;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #c7c7cc;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+  padding: 5px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.copy-btn:hover { background: rgba(255,255,255,.16); color: #fff; }
+.copy-btn.done { color: #30d158; border-color: rgba(48,209,88,.45); }
+
+.refs {
+  max-width: var(--max-w);
+  margin: 64px auto 0;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.refs h2 {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.refs ul { list-style: none; }
+.refs li {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 10px;
+  padding-left: 18px;
+  position: relative;
+}
+.refs li::before { content: '-'; position: absolute; left: 0; color: var(--border); }
+.refs a { color: var(--accent); text-decoration: none; }
+.refs a:hover { text-decoration: underline; }
+
+.foot-nav {
+  max-width: var(--max-w);
+  margin: 48px auto 0;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.foot-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  border: 1px solid rgba(0,102,204,.18);
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.foot-nav a:hover { background: rgba(0,102,204,.14); }
+.foot-nav a::after { content: '↗'; font-size: 11px; opacity: .8; }
+
+.side-nav {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: calc(50% - (var(--max-w) / 2) - 258px);
+  transform: translateY(-50%);
+  width: 220px;
+  max-height: 72vh;
+  overflow-y: auto;
+  z-index: 150;
+}
+.side-nav-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+  padding-left: 15px;
+}
+.side-nav ol {
+  list-style: none;
+  counter-reset: sidenav;
+  border-left: 2px solid var(--border);
+}
+.side-nav li { counter-increment: sidenav; }
+.side-nav a {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: .82rem;
+  line-height: 1.45;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 7px 0 7px 15px;
+  margin-left: -2px;
+  border-left: 2px solid transparent;
+  transition: color .15s, border-color .15s;
+}
+.side-nav a::before {
+  content: counter(sidenav, decimal-leading-zero);
+  font-size: .68rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--border);
+  flex-shrink: 0;
+}
+.side-nav a:hover { color: var(--dark); }
+.side-nav a.active {
+  color: var(--accent);
+  font-weight: 700;
+  border-left-color: var(--accent);
+}
+.side-nav a.active::before { color: var(--accent); }
+
+@media (min-width: 1400px) {
+  .side-nav { display: block; }
+}
+
+@media (max-width: 768px) {
+  body { padding-left: 18px; padding-right: 18px; }
+  .toc ol { columns: 1; }
+  .cards { grid-template-columns: 1fr; }
+  .hero { padding: 40px 0 32px; }
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<nav class="side-nav" aria-label="大綱導覽">
+  <p class="side-nav-label">大綱</p>
+  <ol>
+    <li><a href="#s1">色彩角色：每個顏色一個工作</a></li>
+    <li><a href="#s2">怎麼選色彩方案</a></li>
+    <li><a href="#s3">WCAG 對比度門檻</a></li>
+    <li><a href="#s4">Type Scale：五組角色</a></li>
+    <li><a href="#s5">每個字級 Token 記錄的四件事</a></li>
+    <li><a href="#s6">Icon 設計原則</a></li>
+    <li><a href="#s7">Icon 尺寸與跟文字搭配</a></li>
+    <li><a href="#s8">按鈕五個狀態</a></li>
+    <li><a href="#s9">按鈕標籤文字的寫法</a></li>
+    <li><a href="#s10">在 Figma 裡怎麼組織</a></li>
+    <li><a href="#s11">課堂練習與回家作業</a></li>
+    <li><a href="#s12">AI 協作提示詞</a></li>
+  </ol>
+</nav>
+
+<div class="topbar">
+  <a class="back-link" href="slides.html">回到投影片</a>
+  <span class="unit-pill">Unit 05</span>
+</div>
+
+<div class="hero">
+  <p class="overline">產品設計基本元素 · 完整教材</p>
+  <h1>產品設計基本元素</h1>
+  <p class="lead">Unit 03 學會了怎麼在 Figma 裡操作，這堂課換內容：顏色、文字、Icon、按鈕這四樣東西，要怎麼決定規則，而不是每次畫畫面都重新選一次。色彩角色系統讓「這個顏色用在哪裡」有明確答案；Type Scale 讓字級不用每頁重新猜；Icon 有尺寸與對齊的準則；按鈕要設計的不只一個樣子，是五種狀態。這四件事定好之後，會變成整個專題重複使用的規範，Unit 06 開始畫真的介面時直接套用。</p>
+  <div class="meta">
+    <span>閱讀時間約 17 分鐘</span><span class="d"></span>
+    <span>搭配 Unit 05 投影片</span><span class="d"></span>
+    <span>含練習、作業與 AI 提示詞</span>
+  </div>
+</div>
+
+<div class="toc">
+  <h2>目錄</h2>
+  <ol>
+    <li><a href="#s1">色彩角色：每個顏色一個工作</a></li>
+    <li><a href="#s2">怎麼選色彩方案</a></li>
+    <li><a href="#s3">WCAG 對比度門檻</a></li>
+    <li><a href="#s4">Type Scale：五組角色</a></li>
+    <li><a href="#s5">每個字級 Token 記錄的四件事</a></li>
+    <li><a href="#s6">Icon 設計原則</a></li>
+    <li><a href="#s7">Icon 尺寸與跟文字搭配</a></li>
+    <li><a href="#s8">按鈕五個狀態</a></li>
+    <li><a href="#s9">按鈕標籤文字的寫法</a></li>
+    <li><a href="#s10">在 Figma 裡怎麼組織</a></li>
+    <li><a href="#s11">課堂練習與回家作業</a></li>
+    <li><a href="#s12">AI 協作提示詞</a></li>
+  </ol>
+</div>
+
+<div class="article">
+
+  <section class="section" id="s1">
+    <p class="sec-num">01</p>
+    <h2 class="sec-title">色彩角色：每個顏色一個工作</h2>
+    <p>Material Design 3 用<strong>色彩角色（Color Role）</strong>取代「固定色票」——每個角色有明確的用途，不是單純的一組顏色。角色名稱前綴 <strong>On</strong> 的顏色，代表疊在對應角色顏色「上面」的內容色（文字、圖示），這個配對關係本身就是為了確保對比度足夠、內容看得清楚。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>角色</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td>Primary / On Primary</td><td>主品牌色與其對比色，用在關鍵動作與高強調元素</td></tr>
+          <tr><td>Primary Container</td><td>Primary 的淺色（深色模式下較暗）版本，用於強調程度較低的元件，例如填色按鈕、選取狀態</td></tr>
+          <tr><td>Secondary / Tertiary</td><td>Secondary 用在次要動作、Chip 等較不顯眼的元件；Tertiary 提供第三種強調色，做視覺平衡</td></tr>
+          <tr><td>Surface / On Surface</td><td>Surface 是卡片、Sheet、選單等元件的背景色；On Surface 是疊在上面的文字與圖示</td></tr>
+          <tr><td>Surface Variant / On Surface Variant</td><td>Surface 的替代版本，用於需要輕微區隔的區塊；On Surface Variant 是強調程度較低的文字</td></tr>
+          <tr><td>Outline</td><td>用在邊框與分隔線</td></tr>
+          <tr><td>Error / On Error</td><td>錯誤狀態的顏色與其對比色</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <img src="resources/figma-demo/05-color-roles.png" alt="五張色票卡，分別示範 Primary、Primary Container、Secondary、Surface、Error 五個角色，每張都標出角色名稱與對應的 On 色文字">
+      <figcaption>示範檔：五個角色各自的色塊與配對的 On 色文字。實際套用時最容易漏掉的一步，是只挑了背景色，忘了同時決定疊在上面的文字色。</figcaption>
+    </div>
+  </section>
+
+  <section class="section" id="s2">
+    <p class="sec-num">02</p>
+    <h2 class="sec-title">怎麼選色彩方案</h2>
+    <p>一個色彩方案（color scheme）描述一個產品在亮／暗兩種主題下的所有顏色、色彩角色與彼此的關係。Material 3 的作法是從<strong>單一來源色（source color／seed color，通常是品牌色）</strong>，用演算法自動生成一整套跟色彩角色一一對應的完整色階（Primary、Secondary、Tertiary、Neutral、Error 各自的色階），不用逐一手動挑幾十種顏色深淺。</p>
+    <ol class="steps">
+      <li><strong>挑來源色。</strong>建議「不要太飽和，也不要太灰」——中等飽和度的顏色效果最好。</li>
+      <li><strong>產生色階。</strong>演算法生成 Primary／Secondary／Tertiary／Neutral／Error 各自的完整色階。</li>
+      <li><strong>套進角色。</strong>每個角色從對應色階取一個色階值，亮／暗兩種主題各一套。</li>
+    </ol>
+    <p>來源色可以直接用官方基準色，也可以自訂品牌色，或依使用者產生的內容／情境動態決定。</p>
+  </section>
+
+  <section class="section" id="s3">
+    <p class="sec-num">03</p>
+    <h2 class="sec-title">WCAG 對比度門檻</h2>
+    <p>色彩角色選好之後，還要過對比度這道檢查。這不是美感問題——研究顯示視力約 20/40（常見的視力障礙門檻）的使用者，大約需要這個對比度才能舒適閱讀文字。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>等級</th><th>文字大小</th><th>最低對比度</th></tr></thead>
+        <tbody>
+          <tr><td>WCAG AA</td><td>一般文字（18pt 以下，或 14pt 以下的粗體）</td><td>4.5:1</td></tr>
+          <tr><td>WCAG AA</td><td>大字級文字（18pt 以上，或 14pt 以上的粗體）</td><td>3:1</td></tr>
+          <tr><td>WCAG AAA</td><td>一般文字</td><td>7:1</td></tr>
+          <tr><td>WCAG AAA</td><td>大字級文字</td><td>4.5:1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">例外：純裝飾用、不會顯示給任何人看的文字、圖片裡含大量其他視覺內容的文字，以及品牌 Logo／商標文字，不受這個門檻限制。介面上其他所有文字都要過 AA 等級的門檻。</div>
+  </section>
+
+  <section class="section" id="s4">
+    <p class="sec-num">04</p>
+    <h2 class="sec-title">Type Scale：五組角色</h2>
+    <p>Type Scale（字級量表）是一組可以在整個產品裡重複使用的字體樣式，提供足夠的風格彈性去對應不同用途，同時維持一致、容易辨識的風格。Material Design 3 把 Type Scale 組織成 <strong>5 組角色</strong>，每組再分 Large／Medium／Small 三個級別。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>角色組</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td>Display</td><td>畫面上最大的文字，保留給簡短、重要的文字或數字</td></tr>
+          <tr><td>Headline</td><td>中等大小，用在區塊標題、次標題</td></tr>
+          <tr><td>Title</td><td>比 Headline 小，常用在 Card、對話框裡的內容標題</td></tr>
+          <tr><td>Body</td><td>標準內文字級，用在較長的段落與主要內容</td></tr>
+          <tr><td>Label</td><td>最小的角色，用在圖片標註，以及按鈕、分頁標籤這類重要介面元素</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <img src="resources/figma-demo/06-type-scale.png" alt="五段文字樣本，由上到下依序是 Display Large、Headline Medium、Title Medium、Body Large、Label Small，字級由大到小遞減">
+      <figcaption>示範檔：五組角色各自套用一段文字，由上到下字級遞減，可以清楚看出彼此的視覺層級差異。</figcaption>
+    </div>
+  </section>
+
+  <section class="section" id="s5">
+    <p class="sec-num">05</p>
+    <h2 class="sec-title">每個字級 Token 記錄的四件事</h2>
+    <p>每一個 Type Scale 的 Token（例如 Body Large、Label Small）都同時記錄四項屬性：</p>
+    <ul class="bullets">
+      <li><strong>Font size（字級）：</strong>文字的視覺大小。</li>
+      <li><strong>Line height（行高）：</strong>確保可讀性的垂直間距。</li>
+      <li><strong>Font weight（字重）：</strong>文字的粗細與強調程度。</li>
+      <li><strong>Letter spacing（字距／Tracking）：</strong>調整字元密度的水平間距。</li>
+    </ul>
+    <div class="callout green">一套 Type Scale 訂好之後，設計時只要從 15 個 Token 裡挑對應角色使用，不用每個畫面各自決定字級——這是維持整個產品文字風格一致的關鍵做法。</div>
+  </section>
+
+  <section class="section" id="s6">
+    <p class="sec-num">06</p>
+    <h2 class="sec-title">Icon 設計原則</h2>
+    <p>Icon 的尺寸有限，每一個都必須嚴格遵守設計準則，同時仍要表達出這個概念最核心的特徵。</p>
+    <ul class="bullets">
+      <li><strong>簡化，讓概念容易理解，同時提高辨識度。</strong></li>
+      <li><strong>避免複雜的設計。</strong>細節在小尺寸下會糊成一團。</li>
+      <li><strong>用幾何、粗體的形狀</strong>，而不是細緻、寫實的描繪。</li>
+    </ul>
+    <p>Icon 的設計目標是簡單、現代、友善，有時候可以帶一點趣味，但前提是不能犧牲辨識度。</p>
+  </section>
+
+  <section class="section" id="s7">
+    <p class="sec-num">07</p>
+    <h2 class="sec-title">Icon 尺寸與跟文字搭配</h2>
+    <p>標準 Icon 尺寸是 <strong>24dp × 24dp</strong>。額外支援 20dp、40dp、48dp 三種尺寸：20dp 主要用在桌面、資訊密度高的版面與小型視覺元素，40dp、48dp 適合搭配 Display／Headline 這類大字級文字，以及較大的螢幕尺寸。</p>
+    <div class="fig">
+      <img src="resources/figma-demo/07-icon-sizes.png" alt="四個尺寸的圖示對照：20dp、24dp（標準）、40dp、48dp，尺寸依序放大">
+      <figcaption>示範檔：四種標準 Icon 尺寸並排比較。</figcaption>
+    </div>
+    <p>跟文字對齊時，官方建議把 Icon 的基準線（baseline）往下移動大約<strong>文字字級的 11.5%</strong>，這樣 Icon 跟文字才會在視覺上對齊一致。</p>
+    <div class="callout">無障礙注意事項：加上 ARIA 標籤（或對應平台的替代文字）；區分「裝飾用」與「傳達資訊用」的 Icon，只有傳達資訊的才需要文字替代描述；同樣要考慮對比度與最小可點擊區域。</div>
+  </section>
+
+  <section class="section" id="s8">
+    <p class="sec-num">08</p>
+    <h2 class="sec-title">按鈕五個狀態</h2>
+    <p>按鈕不是畫一次就好，至少要設計五個核心狀態：</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>狀態</th><th>代表意思</th><th>視覺處理</th></tr></thead>
+        <tbody>
+          <tr><td>Enabled（預設）</td><td>按鈕已準備好被點擊</td><td>高對比、清楚的標籤文字</td></tr>
+          <tr><td>Hover</td><td>游標移到按鈕上，確認可以點擊</td><td>顏色些微加深，或加陰影浮起效果</td></tr>
+          <tr><td>Pressed / Active</td><td>使用者正在點擊、按住的瞬間</td><td>顏色些微變化，常搭配輕微縮小（約 0.98 倍）模擬按壓回饋</td></tr>
+          <tr><td>Focus</td><td>使用者用鍵盤（Tab）導覽到這個按鈕</td><td>清楚可見的外框，不能只靠顏色變化——這是無障礙的硬性要求</td></tr>
+          <tr><td>Disabled</td><td>這個動作目前不可用</td><td>降低飽和度與對比，但文字仍要維持可讀</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>按下（Pressed）狀態的視覺回饋要在 <strong>100–150 毫秒</strong>內出現，避免使用者因為看不到反應而重複點擊。複雜流程還會用到 <strong>Loading</strong>（轉圈或進度條）與 <strong>Selected／Toggled</strong>（切換型按鈕維持的持續樣式，跟按下瞬間的 Pressed 不同）。</p>
+    <div class="fig">
+      <img src="resources/figma-demo/08-button-states.png" alt="五顆按鈕並排：Enabled 深藍實色、Hover 顏色略深、Pressed 顏色略深、Focus 帶綠色外框、Disabled 灰色低對比">
+      <figcaption>示範檔：五個狀態並排比較，Focus 用外框而不是只改顏色，Disabled 降低對比但文字仍讀得出來——這兩點最容易被省略。</figcaption>
+    </div>
+  </section>
+
+  <section class="section" id="s9">
+    <p class="sec-num">09</p>
+    <h2 class="sec-title">按鈕標籤文字的寫法</h2>
+    <ul class="bullets">
+      <li><strong>標籤用動詞。</strong>具體的動作型標籤能讓使用者一眼看出這是可以互動的按鈕，也知道點下去會發生什麼事。</li>
+      <li><strong>用標題大小寫（Title Case）。</strong>除了四個字母以下的冠詞、對等連接詞、介系詞之外，每個字首都大寫。</li>
+      <li><strong>標籤要簡短。</strong>過長的文字會讓介面顯得擁擠，在較小的螢幕上還可能被截斷。</li>
+      <li><strong>邊框與背景只在必要時才加。</strong>系統按鈕預設沒有邊框或背景；某些內容區塊裡需要邊框或背景才能表達「這是可以互動的」時才加上去。</li>
+    </ul>
+  </section>
+
+  <section class="section" id="s10">
+    <p class="sec-num">10</p>
+    <h2 class="sec-title">在 Figma 裡怎麼組織</h2>
+    <ol class="steps">
+      <li>用 <strong>Component Variants</strong> 把同一顆按鈕的所有狀態收進同一個 Component Set，每個狀態是一個 Variant，屬性命名 <code>State</code>。</li>
+      <li>在 <strong>Prototype 分頁</strong>用 Trigger（例如 While hovering、Mouse down）把各個 Variant 連接起來，模擬狀態切換。</li>
+      <li>轉場動畫建議用 <strong>Smart Animate</strong>，時長約 150 毫秒，讓狀態切換感覺跟得上使用者的操作節奏。</li>
+    </ol>
+  </section>
+
+  <section class="section" id="s11">
+    <p class="sec-num">11</p>
+    <h2 class="sec-title">課堂練習與回家作業</h2>
+    <p>課堂練習用 80 分鐘，把今天四個規範疊在同一份風格小卡上做出來：色彩角色卡 → Type Scale 應用 → Icon 對齊 → 按鈕 5 狀態。完整步驟、時間分配與交件標準在<a class="hl" href="exercises.html#ex1">練習頁</a>。</p>
+    <p>回家作業把課堂的風格小卡擴充成套用在真實畫面上的一頁風格指南，細節在<a class="hl" href="exercises.html#hw">練習頁的回家作業</a>。</p>
+  </section>
+
+  <section class="section" id="s12">
+    <p class="sec-num">12</p>
+    <h2 class="sec-title">AI 協作提示詞</h2>
+    <p>這三段提示詞用在練習卡關、檢查作業之前，不是拿來讓 AI 幫你決定色彩方案或字級——品牌調性、視覺風格這些判斷還是要自己下。</p>
+
+    <h3>① 檢查色彩角色配對是否齊全</h3>
+    <div class="prompt">
+      <button class="copy-btn">複製</button>
+      <pre>以下是我目前定義的色彩角色與對應的 Hex 色碼：
+
+[貼上你的角色清單，例如 Primary: #0066CC, On Primary: #FFFFFF ...]
+
+請依照 Material Design 3 的角色系統檢查：
+
+1. 每個背景色角色（Primary、Secondary、Surface 等）是否都有對應的 On 色？
+2. Primary 有沒有對應的 Primary Container？（Container 版本是這門課明確要求的角色，不要泛用到其他角色家族）
+3. 只看色碼本身（不用計算對比度），有沒有哪組 On 色跟背景色的明暗差異看起來明顯不足？
+
+請條列回答，指出缺漏的角色配對。只能根據我提供的內容分析，不要自行補充不存在的資訊。</pre>
+    </div>
+
+    <h3>② 檢查 Type Scale 套用是否一致</h3>
+    <div class="prompt">
+      <button class="copy-btn">複製</button>
+      <pre>以下是我在畫面上使用的文字與各自的字級、字重：
+
+[逐條列出：文字內容 → 字級 → 字重 → 用途，例如「頁面標題 → 28px → Bold → Headline」]
+
+請檢查：
+
+1. 同樣用途的文字（例如都是頁面標題），字級與字重是否一致？
+2. 有沒有文字的字級大小落在兩個角色組之間，看起來是隨意挑的數字？
+3. 同一段文字用到的角色，是不是同時對齊了字級、行高、字重、字距這四項屬性，而不是只挑字級一項判斷？
+
+用表格列出不一致的地方。只能根據我提供的內容分析，不要自行補充不存在的資訊。</pre>
+    </div>
+
+    <h3>③ 檢查按鈕狀態是否完整</h3>
+    <div class="prompt">
+      <button class="copy-btn">複製</button>
+      <pre>以下是我做的按鈕 Component Set，包含的 Variant 如下：
+
+[列出你做了哪些 State，例如 Enabled、Hover、Disabled]
+
+請檢查：
+
+1. 五個核心狀態（Enabled、Hover、Pressed、Focus、Disabled）有沒有缺漏？
+2. Focus 狀態是否只靠顏色變化、沒有加外框？
+3. Disabled 狀態的文字，依我的描述判斷是否還能維持可讀（不是完全消失）？
+
+請條列回答每一點的判斷與原因。只能根據我提供的內容分析，不要自行補充不存在的資訊。</pre>
+    </div>
+  </section>
+
+</div>
+
+<div class="refs">
+  <h2>參考資料</h2>
+  <ul>
+    <li><a href="https://m3.material.io/styles/color/roles" target="_blank" rel="noopener">Color roles</a> — Material Design 3，第 1 節色彩角色的出處。</li>
+    <li><a href="https://m3.material.io/styles/color/choosing-a-scheme" target="_blank" rel="noopener">Choosing a color scheme</a> — Material Design 3，第 2 節的出處。</li>
+    <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum" target="_blank" rel="noopener">Understanding Success Criterion 1.4.3: Contrast (Minimum)</a> — W3C WAI，第 3 節的出處。</li>
+    <li><a href="https://webaim.org/articles/contrast/" target="_blank" rel="noopener">WebAIM: Contrast and Color Accessibility</a> — WebAIM，第 3 節的出處。</li>
+    <li><a href="https://m3.material.io/styles/typography/type-scale-tokens" target="_blank" rel="noopener">Typography · Type scale tokens</a> — Material Design 3，第 4、5 節的出處。</li>
+    <li><a href="https://m3.material.io/styles/icons/designing-icons" target="_blank" rel="noopener">Designing icons</a> — Material Design 3，第 6、7 節的出處。</li>
+    <li><a href="https://www.nngroup.com/articles/button-states-communicate-interaction/" target="_blank" rel="noopener">Button States: Communicate Interaction</a> — NN/g，第 8 節的出處。</li>
+    <li><a href="https://www.figma.com/resource-library/button-states/" target="_blank" rel="noopener">Understanding Button States in UI Design</a> — Figma，第 8、10 節的出處。</li>
+    <li><a href="https://developer.apple.com/design/human-interface-guidelines/buttons" target="_blank" rel="noopener">Buttons</a> — Apple Human Interface Guidelines，第 9 節的出處。</li>
+    <li>本單元的中文來源整理：Unit_05/resources/color.md、typography.md、icons.md、buttons.md。</li>
+  </ul>
+</div>
+
+<div class="foot-nav">
+  <a href="slides.html">回到 Unit 05 簡報</a>
+  <a href="exercises.html#ex1">開啟課堂練習</a>
+  <a href="exercises.html#hw">開啟回家作業</a>
+  <a href="../Unit_03/article.html">Unit 03 講義：Figma 基本操作</a>
+  <a href="../index.html">回到課程總覽</a>
+</div>
+
+<script>
+(function () {
+  const prog = document.getElementById('prog');
+  function updateProgress() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? window.scrollY / max * 100 : 0;
+    prog.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+})();
+
+(function () {
+  const nav = document.querySelector('.side-nav');
+  if (!nav || !('IntersectionObserver' in window)) return;
+  const links = Array.from(nav.querySelectorAll('a'));
+  const sections = links
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  const linkFor = new Map(sections.map((sec, i) => [sec, links[i]]));
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const link = linkFor.get(entry.target);
+      if (!link) return;
+      links.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  }, { rootMargin: '-10% 0px -75% 0px', threshold: 0 });
+
+  sections.forEach(sec => observer.observe(sec));
+})();
+
+(function () {
+  document.querySelectorAll('.prompt').forEach(prompt => {
+    const btn = prompt.querySelector('.copy-btn');
+    const pre = prompt.querySelector('pre');
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        btn.textContent = '已複製';
+        btn.classList.add('done');
+        setTimeout(() => {
+          btn.textContent = '複製';
+          btn.classList.remove('done');
+        }, 1400);
+      } catch (error) {
+        btn.textContent = '複製失敗';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

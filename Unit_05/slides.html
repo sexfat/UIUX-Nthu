@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 05 · 產品設計基本元素</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #fbfbfd;
+  --dark: #1d1d1f;
+  --muted: #6e6e73;
+  --accent: #0066cc;
+  --accent2: #0f766e;
+  --accent3: #c2410c;
+  --positive: #0f766e;
+  --negative: #c2410c;
+  --surface: #f5f5f7;
+  --card: #ffffff;
+  --border: #d2d2d7;
+  --px: clamp(44px, 7vw, 108px);
+  --py: 52px;
+}
+
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang TC", sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+#prog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width .45s cubic-bezier(.4,0,.2,1);
+  z-index: 200;
+}
+
+#deck { position: relative; width: 100%; height: 100vh; }
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--py) var(--px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(18px);
+  transition: opacity .45s cubic-bezier(.4,0,.2,1), transform .45s cubic-bezier(.4,0,.2,1), visibility 0s .45s;
+  overflow: hidden;
+}
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity .45s cubic-bezier(.4,0,.2,1), transform .45s cubic-bezier(.4,0,.2,1), visibility 0s 0s;
+}
+
+.slide-head, .slide-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  height: 28px;
+  position: relative;
+  z-index: 1;
+}
+.slide-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.unit-pill {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.09);
+  padding: 4px 11px;
+  border-radius: 8px;
+}
+.slide-num { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.course-label { font-size: 11px; color: #a1a1a6; }
+
+.dots { display: flex; gap: 5px; align-items: center; }
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: all .25s ease;
+}
+.dot.on { width: 16px; border-radius: 3px; background: var(--accent); }
+
+.overline {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+.divider {
+  width: 42px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin: 8px 0 26px;
+}
+h1 {
+  font-size: clamp(1.9rem, 3.8vw, 3.55rem);
+  font-weight: 800;
+  line-height: 1.12;
+  color: var(--dark);
+}
+h2 {
+  font-size: clamp(.95rem, 1.45vw, 1.25rem);
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-top: 14px;
+  max-width: 900px;
+}
+
+.cover-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+.cover-eyebrow::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--muted);
+}
+.cover-title {
+  font-size: clamp(2.35rem, 5.2vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 22px;
+}
+.cover-sub {
+  font-size: clamp(.95rem, 1.55vw, 1.25rem);
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 44px;
+}
+.cover-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
+
+.agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 38px;
+}
+.agenda-card, .mini-card {
+  background: var(--surface);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.a-step {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.a-time, .mini-card strong {
+  font-size: clamp(.9rem, 1.25vw, 1.08rem);
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.35;
+}
+.a-desc, .mini-card span {
+  font-size: clamp(.78rem, 1.05vw, .94rem);
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.blist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 28px;
+}
+.blist li {
+  font-size: clamp(.88rem, 1.25vw, 1.08rem);
+  color: var(--dark);
+  line-height: 1.58;
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-radius: 8px;
+}
+.blist li::before {
+  content: attr(data-n);
+  min-width: 30px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--accent);
+  background: rgba(0,102,204,.1);
+  padding: 2px 7px;
+  border-radius: 5px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.blist.plain li::before {
+  content: '';
+  min-width: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  padding: 0;
+  margin-top: .6em;
+}
+.blist.compact { gap: 8px; margin-top: 18px; }
+.blist.compact li { padding: 9px 13px; font-size: clamp(.78rem, 1.02vw, .94rem); }
+.hl { color: var(--accent); font-weight: 700; }
+.hl2 { color: var(--accent2); font-weight: 700; }
+.warn-text { color: var(--accent3); font-weight: 700; }
+
+.bg-n {
+  position: absolute;
+  right: calc(var(--px) - 16px);
+  top: 50%;
+  transform: translateY(-52%);
+  font-size: clamp(130px, 21vw, 250px);
+  font-weight: 800;
+  color: var(--surface);
+  line-height: 1;
+  z-index: 0;
+  user-select: none;
+  pointer-events: none;
+}
+.layer-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  padding: 5px 12px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  width: fit-content;
+}
+.matrix {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 26px;
+}
+.matrix.c3 { grid-template-columns: repeat(3, 1fr); }
+.matrix.c4 { grid-template-columns: repeat(4, 1fr); }
+.matrix.c5 { grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.mini-card.accent { border-color: rgba(15,118,110,.22); background: rgba(15,118,110,.06); }
+.mini-card.warn { border-color: rgba(194,65,12,.22); background: rgba(194,65,12,.06); }
+
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  font-size: clamp(.72rem, .98vw, .92rem);
+}
+.cmp-table th {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 10px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.06);
+  border-bottom: 2px solid var(--border);
+}
+.cmp-table td {
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--dark);
+  line-height: 1.45;
+  vertical-align: top;
+}
+.cmp-table tr:last-child td { border-bottom: none; }
+.cmp-table td:first-child { font-weight: 700; color: var(--muted); white-space: nowrap; }
+
+.note {
+  margin-top: 17px;
+  font-size: clamp(.72rem, .92vw, .86rem);
+  color: var(--muted);
+  line-height: 1.6;
+  padding: 11px 14px;
+  background: var(--surface);
+  border-left: 3px solid var(--accent2);
+  border-radius: 0 8px 8px 0;
+}
+.note a { color: var(--accent); font-weight: 700; text-decoration: none; }
+.note a:hover { text-decoration: underline; }
+
+.chain {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 34px;
+}
+.chain.c5 { grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.chain-step {
+  position: relative;
+  padding: 22px 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+}
+.chain-step:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  right: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent);
+  font-size: 18px;
+  font-weight: 700;
+}
+.chain-step b { display: block; color: var(--accent); font-size: .78rem; margin-bottom: 8px; }
+.chain-step span { display: block; color: var(--muted); line-height: 1.5; font-size: .86rem; }
+
+.stat-row { display: flex; gap: 34px; flex-wrap: wrap; margin-top: 32px; }
+.stat b { display: block; font-size: clamp(2.1rem, 4.4vw, 3.3rem); line-height: 1; color: var(--accent); }
+.stat span { display: block; margin-top: 9px; color: var(--muted); line-height: 1.5; font-size: .9rem; }
+
+.slide-img {
+  display: block;
+  max-width: 100%;
+  max-height: 46vh;
+  width: auto;
+  margin: 22px auto 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  object-fit: contain;
+}
+.slide.dark .slide-img { border-color: #3a3a3c; }
+.img-cap {
+  text-align: center;
+  font-size: .78rem;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+.sw-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-top: 26px;
+}
+.sw-item { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card); }
+.sw-chip { display: block; height: clamp(40px, 6vh, 56px); }
+.sw-lbl { display: block; padding: 10px 12px 12px; font-size: clamp(.68rem, .9vw, .82rem); color: var(--muted); line-height: 1.5; }
+.sw-lbl b { display: block; margin-bottom: 4px; font-size: clamp(.76rem, 1vw, .9rem); font-weight: 800; color: var(--dark); }
+
+.res-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 22px;
+}
+.res-link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: border-color .2s, transform .2s;
+}
+.res-link:hover { border-color: var(--accent); transform: translateY(-2px); }
+.res-link strong { font-size: .94rem; color: var(--dark); }
+.res-link span { font-size: .75rem; color: var(--muted); }
+
+.slide-body a.ilink {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,102,204,.35);
+}
+.slide-body a.ilink:hover { border-bottom-color: var(--accent); }
+
+#ctrls {
+  position: fixed;
+  bottom: 28px;
+  right: clamp(36px, 5vw, 80px);
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+}
+#ctrls button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(29,29,31,.06);
+  color: var(--dark);
+  cursor: pointer;
+  font-size: 15px;
+  transition: background .2s, transform .15s;
+}
+#ctrls button:hover { background: rgba(29,29,31,.12); transform: scale(1.04); }
+#ctrls.on-dark button { background: rgba(255,255,255,.16); color: #fff; }
+
+.slide.dark { background: #1d1d1f; }
+.slide.dark h1 { color: #f5f5f7; }
+.slide.dark h2, .slide.dark .course-label, .slide.dark .slide-num { color: #a1a1a6; }
+.slide.dark .overline, .slide.dark .hl, .slide.dark .unit-pill, .slide.dark .layer-badge { color: #58a6ff; }
+.slide.dark .divider, .slide.dark .dot.on { background: #58a6ff; }
+.slide.dark .unit-pill, .slide.dark .layer-badge { background: rgba(88,166,255,.13); }
+.slide.dark .bg-n { color: #2c2c2e; }
+.slide.dark .blist li, .slide.dark .agenda-card, .slide.dark .mini-card, .slide.dark .chain-step, .slide.dark .sw-item {
+  background: rgba(255,255,255,.055);
+  color: #f5f5f7;
+  border-color: #3a3a3c;
+}
+.slide.dark .blist li::before { color: #58a6ff; background: rgba(88,166,255,.15); }
+.slide.dark .mini-card strong, .slide.dark .a-time, .slide.dark .chain-step span { color: #f5f5f7; }
+.slide.dark .mini-card span, .slide.dark .a-desc { color: #a1a1a6; }
+.slide.dark .chain-step b { color: #58a6ff; }
+.slide.dark .stat b { color: #58a6ff; }
+.slide.dark .stat span { color: #a1a1a6; }
+.slide.dark .dot { background: #3a3a3c; }
+.slide.dark .note { background: rgba(255,255,255,.055); color: #a1a1a6; border-left-color: #58a6ff; }
+.slide.dark .note a { color: #58a6ff; }
+.slide.dark .cmp-table th { color: #58a6ff; background: rgba(88,166,255,.1); border-bottom-color: #3a3a3c; }
+.slide.dark .cmp-table td { color: #f5f5f7; border-bottom-color: #3a3a3c; }
+.slide.dark .cmp-table td:first-child { color: #a1a1a6; }
+.slide.dark .res-link { background: rgba(255,255,255,.055); border-color: #3a3a3c; }
+.slide.dark .res-link strong { color: #f5f5f7; }
+.slide.dark .res-link span { color: #a1a1a6; }
+.slide.dark .slide-body a.ilink { color: #58a6ff; border-bottom-color: rgba(88,166,255,.42); }
+.slide.dark .slide-body a.ilink:hover { border-bottom-color: #58a6ff; }
+.slide.dark .img-cap { color: #a1a1a6; }
+.slide.dark .sw-lbl { color: #a1a1a6; }
+.slide.dark .sw-lbl b { color: #f5f5f7; }
+
+@media (max-width: 768px) {
+  :root { --px: 20px; --py: 20px; }
+  .slide { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .slide-body { justify-content: flex-start; padding: 12px 0; }
+  .agenda-grid, .matrix, .matrix.c3, .matrix.c4, .matrix.c5,
+  .res-links, .chain, .chain.c5, .sw-row { grid-template-columns: 1fr; gap: 10px; margin-top: 16px; }
+  .chain-step:not(:last-child)::after { display: none; }
+  .cmp-table { display: block; overflow-x: auto; }
+  .blist { margin-top: 16px; gap: 8px; }
+  .stat-row { gap: 24px; margin-top: 20px; }
+  .cover-sub { margin-bottom: 22px; }
+  .bg-n, .course-label, .dots { display: none; }
+}
+
+.to-index { font-size: 11px; font-weight: 700; letter-spacing: .04em; color: currentColor;
+            opacity: .55; text-decoration: underline; text-underline-offset: 3px;
+            transition: opacity .2s; }
+.to-index:hover { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<div id="deck">
+
+  <!-- 01 Cover -->
+  <section class="slide active">
+    <div class="slide-head"><span style="display:inline-flex;align-items:center;gap:10px"><span class="unit-pill">Unit 05</span><a class="to-index" href="../index.html" title="回到課程總覽">↩ 課程總覽</a></span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <div class="cover-eyebrow">國立清華大學 UI/UX 設計課程 · 2026</div>
+      <h1 class="cover-title">產品設計基本元素<br><span style="font-size:.55em;font-weight:600;opacity:.75">顏色 × 文字 × Icon × 按鈕</span></h1>
+      <p class="cover-sub">Unit 03 學會了怎麼操作 Figma，這堂課學怎麼決定「用什麼顏色、多大字、什麼狀態」——四個會被重複使用一整個專題的規範。</p>
+      <div class="cover-meta">
+        <span>10/14</span><span class="meta-dot"></span><span>19 張投影片</span><span class="meta-dot"></span><span>含 Figma 實作</span>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 02 Agenda -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Agenda</p>
+      <h1>四個規範，收進同一份能重複用的風格小卡</h1>
+      <div class="agenda-grid">
+        <div class="agenda-card">
+          <span class="a-step">Part 1 · 40 min</span>
+          <span class="a-time">顏色與文字</span>
+          <span class="a-desc">色彩角色系統、WCAG 對比度門檻、Type Scale 五組角色。</span>
+        </div>
+        <div class="agenda-card">
+          <span class="a-step">Part 2 · 40 min</span>
+          <span class="a-time">Icon 與按鈕</span>
+          <span class="a-desc">Icon 設計原則與尺寸，按鈕五個狀態怎麼在 Figma 裡組織。</span>
+        </div>
+        <div class="agenda-card">
+          <span class="a-step">Part 3 · 80 min</span>
+          <span class="a-time">課堂練習</span>
+          <span class="a-desc">四階段接著做：色彩角色卡 → Type Scale 應用 → Icon 對齊 → 按鈕 5 狀態。</span>
+        </div>
+        <div class="agenda-card">
+          <span class="a-step">Part 4 · 10 min</span>
+          <span class="a-time">成果分享</span>
+          <span class="a-desc">抽點幾位分享色彩方案怎麼選的。</span>
+        </div>
+      </div>
+      <div class="note">40 + 40 + 80 + 10 = 170 分，加上中間 10 分鐘休息，剛好 180 分。休息排在 Part 1 結束後。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 03 為什麼要色彩角色 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Color Roles</p>
+      <h1>不是選幾個好看的顏色，是給每個顏色一個工作</h1>
+      <h2>Material Design 3 用<span class="hl">色彩角色（Color Role）</span>取代「固定色票」——每個角色有明確用途，不是單純一組顏色。角色名稱前綴 <span class="hl">On</span> 的顏色，代表疊在對應角色「上面」的文字或圖示顏色，這個配對本身就是為了確保對比度足夠。</h2>
+      <table class="cmp-table">
+        <thead><tr><th>角色</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td>Primary / On Primary</td><td>主品牌色與其對比色，用在關鍵動作、高強調元素</td></tr>
+          <tr><td>Primary Container</td><td>Primary 的淺色版本，用在強調較低的元件，例如選取狀態</td></tr>
+          <tr><td>Secondary / Tertiary</td><td>次要動作與第三強調色，做視覺平衡</td></tr>
+          <tr><td>Surface / On Surface</td><td>卡片、選單的背景色，與疊在上面的文字</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 04 色彩角色 demo -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Roles In Practice</p>
+      <h1>五個角色，套進五種畫面情境</h1>
+      <img class="slide-img" src="resources/figma-demo/05-color-roles.png" alt="五張色票卡，分別示範 Primary、Primary Container、Secondary、Surface、Error 五個角色，每張都標出角色名稱與對應的 On 色文字">
+      <p class="img-cap">每張卡片的色塊是角色本身，色塊上的文字用對應的 On 角色——這是實際套用時最容易漏掉的一步：只挑背景色，忘了同時決定疊在上面的文字色。</p>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 05 選色彩方案 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Choosing A Scheme</p>
+      <h1>挑一個來源色，其他顏色讓工具算</h1>
+      <h2>Material 3 的做法：從單一<span class="hl">來源色（source color／seed color）</span>——通常是品牌色，用演算法自動生成一整套跟角色一一對應的色階，不用手動挑幾十種深淺。</h2>
+      <div class="matrix c3">
+        <div class="mini-card"><strong>① 挑來源色</strong><span>不要太飽和也不要太灰，中等飽和度效果最好</span></div>
+        <div class="mini-card"><strong>② 產生色階</strong><span>Primary／Secondary／Tertiary／Neutral／Error 各自的完整色階</span></div>
+        <div class="mini-card"><strong>③ 套進角色</strong><span>每個角色從對應色階裡取一個色階值，亮／暗兩種主題各一套</span></div>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 06 WCAG 對比度 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">WCAG Contrast</p>
+      <h1>顏色好看不等於看得清楚</h1>
+      <h2>色彩角色選好之後，還要過這道檢查——這不是美感問題，是<span class="hl">視力約 20/40 的使用者能不能舒適閱讀</span>的問題。</h2>
+      <div class="stat-row">
+        <div class="stat"><b>4.5:1</b><span>一般文字（18pt 以下）<br>WCAG AA 最低門檻</span></div>
+        <div class="stat"><b>3:1</b><span>大字級文字（18pt 以上）<br>門檻較低，因為大字本身較好辨識</span></div>
+        <div class="stat"><b>7:1</b><span>WCAG AAA 一般文字<br>更高標準，非必要但值得追求</span></div>
+      </div>
+      <div class="note">純裝飾用文字、Logo／商標文字不受這個門檻限制，但介面上其他所有文字都要過。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 07 Type Scale -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Type Scale</p>
+      <h1>五組角色，管住整個產品的字級</h1>
+      <img class="slide-img" src="resources/figma-demo/06-type-scale.png" alt="五段文字樣本，由上到下依序是 Display Large、Headline Medium、Title Medium、Body Large、Label Small，字級由大到小遞減">
+      <p class="img-cap">Display（最大，短而重要的文字）→ Headline（區塊標題）→ Title（Card／對話框內的標題）→ Body（內文）→ Label（按鈕、標籤等最小的文字）。</p>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 08 Type Scale 屬性 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Type Tokens</p>
+      <h1>每個字級 Token，同時記錄四件事</h1>
+      <table class="cmp-table">
+        <thead><tr><th>屬性</th><th>在調什麼</th></tr></thead>
+        <tbody>
+          <tr><td>Font size</td><td>文字的視覺大小</td></tr>
+          <tr><td>Line height</td><td>確保可讀性的垂直間距</td></tr>
+          <tr><td>Font weight</td><td>粗細與強調程度</td></tr>
+          <tr><td>Letter spacing</td><td>調整字元密度的水平間距（Tracking）</td></tr>
+        </tbody>
+      </table>
+      <div class="note">套用時直接從 15 個 Token 裡挑對應角色使用，不用每個畫面各自決定字級——這是維持文字風格一致的關鍵。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 09 Icon 設計原則 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Icon Principles</p>
+      <h1>Icon 的空間很小，禁不起複雜</h1>
+      <h2>Icon 尺寸有限，每一個都要嚴格遵守準則，同時表達出概念最核心的特徵。</h2>
+      <ul class="blist" style="list-style:none">
+        <li data-n="01"><strong>簡化，讓概念容易理解，同時提高辨識度。</strong></li>
+        <li data-n="02"><strong>避免複雜的設計。</strong>細節在小尺寸下會糊成一團。</li>
+        <li data-n="03"><strong>用幾何、粗體的形狀</strong>，不要用細緻、寫實的描繪。</li>
+      </ul>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 10 Icon 尺寸與對齊 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Icon Sizing</p>
+      <h1>標準是 24dp，另外三種各有情境</h1>
+      <img class="slide-img" src="resources/figma-demo/07-icon-sizes.png" alt="四個尺寸的圖示對照：20dp、24dp（標準）、40dp、48dp，尺寸依序放大">
+      <p class="img-cap">20dp 用在桌面、密集版面與小型視覺元素；40dp／48dp 搭配 Display／Headline 這類大字級與大螢幕。跟文字對齊時，Icon 基準線要下移約文字字級的 11.5%。</p>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 11 按鈕五個狀態 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Button States</p>
+      <h1>一顆按鈕，五種要各自設計的樣子</h1>
+      <table class="cmp-table">
+        <thead><tr><th>狀態</th><th>代表意思</th><th>視覺處理</th></tr></thead>
+        <tbody>
+          <tr><td>Enabled</td><td>已準備好被點擊</td><td>高對比，清楚的標籤</td></tr>
+          <tr><td>Hover</td><td>游標移到上面</td><td>顏色些微加深或加陰影</td></tr>
+          <tr><td>Pressed</td><td>正在點擊的瞬間</td><td>顏色變化 + 輕微縮小，100–150ms 內要有回饋</td></tr>
+          <tr><td>Focus</td><td>鍵盤 Tab 導覽到這裡</td><td>清楚的外框，不能只靠顏色（無障礙硬性要求）</td></tr>
+          <tr><td>Disabled</td><td>目前不可用</td><td>降低對比，但文字仍要可讀</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 12 按鈕狀態 demo -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">In Practice</p>
+      <h1>五個狀態放在一起比，差異要看得出來</h1>
+      <img class="slide-img" src="resources/figma-demo/08-button-states.png" alt="五顆按鈕並排：Enabled 深藍實色、Hover 顏色略深、Pressed 顏色略深、Focus 帶綠色外框、Disabled 灰色低對比">
+      <p class="img-cap">Focus 用外框而不是只改顏色；Disabled 降低對比但文字仍讀得出來——這兩點最容易被學生省略。</p>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 13 按鈕標籤文字 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Button Labels</p>
+      <h1>標籤要讓人一眼知道點下去會發生什麼事</h1>
+      <table class="cmp-table">
+        <thead><tr><th>原則</th><th>意思</th></tr></thead>
+        <tbody>
+          <tr><td>用動詞</td><td>「送出」比「確定」清楚，一眼看出這是動作</td></tr>
+          <tr><td>標題大小寫</td><td>四個字母以下的冠詞、介系詞不用大寫，其餘字首大寫</td></tr>
+          <tr><td>簡短</td><td>過長的文字會擠壓介面，小螢幕上可能被截斷</td></tr>
+          <tr><td>邊框只在必要時加</td><td>系統按鈕預設無邊框無背景，需要時才加</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 14 Figma 組織方式 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">In Figma</p>
+      <h1>五個狀態，收進同一個 Component Set</h1>
+      <div class="chain c4">
+        <div class="chain-step"><b>① 建 Variant</b><span>每個狀態各自一個 Variant，State 屬性</span></div>
+        <div class="chain-step"><b>② Combine</b><span>合併成一個 Component Set</span></div>
+        <div class="chain-step"><b>③ 接互動</b><span>Prototype 分頁用 While hovering、Mouse down 連接</span></div>
+        <div class="chain-step"><b>④ Smart Animate</b><span>約 150ms，狀態切換跟得上操作節奏</span></div>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 15 Part 3 開場 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <span class="bg-n">03</span>
+      <p class="overline">Part 3</p>
+      <h1>接下來 80 分鐘，做出一份能重複用的風格小卡</h1>
+      <h2>不是四個功能各自練習，是<span class="hl">同一份小卡</span>把顏色、文字、Icon、按鈕串起來——最後你會有一份可以直接套進 Unit 06 開始的專題裡的規範。</h2>
+      <div class="chain c4">
+        <div class="chain-step"><b>Ex01 · 20 min</b><span>色彩角色卡：5 個角色配對</span></div>
+        <div class="chain-step"><b>Ex02 · 20 min</b><span>Type Scale：套進一段真的內容</span></div>
+        <div class="chain-step"><b>Ex03 · 20 min</b><span>Icon 對齊：跟文字基準線對齊</span></div>
+        <div class="chain-step"><b>Ex04 · 20 min</b><span>按鈕 5 狀態 Variants</span></div>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 16 常見卡關 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Common Blockers</p>
+      <h1>練習時最常卡住的四個地方</h1>
+      <table class="cmp-table">
+        <thead><tr><th>卡住的地方</th><th>原因</th><th>怎麼解</th></tr></thead>
+        <tbody>
+          <tr><td>色塊上文字看不清楚</td><td>只選了背景色，沒有另外決定對應的 On 色</td><td>每個角色都要有配對的 On 色，兩個一起選</td></tr>
+          <tr><td>色塊對比度不過 4.5:1</td><td>背景色跟 On 色這組配對沒有實測過，只靠眼睛判斷夠不夠深</td><td>用對比度檢查工具實測每一組配對，不夠就調整 On 色的深淺</td></tr>
+          <tr><td>Icon 看起來浮在文字上方</td><td>沒有做基準線位移</td><td>Icon 往下移動約文字字級的 11.5%</td></tr>
+          <tr><td>Disabled 按鈕文字讀不出來</td><td>對比降太多，沒有核對文字可讀性</td><td>Disabled 要降低對比，但降完要親眼確認文字還讀得出來</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 17 回家作業預告 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Homework Preview</p>
+      <h1>回家把小卡擴充成一份完整的風格指南</h1>
+      <h2>課堂練習交出 5 個色彩角色配對 + 4 個字級角色應用 + Icon 對齊示範 + 1 顆 5 狀態按鈕。回家作業把它擴充成 <span class="hl">套用在真實畫面上的一頁風格指南</span>，細節見<a class="ilink" href="exercises.html#hw" target="_blank" rel="noopener">練習頁回家作業</a>。</h2>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 18 資源 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Resources</p>
+      <h1>官方文件，練習卡關時直接查</h1>
+      <div class="res-links">
+        <a class="res-link" href="https://m3.material.io/styles/color/roles" target="_blank" rel="noopener"><strong>Color roles</strong><span>Material Design 3</span></a>
+        <a class="res-link" href="https://m3.material.io/styles/typography/type-scale-tokens" target="_blank" rel="noopener"><strong>Typography · Type scale tokens</strong><span>Material Design 3</span></a>
+        <a class="res-link" href="https://m3.material.io/styles/icons/designing-icons" target="_blank" rel="noopener"><strong>Designing icons</strong><span>Material Design 3</span></a>
+        <a class="res-link" href="https://www.nngroup.com/articles/button-states-communicate-interaction/" target="_blank" rel="noopener"><strong>Button States: Communicate Interaction</strong><span>NN/g</span></a>
+      </div>
+      <div class="note">完整整理（含逐句中文對照與出處）在講義<a class="ilink" href="article.html" target="_blank" rel="noopener">article.html</a>，來源原文在 <code>resources/</code>。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 19 結尾 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 05</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Wrap Up</p>
+      <h1>今天定下的規範，接下來每個單元都會用到</h1>
+      <h2>色彩角色、Type Scale、Icon 尺寸、按鈕狀態是 Unit 06 開始畫真的介面時的地基。規範定得越清楚，之後改版、加新畫面時越不用每次重新決定。</h2>
+      <div class="res-links">
+        <a class="res-link" href="exercises.html#ex1" target="_blank" rel="noopener"><strong>開啟課堂練習</strong><span>exercises.html</span></a>
+        <a class="res-link" href="exercises.html#hw" target="_blank" rel="noopener"><strong>開啟回家作業</strong><span>exercises.html#hw</span></a>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">產品設計基本元素</span><div class="dots"></div></div>
+  </section>
+
+</div><!-- /#deck -->
+
+<div id="ctrls">
+  <button id="prev" aria-label="上一頁">&#8592;</button>
+  <button id="next" aria-label="下一頁">&#8594;</button>
+</div>
+
+<script>
+(function () {
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  const prog = document.getElementById('prog');
+  const ctrls = document.getElementById('ctrls');
+  const dotContainers = Array.from(document.querySelectorAll('.dots'));
+  let cur = 0;
+
+  slides.forEach((slide, i) => {
+    const num = slide.querySelector('.slide-num');
+    if (num) num.textContent = String(i + 1).padStart(2, '0') + ' / ' + total;
+  });
+
+  dotContainers.forEach(container => {
+    slides.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'dot' + (i === 0 ? ' on' : '');
+      dot.setAttribute('role', 'button');
+      dot.setAttribute('aria-label', '前往第 ' + (i + 1) + ' 頁');
+      dot.addEventListener('click', () => go(i));
+      container.appendChild(dot);
+    });
+  });
+
+  function go(n) {
+    slides[cur].classList.remove('active');
+    cur = (n + total) % total;
+    slides[cur].classList.add('active');
+    prog.style.width = ((cur + 1) / total * 100) + '%';
+    ctrls.classList.toggle('on-dark', slides[cur].classList.contains('dark'));
+    dotContainers.forEach(container => {
+      Array.from(container.children).forEach((dot, i) => dot.classList.toggle('on', i === cur));
+    });
+  }
+
+  document.getElementById('prev').addEventListener('click', () => go(cur - 1));
+  document.getElementById('next').addEventListener('click', () => go(cur + 1));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'PageDown') {
+      event.preventDefault();
+      go(cur + 1);
+    } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+      event.preventDefault();
+      go(cur - 1);
+    } else if (event.key === 'Home') {
+      go(0);
+    } else if (event.key === 'End') {
+      go(total - 1);
+    }
+  });
+
+  prog.style.width = (1 / total * 100) + '%';
+  ctrls.classList.toggle('on-dark', slides[0].classList.contains('dark'));
+})();
+</script>
+</body>
+</html>

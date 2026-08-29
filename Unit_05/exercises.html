@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 05 · 課堂練習與回家作業</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #fbfbfd;
+  --dark: #1d1d1f;
+  --muted: #6e6e73;
+  --accent: #0066cc;
+  --accent2: #0f766e;
+  --accent3: #c2410c;
+  --surface: #f5f5f7;
+  --border: #d2d2d7;
+  --code: #1d1d1f;
+  --max-w: 860px;
+}
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang TC", sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+  padding: 28px 22px 88px;
+  line-height: 1.72;
+}
+.page { max-width: var(--max-w); margin: 0 auto; }
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 42px;
+}
+.back-link { color: var(--accent); text-decoration: none; font-size: 13px; font-weight: 700; }
+.back-link::before { content: '← '; }
+.unit-pill {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.09);
+  padding: 4px 11px;
+  border-radius: 8px;
+}
+.hero { padding-bottom: 34px; margin-bottom: 30px; border-bottom: 1px solid var(--border); }
+.overline {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; margin-bottom: 14px; }
+.lead { color: var(--muted); max-width: 720px; font-size: 1rem; }
+.toc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px 24px;
+  margin-bottom: 22px;
+}
+.toc h2 {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.toc ol { list-style: none; counter-reset: toc; }
+.toc li { counter-increment: toc; margin: 8px 0; }
+.toc a { color: var(--dark); text-decoration: none; display: flex; gap: 10px; font-size: .95rem; }
+.toc a:hover { color: var(--accent); }
+.toc a::before {
+  content: counter(toc, decimal-leading-zero);
+  color: var(--accent);
+  font-size: .75rem;
+  font-weight: 800;
+  padding-top: 3px;
+}
+
+.band {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 46px 0 6px;
+  padding-top: 26px;
+  border-top: 2px solid var(--border);
+}
+.band-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--accent);
+  padding: 5px 12px;
+  border-radius: 8px;
+}
+.band-tag.home { background: var(--accent2); }
+.band h2 { font-size: clamp(1.15rem, 2.4vw, 1.5rem); }
+.band-note { color: var(--muted); font-size: .9rem; margin: 6px 0 4px; }
+
+.exercise {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 18px 0;
+  overflow: hidden;
+}
+.exercise.home { border-color: rgba(15,118,110,.28); }
+.exercise-head { padding: 18px 22px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.exercise.home .exercise-head { background: rgba(15,118,110,.05); border-bottom-color: rgba(15,118,110,.2); }
+.exercise-tag {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.exercise.home .exercise-tag { color: var(--accent2); }
+h2 { font-size: clamp(1.25rem, 2.6vw, 1.7rem); line-height: 1.25; }
+.exercise-body { padding: 20px 22px 24px; }
+h3 { font-size: 1.02rem; margin: 20px 0 8px; }
+p { color: #2c2c2e; margin-bottom: 12px; }
+ul, ol { padding-left: 1.1rem; margin: 8px 0 16px; }
+li { margin-bottom: 8px; color: #2c2c2e; }
+strong { color: var(--dark); font-weight: 800; }
+.bad { color: var(--accent3); font-weight: 800; }
+.good { color: var(--accent2); font-weight: 800; }
+code {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .88em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+.meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.chip {
+  font-size: 12px;
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  border: 1px solid rgba(0,102,204,.16);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+.exercise.home .chip { color: var(--accent2); background: rgba(15,118,110,.07); border-color: rgba(15,118,110,.18); }
+
+.table-wrap { overflow-x: auto; margin: 14px 0; -webkit-overflow-scrolling: touch; }
+table { width: 100%; min-width: 660px; border-collapse: collapse; font-size: .92rem; }
+th {
+  text-align: left;
+  color: var(--accent);
+  background: rgba(0,102,204,.06);
+  border-bottom: 2px solid var(--border);
+  padding: 10px 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+td { padding: 11px 12px; border-bottom: 1px solid var(--border); color: #2c2c2e; vertical-align: top; }
+td:first-child { color: var(--muted); font-weight: 800; white-space: nowrap; }
+
+.prompt {
+  background: var(--code);
+  color: #f5f5f7;
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin: 14px 0 4px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .8rem;
+  line-height: 1.7;
+}
+.callout {
+  background: rgba(0,102,204,.05);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 16px;
+  margin: 16px 0;
+  color: #2c2c2e;
+}
+.callout.green { background: rgba(15,118,110,.06); border-left-color: var(--accent2); }
+.callout.warn { background: rgba(194,65,12,.06); border-left-color: var(--accent3); }
+.callout a { color: var(--accent); font-weight: 700; }
+
+.check { list-style: none; padding-left: 0; }
+.check li { position: relative; padding-left: 28px; }
+.check li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: .45em;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+}
+
+.foot-nav { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
+.foot-nav a {
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  border: 1px solid rgba(0,102,204,.18);
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+}
+@media print {
+  body { background: #fff; padding: 0; }
+  .topbar, .toc, .foot-nav { display: none; }
+  .exercise { break-inside: avoid; }
+}
+@media (max-width: 700px) {
+  .topbar { align-items: flex-start; flex-direction: column; }
+  .band { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <a class="back-link" href="article.html">回到 Unit 05 講義</a>
+    <span class="unit-pill">Unit 05</span>
+  </div>
+
+  <div class="hero">
+    <p class="overline">Practice &amp; Homework</p>
+    <h1>四個規範疊上去，做出一份風格小卡</h1>
+    <p class="lead">課堂練習用 80 分鐘，四個階段接著做：色彩角色卡、Type Scale 應用、Icon 對齊、按鈕 5 狀態。用的是 Unit 03 課堂做的那張卡片（照片、頭像、標題、副標），把這堂課的規範實際套上去。</p>
+  </div>
+
+  <div class="toc">
+    <h2>本頁內容</h2>
+    <ol>
+      <li><a href="#ex1">Exercise 01 · 色彩角色卡：5 個角色配對（20 分）</a></li>
+      <li><a href="#ex2">Exercise 02 · Type Scale：套進一段真的內容（20 分）</a></li>
+      <li><a href="#ex3">Exercise 03 · Icon 對齊：跟文字基準線對齊（20 分）</a></li>
+      <li><a href="#ex4">Exercise 04 · 按鈕 5 狀態 Variants（20 分）</a></li>
+      <li><a href="#hw">回家作業 · 擴充成一頁風格指南</a></li>
+      <li><a href="#submit">繳交清單與評分配分</a></li>
+    </ol>
+  </div>
+
+  <div class="callout">
+    <strong>開始前：</strong>打開 Unit 03 做的那個 Figma 檔案（含卡片、按鈕、Prototype）。今天的四個練習會直接在那份檔案裡加新內容，不用重新開檔。<br><br>另外開一份<a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=4-2" target="_blank" rel="noopener"><strong>課堂範本檔</strong></a>，裡面四個區塊對應下面四個練習（空白色票卡、角色標籤骨架、Icon 對齊骨架、Enabled 按鈕起始元件）。<strong>把需要的區塊複製到你自己那個 Unit 03 的檔案裡再操作</strong>，不要直接在範本檔上寫——那是全班共用的。<br><br>找不到色碼、對比度數字時，用 Figma 右側的顏色選取器直接讀 Hex 值，或搜尋「contrast checker」線上工具實測，不要用眼睛猜。
+  </div>
+
+  <div class="band">
+    <span class="band-tag">課堂練習 · 80 分鐘</span>
+    <h2>從色彩角色到一顆有五個狀態的按鈕</h2>
+  </div>
+  <p class="band-note">四個階段接著做，中間不停。做不完的部分列進回家作業。</p>
+
+  <div class="exercise" id="ex1">
+    <div class="exercise-head">
+      <p class="exercise-tag">Exercise 01</p>
+      <h2>色彩角色卡：5 個角色配對</h2>
+      <div class="meta"><span class="chip">20 分鐘</span><span class="chip">個人</span><span class="chip">Figma</span><span class="chip"><a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=4-4" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">範本檔 · 區塊 ①</a></span></div>
+    </div>
+    <div class="exercise-body">
+      <p>挑一個來源色（品牌色），推出至少 5 組色彩角色配對，做成講義第 1 節那種色票卡的樣子。20 分鐘內手動微調 5 組配對的深淺並不夠時間，<strong>用色彩生成工具先產出一套色階，再對應到角色</strong>，把時間花在檢查與對比度實測上。</p>
+      <h3>步驟</h3>
+      <ol>
+        <li>選一個來源色（Hex 色碼隨你挑，不要太飽和也不要太灰）。</li>
+        <li>用 Material Theme Builder（Figma 外掛，安裝與操作見 <a href="../Unit_09/tools-stark-material.html" target="_blank" rel="noopener">Unit 09 外掛操作指南</a>）貼入來源色，產生一整套色階；沒裝外掛的話，搜尋「Material theme builder」網頁版直接產生。</li>
+        <li>從產生的色階裡對應出 Primary／On Primary、Primary Container／On Primary Container、Secondary／On Secondary、Surface／On Surface、Error／On Error 共 5 組配對，把色碼複製回 Figma。</li>
+        <li>每組畫成一張色票卡：色塊 + 色塊上的文字（用該組的 On 色）+ 角色名稱標籤。</li>
+        <li>用線上對比度檢查工具（搜尋「contrast checker」），逐組實測背景色跟 On 色的對比度，記在角色名稱旁邊。</li>
+      </ol>
+      <div class="callout warn"><strong>常卡住：</strong>只挑了背景色就結束，沒有另外決定 On 色，結果文字色隨便選一個深色——一定要兩個顏色一起決定，並實測對比度。</div>
+      <div class="callout"><strong>交件：</strong>5 張色票卡，每張都標角色名稱、色碼、對比度數字，且對比度都 ≥ 4.5:1。</div>
+    </div>
+  </div>
+
+  <div class="exercise" id="ex2">
+    <div class="exercise-head">
+      <p class="exercise-tag">Exercise 02</p>
+      <h2>Type Scale：套進一段真的內容</h2>
+      <div class="meta"><span class="chip">20 分鐘</span><span class="chip">個人</span><span class="chip">Figma</span><span class="chip"><a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=4-5" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">範本檔 · 區塊 ②</a></span></div>
+    </div>
+    <div class="exercise-body">
+      <p>把 Unit 03 卡片的標題、副標，換成套用正確 Type Scale 角色的版本，並補上頁面標題與一段內文。</p>
+      <h3>步驟</h3>
+      <ol>
+        <li>幫卡片加一個頁面標題（例如「本週推薦」），套用 <strong>Headline</strong> 角色的字級。</li>
+        <li>卡片標題（例如「城市小旅行」）套用 <strong>Title</strong> 角色的字級。</li>
+        <li>加一段兩三句的行程說明文字，套用 <strong>Body</strong> 角色的字級。</li>
+        <li>卡片上的按鈕文字套用 <strong>Label</strong> 角色的字級。</li>
+        <li>檢查四層文字排在一起，用途是不是一眼分得出來（頁面標題、卡片標題、內文、按鈕標籤各自的角色清楚，不是只看字級大小——同一角色的字級、行高、字重、字距要一起對齊，不同角色不一定要差很多字級）。</li>
+      </ol>
+      <div class="callout"><strong>交件：</strong>同一個畫面裡出現 Headline／Title／Body／Label 四種角色的文字，字級順序看得出層級。</div>
+    </div>
+  </div>
+
+  <div class="exercise" id="ex3">
+    <div class="exercise-head">
+      <p class="exercise-tag">Exercise 03</p>
+      <h2>Icon 對齊：跟文字基準線對齊</h2>
+      <div class="meta"><span class="chip">20 分鐘</span><span class="chip">個人</span><span class="chip">Figma</span><span class="chip"><a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=4-6" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">範本檔 · 區塊 ③</a></span></div>
+    </div>
+    <div class="exercise-body">
+      <p>在卡片上加一個小圖示（例如地點或日期 Icon），跟旁邊的文字對齊。</p>
+      <h3>步驟</h3>
+      <ol>
+        <li>畫或找一個簡單的 Icon（用形狀工具拼一個幾何圖案即可，不用畫得很精緻），做成 24dp × 24dp。</li>
+        <li>放在卡片的副標文字旁邊（例如「📍 台北」的圖示位置）。</li>
+        <li>先不調整位置，觀察 Icon 中心跟文字看起來是否對齊。</li>
+        <li>把 Icon 往下移動大約文字字級的 11.5%（例如文字是 14px，往下移約 1.6px），比較移動前後的差異。</li>
+        <li>再做一個 40dp 的 Icon，放在 Headline 級的標題旁邊，重複同樣的對齊調整。</li>
+      </ol>
+      <div class="callout"><strong>交件：</strong>兩組 Icon＋文字（24dp 配 Body／Label 級文字，40dp 配 Headline 級文字），都做過基準線位移。</div>
+    </div>
+  </div>
+
+  <div class="exercise" id="ex4">
+    <div class="exercise-head">
+      <p class="exercise-tag">Exercise 04</p>
+      <h2>按鈕 5 狀態 Variants</h2>
+      <div class="meta"><span class="chip">20 分鐘</span><span class="chip">個人</span><span class="chip">Figma</span><span class="chip"><a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=4-7" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">範本檔 · 區塊 ④</a></span></div>
+    </div>
+    <div class="exercise-body">
+      <p>把 Unit 03 做的按鈕 Component，擴充成有 5 個狀態的 Component Set。</p>
+      <h3>步驟</h3>
+      <ol>
+        <li>複製 4 份按鈕 Component，分別調整成 Hover（顏色加深）、Pressed（顏色加深，可搭配輕微縮小，例如 98% 左右）、Focus（加一圈外框，用 Secondary 或其他強調色）、Disabled（降低飽和度與對比，但文字仍要維持可讀）。</li>
+        <li>連同原本的 Enabled，五個都各自執行 <strong>Create component</strong>。</li>
+        <li>全選五個，右側面板點 <strong>Combine as variants</strong>，屬性改名成 <code>State</code>，數值改成 Enabled／Hover／Pressed／Focus／Disabled。</li>
+        <li>切到 Prototype 分頁，把 Enabled 對 Hover 接一條 While hovering 的連接，體驗一次狀態切換。</li>
+      </ol>
+      <div class="callout warn"><strong>常卡住：</strong>Focus 只改了顏色沒加外框——去看講義第 8 節，Focus 一定要有外框，不能只靠顏色分辨。Disabled 對比降太多會整個看不清楚，記得核對文字是不是還讀得出來，不是只看有沒有變灰。</div>
+      <div class="callout"><strong>交件：</strong>一個 Button Component Set，含 State=Enabled／Hover／Pressed／Focus／Disabled 五個 Variant，Focus 有外框、Disabled 文字仍可讀。</div>
+    </div>
+  </div>
+
+  <div class="band">
+    <span class="band-tag home">回家作業</span>
+    <h2>擴充成一頁風格指南</h2>
+  </div>
+  <p class="band-note">預估 2 小時。把課堂做的色彩角色卡、Type Scale、Icon、按鈕，收進一頁完整的風格指南，Unit 06 開始會直接拿來套用。</p>
+
+  <div class="exercise home" id="hw">
+    <div class="exercise-head">
+      <p class="exercise-tag">Homework</p>
+      <h2>一頁風格指南 + 套用在一個真實畫面上</h2>
+      <div class="meta"><span class="chip">約 2 小時</span><span class="chip">個人</span><span class="chip">Figma</span></div>
+    </div>
+    <div class="exercise-body">
+      <ol>
+        <li><strong>把 5 組「背景／On」色彩角色配對擴充到 7 組以上。</strong>補上 Secondary Container、Surface Variant／On Surface Variant 至少兩組，每組都要有對應的 On 色並實測對比度。<strong>另外加上 Outline 一項</strong>——它是邊框與分隔線用的功能角色，沒有配對的 On 色，不用測文字對比，但要整理進同一份色票規範裡並註明用途。</li>
+        <li><strong>整理成一份 Type Scale 對照表。</strong>在課堂四個角色（Headline／Title／Body／Label）之外，補上 Display，五組角色各挑一個級別（Large／Medium／Small 擇一），列出字級、行高、字重、字距、用途，排成表格或卡片。</li>
+        <li><strong>把風格指南套用在一個真實畫面上。</strong>挑一個簡單畫面（例如列表頁或詳細頁），全部文字用 Type Scale 角色、全部顏色用色彩角色、Icon 沿用課堂那個做的對齊方式、按鈕用今天做的 Component，不要留任何「隨手選的」顏色或字級。</li>
+      </ol>
+      <h3>交件前自己跑一次這個檢查</h3>
+      <ul class="check">
+        <li>畫面上有沒有任何文字的字級，不是套用 Type Scale 角色、而是隨手打的數字？</li>
+        <li>畫面上有沒有任何顏色，不是套用色彩角色、而是隨手選的？</li>
+        <li>按鈕的 Disabled 狀態，文字還讀得出來嗎？</li>
+        <li>色票規範裡每一組 On 色，對比度都實測過、達到 4.5:1 了嗎？</li>
+      </ul>
+      <h3>AI 使用界線</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>可以</th><th>不可以</th></tr></thead>
+          <tbody>
+            <tr><td>色彩檢查</td><td>把角色配對的色碼貼給 AI，請它指出缺漏的角色或明顯不足的配對</td><td>讓 AI 幫你決定品牌色或整體色彩風格</td></tr>
+            <tr><td>字級檢查</td><td>讓 AI 檢查同用途文字的字級是否一致</td><td>讓 AI 幫你決定要用哪個字級角色</td></tr>
+            <tr><td>按鈕檢查</td><td>把 Variant 清單貼給 AI，讓它抓出缺漏的狀態</td><td>讓 AI 生成整組按鈕的視覺設計</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>界線的邏輯：<strong>AI 可以幫你檢查與排查問題，不能幫你做設計判斷。</strong>三段提示詞在<a href="article.html#s12">講義第 12 節</a>。</p>
+      <div class="callout green"><strong>交件方式：</strong>一份 Figma 連結，權限設為可檢視。下次上課抽點分享色彩方案怎麼選的。</div>
+    </div>
+  </div>
+
+  <div class="band">
+    <span class="band-tag home">繳交</span>
+    <h2>繳交清單與評分配分</h2>
+  </div>
+
+  <div class="exercise home" id="submit">
+    <div class="exercise-head">
+      <p class="exercise-tag">Submission</p>
+      <h2>對應本單元回家作業</h2>
+      <div class="meta"><span class="chip">Figma 連結 1 份</span><span class="chip">下次上課抽點分享</span></div>
+    </div>
+    <div class="exercise-body">
+      <h3>要交的東西</h3>
+      <ul class="check">
+        <li>7 組以上「背景／On」色彩角色配對，每組對比度都 ≥ 4.5:1，加上 Outline 一項功能角色</li>
+        <li>Type Scale 對照表，五組角色各一個級別，含字級／行高／字重／字距</li>
+        <li>1 個真實畫面，全部套用今天的規範（無隨手選色／隨手字級），Icon 沿用課堂做的對齊方式</li>
+        <li>1 個 5 狀態的按鈕 Component Set</li>
+      </ul>
+      <h3>配分</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>項目</th><th>配分</th><th>通過的樣子</th><th>不及格的樣子</th></tr></thead>
+          <tbody>
+            <tr><td>色彩角色</td><td>25</td><td>7 組以上「背景／On」配對，每組對比度實測 ≥ 4.5:1，Outline 有納入色票規範</td><td>不到 7 組配對；有配對對比度實測不到 4.5:1 卻沒有調整；把 Outline 也拿去測文字對比（它沒有 On 色）</td></tr>
+            <tr><td>Type Scale</td><td>20</td><td>五組角色都有對照表項目，字級、行高、字重、字距四項都填，各角色用途清楚</td><td>缺角色組；只填字級漏填其他三項；角色用途混淆（例如 Body 跟 Label 用途寫成一樣）</td></tr>
+            <tr><td>真實畫面套用</td><td>40</td><td>畫面上所有文字與顏色都能指回今天定義的角色／字級，Icon 對齊沿用課堂做法</td><td>畫面上還留有隨手選的顏色或字級，指不回任何規範；Icon 沒有做基準線對齊</td></tr>
+            <tr><td>按鈕 Component</td><td>15</td><td>5 個 State Variant 齊全，Focus 有外框、Disabled 文字可讀</td><td>不到 5 個狀態；Focus 只靠顏色分辨；Disabled 文字完全看不見</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn"><strong>特別說明：</strong>這份作業評的是<strong>規範的完整度與一致性</strong>，不是配色好不好看——顏色搭配普通不扣分，對比度不過、字級層級混亂、畫面沒套用規範才扣分。</div>
+    </div>
+  </div>
+
+  <div class="foot-nav">
+    <a href="slides.html" target="_blank" rel="noopener">回到 Unit 05 簡報</a>
+    <a href="article.html" target="_blank" rel="noopener">Unit 05 完整講義</a>
+    <a href="article.html#s12" target="_blank" rel="noopener">講義第 12 節：AI 協作提示詞</a>
+    <a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=4-2" target="_blank" rel="noopener">課堂範本檔</a>
+    <a href="../Unit_03/exercises.html" target="_blank" rel="noopener">Unit 03 練習：卡片與按鈕基礎</a>
+    <a href="../Unit_09/tools-stark-material.html" target="_blank" rel="noopener">Material Theme Builder 外掛操作指南</a>
+    <a href="../index.html" target="_blank" rel="noopener">回到課程總覽</a>
+  </div>
+</div>
+</body>
+</html>

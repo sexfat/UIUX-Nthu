@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 03 · Figma 基本操作</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #fbfbfd;
+  --dark: #1d1d1f;
+  --muted: #6e6e73;
+  --accent: #0066cc;
+  --accent2: #0f766e;
+  --accent3: #c2410c;
+  --positive: #0f766e;
+  --negative: #c2410c;
+  --surface: #f5f5f7;
+  --card: #ffffff;
+  --border: #d2d2d7;
+  --px: clamp(44px, 7vw, 108px);
+  --py: 52px;
+}
+
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang TC", sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+#prog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width .45s cubic-bezier(.4,0,.2,1);
+  z-index: 200;
+}
+
+#deck { position: relative; width: 100%; height: 100vh; }
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--py) var(--px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(18px);
+  transition: opacity .45s cubic-bezier(.4,0,.2,1), transform .45s cubic-bezier(.4,0,.2,1), visibility 0s .45s;
+  overflow: hidden;
+}
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity .45s cubic-bezier(.4,0,.2,1), transform .45s cubic-bezier(.4,0,.2,1), visibility 0s 0s;
+}
+
+.slide-head, .slide-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  height: 28px;
+  position: relative;
+  z-index: 1;
+}
+.slide-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.unit-pill {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.09);
+  padding: 4px 11px;
+  border-radius: 8px;
+}
+.slide-num { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.course-label { font-size: 11px; color: #a1a1a6; }
+
+.dots { display: flex; gap: 5px; align-items: center; }
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: all .25s ease;
+}
+.dot.on { width: 16px; border-radius: 3px; background: var(--accent); }
+
+.overline {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+.divider {
+  width: 42px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin: 8px 0 26px;
+}
+h1 {
+  font-size: clamp(1.9rem, 3.8vw, 3.55rem);
+  font-weight: 800;
+  line-height: 1.12;
+  color: var(--dark);
+}
+h2 {
+  font-size: clamp(.95rem, 1.45vw, 1.25rem);
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-top: 14px;
+  max-width: 900px;
+}
+
+.cover-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+.cover-eyebrow::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--muted);
+}
+.cover-title {
+  font-size: clamp(2.35rem, 5.2vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 22px;
+}
+.cover-sub {
+  font-size: clamp(.95rem, 1.55vw, 1.25rem);
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 44px;
+}
+.cover-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
+
+.agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 38px;
+}
+.agenda-card, .mini-card {
+  background: var(--surface);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.a-step {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.a-time, .mini-card strong {
+  font-size: clamp(.9rem, 1.25vw, 1.08rem);
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.35;
+}
+.a-desc, .mini-card span {
+  font-size: clamp(.78rem, 1.05vw, .94rem);
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.blist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 28px;
+}
+.blist li {
+  font-size: clamp(.88rem, 1.25vw, 1.08rem);
+  color: var(--dark);
+  line-height: 1.58;
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-radius: 8px;
+}
+.blist li::before {
+  content: attr(data-n);
+  min-width: 30px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--accent);
+  background: rgba(0,102,204,.1);
+  padding: 2px 7px;
+  border-radius: 5px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.blist.plain li::before {
+  content: '';
+  min-width: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  padding: 0;
+  margin-top: .6em;
+}
+.blist.compact { gap: 8px; margin-top: 18px; }
+.blist.compact li { padding: 9px 13px; font-size: clamp(.78rem, 1.02vw, .94rem); }
+.hl { color: var(--accent); font-weight: 700; }
+.hl2 { color: var(--accent2); font-weight: 700; }
+.warn-text { color: var(--accent3); font-weight: 700; }
+
+.bg-n {
+  position: absolute;
+  right: calc(var(--px) - 16px);
+  top: 50%;
+  transform: translateY(-52%);
+  font-size: clamp(130px, 21vw, 250px);
+  font-weight: 800;
+  color: var(--surface);
+  line-height: 1;
+  z-index: 0;
+  user-select: none;
+  pointer-events: none;
+}
+.layer-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  padding: 5px 12px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  width: fit-content;
+}
+.matrix {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 26px;
+}
+.matrix.c3 { grid-template-columns: repeat(3, 1fr); }
+.matrix.c4 { grid-template-columns: repeat(4, 1fr); }
+.matrix.c5 { grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.mini-card.accent { border-color: rgba(15,118,110,.22); background: rgba(15,118,110,.06); }
+.mini-card.warn { border-color: rgba(194,65,12,.22); background: rgba(194,65,12,.06); }
+
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  font-size: clamp(.72rem, .98vw, .92rem);
+}
+.cmp-table th {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 10px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.06);
+  border-bottom: 2px solid var(--border);
+}
+.cmp-table td {
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--dark);
+  line-height: 1.45;
+  vertical-align: top;
+}
+.cmp-table tr:last-child td { border-bottom: none; }
+.cmp-table td:first-child { font-weight: 700; color: var(--muted); white-space: nowrap; }
+
+.note {
+  margin-top: 17px;
+  font-size: clamp(.72rem, .92vw, .86rem);
+  color: var(--muted);
+  line-height: 1.6;
+  padding: 11px 14px;
+  background: var(--surface);
+  border-left: 3px solid var(--accent2);
+  border-radius: 0 8px 8px 0;
+}
+.note a { color: var(--accent); font-weight: 700; text-decoration: none; }
+.note a:hover { text-decoration: underline; }
+
+.chain {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 34px;
+}
+.chain.c5 { grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.chain-step {
+  position: relative;
+  padding: 22px 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+}
+.chain-step:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  right: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent);
+  font-size: 18px;
+  font-weight: 700;
+}
+.chain-step b { display: block; color: var(--accent); font-size: .78rem; margin-bottom: 8px; }
+.chain-step span { display: block; color: var(--muted); line-height: 1.5; font-size: .86rem; }
+
+.stat-row { display: flex; gap: 34px; flex-wrap: wrap; margin-top: 32px; }
+.stat b { display: block; font-size: clamp(2.1rem, 4.4vw, 3.3rem); line-height: 1; color: var(--accent); }
+.stat span { display: block; margin-top: 9px; color: var(--muted); line-height: 1.5; font-size: .9rem; }
+
+.slide-img {
+  display: block;
+  max-width: 100%;
+  max-height: 46vh;
+  width: auto;
+  margin: 22px auto 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  object-fit: contain;
+}
+.slide.dark .slide-img { border-color: #3a3a3c; }
+.img-cap {
+  text-align: center;
+  font-size: .78rem;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+.res-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 22px;
+}
+.res-link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: border-color .2s, transform .2s;
+}
+.res-link:hover { border-color: var(--accent); transform: translateY(-2px); }
+.res-link strong { font-size: .94rem; color: var(--dark); }
+.res-link span { font-size: .75rem; color: var(--muted); }
+
+.slide-body a.ilink {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,102,204,.35);
+}
+.slide-body a.ilink:hover { border-bottom-color: var(--accent); }
+
+#ctrls {
+  position: fixed;
+  bottom: 28px;
+  right: clamp(36px, 5vw, 80px);
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+}
+#ctrls button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(29,29,31,.06);
+  color: var(--dark);
+  cursor: pointer;
+  font-size: 15px;
+  transition: background .2s, transform .15s;
+}
+#ctrls button:hover { background: rgba(29,29,31,.12); transform: scale(1.04); }
+#ctrls.on-dark button { background: rgba(255,255,255,.16); color: #fff; }
+
+.slide.dark { background: #1d1d1f; }
+.slide.dark h1 { color: #f5f5f7; }
+.slide.dark h2, .slide.dark .course-label, .slide.dark .slide-num { color: #a1a1a6; }
+.slide.dark .overline, .slide.dark .hl, .slide.dark .unit-pill, .slide.dark .layer-badge { color: #58a6ff; }
+.slide.dark .divider, .slide.dark .dot.on { background: #58a6ff; }
+.slide.dark .unit-pill, .slide.dark .layer-badge { background: rgba(88,166,255,.13); }
+.slide.dark .bg-n { color: #2c2c2e; }
+.slide.dark .blist li, .slide.dark .agenda-card, .slide.dark .mini-card, .slide.dark .chain-step {
+  background: rgba(255,255,255,.055);
+  color: #f5f5f7;
+  border-color: #3a3a3c;
+}
+.slide.dark .blist li::before { color: #58a6ff; background: rgba(88,166,255,.15); }
+.slide.dark .mini-card strong, .slide.dark .a-time, .slide.dark .chain-step span { color: #f5f5f7; }
+.slide.dark .mini-card span, .slide.dark .a-desc { color: #a1a1a6; }
+.slide.dark .chain-step b { color: #58a6ff; }
+.slide.dark .stat b { color: #58a6ff; }
+.slide.dark .stat span { color: #a1a1a6; }
+.slide.dark .dot { background: #3a3a3c; }
+.slide.dark .note { background: rgba(255,255,255,.055); color: #a1a1a6; border-left-color: #58a6ff; }
+.slide.dark .note a { color: #58a6ff; }
+.slide.dark .cmp-table th { color: #58a6ff; background: rgba(88,166,255,.1); border-bottom-color: #3a3a3c; }
+.slide.dark .cmp-table td { color: #f5f5f7; border-bottom-color: #3a3a3c; }
+.slide.dark .cmp-table td:first-child { color: #a1a1a6; }
+.slide.dark .res-link { background: rgba(255,255,255,.055); border-color: #3a3a3c; }
+.slide.dark .res-link strong { color: #f5f5f7; }
+.slide.dark .res-link span { color: #a1a1a6; }
+.slide.dark .slide-body a.ilink { color: #58a6ff; border-bottom-color: rgba(88,166,255,.42); }
+.slide.dark .slide-body a.ilink:hover { border-bottom-color: #58a6ff; }
+.slide.dark .img-cap { color: #a1a1a6; }
+
+@media (max-width: 768px) {
+  :root { --px: 20px; --py: 20px; }
+  .slide { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .slide-body { justify-content: flex-start; padding: 12px 0; }
+  .agenda-grid, .matrix, .matrix.c3, .matrix.c4, .matrix.c5,
+  .res-links, .chain, .chain.c5 { grid-template-columns: 1fr; gap: 10px; margin-top: 16px; }
+  .chain-step:not(:last-child)::after { display: none; }
+  .cmp-table { display: block; overflow-x: auto; }
+  .blist { margin-top: 16px; gap: 8px; }
+  .stat-row { gap: 24px; margin-top: 20px; }
+  .cover-sub { margin-bottom: 22px; }
+  .bg-n, .course-label, .dots { display: none; }
+}
+
+.to-index { font-size: 11px; font-weight: 700; letter-spacing: .04em; color: currentColor;
+            opacity: .55; text-decoration: underline; text-underline-offset: 3px;
+            transition: opacity .2s; }
+.to-index:hover { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<div id="deck">
+
+  <!-- 01 Cover -->
+  <section class="slide active">
+    <div class="slide-head"><span style="display:inline-flex;align-items:center;gap:10px"><span class="unit-pill">Unit 03</span><a class="to-index" href="../index.html" title="回到課程總覽">↩ 課程總覽</a></span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <div class="cover-eyebrow">國立清華大學 UI/UX 設計課程 · 2026</div>
+      <h1 class="cover-title">Figma 基本操作<br><span style="font-size:.55em;font-weight:600;opacity:.75">形狀圖層 × Auto Layout × Component × Prototype</span></h1>
+      <p class="cover-sub">今天不做研究，做工具。把 Unit 01–02 想清楚的東西，變成一份能在 Figma 裡打開、點得動的檔案。</p>
+      <div class="cover-meta">
+        <span>9/30</span><span class="meta-dot"></span><span>20 張投影片</span><span class="meta-dot"></span><span>含 Figma 實作</span>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 02 Agenda -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Agenda</p>
+      <h1>四個功能，一路疊上去做出一張可以點的卡片</h1>
+      <div class="agenda-grid">
+        <div class="agenda-card">
+          <span class="a-step">Part 1 · 45 min</span>
+          <span class="a-time">形狀、圖層與 Auto Layout</span>
+          <span class="a-desc">畫出形狀、搞懂圖層堆疊，再讓版面自己撐開、不會重疊。</span>
+        </div>
+        <div class="agenda-card">
+          <span class="a-step">Part 2 · 45 min</span>
+          <span class="a-time">Component、Variants 與 Prototype</span>
+          <span class="a-desc">把重複用的元件收成一份，再把畫面接成可以點的原型。</span>
+        </div>
+        <div class="agenda-card">
+          <span class="a-step">Part 3 · 70 min</span>
+          <span class="a-time">課堂練習</span>
+          <span class="a-desc">四階段接著做：卡片 → Auto Layout → Button 元件 → Prototype 連接。</span>
+        </div>
+        <div class="agenda-card">
+          <span class="a-step">Part 4 · 10 min</span>
+          <span class="a-time">成果分享</span>
+          <span class="a-desc">抽點幾位分享卡在哪、怎麼解的。</span>
+        </div>
+      </div>
+      <div class="note">45 + 45 + 70 + 10 = 170 分，加上中間 10 分鐘休息，剛好 180 分。休息排在 Part 1 結束後。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 03 形狀工具 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Shape Tools</p>
+      <h1>六種形狀工具，是畫面上大多數非文字圖層的來源</h1>
+      <h2>矩形、線段、箭頭、橢圓、多邊形、星形——工作流程都一樣：選工具、在畫布上拖曳。差別在快捷鍵跟修飾鍵。</h2>
+      <table class="cmp-table">
+        <thead><tr><th>工具</th><th>快捷鍵</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td>Rectangle</td><td>R</td><td>矩形、正方形；圓角可直接拖曳控制點調整</td></tr>
+          <tr><td>Line</td><td>L</td><td>任意方向的直線；可調描邊粗細與虛線</td></tr>
+          <tr><td>Arrow</td><td>Shift + L</td><td>單向或雙向箭頭</td></tr>
+          <tr><td>Ellipse</td><td>O</td><td>橢圓、正圓</td></tr>
+          <tr><td>Polygon / Star</td><td>—</td><td>邊數／角數可在右側面板的 Count 調整</td></tr>
+        </tbody>
+      </table>
+      <div class="note">拖曳時按住 <span class="hl">Shift</span> 畫出正方形、正圓、正多邊形；按住 <span class="hl">Option/Alt</span> 從中心點畫圖或縮放，兩個可以一起按。圖片、GIF、影片不是獨立圖層，是「Fill 填色」的一種，直接拖放到任何有 fill 屬性的圖層上就能加進去。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 04 圖層堆疊 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Layers</p>
+      <h1>圖層面板排在上面的，畫布上就蓋在上面</h1>
+      <h2>一份設計是形狀、文字與其他圖層疊出來的，彼此可以互相蓋住，但還是能個別點選、編輯。<span class="hl">圖層順序決定的是畫布上的堆疊關係</span>，不是別的。</h2>
+      <img class="slide-img" src="resources/figma-demo/01-shapes-layers.png" alt="Figma 示範檔：一張卡片由背景照片矩形、白色描邊的頭像橢圓、標題文字、副標文字四個圖層由下往上疊成">
+      <p class="img-cap">這張卡片有 4 個圖層：照片矩形在最下面，頭像橢圓疊在照片上，標題與副標文字疊在最上面。</p>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 05 Frame 是基礎容器 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Frame</p>
+      <h1>Frame 是接下來三個功能的地基</h1>
+      <h2>圖層還有 Frame、Text、Component、Instance 這些類型，其中 <span class="hl">Frame（框架）</span>最關鍵——Auto Layout、Component、Prototype 這三個接下來要講的功能，都是以 Frame 為基礎建立的。</h2>
+      <div class="matrix c3">
+        <div class="mini-card"><strong>Frame</strong><span>最基礎的容器，有明確寬高。內建 iPhone、Apple Watch 等裝置尺寸預設。</span></div>
+        <div class="mini-card"><strong>Text</strong><span>用 Text 工具建立，內建數百款免費 Google 字體。</span></div>
+        <div class="mini-card"><strong>Shape</strong><span>矩形、橢圓、多邊形；Pen 工具可畫自訂線條與插畫。</span></div>
+      </div>
+      <div class="note">等一下的 Auto Layout、Component、Prototype 三個功能，都是建立在 Frame 上的——先把這個順序記住。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 06 為什麼要 Auto Layout -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Why Auto Layout</p>
+      <h1>手動排版，內容一變全部要重排</h1>
+      <h2>按鈕的文字變長、清單多了一筆、畫面要換一個螢幕尺寸——這些狀況手動排版都要重新對齊一次。<span class="hl">Auto Layout 讓 Frame 依照方向、間距、留白、對齊自動排列內容</span>，內容變動時排版自動跟上。</h2>
+      <div class="matrix c3">
+        <div class="mini-card warn"><strong>按鈕文字變長</strong><span>手動排版：按鈕寬度沒跟著長，文字被切掉或溢出</span></div>
+        <div class="mini-card warn"><strong>清單多一筆</strong><span>手動排版：後面的項目全部要往下手動移動</span></div>
+        <div class="mini-card warn"><strong>換螢幕尺寸</strong><span>手動排版：每個尺寸都要重新排一次版</span></div>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 07 加上 Auto Layout -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Toggle On</p>
+      <h1>選取圖層，按 Shift + A</h1>
+      <ol class="blist" style="list-style:none">
+        <li data-n="01"><strong>選取一個或多個圖層。</strong>按 <span class="hl">Shift + A</span>，或點右側面板 Auto Layout 旁的加號，或右鍵選 Add auto layout。</li>
+        <li data-n="02"><strong>Auto Layout 只作用在 Frame 上。</strong>選的是一般圖層，Figma 會自動在外面包一層 Auto Layout Frame。</li>
+        <li data-n="03"><strong>選 Flow 方向。</strong>Vertical（沿 y 軸）、Horizontal（沿 x 軸，可選是否換行）、Grid（欄與列）。</li>
+      </ol>
+      <div class="note">批次判斷、移除 Auto Layout 這些進階快捷鍵留在講義<a class="ilink" href="article.html#s4" target="_blank" rel="noopener">第 4 節</a>查，練習不會用到。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 08 Auto Layout 屬性 + demo -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Before / After</p>
+      <h1>同一排標籤，手動排版會重疊，Auto Layout 不會</h1>
+      <img class="slide-img" src="resources/figma-demo/02-auto-layout.png" alt="上半部手動排版的標籤因為文字變長而互相重疊；下半部用 Auto Layout 的 Gap 與 Hug 屬性，標籤自動撐開不重疊，也會自動換行">
+      <p class="img-cap">上：手動排版，固定間距，文字一長就疊在一起。下：Auto Layout 的 Gap + Hug，每個標籤依內容自動撐開，超出寬度自動換行（Wrap）。</p>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 09 Auto Layout 關鍵屬性表 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Key Properties</p>
+      <h1>四組屬性決定 Auto Layout 排出來的樣子</h1>
+      <table class="cmp-table">
+        <thead><tr><th>屬性</th><th>在調什麼</th></tr></thead>
+        <tbody>
+          <tr><td>Padding</td><td>Frame 邊界與內容之間的空白</td></tr>
+          <tr><td>Gap</td><td>物件與物件的距離，可固定值，也可用 Between／Around／Evenly</td></tr>
+          <tr><td>Alignment</td><td>物件在 Frame 裡怎麼對齊</td></tr>
+          <tr><td>Resizing</td><td>Hug contents（依內容縮到最小）／Fill container（撐滿父層）／Fixed（固定尺寸）</td></tr>
+        </tbody>
+      </table>
+      <div class="note">個別物件可以開 <span class="hl">Ignore auto layout</span>，跳出自動排列邏輯改用絕對定位——例如浮在角落的通知紅點。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 10 Component 與 Instance -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Component &amp; Instance</p>
+      <h1>改一次主元件，複本跟著同步更新</h1>
+      <h2><span class="hl">Main Component（主元件）</span>定義這個元素的所有屬性；<span class="hl">Instance（實體）</span>是主元件的複本，可以重複使用在設計裡。</h2>
+      <table class="cmp-table">
+        <thead><tr><th></th><th>可以改</th><th>不能改</th></tr></thead>
+        <tbody>
+          <tr><td>Instance</td><td>文字、填色、描邊、效果——調整成符合當下情境</td><td>圖層堆疊順序（z-index）、圖層內的位置</td></tr>
+        </tbody>
+      </table>
+      <div class="note">進階操作（如把 Instance 的修改推回主元件）留在講義<a class="ilink" href="article.html#s5" target="_blank" rel="noopener">第 5 節</a>查，練習不會用到。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 11 Variants -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Variants</p>
+      <h1>同一顆按鈕，四種樣子收在同一個元件裡</h1>
+      <img class="slide-img" src="resources/figma-demo/03-component-variants.png" alt="一個 Button 元件集，用 Type 與 Size 兩個屬性排出四個 Variant：Primary Large、Primary Small、Secondary Large、Secondary Small">
+      <p class="img-cap">選取多個 Component → 右側面板點 Combine as variants，Figma 會收進同一個 Component Set。屬性預設叫 Variant、Property 2……要自己重新命名成 Type、Size 這種看得懂的名字。</p>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 12 命名慣例 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Naming</p>
+      <h1>一個屬性只控制一件事，不要混在一起</h1>
+      <div class="matrix">
+        <div class="mini-card warn"><strong>✕ 一個屬性管多件事</strong><span>Style = Primary Large、Secondary Small……組合會越加越多，改一個尺寸要新增一堆選項</span></div>
+        <div class="mini-card accent"><strong>✓ 拆成獨立屬性</strong><span>Type（Primary／Secondary）+ Size（Large／Small），兩個屬性自由混搭，4 個組合只要 2+2 個值</span></div>
+      </div>
+      <div class="note">命名慣例範例：<code>Button/Primary/Large/Default/False</code>——Component Set 是 Button，底下 Type／Size／State／Icon 各自獨立。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 13 Prototype 是什麼 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Prototype</p>
+      <h1>畫面接起來，才能真的點著走一次</h1>
+      <h2>Design 分頁做視覺設計，<span class="hl">Prototype 分頁設定互動</span>，按 <span class="hl">Shift + E</span> 快速切換。一個檔案可以有多條 <span class="hl">Flow</span>——每條 Flow 是一組串起來的畫面與連接線，對應一段使用者旅程（例如註冊、結帳各是一條）。</h2>
+      <div class="chain c4">
+        <div class="chain-step"><b>① 建立連接</b><span>選熱區，拖到目標畫面</span></div>
+        <div class="chain-step"><b>② 設定互動</b><span>Trigger／Action／動畫</span></div>
+        <div class="chain-step"><b>③ Prototype 設定</b><span>裝置外框、起始畫面</span></div>
+        <div class="chain-step"><b>④ Preview 測試</b><span>照真實使用者的方式點一次</span></div>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 14 Trigger Action Destination demo -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Trigger · Action · Destination</p>
+      <h1>一條連接線，三個要設定的東西</h1>
+      <img class="slide-img" src="resources/figma-demo/04-prototype-connection.png" alt="兩張手機畫面，列表頁其中一列熱區有藍色框起來標示 Trigger On click，中間箭頭標示 Action Navigate to Push，詳細頁標示 Destination 最上層 Frame">
+      <p class="img-cap">Trigger（觸發條件，如 On click）→ Action（動作，如 Navigate to）→ Destination（目的地，多數情況要是最上層 Frame）。</p>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 15 建立連接步驟 + 動畫 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Connect</p>
+      <h1>拖出那條連接線，再挑一種轉場</h1>
+      <table class="cmp-table">
+        <thead><tr><th>步驟</th><th>做法</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>切到右側 Prototype 分頁，選熱區物件</td></tr>
+          <tr><td>2</td><td>拖曳物件邊緣的「＋」到目標 Frame，或點 Interactions 區塊的 Add</td></tr>
+          <tr><td>3</td><td>設定 Trigger／Action／Destination</td></tr>
+          <tr><td>4</td><td>選動畫：Push／Slide／Dissolve，或用 Smart Animate 自動轉場同名圖層</td></tr>
+        </tbody>
+      </table>
+      <div class="note">批次建立連接、Duration 數值範圍這些細節留在講義<a class="ilink" href="article.html#s9" target="_blank" rel="noopener">第 9 節</a>查，練習不會用到。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 16 Part 3 開場 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <span class="bg-n">03</span>
+      <p class="overline">Part 3</p>
+      <h1>接下來 70 分鐘，四個功能疊上去做一張真的卡片</h1>
+      <h2>不是分開練習四個工具，是<span class="hl">用同一張卡片</span>把形狀、圖層、Auto Layout、Component、Prototype 串起來——最後你會有一個能點的小 Demo。</h2>
+      <div class="chain c4">
+        <div class="chain-step"><b>Ex01 · 15 min</b><span>形狀與圖層：畫出一張卡片</span></div>
+        <div class="chain-step"><b>Ex02 · 15 min</b><span>Auto Layout：加上標籤列</span></div>
+        <div class="chain-step"><b>Ex03 · 20 min</b><span>Component：做一顆按鈕與 2 個 Variant</span></div>
+        <div class="chain-step"><b>Ex04 · 20 min</b><span>Prototype：接出一次點擊互動</span></div>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 17 常見卡關 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Common Blockers</p>
+      <h1>練習時最常卡住的四個地方</h1>
+      <table class="cmp-table">
+        <thead><tr><th>卡住的地方</th><th>原因</th><th>怎麼解</th></tr></thead>
+        <tbody>
+          <tr><td>Shift + A 沒反應</td><td>選到的是 Group 不是圖層本身</td><td>先確認選取範圍，或直接右鍵選 Add auto layout</td></tr>
+          <tr><td>物件撐不滿寬度</td><td>Resizing 還是 Fixed，不是 Fill container</td><td>選取子物件，右側面板把 Resizing 改成 Fill</td></tr>
+          <tr><td>Combine as variants 按了沒用</td><td>選到的物件不是 Component（還是一般 Frame）</td><td>先把每個版本各自變成 Component（右鍵 Create component），再合併</td></tr>
+          <tr><td>Prototype 連接線拉不出去</td><td>目標不是最上層 Frame，或熱區選錯圖層</td><td>確認目的地是獨立的頂層 Frame，熱區選外層可點的容器</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 18 回家作業預告 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Homework Preview</p>
+      <h1>回家把卡片擴充成一頁小型元件庫</h1>
+      <h2>課堂練習交出一張卡片 + 一顆按鈕元件 + 一次連接。回家作業把它擴充成 <span class="hl">3–5 個元件、每個至少 2 個 Variant</span>，並串成一條至少 3 個畫面的 Prototype Flow，細節見<a class="ilink" href="exercises.html#hw" target="_blank" rel="noopener">練習頁回家作業</a>。</h2>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 19 資源 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Resources</p>
+      <h1>官方文件，練習卡關時直接查</h1>
+      <div class="res-links">
+        <a class="res-link" href="https://help.figma.com/hc/en-us/articles/360040451373-Guide-to-auto-layout" target="_blank" rel="noopener"><strong>Guide to auto layout</strong><span>Figma Help Center</span></a>
+        <a class="res-link" href="https://help.figma.com/hc/en-us/articles/360056440594-Create-and-use-variants" target="_blank" rel="noopener"><strong>Create and use variants</strong><span>Figma Help Center</span></a>
+        <a class="res-link" href="https://help.figma.com/hc/en-us/articles/360040314193-Guide-to-prototyping-in-Figma" target="_blank" rel="noopener"><strong>Guide to prototyping in Figma</strong><span>Figma Help Center</span></a>
+        <a class="res-link" href="https://help.figma.com/hc/en-us/articles/26584819173271-Layers-101-Get-started-with-layers" target="_blank" rel="noopener"><strong>Layers 101: Get started with layers</strong><span>Figma Help Center</span></a>
+      </div>
+      <div class="note">完整整理（含逐句中文對照與出處）在講義<a class="ilink" href="article.html" target="_blank" rel="noopener">article.html</a>，來源原文在 <code>resources/</code>。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 20 結尾 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 03</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Wrap Up</p>
+      <h1>今天做出來的檔案，Unit 04 開始會一直用到</h1>
+      <h2>形狀圖層、Auto Layout、Component、Prototype 是接下來畫 Wireframe、建立設計元件、做互動原型的地基。工具會忘，<span class="hl">練習頁</span>留著隨時可以回來對。</h2>
+      <div class="res-links">
+        <a class="res-link" href="exercises.html#ex1" target="_blank" rel="noopener"><strong>開啟課堂練習</strong><span>exercises.html</span></a>
+        <a class="res-link" href="exercises.html#hw" target="_blank" rel="noopener"><strong>開啟回家作業</strong><span>exercises.html#hw</span></a>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">Figma 基本操作</span><div class="dots"></div></div>
+  </section>
+
+</div><!-- /#deck -->
+
+<div id="ctrls">
+  <button id="prev" aria-label="上一頁">&#8592;</button>
+  <button id="next" aria-label="下一頁">&#8594;</button>
+</div>
+
+<script>
+(function () {
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  const prog = document.getElementById('prog');
+  const ctrls = document.getElementById('ctrls');
+  const dotContainers = Array.from(document.querySelectorAll('.dots'));
+  let cur = 0;
+
+  slides.forEach((slide, i) => {
+    const num = slide.querySelector('.slide-num');
+    if (num) num.textContent = String(i + 1).padStart(2, '0') + ' / ' + total;
+  });
+
+  dotContainers.forEach(container => {
+    slides.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'dot' + (i === 0 ? ' on' : '');
+      dot.setAttribute('role', 'button');
+      dot.setAttribute('aria-label', '前往第 ' + (i + 1) + ' 頁');
+      dot.addEventListener('click', () => go(i));
+      container.appendChild(dot);
+    });
+  });
+
+  function go(n) {
+    slides[cur].classList.remove('active');
+    cur = (n + total) % total;
+    slides[cur].classList.add('active');
+    prog.style.width = ((cur + 1) / total * 100) + '%';
+    ctrls.classList.toggle('on-dark', slides[cur].classList.contains('dark'));
+    dotContainers.forEach(container => {
+      Array.from(container.children).forEach((dot, i) => dot.classList.toggle('on', i === cur));
+    });
+  }
+
+  document.getElementById('prev').addEventListener('click', () => go(cur - 1));
+  document.getElementById('next').addEventListener('click', () => go(cur + 1));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'PageDown') {
+      event.preventDefault();
+      go(cur + 1);
+    } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+      event.preventDefault();
+      go(cur - 1);
+    } else if (event.key === 'Home') {
+      go(0);
+    } else if (event.key === 'End') {
+      go(total - 1);
+    }
+  });
+
+  prog.style.width = (1 / total * 100) + '%';
+  ctrls.classList.toggle('on-dark', slides[0].classList.contains('dark'));
+})();
+</script>
+</body>
+</html>

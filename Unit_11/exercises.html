@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 11 · 課堂練習與回家作業</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #fbfbfd;
+  --dark: #1d1d1f;
+  --muted: #6e6e73;
+  --accent: #0066cc;
+  --accent2: #0f766e;
+  --accent3: #c2410c;
+  --surface: #f5f5f7;
+  --border: #d2d2d7;
+  --code: #1d1d1f;
+  --max-w: 860px;
+}
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang TC", sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+  padding: 28px 22px 88px;
+  line-height: 1.72;
+}
+.page { max-width: var(--max-w); margin: 0 auto; }
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 42px;
+}
+.back-link { color: var(--accent); text-decoration: none; font-size: 13px; font-weight: 700; }
+.back-link::before { content: '← '; }
+.unit-pill {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.09);
+  padding: 4px 11px;
+  border-radius: 8px;
+}
+.hero { padding-bottom: 34px; margin-bottom: 30px; border-bottom: 1px solid var(--border); }
+.overline {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; margin-bottom: 14px; }
+.lead { color: var(--muted); max-width: 720px; font-size: 1rem; }
+.toc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px 24px;
+  margin-bottom: 22px;
+}
+.toc h2 {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.toc ol { list-style: none; counter-reset: toc; }
+.toc li { counter-increment: toc; margin: 8px 0; }
+.toc a { color: var(--dark); text-decoration: none; display: flex; gap: 10px; font-size: .95rem; }
+.toc a:hover { color: var(--accent); }
+.toc a::before {
+  content: counter(toc, decimal-leading-zero);
+  color: var(--accent);
+  font-size: .75rem;
+  font-weight: 800;
+  padding-top: 3px;
+}
+
+.band {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 46px 0 6px;
+  padding-top: 26px;
+  border-top: 2px solid var(--border);
+}
+.band-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--accent);
+  padding: 5px 12px;
+  border-radius: 8px;
+}
+.band-tag.home { background: var(--accent2); }
+.band h2 { font-size: clamp(1.15rem, 2.4vw, 1.5rem); }
+.band-note { color: var(--muted); font-size: .9rem; margin: 6px 0 4px; }
+
+.exercise {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 18px 0;
+  overflow: hidden;
+}
+.exercise.home { border-color: rgba(15,118,110,.28); }
+.exercise-head { padding: 18px 22px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.exercise.home .exercise-head { background: rgba(15,118,110,.05); border-bottom-color: rgba(15,118,110,.2); }
+.exercise-tag {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.exercise.home .exercise-tag { color: var(--accent2); }
+h2 { font-size: clamp(1.25rem, 2.6vw, 1.7rem); line-height: 1.25; }
+.exercise-body { padding: 20px 22px 24px; }
+h3 { font-size: 1.02rem; margin: 20px 0 8px; }
+p { color: #2c2c2e; margin-bottom: 12px; }
+ul, ol { padding-left: 1.1rem; margin: 8px 0 16px; }
+li { margin-bottom: 8px; color: #2c2c2e; }
+strong { color: var(--dark); font-weight: 800; }
+.bad { color: var(--accent3); font-weight: 800; }
+.good { color: var(--accent2); font-weight: 800; }
+code {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .88em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+.meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.chip {
+  font-size: 12px;
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  border: 1px solid rgba(0,102,204,.16);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+.exercise.home .chip { color: var(--accent2); background: rgba(15,118,110,.07); border-color: rgba(15,118,110,.18); }
+
+.table-wrap { overflow-x: auto; margin: 14px 0; -webkit-overflow-scrolling: touch; }
+table { width: 100%; min-width: 660px; border-collapse: collapse; font-size: .92rem; }
+th {
+  text-align: left;
+  color: var(--accent);
+  background: rgba(0,102,204,.06);
+  border-bottom: 2px solid var(--border);
+  padding: 10px 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+td { padding: 11px 12px; border-bottom: 1px solid var(--border); color: #2c2c2e; vertical-align: top; }
+td:first-child { color: var(--muted); font-weight: 800; white-space: nowrap; }
+
+.prompt {
+  background: var(--code);
+  color: #f5f5f7;
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin: 14px 0 4px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .8rem;
+  line-height: 1.7;
+}
+.callout {
+  background: rgba(0,102,204,.05);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 16px;
+  margin: 16px 0;
+  color: #2c2c2e;
+}
+.callout.green { background: rgba(15,118,110,.06); border-left-color: var(--accent2); }
+.callout.warn { background: rgba(194,65,12,.06); border-left-color: var(--accent3); }
+.callout a { color: var(--accent); font-weight: 700; }
+
+.check { list-style: none; padding-left: 0; }
+.check li { position: relative; padding-left: 28px; }
+.check li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: .45em;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+}
+
+.foot-nav { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
+.foot-nav a {
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  border: 1px solid rgba(0,102,204,.18);
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+}
+@media print {
+  body { background: #fff; padding: 0; }
+  .topbar, .toc, .foot-nav { display: none; }
+  .exercise { break-inside: avoid; }
+}
+@media (max-width: 700px) {
+  .topbar { align-items: flex-start; flex-direction: column; }
+  .band { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <a class="back-link" href="article.html">回到 Unit 11 講義</a>
+    <span class="unit-pill">Unit 11</span>
+  </div>
+
+  <div class="hero">
+    <p class="overline">Practice &amp; Homework</p>
+    <h1>從交接準備，走到一個真的能打開的網頁</h1>
+    <p class="lead">課堂練習用 90 分鐘，四個階段接著做：先把 Figma 檔案交接準備好，設定 Claude Code 或 Gemini CLI 接上 Figma，把一個畫面實際轉成網頁，最後跟 AI 練一次解釋設計決策。</p>
+  </div>
+
+  <div class="toc">
+    <h2>本頁內容</h2>
+    <ol>
+      <li><a href="#ex1">Exercise 01 · 交接準備：標記 Ready for dev（15 分）</a></li>
+      <li><a href="#ex2">Exercise 02 · 設定 Claude Code／Gemini CLI + Figma MCP（30 分）</a></li>
+      <li><a href="#ex3">Exercise 03 · 把一個畫面轉成真的網頁（30 分）</a></li>
+      <li><a href="#ex4">Exercise 04 · 溝通模擬：跟 AI 練習解釋設計決策（15 分）</a></li>
+      <li><a href="#hw">回家作業 · 把專題畫面轉成網頁</a></li>
+      <li><a href="#submit">繳交清單與評分配分</a></li>
+    </ol>
+  </div>
+
+  <div class="callout warn">
+    <strong>上課前請先準備好：</strong>筆電已安裝 Claude Code（<code>npm install -g @anthropic-ai/claude-code</code> 或官方安裝方式）或 Gemini CLI，並有可以登入的帳號。現場網路可能不穩，<strong>安裝與登入務必在上課前完成</strong>，不要留到課堂上才裝——Exercise 02 只夠時間裝 Figma 外掛與設定連線，不夠時間從零安裝整套工具。
+  </div>
+
+  <div class="band">
+    <span class="band-tag">課堂練習 · 90 分鐘</span>
+    <h2>從交接文件到一個能打開的網頁</h2>
+  </div>
+  <p class="band-note">四個階段接著做，中間不停。做不完的部分列進回家作業。</p>
+
+  <div class="exercise" id="ex1">
+    <div class="exercise-head">
+      <p class="exercise-tag">Exercise 01</p>
+      <h2>交接準備：標記 Ready for dev</h2>
+      <div class="meta"><span class="chip">15 分鐘</span><span class="chip">個人</span><span class="chip">Figma</span></div>
+    </div>
+    <div class="exercise-body">
+      <p>打開你自己專題目前的 Figma 檔案，練習把它整理成「工程師接得住」的狀態。</p>
+      <h3>步驟</h3>
+      <ol>
+        <li>檢查頁面命名，幫還在改的頁面加上 🏗️，待討論的加 💭，已經定案的加 🚢。</li>
+        <li>挑 3 個你這學期做過的 Component（例如按鈕、卡片），確認名稱清楚、有補上使用說明。沒有說明的現在補一句。</li>
+        <li>按 <code>Shift + D</code> 切到 Dev Mode，找到這 3 個 Component，標記為 <strong>Ready for dev</strong>。</li>
+        <li>在 Dev Mode 裡點開其中一個，看一下 Code Panel 顯示的程式碼片段長什麼樣子——不用看懂，只要知道這個功能在哪裡、開發者會看到什麼。</li>
+      </ol>
+      <div class="callout"><strong>交件：</strong>3 個 Component 都標記 Ready for dev，且都有名稱與使用說明。</div>
+    </div>
+  </div>
+
+  <div class="exercise" id="ex2">
+    <div class="exercise-head">
+      <p class="exercise-tag">Exercise 02</p>
+      <h2>設定 Claude Code／Gemini CLI + Figma MCP</h2>
+      <div class="meta"><span class="chip">30 分鐘</span><span class="chip">個人</span><span class="chip">終端機 + Figma</span></div>
+    </div>
+    <div class="exercise-body">
+      <p>把 AI 工具接上你的 Figma 帳號。以 Claude Code 為例（Gemini CLI 的 MCP 設定邏輯類似，跟著現場示範做）：</p>
+      <h3>步驟</h3>
+      <ol>
+        <li>打開終端機，執行 <code>claude plugin install figma@claude-plugins-official</code>。</li>
+        <li>按 Enter，重新啟動 Claude Code。</li>
+        <li>輸入 <code>/plugin</code>，切到 Installed 分頁，選取 figma 伺服器，按 Enter。</li>
+        <li>瀏覽器會跳出授權頁面，點 <strong>Allow access</strong>。</li>
+        <li>回到終端機，再打一次 <code>/plugin</code>，確認 figma 伺服器顯示為已連線（connected）。</li>
+        <li>連線成功後，貼上講義第 9 節的範例設計稿連結（<a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=7-3" target="_blank" rel="noopener">開啟範例設計稿</a>），跟 Claude Code 說「幫我看一下這個連結指到的 Frame，回報它的名稱跟裡面有哪些主要區塊」，確認它真的讀得到內容。</li>
+      </ol>
+      <div class="callout warn"><strong>常卡住：</strong>/plugin 裡沒看到 figma 或顯示未連線，通常是「退出再重新啟動 Claude Code」這一步被跳過，或授權頁面沒有點完 Allow access。整個流程重跑一次，不要在中間步驟卡住時硬按下一步。</div>
+      <div class="callout"><strong>交件：</strong>Figma MCP 顯示已連線，且 Claude Code 有正確回報範例設計稿的 Frame 名稱與主要區塊。</div>
+    </div>
+  </div>
+
+  <div class="exercise" id="ex3">
+    <div class="exercise-head">
+      <p class="exercise-tag">Exercise 03</p>
+      <h2>把一個畫面轉成真的網頁</h2>
+      <div class="meta"><span class="chip">30 分鐘</span><span class="chip">個人</span><span class="chip">終端機 + Figma</span></div>
+    </div>
+    <div class="exercise-body">
+      <p>先在自己的電腦上開一個空白資料夾（例如桌面新增 <code>unit11-demo</code>），在終端機 <code>cd</code>進去之後再執行 <code>claude</code>——生成的檔案會放在這個資料夾裡，之後好找。</p>
+      <h3>主要方式：連結式</h3>
+      <ol>
+        <li>開啟範例設計稿：<a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=7-3" target="_blank" rel="noopener">學習角線上課程報名頁</a>（也可以換成你自己 Unit 03 做的卡片畫面）。</li>
+        <li>在 Figma 裡右鍵點這個 Frame → Copy link to selection，複製連結。</li>
+        <li>回到終端機，跟 Claude Code 說：「把這個 Figma 設計轉成程式碼：[貼上連結]」（完整指令句型見講義第 13 節提示詞②）。</li>
+        <li>如果它問你要轉哪個 Frame，明確回答，不要讓它自己猜。</li>
+        <li>等它跑完，打開產生的 HTML 檔案，跟原本的 Figma 設計對照，檢查文字、配色是否一致。</li>
+      </ol>
+      <h3>時間夠的話，再試試看：選取式</h3>
+      <ol>
+        <li>在 Figma 裡直接選取同一個 Frame（不用複製連結）。</li>
+        <li>跟 Claude Code 說：「幫我把選取的這個 Frame 轉成一個響應式的 HTML 網頁」（完整指令句型見講義第 13 節提示詞①）。</li>
+        <li>比較這次跟連結式做出來的結果，是不是需要重新確認一次「選到的範圍對不對」。</li>
+      </ol>
+      <h3>不管哪種方式，都要做的事</h3>
+      <ul class="check">
+        <li>把瀏覽器縮小到手機寬度，確認排版有跟著調整成適合手機操作（多欄改直向堆疊、導覽收合皆可），內容沒有被截斷或左右溢出。</li>
+        <li>對照 Figma 設計稿，文字內容跟顏色有沒有跑掉。</li>
+      </ul>
+      <div class="callout warn"><strong>常卡住：</strong>生出來的網頁跟設計對不上，通常是選取的 Frame 範圍不對，或圖層命名太亂讓 AI 誤判結構——圖層命名清楚一點（例如「CTA 按鈕」而不是「Frame 47」），有助 AI 辨識結構。</div>
+      <div class="callout"><strong>交件：</strong>一個能在瀏覽器打開的 HTML 檔案，縮小視窗寬度時排版會跟著調整、沒有內容被截斷或溢出，文字與配色跟原設計一致。</div>
+    </div>
+  </div>
+
+  <div class="exercise" id="ex4">
+    <div class="exercise-head">
+      <p class="exercise-tag">Exercise 04</p>
+      <h2>溝通模擬：跟 AI 練習解釋設計決策</h2>
+      <div class="meta"><span class="chip">15 分鐘</span><span class="chip">個人</span><span class="chip">AI 對話</span></div>
+    </div>
+    <div class="exercise-body">
+      <p>挑一個你這學期做過、自己覺得有把握解釋的設計決策（例如「為什麼登入頁欄位排這個順序」）。</p>
+      <h3>步驟</h3>
+      <ol>
+        <li>打開任一 AI 對話工具，貼上講義第 13 節提示詞③，先選「挑剔的工程師」這個角色。</li>
+        <li>照提示詞的格式填入你的專題背景與要解釋的決策。</li>
+        <li>AI 提出質疑後，實際打字回答——不要只在腦中想，要寫下來。</li>
+        <li>看 AI 怎麼評你的回答：有沒有真的回應到問題，還是在迴避。</li>
+        <li>時間夠的話，換成「預算有限的客戶」角色再做一次，比較兩種角色問的問題有什麼不同。</li>
+      </ol>
+      <div class="callout"><strong>交件：</strong>至少完成一輪「工程師」角色的問答，記下 AI 指出你哪一句回答在迴避問題。</div>
+    </div>
+  </div>
+
+  <div class="band">
+    <span class="band-tag home">回家作業</span>
+    <h2>把專題畫面轉成網頁</h2>
+  </div>
+  <p class="band-note">預估 2.5 小時。把課堂練的工具實際用在自己的專題上，交出一個真的能打開的網頁。</p>
+
+  <div class="exercise home" id="hw">
+    <div class="exercise-head">
+      <p class="exercise-tag">Homework</p>
+      <h2>一個真的能打開的專題網頁 + 溝通模擬紀錄</h2>
+      <div class="meta"><span class="chip">約 2.5 小時</span><span class="chip">個人</span><span class="chip">終端機 + Figma</span></div>
+    </div>
+    <div class="exercise-body">
+      <ol>
+        <li><strong>挑自己專題的一個核心畫面</strong>（例如首頁或最重要的操作流程頁），先照 Exercise 01 的做法整理交接狀態：命名清楚、Component 有說明、標記 Ready for dev。</li>
+        <li><strong>用 Claude Code 或 Gemini CLI 把這個畫面轉成網頁。</strong>選取式或連結式都可以，生成後自己檢查響應式效果、文字與配色是否跟設計一致。</li>
+        <li><strong>至少修正一輪。</strong>對照原設計，找出生成結果哪裡不對，再跟 AI 說明要怎麼調整，記錄下你下了什麼指令、改了什麼。</li>
+        <li><strong>完成一輪完整的溝通模擬。</strong>「挑剔的工程師」角色必做，記錄 AI 問了哪些問題、你怎麼回答。時間夠的話再做「預算有限的客戶」角色（加分項）。</li>
+      </ol>
+      <h3>交件前自己跑一次這個檢查</h3>
+      <ul class="check">
+        <li>生出來的 HTML 檔案，直接用瀏覽器打開會不會正確顯示？</li>
+        <li>縮小視窗寬度到手機尺寸，版面會不會跟著改變？</li>
+        <li>兩個角色的溝通模擬，有沒有記下具體的問答內容，不是只寫「有做」？</li>
+      </ul>
+      <h3>AI 使用界線</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>可以</th><th>不可以</th></tr></thead>
+          <tbody>
+            <tr><td>生成網頁</td><td>讓 AI 依照 Figma 設計生成程式碼，並指出哪裡跟設計不符</td><td>讓 AI 自己決定要不要改動你的設計內容或版面結構</td></tr>
+            <tr><td>溝通模擬</td><td>讓 AI 扮演角色質疑你，練習組織回答</td><td>讓 AI 幫你想好答案直接照唸，沒有自己組織過</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>界線的邏輯：<strong>AI 可以幫你把設計轉成程式碼、幫你練習被質疑，不能幫你決定設計本身或幫你想好每一句答案。</strong>三段提示詞在<a href="article.html#s13">講義第 13 節</a>。</p>
+      <div class="callout green"><strong>交件方式：</strong>HTML 檔案（或部署後的連結）+ 一份溝通模擬紀錄（文字檔或截圖皆可），下次上課抽點分享。</div>
+    </div>
+  </div>
+
+  <div class="band">
+    <span class="band-tag home">繳交</span>
+    <h2>繳交清單與評分配分</h2>
+  </div>
+
+  <div class="exercise home" id="submit">
+    <div class="exercise-head">
+      <p class="exercise-tag">Submission</p>
+      <h2>對應本單元回家作業</h2>
+      <div class="meta"><span class="chip">HTML 檔案 + 溝通紀錄</span><span class="chip">下次上課抽點分享</span></div>
+    </div>
+    <div class="exercise-body">
+      <h3>要交的東西</h3>
+      <ul class="check">
+        <li>1 個交接整理過的核心畫面（命名清楚、Component 有說明、標記 Ready for dev），附 Figma 連結或 Dev Mode 截圖供檢查</li>
+        <li>1 個能在瀏覽器打開的 HTML 網頁，響應式有效</li>
+        <li>至少 1 輪根據對照結果做的修正紀錄</li>
+        <li>「挑剔的工程師」角色的溝通模擬紀錄（必做）；「預算有限的客戶」角色為加分項</li>
+      </ul>
+      <h3>配分</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>項目</th><th>配分</th><th>通過的樣子</th><th>部分達成／不及格的樣子</th></tr></thead>
+          <tbody>
+            <tr><td>交接準備</td><td>20</td><td>附 Figma 連結或截圖佐證：畫面命名清楚，至少 1 個 Component 有說明並標記 Ready for dev</td><td>部分達成（10 分）：有附連結但只做到命名或只做到標記其中一項。不及格（0 分）：圖層命名雜亂（如「Frame 47」）、沒有標記 Ready for dev，或沒有附連結／截圖讓人檢查</td></tr>
+            <tr><td>生成的網頁</td><td>40</td><td>能正確打開；縮小到手機寬度時排版跟著調整（直向堆疊或導覽收合皆可），沒有內容被截斷或左右溢出；文字配色跟設計一致</td><td>部分達成（20 分）：能打開且文字配色一致，但響應式沒有處理好（例如出現左右溢出）。不及格（0 分）：打不開，或文案／配色跟設計明顯對不上</td></tr>
+            <tr><td>修正紀錄</td><td>15</td><td>具體寫出對照後發現的落差，以及怎麼下指令修正</td><td>部分達成（8 分）：有記錄但描述籠統（例如只寫「改了一下」）。不及格（0 分）：沒有修正紀錄，或寫「沒問題」但實際上網頁跟設計明顯不符</td></tr>
+            <tr><td>溝通模擬</td><td>25</td><td>完成「挑剔的工程師」角色，記錄具體問答，回答指得出限制、取捨、依據，不是空泛帶過</td><td>部分達成（12 分）：有記錄但回答只有結論沒有理由。不及格（0 分）：沒有記錄內容，或回答明顯迴避問題</td></tr>
+            <tr><td>加分：客戶角色</td><td>+10</td><td>額外完成「預算有限的客戶」角色，記錄具體問答</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn"><strong>特別說明：</strong>這份作業評的是<strong>能不能把設計交出去、講得出理由</strong>，不是網頁做得多漂亮——用 AI 生成的網頁樣式普通不扣分，打不開、響應式沒做、溝通模擬空泛帶過才扣分。</div>
+    </div>
+  </div>
+
+  <div class="foot-nav">
+    <a href="slides.html" target="_blank" rel="noopener">回到 Unit 11 簡報</a>
+    <a href="article.html" target="_blank" rel="noopener">Unit 11 完整講義</a>
+    <a href="article.html#s13" target="_blank" rel="noopener">講義第 13 節：AI 協作提示詞</a>
+    <a href="reference-web-spec/slides.html" target="_blank" rel="noopener">參考講義：Web 設計規範</a>
+    <a href="../index.html" target="_blank" rel="noopener">回到課程總覽</a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="學習角 UI/UX 線上課程報名頁示範">
+  <title>學習角｜30 天學會 UI/UX 設計基礎</title>
+  <style>
+    :root {
+      --primary: #1d4ed8;
+      --primary-hover: #1e40af;
+      --primary-soft: #dbeafe;
+      --hero-bg: #eff6ff;
+      --heading: #0f172a;
+      --body: #475569;
+      --border: #dbeafe;
+      --surface: #ffffff;
+      --footer-text: #cbd5e1;
+      --shadow: 0 8px 24px rgb(15 23 42 / 8%);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--body);
+      background: var(--surface);
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-header {
+      min-height: 96px;
+      display: flex;
+      align-items: center;
+      background: var(--surface);
+    }
+
+    .nav-inner {
+      width: min(100% - 48px, 1248px);
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .logo {
+      color: var(--primary);
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.2;
+      text-decoration: none;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .site-nav a,
+    .mobile-nav a {
+      color: #334155;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .site-nav a:hover,
+    .site-nav a:focus-visible,
+    .mobile-nav a:hover,
+    .mobile-nav a:focus-visible {
+      color: var(--primary);
+    }
+
+    .mobile-nav {
+      display: none;
+    }
+
+    .hero {
+      min-height: 376px;
+      display: flex;
+      align-items: center;
+      background: var(--hero-bg);
+    }
+
+    .hero-inner,
+    .features-inner {
+      width: min(100% - 48px, 1248px);
+      margin-inline: auto;
+    }
+
+    .hero h1 {
+      max-width: 900px;
+      margin: 0;
+      color: var(--heading);
+      font-size: 54px;
+      line-height: 1.22;
+      letter-spacing: -0.03em;
+      text-wrap: pretty;
+    }
+
+    .hero p {
+      max-width: 780px;
+      margin: 22px 0 0;
+      font-size: 20px;
+      line-height: 1.6;
+      text-wrap: pretty;
+    }
+
+    .cta {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 22px;
+      padding: 12px 28px;
+      border-radius: 12px;
+      color: #ffffff;
+      background: var(--primary);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.4;
+      text-decoration: none;
+      transition: background-color 160ms ease, transform 160ms ease;
+    }
+
+    .cta:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .cta:focus-visible,
+    .site-nav a:focus-visible,
+    .mobile-nav summary:focus-visible,
+    .mobile-nav a:focus-visible {
+      outline: 3px solid #93c5fd;
+      outline-offset: 3px;
+    }
+
+    .features {
+      padding-block: 56px;
+      background: var(--surface);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      min-height: 288px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .icon-placeholder {
+      width: 52px;
+      height: 52px;
+      flex: 0 0 52px;
+      border-radius: 50%;
+      background: var(--primary-soft);
+    }
+
+    .feature-card h2 {
+      margin: 14px 0 0;
+      color: var(--heading);
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .feature-card p {
+      margin: 14px 0 0;
+      line-height: 1.65;
+      text-wrap: pretty;
+    }
+
+    .site-footer {
+      min-height: 152px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 24px;
+      color: var(--footer-text);
+      background: var(--heading);
+      font-size: 15px;
+      text-align: center;
+    }
+
+    .site-footer p {
+      margin: 0;
+    }
+
+    @media (max-width: 700px) {
+      .site-header {
+        min-height: 80px;
+      }
+
+      .nav-inner,
+      .hero-inner,
+      .features-inner {
+        width: min(100% - 40px, 1248px);
+      }
+
+      .site-nav {
+        display: none;
+      }
+
+      .mobile-nav {
+        position: relative;
+        display: block;
+      }
+
+      .mobile-nav summary {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        color: #334155;
+        font-weight: 700;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      .mobile-nav summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .mobile-nav nav {
+        position: absolute;
+        z-index: 10;
+        top: calc(100% + 8px);
+        right: 0;
+        min-width: 156px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 8px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .mobile-nav a {
+        padding: 8px 10px;
+        border-radius: 8px;
+      }
+
+      .hero {
+        min-height: 420px;
+        padding-block: 56px;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+        line-height: 1.25;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-card {
+        min-height: 0;
+      }
+
+      .site-footer {
+        min-height: 120px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .cta {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-inner">
+      <a class="logo" href="#top" aria-label="學習角首頁">學習角</a>
+
+      <nav class="site-nav" aria-label="主要導覽">
+        <a href="#features">課程</a>
+        <a href="#about">關於我們</a>
+        <a href="#contact">聯絡我們</a>
+      </nav>
+
+      <details class="mobile-nav">
+        <summary>選單</summary>
+        <nav aria-label="行動版主要導覽">
+          <a href="#features">課程</a>
+          <a href="#about">關於我們</a>
+          <a href="#contact">聯絡我們</a>
+        </nav>
+      </details>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="about" aria-labelledby="course-title">
+      <div class="hero-inner">
+        <h1 id="course-title">30 天學會 UI/UX 設計基礎</h1>
+        <p>從設計思考到 Figma 實作，用清楚的步驟完成你的第一個介面作品。</p>
+        <a class="cta" href="#features">立即報名</a>
+      </div>
+    </section>
+
+    <section class="features" id="features" aria-label="課程特色">
+      <div class="features-inner">
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="icon-placeholder" aria-hidden="true"></span>
+            <h2>業界講師</h2>
+            <p>由具備實務經驗的設計師帶你掌握業界工作流程。</p>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-placeholder" aria-hidden="true"></span>
+            <h2>實作練習</h2>
+            <p>每個單元都有可操作的任務，邊做邊建立設計能力。</p>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-placeholder" aria-hidden="true"></span>
+            <h2>作品集產出</h2>
+            <p>完成一個可展示的介面專案，累積你的第一份作品集。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <p>© 2026 學習角 UI/UX 線上課程。保留所有權利。</p>
+  </footer>
+</body>
+</html>

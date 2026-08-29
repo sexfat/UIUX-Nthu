@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>No-Code 實作 · 完整教材 · Unit 11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #fbfbfd;
+  --dark: #1d1d1f;
+  --muted: #6e6e73;
+  --accent: #0066cc;
+  --accent2: #0f766e;
+  --accent3: #c2410c;
+  --surface: #f5f5f7;
+  --border: #d2d2d7;
+  --code-bg: #1d1d1f;
+  --max-w: 760px;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang TC", sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+  padding: 0 24px 96px;
+  line-height: 1.75;
+}
+
+#prog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: var(--accent);
+  z-index: 200;
+}
+
+.topbar {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 24px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: .04em;
+}
+.back-link:hover { opacity: .75; }
+.back-link::before { content: '←'; }
+.unit-pill {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.09);
+  padding: 4px 11px;
+  border-radius: 8px;
+}
+
+.hero {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 56px 0 40px;
+  border-bottom: 1px solid var(--border);
+}
+.overline {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.1;
+  margin-bottom: 18px;
+}
+.hero .lead {
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.75;
+}
+.hero .meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+  font-size: 12px;
+  color: var(--muted);
+  align-items: center;
+}
+.hero .meta .d {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.toc {
+  max-width: var(--max-w);
+  margin: 36px auto 0;
+  padding: 26px 30px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.toc h2 {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.toc ol { list-style: none; counter-reset: toc; columns: 2; column-gap: 32px; }
+.toc li { counter-increment: toc; margin-bottom: 10px; break-inside: avoid; }
+.toc a {
+  font-size: .92rem;
+  color: var(--dark);
+  text-decoration: none;
+  display: flex;
+  gap: 10px;
+}
+.toc a:hover { color: var(--accent); }
+.toc a::before {
+  content: counter(toc, decimal-leading-zero);
+  font-size: .72rem;
+  font-weight: 800;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  padding-top: 3px;
+}
+
+.article { max-width: var(--max-w); margin: 0 auto; }
+.section { padding-top: 56px; }
+.sec-num {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+h2.sec-title {
+  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.22;
+  margin-bottom: 20px;
+}
+h3 {
+  font-size: clamp(1.05rem, 2.2vw, 1.28rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  margin: 32px 0 12px;
+}
+p { font-size: 1rem; color: #2c2c2e; margin-bottom: 16px; }
+strong { font-weight: 800; color: var(--dark); }
+em {
+  font-style: normal;
+  background: rgba(0,102,204,.09);
+  color: var(--accent);
+  padding: 1px 6px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+.hl { color: var(--accent); font-weight: 800; }
+.hl2 { color: var(--accent2); font-weight: 800; }
+
+ul.bullets, ol.steps {
+  margin: 4px 0 20px;
+  padding-left: 0;
+  list-style: none;
+}
+ul.bullets li, ol.steps li {
+  font-size: 1rem;
+  color: #2c2c2e;
+  line-height: 1.7;
+  margin-bottom: 12px;
+  padding-left: 26px;
+  position: relative;
+}
+ul.bullets li::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: .65em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+ol.steps { counter-reset: step; }
+ol.steps li {
+  counter-increment: step;
+  padding-left: 38px;
+}
+ol.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0,102,204,.1);
+  color: var(--accent);
+  font-size: .78rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.callout {
+  margin: 24px 0;
+  padding: 18px 20px;
+  background: rgba(0,102,204,.05);
+  border: 1px solid rgba(0,102,204,.16);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  font-size: .95rem;
+  line-height: 1.7;
+  color: var(--dark);
+}
+.callout.green {
+  background: rgba(15,118,110,.06);
+  border-color: rgba(15,118,110,.2);
+  border-left-color: var(--accent2);
+}
+
+.tbl-wrap { overflow-x: auto; margin: 24px 0; -webkit-overflow-scrolling: touch; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .94rem;
+  min-width: 560px;
+}
+th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.06);
+  border-bottom: 2px solid var(--border);
+}
+th:first-child { color: var(--muted); background: transparent; }
+td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+  color: #2c2c2e;
+  line-height: 1.6;
+  vertical-align: top;
+}
+td:first-child {
+  font-weight: 800;
+  color: var(--muted);
+  font-size: .9em;
+  white-space: nowrap;
+}
+tr:last-child td { border-bottom: none; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 22px 0;
+}
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+}
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+.card p {
+  margin: 0;
+  font-size: .93rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.fig { margin: 22px 0; }
+.fig > img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.fig figcaption {
+  margin-top: 10px;
+  font-size: .85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.prompt {
+  position: relative;
+  background: var(--code-bg);
+  border-radius: 8px;
+  padding: 22px 22px 24px;
+  margin: 18px 0 26px;
+}
+.prompt pre {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .8rem;
+  line-height: 1.75;
+  color: #e8e8ed;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #c7c7cc;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+  padding: 5px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.copy-btn:hover { background: rgba(255,255,255,.16); color: #fff; }
+.copy-btn.done { color: #30d158; border-color: rgba(48,209,88,.45); }
+
+.refs {
+  max-width: var(--max-w);
+  margin: 64px auto 0;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.refs h2 {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.refs ul { list-style: none; }
+.refs li {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 10px;
+  padding-left: 18px;
+  position: relative;
+}
+.refs li::before { content: '-'; position: absolute; left: 0; color: var(--border); }
+.refs a { color: var(--accent); text-decoration: none; }
+.refs a:hover { text-decoration: underline; }
+
+.foot-nav {
+  max-width: var(--max-w);
+  margin: 48px auto 0;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.foot-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  border: 1px solid rgba(0,102,204,.18);
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.foot-nav a:hover { background: rgba(0,102,204,.14); }
+.foot-nav a::after { content: '↗'; font-size: 11px; opacity: .8; }
+
+.side-nav {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: calc(50% - (var(--max-w) / 2) - 258px);
+  transform: translateY(-50%);
+  width: 220px;
+  max-height: 72vh;
+  overflow-y: auto;
+  z-index: 150;
+}
+.side-nav-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+  padding-left: 15px;
+}
+.side-nav ol {
+  list-style: none;
+  counter-reset: sidenav;
+  border-left: 2px solid var(--border);
+}
+.side-nav li { counter-increment: sidenav; }
+.side-nav a {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: .82rem;
+  line-height: 1.45;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 7px 0 7px 15px;
+  margin-left: -2px;
+  border-left: 2px solid transparent;
+  transition: color .15s, border-color .15s;
+}
+.side-nav a::before {
+  content: counter(sidenav, decimal-leading-zero);
+  font-size: .68rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--border);
+  flex-shrink: 0;
+}
+.side-nav a:hover { color: var(--dark); }
+.side-nav a.active {
+  color: var(--accent);
+  font-weight: 700;
+  border-left-color: var(--accent);
+}
+.side-nav a.active::before { color: var(--accent); }
+
+@media (min-width: 1400px) {
+  .side-nav { display: block; }
+}
+
+@media (max-width: 768px) {
+  body { padding-left: 18px; padding-right: 18px; }
+  .toc ol { columns: 1; }
+  .cards { grid-template-columns: 1fr; }
+  .hero { padding: 40px 0 32px; }
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<nav class="side-nav" aria-label="大綱導覽">
+  <p class="side-nav-label">大綱</p>
+  <ol>
+    <li><a href="#s1">開發者不是最後一站的收件人</a></li>
+    <li><a href="#s2">交接前要準備的事</a></li>
+    <li><a href="#s3">Dev Mode 是什麼</a></li>
+    <li><a href="#s4">Dev Mode 提供的資訊</a></li>
+    <li><a href="#s5">溝通做法：早期協作與有脈絡的說明</a></li>
+    <li><a href="#s6">Claude Code 是什麼</a></li>
+    <li><a href="#s7">Figma MCP：讓 Claude Code 讀懂設計</a></li>
+    <li><a href="#s8">設定步驟</a></li>
+    <li><a href="#s9">兩種工作方式</a></li>
+    <li><a href="#s10">Gemini CLI</a></li>
+    <li><a href="#s11">溝通模擬：跟 AI 練習解釋設計決策</a></li>
+    <li><a href="#s12">課堂練習與回家作業</a></li>
+    <li><a href="#s13">AI 協作提示詞</a></li>
+  </ol>
+</nav>
+
+<div class="topbar">
+  <a class="back-link" href="slides.html">回到投影片</a>
+  <span class="unit-pill">Unit 11</span>
+</div>
+
+<div class="hero">
+  <p class="overline">No-Code 實作 · 完整教材</p>
+  <h1>No-Code 實作</h1>
+  <p class="lead">手上的 Figma 檔案不會自己變成網站。這堂課做兩件銜接的事：先把設計交接好——讓工程師看得懂、接得住；再用 AI 工具把同一份設計直接生成一個能在瀏覽器打開的網頁。兩件事共用同一個邏輯：<strong>把設計脈絡講清楚，對方（不管是人還是 AI）才能做出你要的東西</strong>。Unit 12 專題發表時，這個網頁會是你的作品之一。</p>
+  <div class="meta">
+    <span>閱讀時間約 16 分鐘</span><span class="d"></span>
+    <span>搭配 Unit 11 投影片</span><span class="d"></span>
+    <span>含練習、作業與 AI 提示詞</span>
+  </div>
+</div>
+
+<div class="toc">
+  <h2>目錄</h2>
+  <ol>
+    <li><a href="#s1">開發者不是最後一站的收件人</a></li>
+    <li><a href="#s2">交接前要準備的事</a></li>
+    <li><a href="#s3">Dev Mode 是什麼</a></li>
+    <li><a href="#s4">Dev Mode 提供的資訊</a></li>
+    <li><a href="#s5">溝通做法：早期協作與有脈絡的說明</a></li>
+    <li><a href="#s6">Claude Code 是什麼</a></li>
+    <li><a href="#s7">Figma MCP：讓 Claude Code 讀懂設計</a></li>
+    <li><a href="#s8">設定步驟</a></li>
+    <li><a href="#s9">兩種工作方式</a></li>
+    <li><a href="#s10">Gemini CLI</a></li>
+    <li><a href="#s11">溝通模擬：跟 AI 練習解釋設計決策</a></li>
+    <li><a href="#s12">課堂練習與回家作業</a></li>
+    <li><a href="#s13">AI 協作提示詞</a></li>
+  </ol>
+</div>
+
+<div class="article">
+
+  <section class="section" id="s1">
+    <p class="sec-num">01</p>
+    <h2 class="sec-title">開發者不是最後一站的收件人</h2>
+    <p>Figma 官方對交接的說法很直接：把開發者當協作夥伴，不是流程最後才收到檔案的人。Dropbox、Expedia、Cash App 等團隊的做法顯示，及早分享檔案、保持設計過程透明、讓開發者看得到迭代——不是只看最終畫面——是建立設計師與工程師互信的關鍵。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>做法</th><th>結果</th></tr></thead>
+        <tbody>
+          <tr><td>做完整份設計才丟連結</td><td>工程師第一次看到就要馬上實作，問題到這時候才浮現</td></tr>
+          <tr><td>設計進行中就邀請開發者加入</td><td>能持續提問、給回饋，交接時的意外狀況變少</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="s2">
+    <p class="sec-num">02</p>
+    <h2 class="sec-title">交接前要準備的事</h2>
+    <p>丟連結之前，這些是 Figma 官方列出的準備工作：</p>
+    <ul class="bullets">
+      <li><strong>用 Emoji 標示頁面狀態</strong>（例如 🏗️ 施工中、💭 待討論、🚢 可上線），讓人一眼看出哪些設計還在改、哪些已經定案。</li>
+      <li><strong>幫關鍵 Frame 設定自訂縮圖</strong>，在檔案瀏覽時提供視覺線索。</li>
+      <li><strong>把最終設計做成 Component Instance</strong>，放在乾淨、整理過的頁面，跟散亂的工作區分開。</li>
+      <li><strong>Component 完整記錄</strong>：名稱、說明、使用方式、Variant 都要寫清楚。</li>
+      <li><strong>Style 與 Variable 命名要跟程式碼庫慣例一致</strong>。</li>
+      <li><strong>主元件旁邊附說明 Frame</strong>，讓開發者可以直接參考。</li>
+      <li><strong>Component 的說明欄位加無障礙注意事項與相關連結</strong>。</li>
+      <li><strong>確保開發者能存取設計系統資料庫</strong>，裡面包含所有主元件。</li>
+    </ul>
+  </section>
+
+  <section class="section" id="s3">
+    <p class="sec-num">03</p>
+    <h2 class="sec-title">Dev Mode 是什麼</h2>
+    <p>Dev Mode 是「一個以開發者為中心的介面，用來檢視與瀏覽設計」，提供進階的檢視工具、程式碼產生、版本比較與整合功能，簡化交接流程。</p>
+    <p><strong>開啟方式：</strong>打開一份 Figma Design 檔案，點工具列上的 Dev Mode 切換鈕，或按快捷鍵 <strong>Shift + D</strong>。同樣的快捷鍵可以切回 Design 模式。</p>
+    <p><strong>Ready for dev 狀態：</strong>標示某個 Component、Frame 或 Section 已經準備好交給開發者實作。設計師標記後，會出現在 Dev Mode 的導覽面板裡。Organization／Enterprise 方案還多一個「Completed」狀態可以追蹤進度。</p>
+  </section>
+
+  <section class="section" id="s4">
+    <p class="sec-num">04</p>
+    <h2 class="sec-title">Dev Mode 提供的資訊</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>項目</th><th>內容</th></tr></thead>
+        <tbody>
+          <tr><td>程式碼片段</td><td>多種語言的程式碼片段，可透過外掛（如 Tailwind、React）自訂輸出格式</td></tr>
+          <tr><td>圖層屬性</td><td>版面、間距、顏色、互動設定</td></tr>
+          <tr><td>測量與標註</td><td>間距與尺寸的視覺化標示</td></tr>
+          <tr><td>可下載素材</td><td>自動偵測的圖示、圖片、影片</td></tr>
+          <tr><td>元件中繼資料</td><td>Variant、屬性，可以直接互動測試</td></tr>
+          <tr><td>設計變更</td><td>版本歷史比對</td></tr>
+          <tr><td>外部資源連結</td><td>可連到 GitHub、Jira、Storybook、VS Code</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="s5">
+    <p class="sec-num">05</p>
+    <h2 class="sec-title">溝通做法：早期協作與有脈絡的說明</h2>
+    <ul class="bullets">
+      <li><strong>邀請開發者以 Viewer 身分加入檔案。</strong>免費、不需要付費授權，讓他們可以檢視、匯出素材、看程式碼、留言。</li>
+      <li><strong>提供有脈絡的說明文件，而不是傳統的紅線標註稿。</strong>分享問題定義、研究過程、迭代決策的敘事脈絡；用 Code Panel 顯示 CSS、iOS、Android 的程式碼片段搭配元件細節。</li>
+      <li><strong>鼓勵早期協作。</strong>讓開發者在設計還在進行時就加入檔案，能持續提問、給回饋，而不是等做完才發現問題，減少交接時的意外狀況。</li>
+    </ul>
+    <div class="callout green">工程師要知道的是「為什麼這樣設計」，不是只知道「這裡是 16px」。紅線標註稿告訴他數字，敘事脈絡告訴他理由——理由才是他判斷「這個能不能改」的依據。</div>
+  </section>
+
+  <section class="section" id="s6">
+    <p class="sec-num">06</p>
+    <h2 class="sec-title">Claude Code 是什麼</h2>
+    <p>Claude Code 是「一個活在終端機裡的 agentic 編碼工具，能理解你的程式碼庫，透過執行例行任務、解釋複雜程式碼、處理 git 工作流程，幫你更快寫程式——全部用自然語言下指令」。</p>
+    <p>它不是一個「生成程式碼的聊天介面」，而是一個會<strong>規劃工作、讀你的程式碼庫、跨多個目錄編輯檔案、跑測試、建立 Pull Request</strong> 的 Agent。安裝完成後，在任何專案資料夾執行 <code>claude</code> 就能開始互動式工作階段。</p>
+    <div class="callout">CLI 版本是功能最完整的介面——新功能最先出現在這裡。VS Code 擴充套件、JetBrains 外掛、桌面應用程式與網頁介面都共用同一套底層引擎，CLI 裡設定的東西在其他介面也通用。</div>
+  </section>
+
+  <section class="section" id="s7">
+    <p class="sec-num">07</p>
+    <h2 class="sec-title">Figma MCP：讓 Claude Code 讀懂設計</h2>
+    <p>Figma MCP Server 讓 Claude Code「讀取結構化的設計脈絡——包含 Component、Variable、版面資料、FigJam 內容——並且能從選取的 Frame 產生程式碼，透過 Code Connect 讓產生的程式碼跟真正的元件保持一致」。連上之後，Claude Code 能讀到 Figma 檔案裡實際的顏色、間距、Component Variant，不需要人工把設計規格再轉譯一次成文字。</p>
+    <div class="fig">
+      <img src="resources/figma-demo/01-landing-mockup.png" alt="一頁式線上課程報名頁的 Figma 設計稿：導覽列、Hero 大標題與 CTA 按鈕、三張特色卡片、頁尾">
+      <figcaption>示範檔：這份設計稿實際被轉成了一個可以打開的網頁，兩者用的是同一套文案與配色，見 <code>resources/demo-site/index.html</code>；原始 Figma 檔案在<a class="hl" href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=7-3" target="_blank" rel="noopener">這裡</a>，練習時會直接用這份檔案。</figcaption>
+    </div>
+  </section>
+
+  <section class="section" id="s8">
+    <p class="sec-num">08</p>
+    <h2 class="sec-title">設定步驟</h2>
+    <p>Remote 版本是官方建議大多數人使用的方式：</p>
+    <ol class="steps">
+      <li>在終端機執行 <code>claude plugin install figma@claude-plugins-official</code>。</li>
+      <li>按 Enter，重新啟動 Claude Code。</li>
+      <li>輸入 <code>/plugin</code>，切到 Installed 分頁。</li>
+      <li>選取 figma 伺服器，按 Enter 進行授權登入。</li>
+      <li>在跳出的外部授權頁面點「Allow access」。</li>
+      <li>回到終端機再執行一次 <code>/plugin</code>，確認 figma 伺服器顯示為已連線。</li>
+    </ol>
+    <div class="callout">Desktop 版本（Enterprise 專用）可以透過 Figma App 的 Dev Mode 啟用桌面版 MCP Server，再用 <code>claude mcp add</code> 指令設定——大多數課堂情境用不到，知道有這個選項即可。</div>
+  </section>
+
+  <section class="section" id="s9">
+    <p class="sec-num">09</p>
+    <h2 class="sec-title">兩種工作方式</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>方式</th><th>做法</th></tr></thead>
+        <tbody>
+          <tr><td>選取式（Selection-based）</td><td>在 Figma 裡選取一個 Frame 或 Component，跟 Claude 說「幫這張卡片加一個按鈕」</td></tr>
+          <tr><td>連結式（Link-based）</td><td>直接貼 Figma 連結，跟 Claude 說「把這個註冊卡片設計轉成程式碼：[figma 連結]」</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>兩種方式都需要先確定「要對哪個範圍講話」——選取式限定在你選的那個 Frame；連結式讓 Claude 自己去讀連結指到的節點。圖層命名清楚一點（例如「CTA 按鈕」而不是「Frame 47」），有助 AI 辨識結構。</p>
+  </section>
+
+  <section class="section" id="s10">
+    <p class="sec-num">10</p>
+    <h2 class="sec-title">Gemini CLI</h2>
+    <p>Gemini CLI 是 Google 的開源 AI 終端機助手，把 Gemini 模型整合進命令列工作流程，讓開發者能在終端機裡自動化除錯、重構程式碼、產生測試、寫文件。以互動式的 REPL（Read-Eval-Print Loop）環境運作，內建 Google 搜尋、檔案操作、Shell 指令、網頁擷取等工具，並支援 MCP，可以用類似的方式接上其他資料來源（包含 Figma）。</p>
+    <p>清華大學課程大綱把 Claude Code 與 Gemini CLI 並列為「介紹用的 AI 網頁生成工具」——兩者的核心能力類似：讀懂脈絡、用自然語言下指令、直接修改檔案。上課示範用哪一個，看現場環境跟帳號能不能用決定，操作邏輯是共通的。</p>
+    <div class="callout">個人 Google 帳號的免費額度是每分鐘 60 次、每天 1,000 次請求——這個數字依 Google 官方公告為準，可能會調整，上課前建議先查最新額度再決定要不要用它做課堂練習。</div>
+  </section>
+
+  <section class="section" id="s11">
+    <p class="sec-num">11</p>
+    <h2 class="sec-title">溝通模擬：跟 AI 練習解釋設計決策</h2>
+    <p>清華大學課程大綱的做法：<strong>學生可以請 Gemini 扮演「挑剔的工程師」或「預算有限的客戶」，練習如何解釋自己的設計決策並應對質疑。</strong></p>
+    <p>這個練習不是要說服 AI，是練習把「為什麼這樣設計」講清楚。工程師會質疑技術可行性與工時，客戶會質疑成本與必要性——兩種角色問的問題不一樣，你回答的角度也要不一樣。Unit 12 專題發表會被真人問到類似的問題，這裡先練一次。</p>
+  </section>
+
+  <section class="section" id="s12">
+    <p class="sec-num">12</p>
+    <h2 class="sec-title">課堂練習與回家作業</h2>
+    <p>課堂練習用 90 分鐘，四個階段接著做：交接準備 → 工具設定 → 生成網頁 → 溝通模擬。完整步驟、時間分配與交件標準在<a class="hl" href="exercises.html#ex1">練習頁</a>。</p>
+    <p>回家作業把課堂練的工具實際用在自己專題的一個核心畫面上，跑出一個真的能打開的網頁，細節在<a class="hl" href="exercises.html#hw">練習頁的回家作業</a>。</p>
+  </section>
+
+  <section class="section" id="s13">
+    <p class="sec-num">13</p>
+    <h2 class="sec-title">AI 協作提示詞</h2>
+    <p>這三段提示詞用在課堂練習與回家作業。前兩段是操作 Claude Code／Gemini CLI 時直接可以用的指令句型；第三段是溝通模擬的角色扮演腳本。</p>
+
+    <h3>① 選取式：針對選取的 Frame 下指令</h3>
+    <div class="prompt">
+      <button class="copy-btn">複製</button>
+      <pre>我已經在 Figma 裡選取了一個 Frame，名稱是「[貼上你的 Frame 名稱]」。
+
+請根據這個 Frame 目前的版面、文字內容與配色，生成一個單一 HTML 檔案（內嵌 CSS，不需要外部框架），要求：
+
+1. 響應式（RWD）：寬螢幕維持目前的版面比例，窄於 700px 時改成適合手機操作的排版——多欄內容通常改直向堆疊，導覽列這類元素可以改成收合選單，原則是內容不能被截斷、也不能出現需要左右捲動的溢出。
+2. 文字內容、標題、按鈕文案都要跟 Figma 裡看到的一致，不要自己編新的文案。
+3. 配色沿用 Figma 裡的顏色，不要換成別的配色。
+
+完成後告訴我你依據了哪些圖層或 Component 做出對應的區塊。</pre>
+    </div>
+
+    <h3>② 連結式：貼連結直接轉換</h3>
+    <div class="prompt">
+      <button class="copy-btn">複製</button>
+      <pre>把這個 Figma 設計轉成程式碼：[貼上你的 Figma 檔案或 Frame 連結]
+
+要求：
+
+1. 輸出一個單一 HTML 檔案（內嵌 CSS），檔名為 index.html。
+2. 響應式（RWD），手機寬度時排版要適合手機操作（常見做法是多欄改直向堆疊、導覽列改收合選單），內容不能被截斷或出現左右溢出。
+3. 版面結構、文字、配色要跟設計稿一致。
+
+如果連結裡有多個 Frame，先列出你看到的所有 Frame 名稱，讓我確認要轉換哪一個，再開始生成。</pre>
+    </div>
+
+    <h3>③ 溝通模擬：扮演挑剔的工程師／預算有限的客戶</h3>
+    <div class="prompt">
+      <button class="copy-btn">複製</button>
+      <pre>請你扮演一位「挑剔的工程師」（或：「預算有限的客戶」，兩種角色我會分開各練一次），我會跟你說明我的設計決策，你要用這個角色的立場質疑我。
+
+我的設計背景：
+
+[貼上你的專題一句話說明：使用者是誰、要解決什麼問題]
+
+我要說明的設計決策：
+
+[貼上你想解釋的一個具體決策，例如「為什麼登入頁用這個欄位順序」]
+
+請你：
+
+1. 用這個角色會問的方式提出至少 3 個尖銳的問題（工程師關心技術可行性、維護成本、邊界情況；客戶關心費用、時程、對業務的必要性）。
+2. 我回答之後，指出我的回答有沒有真的回應到問題，還是在迴避。
+3. 不要幫我想答案，只負責質疑與判斷我的回答夠不夠有說服力。</pre>
+    </div>
+  </section>
+
+</div>
+
+<div class="refs">
+  <h2>參考資料</h2>
+  <ul>
+    <li><a href="https://www.figma.com/best-practices/guide-to-developer-handoff/" target="_blank" rel="noopener">Guide to developer handoff in Figma</a> — Figma Best Practices，第 1、2、5 節的出處。</li>
+    <li><a href="https://help.figma.com/hc/en-us/articles/15023124644247-Guide-to-Dev-Mode" target="_blank" rel="noopener">Guide to Dev Mode</a> — Figma Help Center，第 3、4 節的出處。</li>
+    <li><a href="https://github.com/anthropics/claude-code" target="_blank" rel="noopener">anthropics/claude-code</a> — GitHub，第 6 節的出處。</li>
+    <li><a href="https://claude.com/product/claude-code" target="_blank" rel="noopener">Claude Code by Anthropic</a> — 第 6 節的出處。</li>
+    <li><a href="https://help.figma.com/hc/en-us/articles/39888612464151-Claude-Code-and-Figma-Set-up-the-MCP-server" target="_blank" rel="noopener">Claude Code and Figma: Set up the MCP server</a> — Figma Help Center，第 7、8、9 節的出處。</li>
+    <li><a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener">google-gemini/gemini-cli</a> — GitHub，第 10 節的出處。</li>
+    <li><a href="https://geminicli.com/docs/" target="_blank" rel="noopener">Gemini CLI 官方文件</a> — 第 10 節的出處。</li>
+    <li><a href="../清華大學課程大綱.md" target="_blank" rel="noopener">清華大學課程大綱</a> — 第 6、10、11 節「AI 網頁生成」與「溝通模擬」的原始課綱依據。</li>
+    <li>本單元的中文來源整理：Unit_11/resources/dev-handoff.md、figma-mcp-claude-code.md。</li>
+  </ul>
+</div>
+
+<div class="foot-nav">
+  <a href="slides.html">回到 Unit 11 簡報</a>
+  <a href="exercises.html#ex1">開啟課堂練習</a>
+  <a href="exercises.html#hw">開啟回家作業</a>
+  <a href="reference-web-spec/slides.html">參考講義：Web 設計規範</a>
+  <a href="../index.html">回到課程總覽</a>
+</div>
+
+<script>
+(function () {
+  const prog = document.getElementById('prog');
+  function updateProgress() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? window.scrollY / max * 100 : 0;
+    prog.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+})();
+
+(function () {
+  const nav = document.querySelector('.side-nav');
+  if (!nav || !('IntersectionObserver' in window)) return;
+  const links = Array.from(nav.querySelectorAll('a'));
+  const sections = links
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  const linkFor = new Map(sections.map((sec, i) => [sec, links[i]]));
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const link = linkFor.get(entry.target);
+      if (!link) return;
+      links.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  }, { rootMargin: '-10% 0px -75% 0px', threshold: 0 });
+
+  sections.forEach(sec => observer.observe(sec));
+})();
+
+(function () {
+  document.querySelectorAll('.prompt').forEach(prompt => {
+    const btn = prompt.querySelector('.copy-btn');
+    const pre = prompt.querySelector('pre');
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        btn.textContent = '已複製';
+        btn.classList.add('done');
+        setTimeout(() => {
+          btn.textContent = '複製';
+          btn.classList.remove('done');
+        }, 1400);
+      } catch (error) {
+        btn.textContent = '複製失敗';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

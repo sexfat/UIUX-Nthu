@@ -16,6 +16,9 @@
 | [Unit 10 完整教材建置（Mockup 精度與十大易用性）](spec/unit10-mockup-heuristics.md) | [spec](spec/unit10-mockup-heuristics.md) | [log](changelog/unit10-mockup-heuristics.md) | done | 2026-08-11 |
 | [Unit 11 APP UI 設計規範教材與自我檢核表](spec/unit11-app-ui.md) | [spec](spec/unit11-app-ui.md) | [log](changelog/unit11-app-ui.md) | done | 2026-08-14 |
 | [課程改版：清華大學課綱同步、單元重新編號與教材整合](spec/tsinghua-course-migration.md) | [spec](spec/tsinghua-course-migration.md) | [log](changelog/tsinghua-course-migration.md) | done | 2026-08-14 |
+| [Unit 03 完整教材建置（Figma 基本操作）](spec/unit03-figma-basics.md) | [spec](spec/unit03-figma-basics.md) | [log](changelog/unit03-figma-basics.md) | done | 2026-08-29 |
+| [Unit 05 完整教材建置（產品設計基本元素）](spec/unit05-basic-elements.md) | [spec](spec/unit05-basic-elements.md) | [log](changelog/unit05-basic-elements.md) | done | 2026-08-29 |
+| [Unit 11 完整教材建置（No-Code 實作）](spec/unit11-no-code.md) | [spec](spec/unit11-no-code.md) | [log](changelog/unit11-no-code.md) | done | 2026-08-29 |
 
 ## 修復紀錄
 

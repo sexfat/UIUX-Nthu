@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 11 · No-Code 實作</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #fbfbfd;
+  --dark: #1d1d1f;
+  --muted: #6e6e73;
+  --accent: #0066cc;
+  --accent2: #0f766e;
+  --accent3: #c2410c;
+  --positive: #0f766e;
+  --negative: #c2410c;
+  --surface: #f5f5f7;
+  --card: #ffffff;
+  --border: #d2d2d7;
+  --px: clamp(44px, 7vw, 108px);
+  --py: 52px;
+}
+
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang TC", sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+#prog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width .45s cubic-bezier(.4,0,.2,1);
+  z-index: 200;
+}
+
+#deck { position: relative; width: 100%; height: 100vh; }
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--py) var(--px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(18px);
+  transition: opacity .45s cubic-bezier(.4,0,.2,1), transform .45s cubic-bezier(.4,0,.2,1), visibility 0s .45s;
+  overflow: hidden;
+}
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity .45s cubic-bezier(.4,0,.2,1), transform .45s cubic-bezier(.4,0,.2,1), visibility 0s 0s;
+}
+
+.slide-head, .slide-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  height: 28px;
+  position: relative;
+  z-index: 1;
+}
+.slide-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.unit-pill {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.09);
+  padding: 4px 11px;
+  border-radius: 8px;
+}
+.slide-num { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.course-label { font-size: 11px; color: #a1a1a6; }
+
+.dots { display: flex; gap: 5px; align-items: center; }
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: all .25s ease;
+}
+.dot.on { width: 16px; border-radius: 3px; background: var(--accent); }
+
+.overline {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+.divider {
+  width: 42px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin: 8px 0 26px;
+}
+h1 {
+  font-size: clamp(1.9rem, 3.8vw, 3.55rem);
+  font-weight: 800;
+  line-height: 1.12;
+  color: var(--dark);
+}
+h2 {
+  font-size: clamp(.95rem, 1.45vw, 1.25rem);
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-top: 14px;
+  max-width: 900px;
+}
+
+.cover-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+.cover-eyebrow::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--muted);
+}
+.cover-title {
+  font-size: clamp(2.35rem, 5.2vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 22px;
+}
+.cover-sub {
+  font-size: clamp(.95rem, 1.55vw, 1.25rem);
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 44px;
+}
+.cover-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
+
+.agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 38px;
+}
+.agenda-card, .mini-card {
+  background: var(--surface);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.a-step {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.a-time, .mini-card strong {
+  font-size: clamp(.9rem, 1.25vw, 1.08rem);
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.35;
+}
+.a-desc, .mini-card span {
+  font-size: clamp(.78rem, 1.05vw, .94rem);
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.blist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 28px;
+}
+.blist li {
+  font-size: clamp(.88rem, 1.25vw, 1.08rem);
+  color: var(--dark);
+  line-height: 1.58;
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-radius: 8px;
+}
+.blist li::before {
+  content: attr(data-n);
+  min-width: 30px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--accent);
+  background: rgba(0,102,204,.1);
+  padding: 2px 7px;
+  border-radius: 5px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.blist.plain li::before {
+  content: '';
+  min-width: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  padding: 0;
+  margin-top: .6em;
+}
+.blist.compact { gap: 8px; margin-top: 18px; }
+.blist.compact li { padding: 9px 13px; font-size: clamp(.78rem, 1.02vw, .94rem); }
+.hl { color: var(--accent); font-weight: 700; }
+.hl2 { color: var(--accent2); font-weight: 700; }
+.warn-text { color: var(--accent3); font-weight: 700; }
+
+.bg-n {
+  position: absolute;
+  right: calc(var(--px) - 16px);
+  top: 50%;
+  transform: translateY(-52%);
+  font-size: clamp(130px, 21vw, 250px);
+  font-weight: 800;
+  color: var(--surface);
+  line-height: 1;
+  z-index: 0;
+  user-select: none;
+  pointer-events: none;
+}
+.layer-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  padding: 5px 12px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  width: fit-content;
+}
+.matrix {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 26px;
+}
+.matrix.c3 { grid-template-columns: repeat(3, 1fr); }
+.matrix.c4 { grid-template-columns: repeat(4, 1fr); }
+.matrix.c5 { grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.mini-card.accent { border-color: rgba(15,118,110,.22); background: rgba(15,118,110,.06); }
+.mini-card.warn { border-color: rgba(194,65,12,.22); background: rgba(194,65,12,.06); }
+
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  font-size: clamp(.72rem, .98vw, .92rem);
+}
+.cmp-table th {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 10px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.06);
+  border-bottom: 2px solid var(--border);
+}
+.cmp-table td {
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--dark);
+  line-height: 1.45;
+  vertical-align: top;
+}
+.cmp-table tr:last-child td { border-bottom: none; }
+.cmp-table td:first-child { font-weight: 700; color: var(--muted); white-space: nowrap; }
+
+.note {
+  margin-top: 17px;
+  font-size: clamp(.72rem, .92vw, .86rem);
+  color: var(--muted);
+  line-height: 1.6;
+  padding: 11px 14px;
+  background: var(--surface);
+  border-left: 3px solid var(--accent2);
+  border-radius: 0 8px 8px 0;
+}
+.note a { color: var(--accent); font-weight: 700; text-decoration: none; }
+.note a:hover { text-decoration: underline; }
+
+.chain {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 34px;
+}
+.chain.c5 { grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.chain.c6 { grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.chain-step {
+  position: relative;
+  padding: 22px 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+}
+.chain-step:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  right: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent);
+  font-size: 18px;
+  font-weight: 700;
+}
+.chain-step b { display: block; color: var(--accent); font-size: .78rem; margin-bottom: 8px; }
+.chain-step span { display: block; color: var(--muted); line-height: 1.5; font-size: .86rem; }
+
+.stat-row { display: flex; gap: 34px; flex-wrap: wrap; margin-top: 32px; }
+.stat b { display: block; font-size: clamp(2.1rem, 4.4vw, 3.3rem); line-height: 1; color: var(--accent); }
+.stat span { display: block; margin-top: 9px; color: var(--muted); line-height: 1.5; font-size: .9rem; }
+
+.slide-img {
+  display: block;
+  max-width: 100%;
+  max-height: 46vh;
+  width: auto;
+  margin: 22px auto 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  object-fit: contain;
+}
+.slide.dark .slide-img { border-color: #3a3a3c; }
+.img-cap {
+  text-align: center;
+  font-size: .78rem;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+.res-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 22px;
+}
+.res-link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: border-color .2s, transform .2s;
+}
+.res-link:hover { border-color: var(--accent); transform: translateY(-2px); }
+.res-link strong { font-size: .94rem; color: var(--dark); }
+.res-link span { font-size: .75rem; color: var(--muted); }
+
+.slide-body a.ilink {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,102,204,.35);
+}
+.slide-body a.ilink:hover { border-bottom-color: var(--accent); }
+
+#ctrls {
+  position: fixed;
+  bottom: 28px;
+  right: clamp(36px, 5vw, 80px);
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+}
+#ctrls button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(29,29,31,.06);
+  color: var(--dark);
+  cursor: pointer;
+  font-size: 15px;
+  transition: background .2s, transform .15s;
+}
+#ctrls button:hover { background: rgba(29,29,31,.12); transform: scale(1.04); }
+#ctrls.on-dark button { background: rgba(255,255,255,.16); color: #fff; }
+
+.slide.dark { background: #1d1d1f; }
+.slide.dark h1 { color: #f5f5f7; }
+.slide.dark h2, .slide.dark .course-label, .slide.dark .slide-num { color: #a1a1a6; }
+.slide.dark .overline, .slide.dark .hl, .slide.dark .unit-pill, .slide.dark .layer-badge { color: #58a6ff; }
+.slide.dark .divider, .slide.dark .dot.on { background: #58a6ff; }
+.slide.dark .unit-pill, .slide.dark .layer-badge { background: rgba(88,166,255,.13); }
+.slide.dark .bg-n { color: #2c2c2e; }
+.slide.dark .blist li, .slide.dark .agenda-card, .slide.dark .mini-card, .slide.dark .chain-step {
+  background: rgba(255,255,255,.055);
+  color: #f5f5f7;
+  border-color: #3a3a3c;
+}
+.slide.dark .blist li::before { color: #58a6ff; background: rgba(88,166,255,.15); }
+.slide.dark .mini-card strong, .slide.dark .a-time, .slide.dark .chain-step span { color: #f5f5f7; }
+.slide.dark .mini-card span, .slide.dark .a-desc { color: #a1a1a6; }
+.slide.dark .chain-step b { color: #58a6ff; }
+.slide.dark .stat b { color: #58a6ff; }
+.slide.dark .stat span { color: #a1a1a6; }
+.slide.dark .dot { background: #3a3a3c; }
+.slide.dark .note { background: rgba(255,255,255,.055); color: #a1a1a6; border-left-color: #58a6ff; }
+.slide.dark .note a { color: #58a6ff; }
+.slide.dark .cmp-table th { color: #58a6ff; background: rgba(88,166,255,.1); border-bottom-color: #3a3a3c; }
+.slide.dark .cmp-table td { color: #f5f5f7; border-bottom-color: #3a3a3c; }
+.slide.dark .cmp-table td:first-child { color: #a1a1a6; }
+.slide.dark .res-link { background: rgba(255,255,255,.055); border-color: #3a3a3c; }
+.slide.dark .res-link strong { color: #f5f5f7; }
+.slide.dark .res-link span { color: #a1a1a6; }
+.slide.dark .slide-body a.ilink { color: #58a6ff; border-bottom-color: rgba(88,166,255,.42); }
+.slide.dark .slide-body a.ilink:hover { border-bottom-color: #58a6ff; }
+.slide.dark .img-cap { color: #a1a1a6; }
+
+@media (max-width: 768px) {
+  :root { --px: 20px; --py: 20px; }
+  .slide { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .slide-body { justify-content: flex-start; padding: 12px 0; }
+  .agenda-grid, .matrix, .matrix.c3, .matrix.c4, .matrix.c5,
+  .res-links, .chain, .chain.c5, .chain.c6 { grid-template-columns: 1fr; gap: 10px; margin-top: 16px; }
+  .chain-step:not(:last-child)::after { display: none; }
+  .cmp-table { display: block; overflow-x: auto; }
+  .blist { margin-top: 16px; gap: 8px; }
+  .stat-row { gap: 24px; margin-top: 20px; }
+  .cover-sub { margin-bottom: 22px; }
+  .bg-n, .course-label, .dots { display: none; }
+}
+
+.to-index { font-size: 11px; font-weight: 700; letter-spacing: .04em; color: currentColor;
+            opacity: .55; text-decoration: underline; text-underline-offset: 3px;
+            transition: opacity .2s; }
+.to-index:hover { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<div id="deck">
+
+  <!-- 01 Cover -->
+  <section class="slide active">
+    <div class="slide-head"><span style="display:inline-flex;align-items:center;gap:10px"><span class="unit-pill">Unit 11</span><a class="to-index" href="../index.html" title="回到課程總覽">↩ 課程總覽</a></span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <div class="cover-eyebrow">國立清華大學 UI/UX 設計課程 · 2026</div>
+      <h1 class="cover-title">No-Code 實作<br><span style="font-size:.55em;font-weight:600;opacity:.75">跟工程師交接 × AI 把設計變成網頁</span></h1>
+      <p class="cover-sub">手上的 Figma 檔案不會自己變成網站。這堂課做兩件事：把檔案交接好，再用 AI 工具把設計直接生成一個能打開的網頁。</p>
+      <div class="cover-meta">
+        <span>12/2</span><span class="meta-dot"></span><span>19 張投影片</span><span class="meta-dot"></span><span>含 Figma 與 AI 工具實作</span>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 02 Agenda -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Agenda</p>
+      <h1>從交接文件，走到一個真的能打開的網頁</h1>
+      <div class="agenda-grid">
+        <div class="agenda-card">
+          <span class="a-step">Part 1 · 35 min</span>
+          <span class="a-time">跟工程師協作</span>
+          <span class="a-desc">Dev Mode、交接前要準備的事、怎麼溝通不失真。</span>
+        </div>
+        <div class="agenda-card">
+          <span class="a-step">Part 2 · 35 min</span>
+          <span class="a-time">AI 網頁生成</span>
+          <span class="a-desc">Claude Code／Gemini CLI 接上 Figma，兩種工作方式。</span>
+        </div>
+        <div class="agenda-card">
+          <span class="a-step">Part 3 · 90 min</span>
+          <span class="a-time">課堂練習</span>
+          <span class="a-desc">四階段：交接準備 → 工具設定 → 生成網頁 → 溝通模擬。</span>
+        </div>
+        <div class="agenda-card">
+          <span class="a-step">Part 4 · 10 min</span>
+          <span class="a-time">成果分享</span>
+          <span class="a-desc">抽點分享生出來的網頁跟原設計差在哪。</span>
+        </div>
+      </div>
+      <div class="note">35 + 35 + 90 + 10 = 170 分，加上中間 10 分鐘休息，剛好 180 分。休息排在 Part 1 結束後。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 03 為什麼交接重要 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Handoff</p>
+      <h1>開發者不是流程最後才收到檔案的人</h1>
+      <h2>Figma 官方的說法很直接：<span class="hl">把開發者當協作夥伴，不是最後一站的收件人</span>。及早分享檔案、保持過程透明、讓對方看得到你的迭代，是設計師跟工程師互信的基礎——不是等你畫完才丟過去。</h2>
+      <div class="matrix">
+        <div class="mini-card warn"><strong>✕ 常見做法</strong><span>做完整份設計才丟連結，附一句「照這個做」</span></div>
+        <div class="mini-card accent"><strong>✓ 官方建議做法</strong><span>邀請開發者從一開始就用 Viewer 身分加入檔案，持續提問與給回饋</span></div>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 04 交接前要準備的事 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Before Handoff</p>
+      <h1>丟連結之前，先把這幾件事做完</h1>
+      <ul class="blist compact">
+        <li data-n="01"><strong>用 Emoji 標頁面狀態。</strong>🏗️ 施工中／💭 待討論／🚢 可上線，一眼看出哪些定案了。</li>
+        <li data-n="02"><strong>最終設計做成 Component Instance</strong>，放在乾淨的頁面，跟散亂的工作區分開。</li>
+        <li data-n="03"><strong>Component 完整記錄</strong>：名稱、說明、使用方式、Variant 都要寫清楚。</li>
+        <li data-n="04"><strong>Style／Variable 命名跟程式碼庫慣例一致</strong>，不要自己另外一套。</li>
+        <li data-n="05"><strong>說明欄位加無障礙注意事項與相關連結</strong>，開發者不用另外問。</li>
+      </ul>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 05 Dev Mode 是什麼 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Dev Mode</p>
+      <h1>切到開發者視角，按 Shift + D</h1>
+      <h2>Dev Mode 是「以開發者為中心的介面，用來檢視與瀏覽設計」。打開一份 Design 檔案後按 <span class="hl">Shift + D</span> 切換，同一個鍵可以切回來。</h2>
+      <div class="matrix">
+        <div class="mini-card"><strong>Ready for dev</strong><span>標記 Component、Frame 或 Section 已經準備好交給開發者實作</span></div>
+        <div class="mini-card"><strong>Completed（Org／Enterprise）</strong><span>多一個狀態可以追蹤已經做完的項目</span></div>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 06 Dev Mode 提供的資訊 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">What Dev Mode Shows</p>
+      <h1>開發者在 Dev Mode 裡看得到這些</h1>
+      <table class="cmp-table">
+        <thead><tr><th>項目</th><th>內容</th></tr></thead>
+        <tbody>
+          <tr><td>程式碼片段</td><td>多種語言，可用外掛（Tailwind、React）自訂輸出格式</td></tr>
+          <tr><td>圖層屬性</td><td>版面、間距、顏色、互動設定</td></tr>
+          <tr><td>測量與標註</td><td>間距與尺寸的視覺化標示</td></tr>
+          <tr><td>可下載素材</td><td>自動偵測的圖示、圖片、影片</td></tr>
+          <tr><td>外部資源連結</td><td>可連到 GitHub、Jira、Storybook、VS Code</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 07 溝通做法 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Communication</p>
+      <h1>紅線標註稿，換成有脈絡的說明</h1>
+      <h2>官方建議：<span class="hl">不要只給傳統的紅線標註稿</span>，改成分享問題定義、研究過程、迭代決策的敘事脈絡——工程師要知道「為什麼這樣設計」，不是只知道「這裡是 16px」。</h2>
+      <div class="chain c3">
+        <div class="chain-step"><b>① 邀請 Viewer</b><span>免費、不需付費授權，讓對方能檢視、匯出、留言</span></div>
+        <div class="chain-step"><b>② 附脈絡說明</b><span>Code Panel 顯示 CSS／iOS／Android 片段搭配元件細節</span></div>
+        <div class="chain-step"><b>③ 早期邀請</b><span>設計還在進行時就讓開發者加入，持續問、持續回饋</span></div>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 08 Part 2 開場 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <span class="bg-n">02</span>
+      <p class="overline">Part 2</p>
+      <h1>接下來這份設計不用工程師手動刻，換 AI 動手實作</h1>
+      <h2>清華大學課程大綱把這件事講得很白：<span class="hl">介紹 Gemini CLI 或 Claude Code，把 Figma 完成的設計思維，透過 AI 快速轉化為具備響應式的實際網頁</span>。</h2>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 09 Claude Code 是什麼 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Claude Code</p>
+      <h1>活在終端機裡，會自己規劃工作的 Agent</h1>
+      <h2>Claude Code 是「一個活在終端機裡的 agentic 編碼工具」，官方特別強調：它<span class="hl">不是生成程式碼的聊天介面</span>，而是會規劃工作、讀你的檔案、跨多個目錄編輯、跑測試的 Agent。裝好之後，在專案資料夾裡打 <code>claude</code> 就能開始。</h2>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 10 Figma MCP -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Figma MCP</p>
+      <h1>讓 Claude Code 直接讀懂你的 Figma</h1>
+      <h2>Figma MCP Server 讓 Claude Code「讀取結構化的設計脈絡——Component、Variable、版面資料——並從選取的 Frame 產生程式碼」。連上之後，<span class="hl">顏色、間距、Variant 可以直接從真的檔案讀取</span>，不用你再把規格轉成文字講一次。</h2>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 11 設定步驟 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Setup</p>
+      <h1>裝一次，之後每個專案都能用</h1>
+      <table class="cmp-table">
+        <thead><tr><th>步驟</th><th>做法</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>終端機執行 <code>claude plugin install figma@claude-plugins-official</code></td></tr>
+          <tr><td>2</td><td>按 Enter，重新啟動 Claude Code</td></tr>
+          <tr><td>3</td><td>輸入 <code>/plugin</code>，切到 Installed 分頁</td></tr>
+          <tr><td>4</td><td>選 figma 伺服器，按 Enter 授權登入</td></tr>
+          <tr><td>5</td><td>跳出頁面點「Allow access」</td></tr>
+          <tr><td>6</td><td>回終端機再打一次 <code>/plugin</code>，確認顯示已連線</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 12 兩種工作方式 + demo -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Two Workflows</p>
+      <h1>選一個 Frame，或貼一個連結</h1>
+      <img class="slide-img" src="resources/figma-demo/01-landing-mockup.png" alt="一頁式線上課程報名頁的 Figma 設計稿：導覽列、Hero 大標題與 CTA 按鈕、三張特色卡片、頁尾">
+      <p class="img-cap">示範檔：這份 Figma 設計稿實際被轉成了一個可以打開的網頁，見 <code>resources/demo-site/index.html</code>——選取式是選這個 Frame 跟 Claude 說「幫這張卡片加按鈕」；連結式是直接貼這份設計的連結，說「把這個報名頁轉成程式碼」。</p>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 13 Gemini CLI -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Gemini CLI</p>
+      <h1>同樣的邏輯，換一家做</h1>
+      <h2>Gemini CLI 是 Google 的開源 AI 終端機助手，一樣是<span class="hl">用自然語言下指令、讀懂脈絡、直接改檔案</span>的 REPL 環境，內建檔案操作、Shell 指令、網頁擷取，也支援 MCP 接上 Figma。清華大學課程大綱把兩者並列介紹——操作邏輯共通，上課示範用哪個看現場帳號能不能用決定。</h2>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 14 Part 3 開場 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <span class="bg-n">03</span>
+      <p class="overline">Part 3</p>
+      <h1>90 分鐘，從交接準備走到一個能打開的網頁</h1>
+      <div class="chain c4">
+        <div class="chain-step"><b>Ex01 · 15 min</b><span>交接準備：標記 Ready for dev</span></div>
+        <div class="chain-step"><b>Ex02 · 30 min</b><span>設定 Claude Code／Gemini CLI + Figma MCP</span></div>
+        <div class="chain-step"><b>Ex03 · 30 min</b><span>把一個畫面轉成真的網頁</span></div>
+        <div class="chain-step"><b>Ex04 · 15 min</b><span>溝通模擬：跟 AI 練習解釋設計決策</span></div>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 15 常見卡關 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Common Blockers</p>
+      <h1>練習時最常卡住的幾個地方</h1>
+      <table class="cmp-table">
+        <thead><tr><th>卡住的地方</th><th>原因</th><th>怎麼解</th></tr></thead>
+        <tbody>
+          <tr><td>/plugin 裡沒看到 figma</td><td>沒有重新啟動 Claude Code，或授權頁面沒點 Allow access</td><td>退出再重新啟動 Claude Code，重跑一次 <code>/plugin</code>，確認授權流程走完</td></tr>
+          <tr><td>生出來的網頁跟設計對不上</td><td>選取的 Frame 範圍不對，或圖層命名太亂讓 AI 誤判結構</td><td>選取式工作流程先確認選到正確的 Frame，圖層命名清楚一點有助 AI 辨識結構</td></tr>
+          <tr><td>不知道要跟 AI 說什麼</td><td>指令太模糊，例如只說「做一個網頁」</td><td>照兩種工作方式的範例句型講：先講要對哪個 Frame、要它做什麼</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 16 溝通模擬 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Communication Simulation</p>
+      <h1>被問倒之前，先跟 AI 練一次</h1>
+      <h2>清華大學課程大綱的做法：<span class="hl">請 AI 扮演「挑剔的工程師」或「預算有限的客戶」</span>，練習解釋自己的設計決策、應對質疑。這不是要說服 AI，是練習把「為什麼這樣設計」講清楚——之後 Unit 12 專題發表會被真人問一樣的問題。</h2>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 17 回家作業預告 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Homework Preview</p>
+      <h1>回家把整個專題的其中一個畫面轉成網頁</h1>
+      <h2>課堂練習用範例畫面練工具，回家作業換成<span class="hl">自己專題的一個核心畫面</span>，實際跑出一個能在瀏覽器打開的頁面，細節見<a class="ilink" href="exercises.html#hw" target="_blank" rel="noopener">練習頁回家作業</a>。</h2>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 18 資源 -->
+  <section class="slide dark">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Resources</p>
+      <h1>官方文件，卡關時直接查</h1>
+      <div class="res-links">
+        <a class="res-link" href="https://help.figma.com/hc/en-us/articles/39888612464151-Claude-Code-and-Figma-Set-up-the-MCP-server" target="_blank" rel="noopener"><strong>Claude Code and Figma: Set up the MCP server</strong><span>Figma Help Center</span></a>
+        <a class="res-link" href="https://www.figma.com/best-practices/guide-to-developer-handoff/" target="_blank" rel="noopener"><strong>Guide to developer handoff in Figma</strong><span>Figma Best Practices</span></a>
+        <a class="res-link" href="https://help.figma.com/hc/en-us/articles/15023124644247-Guide-to-Dev-Mode" target="_blank" rel="noopener"><strong>Guide to Dev Mode</strong><span>Figma Help Center</span></a>
+        <a class="res-link" href="https://github.com/anthropics/claude-code" target="_blank" rel="noopener"><strong>anthropics/claude-code</strong><span>GitHub</span></a>
+      </div>
+      <div class="note">完整整理（含逐句中文對照與出處）在講義<a class="ilink" href="article.html" target="_blank" rel="noopener">article.html</a>，來源原文在 <code>resources/</code>；參考講義《Web 設計規範》見<a class="ilink" href="reference-web-spec/slides.html" target="_blank" rel="noopener">reference-web-spec</a>。</div>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+  <!-- 19 結尾 -->
+  <section class="slide">
+    <div class="slide-head"><span class="unit-pill">Unit 11</span><span class="slide-num"></span></div>
+    <div class="slide-body">
+      <p class="overline">Wrap Up</p>
+      <h1>下次上課，這個網頁就是你的作品之一</h1>
+      <h2>Unit 12 專題發表不再只是給人看 Figma 畫面——你手上會多一個真的能在瀏覽器打開的網頁，加上一次練過的「怎麼解釋設計決策」。</h2>
+      <div class="res-links">
+        <a class="res-link" href="exercises.html#ex1" target="_blank" rel="noopener"><strong>開啟課堂練習</strong><span>exercises.html</span></a>
+        <a class="res-link" href="exercises.html#hw" target="_blank" rel="noopener"><strong>開啟回家作業</strong><span>exercises.html#hw</span></a>
+      </div>
+    </div>
+    <div class="slide-foot"><span class="course-label">No-Code 實作</span><div class="dots"></div></div>
+  </section>
+
+</div><!-- /#deck -->
+
+<div id="ctrls">
+  <button id="prev" aria-label="上一頁">&#8592;</button>
+  <button id="next" aria-label="下一頁">&#8594;</button>
+</div>
+
+<script>
+(function () {
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  const prog = document.getElementById('prog');
+  const ctrls = document.getElementById('ctrls');
+  const dotContainers = Array.from(document.querySelectorAll('.dots'));
+  let cur = 0;
+
+  slides.forEach((slide, i) => {
+    const num = slide.querySelector('.slide-num');
+    if (num) num.textContent = String(i + 1).padStart(2, '0') + ' / ' + total;
+  });
+
+  dotContainers.forEach(container => {
+    slides.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'dot' + (i === 0 ? ' on' : '');
+      dot.setAttribute('role', 'button');
+      dot.setAttribute('aria-label', '前往第 ' + (i + 1) + ' 頁');
+      dot.addEventListener('click', () => go(i));
+      container.appendChild(dot);
+    });
+  });
+
+  function go(n) {
+    slides[cur].classList.remove('active');
+    cur = (n + total) % total;
+    slides[cur].classList.add('active');
+    prog.style.width = ((cur + 1) / total * 100) + '%';
+    ctrls.classList.toggle('on-dark', slides[cur].classList.contains('dark'));
+    dotContainers.forEach(container => {
+      Array.from(container.children).forEach((dot, i) => dot.classList.toggle('on', i === cur));
+    });
+  }
+
+  document.getElementById('prev').addEventListener('click', () => go(cur - 1));
+  document.getElementById('next').addEventListener('click', () => go(cur + 1));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'PageDown') {
+      event.preventDefault();
+      go(cur + 1);
+    } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+      event.preventDefault();
+      go(cur - 1);
+    } else if (event.key === 'Home') {
+      go(0);
+    } else if (event.key === 'End') {
+      go(total - 1);
+    }
+  });
+
+  prog.style.width = (1 / total * 100) + '%';
+  ctrls.classList.toggle('on-dark', slides[0].classList.contains('dark'));
+})();
+</script>
+</body>
+</html>
