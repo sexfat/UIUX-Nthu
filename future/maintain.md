@@ -310,3 +310,33 @@ Unit 11（改前）: .unit-pill{16px} .slide-num{16px} .course-label{15px}
 **已知限制：** 只調了字級數字，沒有連動調整每張投影片的 margin/padding（例如 `.cover-eyebrow` 原本搭配大字級設計的間距）；文字變小後部分投影片可能留白略多，屬於已知取捨，之後如需要可以再個別微調版面間距。
 **影響範圍：**
 - `Unit_11/slides.html` — `<head>` 補 Google Fonts Inter 連結、`font-family` 換成 Inter、22 條字級規則調整
+
+---
+
+## 2026-08-29
+
+### 10. Unit_07 全文殘留舊編號（自我指稱與跨單元引用都停留在改版前的編號）
+**狀態：** 已修復
+**問題：** 用戶要求「每個課程有設計範例、練習、作業」，盤點 Unit_07（風格發想與建立）時要新建 `exercises.html`，過程中發現整份單元的自我指稱寫成「Unit 08」（`<title>`、`.unit-pill`、`course-label` 等，slides.html 30 處、article.html 4 處、gestalt-lawsofux.html 23 處），跨單元引用也全部停在改版前的編號：把 Wireframe 講成「Unit 07」（應為新編號 Unit 04）、把 Persona／競品分析／旅程地圖講成「Unit 03」「Unit 04」（應為合併後的 Unit 02）、把多斷點版面講成「Unit 09」（應為 Unit 11），還有一個死連結 `../Unit_06/article.html`（Unit_06 資料夾現在是空的，內容已併入 Unit_04）。
+**原因：** `docs/changelog/tsinghua-course-migration.md` 記錄「2026-08-14 Unit 資料夾依清大 12 場課綱重新編號」時，這個單元的內容是直接從舊 `Unit_08`（風格發想／gestalt）資料夾整批搬進新的 `Unit_07`，只搬了檔案位置，沒有同步更新檔案內文裡的編號——同一份 log 也承認「Unit_08 的 exercises.html 裡仍有幾處提到舊單元編號，屬全課程重編號後留下的殘留，未逐一校對」，只是那次沒發現 Unit_07（風格發想）這邊也有一樣的殘留範圍更大。
+**佐證：**
+```
+git blame -L 1130,1135 Unit_07/article.html
+→ 27db89a6 (2026-08-14 重新編號 commit) 就已經寫著「Unit 07 其中一張 Wireframe」
+  代表遷移當下就沒有把舊編號換成新編號，不是後續哪次編輯改壞的
+docs/changelog/tsinghua-course-migration.md:39-52 的新舊編號對照表：
+  舊 Unit_08（風格發想/gestalt）→ 新 07（本單元）
+  舊 Unit_02+03+04（訪談/競品分析/旅程地圖）→ 新 02
+  舊 05+06（IA/Flowchart→Wireframe）→ 新 04
+  舊 Unit_09（Web 設計規範）→ 參考資料併入新 11
+```
+**修正：**
+- `Unit 08` 自我指稱 → `Unit 07`（slides.html、article.html、gestalt-lawsofux.html，`sed` 全文取代，確認每處都只出現在 `unit-pill`／`<title>` 這類自我標籤，沒有誤傷真正指向其他單元的文字）
+- 「Unit 07／Unit 08 的 Wireframe」（舊指稱）→「Unit 04」
+- 「Unit 03 競品分析／Persona」「Unit 04 旅程地圖」（舊指稱）→「Unit 02」
+- 「Unit 09 排多斷點版面」（舊指稱）→「Unit 11」
+- `../Unit_06/article.html` 死連結 → `../Unit_04/from-flowchart-wireframe/article.html`
+- `Unit_07/README.md` 標題「單元 8：風格發想與建立」→「單元 7：風格發想與建立」
+- 修完跑 Codex 複審一輪，確認沒有漏改或改錯的編號殘留
+**影響範圍：**
+- `Unit_07/slides.html`、`article.html`、`gestalt-lawsofux.html`、`README.md`

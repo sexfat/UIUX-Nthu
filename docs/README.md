@@ -19,6 +19,7 @@
 | [Unit 03 完整教材建置（Figma 基本操作）](spec/unit03-figma-basics.md) | [spec](spec/unit03-figma-basics.md) | [log](changelog/unit03-figma-basics.md) | done | 2026-08-29 |
 | [Unit 05 完整教材建置（產品設計基本元素）](spec/unit05-basic-elements.md) | [spec](spec/unit05-basic-elements.md) | [log](changelog/unit05-basic-elements.md) | done | 2026-08-29 |
 | [Unit 11 完整教材建置（No-Code 實作）](spec/unit11-no-code.md) | [spec](spec/unit11-no-code.md) | [log](changelog/unit11-no-code.md) | done | 2026-08-29 |
+| [Unit 07／09 補齊課堂練習與回家作業頁面](spec/unit07-unit09-exercises.md) | [spec](spec/unit07-unit09-exercises.md) | [log](changelog/unit07-unit09-exercises.md) | done | 2026-08-29 |
 
 ## 修復紀錄
 

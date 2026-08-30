@@ -1,11 +1,13 @@
-# 單元 8：風格發想與建立
+# 單元 7：風格發想與建立
 > 對應清華大學課程時段：10/28（三）13:20–16:20
 
 ## 相關檔案
 
 - `slides.html` — 課堂簡報（22 張，另有 7 張標了 `drop` 的備用補充頁，預設不播）。
 - `article.html` — 完整教材（13 節）。
+- `exercises.html` — 課堂練習（4 階段，80 分鐘）與回家作業（作業 6）。
 - `gestalt-lawsofux.html` — 獨立補充簡報「增加設計的好感度」（完形心理學與 Laws of UX，22 張），不算入課堂簡報張數，供課後自學或延伸參考。
+- [Style Tile 骨架檔（Figma）](https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=12-2) — 六個區塊對應第 10 節「一張 Style Tile 上該有什麼」的定義，學生複製整個骨架到自己的檔案再填。
 
 ## 時間分配（3 小時 / 180 分鐘）
 

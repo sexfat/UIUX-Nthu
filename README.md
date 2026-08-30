@@ -24,9 +24,9 @@ AI輔助開發實務  6小時
 | Unit 04 | 產品設計流程（合併資訊架構／Flowchart→Wireframe） | [簡報：資訊架構](https://sexfat.github.io/2026UIUX-Class/Unit_04/from-ia/slides.html) / [簡報：Flowchart→Wireframe](https://sexfat.github.io/2026UIUX-Class/Unit_04/from-flowchart-wireframe/slides.html) |
 | Unit 05 | 產品設計基本元素 | [簡報](https://sexfat.github.io/2026UIUX-Class/Unit_05/slides.html) / [講義](https://sexfat.github.io/2026UIUX-Class/Unit_05/article.html) / [練習與作業](https://sexfat.github.io/2026UIUX-Class/Unit_05/exercises.html) |
 | Unit 06 | 期中報告 | 分組報告，無課程簡報 |
-| Unit 07 | 使用者如何看：UI 設計定律與視覺心理學 | [簡報](https://sexfat.github.io/2026UIUX-Class/Unit_07/slides.html) |
-| Unit 08 | 介面組件介紹 | [簡報](https://sexfat.github.io/2026UIUX-Class/Unit_08/slides.html) |
-| Unit 09 | Design System | [簡報](https://sexfat.github.io/2026UIUX-Class/Unit_09/slides.html) |
+| Unit 07 | 使用者如何看：UI 設計定律與視覺心理學 | [簡報](https://sexfat.github.io/2026UIUX-Class/Unit_07/slides.html) / [講義](https://sexfat.github.io/2026UIUX-Class/Unit_07/article.html) / [練習與作業](https://sexfat.github.io/2026UIUX-Class/Unit_07/exercises.html) |
+| Unit 08 | 介面組件介紹 | [簡報](https://sexfat.github.io/2026UIUX-Class/Unit_08/slides.html) / [講義](https://sexfat.github.io/2026UIUX-Class/Unit_08/article.html) / [練習與作業](https://sexfat.github.io/2026UIUX-Class/Unit_08/exercises.html) |
+| Unit 09 | Design System | [簡報](https://sexfat.github.io/2026UIUX-Class/Unit_09/slides.html) / [講義](https://sexfat.github.io/2026UIUX-Class/Unit_09/article.html) / [練習與作業](https://sexfat.github.io/2026UIUX-Class/Unit_09/exercises.html) |
 | Unit 10 | 分組實作專案 | 分組實作，無獨立新教材 |
 | Unit 11 | No-Code 實作 | [簡報](https://sexfat.github.io/2026UIUX-Class/Unit_11/slides.html) / [講義](https://sexfat.github.io/2026UIUX-Class/Unit_11/article.html) / [練習與作業](https://sexfat.github.io/2026UIUX-Class/Unit_11/exercises.html) |
 | Unit 12 | 專題成果報告 | 無課程簡報（專題發表） |

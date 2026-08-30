@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 07 · 課堂練習與回家作業</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #fbfbfd;
+  --dark: #1d1d1f;
+  --muted: #6e6e73;
+  --accent: #0066cc;
+  --accent2: #0f766e;
+  --accent3: #c2410c;
+  --surface: #f5f5f7;
+  --border: #d2d2d7;
+  --code: #1d1d1f;
+  --max-w: 860px;
+}
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang TC", sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+  padding: 28px 22px 88px;
+  line-height: 1.72;
+}
+.page { max-width: var(--max-w); margin: 0 auto; }
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 42px;
+}
+.back-link { color: var(--accent); text-decoration: none; font-size: 13px; font-weight: 700; }
+.back-link::before { content: '← '; }
+.unit-pill {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.09);
+  padding: 4px 11px;
+  border-radius: 8px;
+}
+.hero { padding-bottom: 34px; margin-bottom: 30px; border-bottom: 1px solid var(--border); }
+.overline {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; margin-bottom: 14px; }
+.lead { color: var(--muted); max-width: 720px; font-size: 1rem; }
+.toc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px 24px;
+  margin-bottom: 22px;
+}
+.toc h2 {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.toc ol { list-style: none; counter-reset: toc; }
+.toc li { counter-increment: toc; margin: 8px 0; }
+.toc a { color: var(--dark); text-decoration: none; display: flex; gap: 10px; font-size: .95rem; }
+.toc a:hover { color: var(--accent); }
+.toc a::before {
+  content: counter(toc, decimal-leading-zero);
+  color: var(--accent);
+  font-size: .75rem;
+  font-weight: 800;
+  padding-top: 3px;
+}
+
+.band {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 46px 0 6px;
+  padding-top: 26px;
+  border-top: 2px solid var(--border);
+}
+.band-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--accent);
+  padding: 5px 12px;
+  border-radius: 8px;
+}
+.band-tag.home { background: var(--accent2); }
+.band h2 { font-size: clamp(1.15rem, 2.4vw, 1.5rem); }
+.band-note { color: var(--muted); font-size: .9rem; margin: 6px 0 4px; }
+
+.exercise {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 18px 0;
+  overflow: hidden;
+}
+.exercise.home { border-color: rgba(15,118,110,.28); }
+.exercise-head { padding: 18px 22px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.exercise.home .exercise-head { background: rgba(15,118,110,.05); border-bottom-color: rgba(15,118,110,.2); }
+.exercise-tag {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.exercise.home .exercise-tag { color: var(--accent2); }
+h2 { font-size: clamp(1.25rem, 2.6vw, 1.7rem); line-height: 1.25; }
+.exercise-body { padding: 20px 22px 24px; }
+h3 { font-size: 1.02rem; margin: 20px 0 8px; }
+p { color: #2c2c2e; margin-bottom: 12px; }
+ul, ol { padding-left: 1.1rem; margin: 8px 0 16px; }
+li { margin-bottom: 8px; color: #2c2c2e; }
+strong { color: var(--dark); font-weight: 800; }
+.bad { color: var(--accent3); font-weight: 800; }
+.good { color: var(--accent2); font-weight: 800; }
+code {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: .88em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+.meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.chip {
+  font-size: 12px;
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  border: 1px solid rgba(0,102,204,.16);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+.exercise.home .chip { color: var(--accent2); background: rgba(15,118,110,.07); border-color: rgba(15,118,110,.18); }
+
+.table-wrap { overflow-x: auto; margin: 14px 0; -webkit-overflow-scrolling: touch; }
+table { width: 100%; min-width: 660px; border-collapse: collapse; font-size: .92rem; }
+th {
+  text-align: left;
+  color: var(--accent);
+  background: rgba(0,102,204,.06);
+  border-bottom: 2px solid var(--border);
+  padding: 10px 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+td { padding: 11px 12px; border-bottom: 1px solid var(--border); color: #2c2c2e; vertical-align: top; }
+td:first-child { color: var(--muted); font-weight: 800; white-space: nowrap; }
+
+.callout {
+  background: rgba(0,102,204,.05);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 16px;
+  margin: 16px 0;
+  color: #2c2c2e;
+}
+.callout.green { background: rgba(15,118,110,.06); border-left-color: var(--accent2); }
+.callout.warn { background: rgba(194,65,12,.06); border-left-color: var(--accent3); }
+.callout a { color: var(--accent); font-weight: 700; }
+
+.check { list-style: none; padding-left: 0; }
+.check li { position: relative; padding-left: 28px; }
+.check li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: .45em;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+}
+
+.foot-nav { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
+.foot-nav a {
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  border: 1px solid rgba(0,102,204,.18);
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+}
+@media print {
+  body { background: #fff; padding: 0; }
+  .topbar, .toc, .foot-nav { display: none; }
+  .exercise { break-inside: avoid; }
+}
+@media (max-width: 700px) {
+  .topbar { align-items: flex-start; flex-direction: column; }
+  .band { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <a class="back-link" href="article.html">回到 Unit 07 講義</a>
+    <span class="unit-pill">Unit 07</span>
+  </div>
+
+  <div class="hero">
+    <p class="overline">Practice &amp; Homework</p>
+    <h1>從競品拆解到一張 Style Tile</h1>
+    <p class="lead">課堂練習用 80 分鐘，四階段接著做：拆解競品視覺語言、收斂形容詞寫成風格故事、定色彩與字體、最後組成一張 Style Tile。回家作業把它補完整、再做一個取捨不同的第二版，就是課綱作業 6。</p>
+  </div>
+
+  <div class="toc">
+    <h2>本頁內容</h2>
+    <ol>
+      <li><a href="#ex1">Exercise 01 · 競品視覺拆解（20 分）</a></li>
+      <li><a href="#ex2">Exercise 02 · 形容詞與風格故事（15 分）</a></li>
+      <li><a href="#ex3">Exercise 03 · 色彩與字體（20 分）</a></li>
+      <li><a href="#ex4">Exercise 04 · 組出 Style Tile（25 分）</a></li>
+      <li><a href="#hw">回家作業 · 作業 6：風格板</a></li>
+      <li><a href="#submit">繳交清單與評分配分</a></li>
+    </ol>
+  </div>
+
+  <div class="callout warn">
+    <strong>課前要準備好的東西：</strong>2 個競品的截圖（各抓首頁與一個內頁）、你的 Persona 摘要（Unit 02）、以及一份空白的 <a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=12-2" target="_blank" rel="noopener"><strong>Style Tile 骨架檔</strong></a>。這三樣沒帶，80 分鐘會全部花在找素材上。骨架檔六個區塊對應下面四個練習，<strong>複製整個骨架到你自己的 Figma 檔案裡再填</strong>，不要在骨架檔本身編輯。
+  </div>
+
+  <div class="band">
+    <span class="band-tag">課堂練習 · 80 分鐘</span>
+    <h2>個人作業，用自己的專題</h2>
+  </div>
+  <p class="band-note">課堂上只做一個方向的核心版，完整元件狀態與第二版留到回家做。四階段結束後另有 15 分鐘兩人一組互看成果。</p>
+
+  <div class="exercise" id="ex1">
+    <div class="exercise-head">
+      <p class="exercise-tag">Exercise 01</p>
+      <h2>競品視覺拆解</h2>
+      <div class="meta"><span class="chip">20 分鐘</span><span class="chip">個人</span><span class="chip">Figma／截圖</span></div>
+    </div>
+    <div class="exercise-body">
+      <p>用講義第 2 節的六個欄位（主色與用色量、字體與字重、資訊密度、圖像策略、圓角與陰影、品牌語氣）拆 2 個競品，再比對同一種頁面的版面順序，標出哪些是兩家共通的候選模式。</p>
+      <div class="callout warn"><strong>只寫具體特徵，不要寫好看難看。</strong>「主色是高飽和橘」是特徵，「配色很俗」是評價——評價沒辦法拿來設計。</div>
+      <div class="callout"><strong>交件：</strong>2 個競品各自的六欄拆解記錄，加上版面順序比對，標出至少 1 個「兩家共通的候選模式」（樣本只有 2 個，先當候選，不要下結論說是整個類別的慣例）與 1 個「這家的風格」。</div>
+    </div>
+  </div>
+
+  <div class="exercise" id="ex2">
+    <div class="exercise-head">
+      <p class="exercise-tag">Exercise 02</p>
+      <h2>形容詞與風格故事</h2>
+      <div class="meta"><span class="chip">15 分鐘</span><span class="chip">個人</span><span class="chip">文字</span></div>
+    </div>
+    <div class="exercise-body">
+      <p>用講義第 3 節的三個提問法（比喻題、語意差異量表、反向題）收斂出 3–5 個形容詞，寫成一段風格故事，每個形容詞都要配一個「而不是」。</p>
+      <p>個人專題沒有客戶可訪，就拿你的 <strong>Unit 02 Persona</strong> 當回答的人——回答時要指得出是根據研究裡的哪一段，不是你自己的偏好。</p>
+      <div class="callout warn"><strong>常卡住：</strong>形容詞挑了一堆互相打架的（專業又活潑又溫暖又高級又年輕）。三到五個就夠，寫不出「而不是」的形容詞通常是廢話。</div>
+      <div class="callout"><strong>交件：</strong>一段風格故事（給誰／什麼情境／要感覺到什麼／而不是什麼／所以視覺上），3–5 個形容詞各配一個「而不是」。</div>
+    </div>
+  </div>
+
+  <div class="exercise" id="ex3">
+    <div class="exercise-head">
+      <p class="exercise-tag">Exercise 03</p>
+      <h2>色彩與字體</h2>
+      <div class="meta"><span class="chip">20 分鐘</span><span class="chip">個人</span><span class="chip">Figma</span></div>
+    </div>
+    <div class="exercise-body">
+      <p>定出品牌主色、強調色、語意色、中性三階，全部標色碼；選 1–2 個字體，定出四級字級。</p>
+      <div class="callout"><strong>時間不夠時：</strong>優先測「內文色＋背景色」這一組的對比度（4.5:1），其餘顏色組合留到回家補測。</div>
+      <div class="callout green"><strong>交件：</strong>色票（含色碼）、字體與四級字級，至少測過一組對比度。</div>
+    </div>
+  </div>
+
+  <div class="exercise" id="ex4">
+    <div class="exercise-head">
+      <p class="exercise-tag">Exercise 04</p>
+      <h2>組出 Style Tile</h2>
+      <div class="meta"><span class="chip">25 分鐘</span><span class="chip">個人</span><span class="chip">Figma</span></div>
+    </div>
+    <div class="exercise-body">
+      <p>把 Exercise 01–03 的東西放進<a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=12-2" target="_blank" rel="noopener">Style Tile 骨架</a>，加上按鈕與輸入框兩種元件，<strong>每一區寫一句理由</strong>。</p>
+      <div class="callout warn"><strong>這是風格板跟拼貼圖的差別：</strong>沒有說明文字的風格板，交出去只會得到「我不喜歡這個顏色」這種沒辦法討論的回饋。六個區塊（風格故事、色票、字體、介面元素、質感規格、圖像方向）旁邊都要有一句理由。</div>
+      <div class="callout"><strong>交件：</strong>一張填好六個區塊、每區都有理由說明的 Style Tile 核心版。</div>
+    </div>
+  </div>
+
+  <div class="callout green">
+    <strong>最後 15 分鐘的分享：</strong>兩人一組互看，只問三題——① 你看到的前三個形容詞是什麼？② 這一版最想被記住的是哪個決策？③ 哪一項你看不出理由？<br><br>第一題是重點：對方講出來的形容詞，如果跟作者寫在風格故事裡的對不起來，就代表這個風格沒有傳達到。
+  </div>
+
+  <div class="band">
+    <span class="band-tag home">回家作業</span>
+    <h2>作業 6：風格板（Style Tile / Moodboard）</h2>
+  </div>
+  <p class="band-note">把課堂的核心版補完整，再做一個取捨明顯不同的第二版。</p>
+
+  <div class="exercise home" id="hw">
+    <div class="exercise-head">
+      <p class="exercise-tag">Homework</p>
+      <h2>補完整、做第二版、套回畫面驗證</h2>
+      <div class="meta"><span class="chip">約 3 小時</span><span class="chip">個人</span><span class="chip">Figma</span></div>
+    </div>
+    <div class="exercise-body">
+      <ol>
+        <li><strong>把風格板補完整。</strong>不管你用 Style Tile 還是「Moodboard + 最小規格」的形式，都要有：色票、字體字級、按鈕（主要／次要，各含一般與停用）、輸入框（一般／錯誤）、標籤、卡片、質感規格（圓角、陰影、間距基準），以及圖片方向與其規則。</li>
+        <li><strong>再做第二版。</strong>取捨方向要跟第一版明顯不同，不是微調——例如第一版把「可靠」放最大，第二版把「沒壓力」放最大。</li>
+        <li><strong>寫風格故事說明：</strong>給誰、什麼情境、要感覺到什麼、而不是什麼、所以視覺上怎麼做。每個形容詞都要接到具體決策。</li>
+        <li><strong>在風格板上就能查的：</strong>對比度、相似性（可點的東西有沒有共用特徵）、元件的各種狀態、按鈕與輸入框的高度夠不夠好按、色彩角色有沒有分清楚。逐項檢查並記下你改了什麼。</li>
+        <li><strong>要套回畫面才查得出來的：</strong>把風格套到 Unit 04 其中一張 Wireframe 上（不用做到精緻，換色換字換間距即可），再用接近性、共同區域、連續性、Hick's Law、Jakob's Law 各檢查一次。</li>
+        <li><strong>對比度全部測過，把不及格的組合改掉</strong>——這一項沒過，風格板等於不能用。</li>
+        <li><strong>把風格板建成可重複使用的規則：</strong>色票建成 Color Styles 或 Color Variables、字級建成 Text Styles；按鈕做成一個 Component，開 <code>Type</code>（主要／次要）與 <code>State</code>（一般／停用）兩個 Variants 屬性。做完之後試著改一次主色，確認所有用到的地方都跟著變。</li>
+      </ol>
+      <div class="callout green">第 4 步跟第 5 步分開，是因為<strong>有些原則在只有元件的風格板上根本看不出來</strong>。「選項會不會太多」「分組清不清楚」要有完整版面才有得判斷——這也是 Style Tile 的先天限制。</div>
+      <h3>AI 使用界線</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>可以</th><th>不可以</th></tr></thead>
+          <tbody>
+            <tr><td>形容詞整理</td><td>把研究資料貼給 AI，請它歸納形容詞並標出資料來源</td><td>讓 AI 憑空生一組配色或一張風格板</td></tr>
+            <tr><td>一致性檢查</td><td>讓 AI 檢查風格故事跟視覺決策有沒有接得起來</td><td>讓 AI 幫你決定要選哪個風格方向</td></tr>
+            <tr><td>原則檢核</td><td>讓 AI 用完形原則與 Laws of UX 檢查規格上看得出來的部分</td><td>讓 AI 判斷需要完整畫面才看得出來的效果</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>界線的邏輯：<strong>AI 可以幫你整理、檢查、找出沒想到的取捨，不能幫你決定風格</strong>——它沒看過你的使用者，也沒看過你的競品。三段提示詞在<a href="article.html#s13">講義第 13 節</a>。</p>
+      <div class="callout"><strong>繳交：</strong>依課綱作業 6 的規格，交風格板 + 風格故事說明。風格板上的每個決策都要有具體數值（色碼、字級、圓角、間距），寫形容詞不算。</div>
+    </div>
+  </div>
+
+  <div class="band">
+    <span class="band-tag home">繳交</span>
+    <h2>繳交清單與評分配分</h2>
+  </div>
+
+  <div class="exercise home" id="submit">
+    <div class="exercise-head">
+      <p class="exercise-tag">Submission</p>
+      <h2>對應課綱作業 6</h2>
+      <div class="meta"><span class="chip">Figma 連結 1 份</span><span class="chip">下次上課抽點分享</span></div>
+    </div>
+    <div class="exercise-body">
+      <h3>要交的東西</h3>
+      <ul class="check">
+        <li>兩個版本的風格板（取捨方向明顯不同）</li>
+        <li>風格故事說明（給誰／情境／感覺／而不是／視覺決策）</li>
+        <li>套到一張 Wireframe 上驗證過的紀錄</li>
+        <li>色票、字級建成 Styles／Variables，按鈕建成帶 Variants 的 Component</li>
+      </ul>
+      <h3>配分</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>項目</th><th>配分</th><th>通過的樣子</th><th>不及格的樣子</th></tr></thead>
+          <tbody>
+            <tr><td>風格板完整度</td><td>30</td><td>色票、字體字級、按鈕（含停用）、輸入框（含錯誤）、標籤、卡片、質感規格、圖片方向都有，且都標具體數值</td><td>缺項目；只有顏色沒有數值（例如寫「深綠色」而不是色碼）</td></tr>
+            <tr><td>風格故事與研究連結</td><td>20</td><td>形容詞都接到具體決策，故事裡的使用者跟 Unit 02 的 Persona 對得起來</td><td>拼貼圖——一堆漂亮圖片沒有色碼、沒有元件、沒有說明；風格故事的使用者跟 Persona 對不起來</td></tr>
+            <tr><td>第二版取捨</td><td>15</td><td>兩版方向明顯不同，各自代表不同取捨</td><td>兩版只是同一方向的微調（深一點、淺一點）</td></tr>
+            <tr><td>驗證紀錄</td><td>20</td><td>對比度全測過且不及格的已改掉；套到 Wireframe 上用五個原則檢查過並記下發現</td><td>對比度沒測或測了沒改；沒有套回畫面驗證的紀錄</td></tr>
+            <tr><td>可重複使用的規則</td><td>15</td><td>色票／字級建成 Styles 或 Variables，按鈕是帶 Type／State 兩個 Variants 的 Component，改一次主色全部跟著變</td><td>色彩字級只是視覺上看起來一致，沒有真的建成 Styles／Variables／Component</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn"><strong>兩個最容易被抓到的不及格樣子：</strong>一是<strong>拼貼圖</strong>——網路上抓的漂亮圖片拼在一起，沒有色碼、沒有元件、沒有說明；二是<strong>跟研究脫鉤</strong>——風格故事裡的使用者跟你 Unit 02 的 Persona 對不起來。評圖時這兩件事最容易被問，因為一眼就看得出來。</div>
+    </div>
+  </div>
+
+  <div class="foot-nav">
+    <a href="slides.html" target="_blank" rel="noopener">回到 Unit 07 簡報</a>
+    <a href="article.html" target="_blank" rel="noopener">Unit 07 完整講義</a>
+    <a href="article.html#s13" target="_blank" rel="noopener">講義第 13 節：AI 協作提示詞</a>
+    <a href="https://www.figma.com/design/UxS7TVst4TOjqktZUMc4m0?node-id=12-2" target="_blank" rel="noopener">Style Tile 骨架檔</a>
+    <a href="gestalt-lawsofux.html" target="_blank" rel="noopener">補充簡報：增加設計的好感度</a>
+    <a href="../index.html" target="_blank" rel="noopener">回到課程總覽</a>
+  </div>
+</div>
+</body>
+</html>
