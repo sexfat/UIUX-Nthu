@@ -167,7 +167,7 @@ AI 在本單元中扮演輔助角色：可以協助產生分析表欄位、整�
 |---|---|
 | `slides.html` | Unit 03 課堂簡報，主題為競品分析與 Persona。 |
 | `article.html` | HTML 版完整講義，供學生課前或課後閱讀。 |
-| `design-thinking.html` | 設計思考延伸教材：雙鑽石模型、五階段、Crazy 8s、AI 協作與四階段提示詞。 |
+| `design-thinking.html` | ⚠️ 已搬到 `Unit_01/design-thinking.html`（設計思考延伸教材：雙鑽石模型、五階段、Crazy 8s、AI 協作與四階段提示詞），此資料夾不再保留本檔。 |
 | `exercises.html` | 4 小時課程用練習作業頁，拆成 5 個小練習。 |
 | `competitor-analysis-template.html` | 可填寫、可列印或存 PDF 的競品分析表。 |
 | `README.md` | 本單元課程目標、內容、提示詞與檔案說明。 |

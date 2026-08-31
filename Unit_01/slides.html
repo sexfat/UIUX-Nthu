@@ -467,6 +467,27 @@ h2 {
   white-space: nowrap;
 }
 
+/* ── Instructor bio ──────────────────────── */
+.bio-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 48px;
+  align-items: center;
+  margin-top: 32px;
+}
+
+.bio-photo {
+  aspect-ratio: 3 / 4;
+  border: 1.5px dashed var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .85rem;
+  color: var(--muted);
+}
+
 /* ── External link pill ─────────────────── */
 .ext-link {
   display: inline-flex;
@@ -522,6 +543,8 @@ h2 {
   .course-label { display: none; }
   .agenda-grid { grid-template-columns: 1fr; gap: 10px; margin-top: 16px; }
   .pyr-wrap { grid-template-columns: 1fr; gap: 20px; margin-top: 16px; }
+  .bio-wrap { grid-template-columns: 1fr; gap: 16px; margin-top: 16px; }
+  .bio-photo { aspect-ratio: 16 / 9; }
   .pyr-legend { height: auto; gap: 12px; }
   .cmp-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .blist { margin-top: 16px; gap: 8px; }
@@ -547,7 +570,7 @@ h2 {
   <div class="slide active">
     <div class="slide-head">
       <span style="display:inline-flex;align-items:center;gap:10px"><span class="unit-pill">Unit 01</span><a class="to-index" href="../index.html" title="回到課程總覽">↩ 課程總覽</a></span>
-      <span class="slide-num">01 / 17</span>
+      <span class="slide-num">01 / 21</span>
     </div>
     <div class="slide-body">
       <div class="cover-eyebrow">UI 設計實作課程 · 2026</div>
@@ -556,7 +579,7 @@ h2 {
       <div class="cover-meta">
         <span>3 小時</span>
         <span class="meta-dot"></span>
-        <span>17 張投影片</span>
+        <span>21 張投影片</span>
         <span class="meta-dot"></span>
         <span>含實作練習</span>
       </div>
@@ -567,11 +590,37 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 2 · 課程大綱 ──────────────── -->
+  <!-- ─── Slide 2 · 講師自我介紹 ──────────── -->
   <div class="slide">
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">02 / 17</span>
+      <span class="slide-num">02 / 21</span>
+    </div>
+    <div class="slide-body">
+      <p class="overline">Instructor</p>
+      <h1>講師自我介紹</h1>
+      <div class="bio-wrap">
+        <div class="bio-photo">照片待補</div>
+        <ul class="blist plain">
+          <li><span class="hl">bryant · 黃瀚霆</span></li>
+          <li>秦毅數位有限公司 負責人</li>
+          <li>主理：策略設計 / AI 流程規劃 / 經驗設計 / 架構設計 / 程式軟體開發</li>
+          <li>經歷：緯育 Tibame / 華碩電腦 / 樂天拍賣電商 / 資策會 / 東森新聞</li>
+          <li>聯絡方式：huhantin@gmail.com · Line ID @579mniea</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide-foot">
+      <span class="course-label">UI 設計實作：Figma 與 UX 流程 × AI 設計整合</span>
+      <div class="dots"></div>
+    </div>
+  </div>
+
+  <!-- ─── Slide 3 · 課程大綱 ──────────────── -->
+  <div class="slide">
+    <div class="slide-head">
+      <span class="unit-pill">Unit 01</span>
+      <span class="slide-num">03 / 21</span>
     </div>
     <div class="slide-body">
       <p class="overline">Agenda</p>
@@ -593,6 +642,7 @@ h2 {
           <span class="a-desc">探討 AI 輔助設計的可能性</span>
         </div>
       </div>
+      <a class="ext-link" href="design-thinking.html" target="_blank" rel="noopener noreferrer">設計思考講義（延伸教材）</a>
     </div>
     <div class="slide-foot">
       <span class="course-label">UI 設計實作：Figma 與 UX 流程 × AI 設計整合</span>
@@ -600,11 +650,11 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 3 · UX 5層架構 ────────────── -->
+  <!-- ─── Slide 4 · UX 5層架構 ────────────── -->
   <div class="slide">
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">03 / 17</span>
+      <span class="slide-num">04 / 21</span>
     </div>
     <div class="slide-body">
       <p class="overline">UX Framework</p>
@@ -630,12 +680,12 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 4 · 策略層 ─────────────────── -->
+  <!-- ─── Slide 5 · 策略層 ─────────────────── -->
   <div class="slide dark">
     <div class="bg-n">1</div>
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">04 / 17</span>
+      <span class="slide-num">05 / 21</span>
     </div>
     <div class="slide-body">
       <span class="layer-badge">Layer 1 · Strategy</span>
@@ -654,12 +704,12 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 5 · 範圍層 ─────────────────── -->
+  <!-- ─── Slide 6 · 範圍層 ─────────────────── -->
   <div class="slide">
     <div class="bg-n">2</div>
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">05 / 17</span>
+      <span class="slide-num">06 / 21</span>
     </div>
     <div class="slide-body">
       <span class="layer-badge">Layer 2 · Scope</span>
@@ -678,12 +728,12 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 6 · 結構層 ─────────────────── -->
+  <!-- ─── Slide 7 · 結構層 ─────────────────── -->
   <div class="slide dark">
     <div class="bg-n">3</div>
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">06 / 17</span>
+      <span class="slide-num">07 / 21</span>
     </div>
     <div class="slide-body">
       <span class="layer-badge">Layer 3 · Structure</span>
@@ -702,12 +752,12 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 7 · 骨架層 ─────────────────── -->
+  <!-- ─── Slide 8 · 骨架層 ─────────────────── -->
   <div class="slide">
     <div class="bg-n">4</div>
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">07 / 17</span>
+      <span class="slide-num">08 / 21</span>
     </div>
     <div class="slide-body">
       <span class="layer-badge">Layer 4 · Skeleton</span>
@@ -727,12 +777,12 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 8 · 表現層 ─────────────────── -->
+  <!-- ─── Slide 9 · 表現層 ─────────────────── -->
   <div class="slide dark">
     <div class="bg-n">5</div>
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">08 / 17</span>
+      <span class="slide-num">09 / 21</span>
     </div>
     <div class="slide-body">
       <span class="layer-badge">Layer 5 · Surface</span>
@@ -751,11 +801,11 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 9 · Figma 示範 ─────────────── -->
+  <!-- ─── Slide 10 · Figma 示範 ─────────────── -->
   <div class="slide">
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">09 / 17</span>
+      <span class="slide-num">10 / 21</span>
     </div>
     <div class="slide-body">
       <p class="overline">Live Demo</p>
@@ -773,11 +823,11 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 10 · AI 輔助設計 ──────────── -->
+  <!-- ─── Slide 11 · AI 輔助設計 ──────────── -->
   <div class="slide">
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">10 / 17</span>
+      <span class="slide-num">11 / 21</span>
     </div>
     <div class="slide-body">
       <p class="overline">AI-Assisted Design</p>
@@ -795,11 +845,11 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 11 · Persona 定義 ─────────── -->
+  <!-- ─── Slide 12 · Persona 定義 ─────────── -->
   <div class="slide">
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">11 / 17</span>
+      <span class="slide-num">12 / 21</span>
     </div>
     <div class="slide-body">
       <p class="overline">Persona</p>
@@ -819,11 +869,11 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 12 · 彈性使用者陷阱 ───────── -->
+  <!-- ─── Slide 13 · 彈性使用者陷阱 ───────── -->
   <div class="slide dark">
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">12 / 17</span>
+      <span class="slide-num">13 / 21</span>
     </div>
     <div class="slide-body">
       <span class="layer-badge">Anti-Pattern</span>
@@ -843,11 +893,11 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 13 · Persona 深層構成 ──────── -->
+  <!-- ─── Slide 14 · Persona 深層構成 ──────── -->
   <div class="slide">
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">13 / 17</span>
+      <span class="slide-num">14 / 21</span>
     </div>
     <div class="slide-body">
       <span class="layer-badge">Persona · Structure</span>
@@ -866,11 +916,11 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 14 · Functional Map ────────── -->
+  <!-- ─── Slide 15 · Functional Map ────────── -->
   <div class="slide dark">
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">14 / 17</span>
+      <span class="slide-num">15 / 21</span>
     </div>
     <div class="slide-body">
       <span class="layer-badge">Functional Map</span>
@@ -891,11 +941,11 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 15 · 對比表 ─────────────────── -->
+  <!-- ─── Slide 16 · 對比表 ─────────────────── -->
   <div class="slide">
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">15 / 17</span>
+      <span class="slide-num">16 / 21</span>
     </div>
     <div class="slide-body">
       <p class="overline">Comparison</p>
@@ -934,11 +984,11 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 16 · 閉環工作流 ────────────── -->
+  <!-- ─── Slide 17 · 閉環工作流 ────────────── -->
   <div class="slide dark">
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">16 / 17</span>
+      <span class="slide-num">17 / 21</span>
     </div>
     <div class="slide-body">
       <p class="overline">Workflow</p>
@@ -958,11 +1008,11 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 17 · 找主題方法（概念）─────────── -->
+  <!-- ─── Slide 18 · 找主題方法（概念）─────────── -->
   <div class="slide">
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">17 / 20</span>
+      <span class="slide-num">18 / 21</span>
     </div>
     <div class="slide-body">
       <p class="overline">Method</p>
@@ -993,11 +1043,11 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 18 · 三個轉型斷層 ──────────────── -->
+  <!-- ─── Slide 19 · 三個轉型斷層 ──────────────── -->
   <div class="slide">
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">18 / 20</span>
+      <span class="slide-num">19 / 21</span>
     </div>
     <div class="slide-body">
       <p class="overline">Opportunity</p>
@@ -1027,11 +1077,11 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 19 · 痛點逆向追蹤法 ────────────── -->
+  <!-- ─── Slide 20 · 痛點逆向追蹤法 ────────────── -->
   <div class="slide">
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">19 / 20</span>
+      <span class="slide-num">20 / 21</span>
     </div>
     <div class="slide-body">
       <p class="overline">How to Hunt</p>
@@ -1050,11 +1100,11 @@ h2 {
     </div>
   </div>
 
-  <!-- ─── Slide 20 · 回家作業 ──────────────── -->
+  <!-- ─── Slide 21 · 回家作業 ──────────────── -->
   <div class="slide dark">
     <div class="slide-head">
       <span class="unit-pill">Unit 01</span>
-      <span class="slide-num">20 / 20</span>
+      <span class="slide-num">21 / 21</span>
     </div>
     <div class="slide-body">
       <p class="overline">Workshop</p>
