@@ -253,6 +253,62 @@ ol.steps li::before {
   border-left-color: var(--accent3);
 }
 
+.fig { margin: 22px 0; }
+.fig > img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: zoom-in;
+}
+.fig figcaption {
+  margin-top: 10px;
+  font-size: .85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.img-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: rgba(29,29,31,.86);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s ease, visibility 0s .2s;
+}
+.img-lightbox.open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .2s ease;
+}
+.img-lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 24px 60px rgba(0,0,0,.4);
+}
+.lb-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,.14);
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.lb-close:hover { background: rgba(255,255,255,.26); }
+
 .tbl-wrap { overflow-x: auto; margin: 24px 0; -webkit-overflow-scrolling: touch; }
 table {
   width: 100%;
@@ -470,29 +526,43 @@ tr:last-child td { border-bottom: none; }
     <p class="sec-num">SECTION 02</p>
     <h2 class="sec-title">核心模型：雙鑽石模型</h2>
     <p>雙鑽石模型（Double Diamond）講的是一種 <strong>發散（Divergence）</strong>與<strong>收斂（Convergence）</strong>的節奏感。兩顆鑽石，分別回答兩個問題。</p>
+    <div class="fig">
+      <img src="resources/Double_Diamond.png" alt="雙鑽石模型示意圖：第一顆鑽石 Discover 發散、Define 收斂找出問題；第二顆鑽石 Develop 發散、Deliver 收斂找出解法">
+      <figcaption>雙鑽石模型（Design Council）：第一顆鑽石找對問題（Discover → Define），第二顆鑽石找對解法（Develop → Deliver）。</figcaption>
+    </div>
+
+    <h3>第一顆鑽石：找對問題</h3>
+    <p>Discover 探索 → Define 定義。英國設計協會（Design Council）對這顆鑽石的描述，是先理解問題，而不是直接假設問題，再利用研究得到的 insight 重新定義問題。</p>
     <div class="cards">
       <div class="card">
-        <span class="tag">Diamond 1 · 做正確的事</span>
-        <h3>發現 Discover</h3>
-        <p>走入現場，發散地觀察使用者。競品分析與 Persona 就發生在這裡。</p>
+        <span class="tag">Discover · 打開</span>
+        <h3>探索</h3>
+        <p>先「打開」，不要急著決定問題是什麼。常見做法：使用者訪談、問卷、競品分析、數據分析、田野觀察、Stakeholder Interview。</p>
       </div>
       <div class="card">
-        <span class="tag">Diamond 1 · 做正確的事</span>
-        <h3>定義 Define</h3>
-        <p>收斂問題，找出核心痛點，產出 HMW（How Might We）問句。</p>
-      </div>
-      <div class="card">
-        <span class="tag">Diamond 2 · 把事做正確</span>
-        <h3>發展 Develop</h3>
-        <p>針對問題發散各種解決方案，不急著挑一個。</p>
-      </div>
-      <div class="card">
-        <span class="tag">Diamond 2 · 把事做正確</span>
-        <h3>交付 Deliver</h3>
-        <p>收斂想法，轉化為 Functional Map 並產出原型。</p>
+        <span class="tag">Define · 收回來</span>
+        <h3>定義</h3>
+        <p>得到夠多資訊後，把它們「收回來」，整理成一條線：Persona → Journey Map → Pain Points → Insights → Problem Statement / HMW。</p>
       </div>
     </div>
-    <div class="callout orange">常見警訊：大部分的專案失敗，是因為還沒搞清楚第一顆鑽石，就急著衝進第二顆鑽石。</div>
+    <div class="callout green">第一顆鑽石最後要回答的問題只有一個：<strong>我們真正需要解決的問題是什麼？</strong></div>
+
+    <h3>第二顆鑽石：找對解法</h3>
+    <p>Develop 發展 → Deliver 交付。確定問題之後，再次發散——不要一開始想到一個 UI 就直接做到底，而是先產生多種可能方案。</p>
+    <div class="cards">
+      <div class="card">
+        <span class="tag">Develop · 打開</span>
+        <h3>發展</h3>
+        <p>針對已定義的問題再次發散：Brainstorming → User Flow → IA → Sketch → Wireframe → Prototype。</p>
+      </div>
+      <div class="card">
+        <span class="tag">Deliver · 收回來</span>
+        <h3>交付</h3>
+        <p>收斂驗證：Usability Testing → 驗證 → Iteration → UI Design → Development → Launch。</p>
+      </div>
+    </div>
+    <div class="callout green">第二顆鑽石最後要回答的問題只有一個：<strong>哪一個方案最能解決剛才定義的問題？</strong></div>
+    <div class="callout orange">這也是 Double Diamond 很重要的精神：不是「想到答案 → 做 UI」，而是先確認「我們是不是在解正確的問題」。大部分的專案失敗，是因為還沒搞清楚第一顆鑽石，就急著衝進第二顆鑽石。</div>
   </div>
 
   <div class="section" id="s3">
@@ -658,6 +728,11 @@ tr:last-child td { border-bottom: none; }
   <a href="../index.html">回到課程總覽</a>
 </div>
 
+<div class="img-lightbox" id="imgLightbox" role="dialog" aria-modal="true">
+  <button class="lb-close" id="lbClose" type="button" aria-label="關閉">&times;</button>
+  <img id="lbImg" src="" alt="">
+</div>
+
 <script>
 (function () {
   const prog = document.getElementById('prog');
@@ -688,6 +763,32 @@ tr:last-child td { border-bottom: none; }
         btn.textContent = '複製失敗';
       }
     });
+  });
+})();
+
+(function () {
+  const lightbox = document.getElementById('imgLightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbClose = document.getElementById('lbClose');
+
+  function open(src, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt;
+    lightbox.classList.add('open');
+  }
+  function close() {
+    lightbox.classList.remove('open');
+  }
+
+  document.querySelectorAll('.fig > img').forEach(img => {
+    img.addEventListener('click', () => open(img.src, img.alt));
+  });
+  lbClose.addEventListener('click', close);
+  lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) close();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') close();
   });
 })();
 </script>
