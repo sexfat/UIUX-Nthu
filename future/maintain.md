@@ -340,3 +340,25 @@ docs/changelog/tsinghua-course-migration.md:39-52 的新舊編號對照表：
 - 修完跑 Codex 複審一輪，確認沒有漏改或改錯的編號殘留
 **影響範圍：**
 - `Unit_07/slides.html`、`article.html`、`gestalt-lawsofux.html`、`README.md`
+
+---
+
+## 2026-09-02
+
+### 1. Unit_01 簡報課程大綱「第 3 小時」內容與教材脫節
+**狀態：** 已修復
+**問題：** Slide 3 課程大綱卡片「第 3 小時」文字仍寫「課後作業練習 (Homework)｜探討 AI 輔助設計的可能性」，但單元已新增獨立講義 `design-thinking.html`（設計思考：雙鑽石模型、五階段、Crazy 8s 等），這張卡片內容跟教材脫節，agenda 看不出第三小時實際在上設計思考。
+**原因：** `design-thinking.html` 是後來才建的獨立講義，加進 `slides.html` 時只在 agenda 下方補了 `.ext-link` 連結，沒有回頭更新原本「第 3 小時」卡片本身的文字。
+**佐證：**
+```
+grep -n "sec-title" Unit_01/design-thinking.html
+→ 什麼是設計思考？／核心模型：雙鑽石模型／設計思考五階段／
+  Crazy 8s 發想工具／當 AI 走進設計思考／團體討論的規則／
+  四階段 AI 提示詞／核心口訣
+對照 Unit_01/slides.html Slide 3 原文：
+  第 3 小時「課後作業練習 (Homework)」「探討 AI 輔助設計的可能性」
+  → 與講義實際內容完全對不上
+```
+**修正：** 依用戶指示「課程大綱 第三小時 改為設計思考」，把 `.a-time`／`.a-desc` 改成「設計思考 / Design Thinking」與「雙鑽石模型與五階段（同理、定義、發想、原型、測試），搭配 AI 在各階段的協作方式」，跟下方既有的 `design-thinking.html` 連結內容對齊。改完起本機 http server，用 Chrome 自動化截圖確認畫面顯示正確。
+**影響範圍：**
+- `Unit_01/slides.html` — Slide 3「第 3 小時」agenda-card 文字

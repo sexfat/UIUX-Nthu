@@ -380,10 +380,19 @@ h2 {
   font-size: clamp(.68rem, 1vw, .9rem);
   font-weight: 500;
   padding: 0 16px;
-  cursor: default;
+  cursor: pointer;
   transition: transform .25s ease;
+  border: none;
+  width: 100%;
+  font-family: inherit;
 }
 .pyr-row:hover { transform: scaleX(1.018); }
+.pyr-hint {
+  margin-top: 14px;
+  font-size: .8rem;
+  color: var(--muted);
+  text-align: center;
+}
 .pyr-row b { font-weight: 600; white-space: nowrap; font-size: 1.02em; }
 .pyr-row span { opacity: .76; font-size: .88em; }
 
@@ -404,6 +413,129 @@ h2 {
 }
 
 .pyr-legend p b { color: var(--dark); font-weight: 600; display: block; }
+
+/* ── Layer detail trigger button ─────────── */
+.layer-detail-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  border: 1px solid rgba(0,102,204,.18);
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background .2s, border-color .2s, transform .15s;
+  margin-top: 24px;
+  width: fit-content;
+  font-family: inherit;
+}
+.layer-detail-btn:hover {
+  background: rgba(0,102,204,.14);
+  border-color: rgba(0,102,204,.35);
+  transform: translateY(-1px);
+}
+.layer-detail-btn::after { content: '↗'; font-size: 11px; opacity: .8; }
+.slide.dark .layer-detail-btn {
+  color: #4094ff;
+  background: rgba(64,148,255,.12);
+  border-color: rgba(64,148,255,.28);
+}
+.slide.dark .layer-detail-btn:hover { background: rgba(64,148,255,.2); }
+
+/* ── Layer detail modal ──────────────────── */
+.layer-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(29,29,31,.5);
+  z-index: 300;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.layer-modal-overlay.open { display: flex; }
+.layer-modal {
+  background: #fff;
+  border-radius: 14px;
+  max-width: 560px;
+  width: 100%;
+  max-height: 82vh;
+  overflow-y: auto;
+  padding: 34px 38px;
+  box-shadow: 0 24px 60px rgba(0,0,0,.28);
+  position: relative;
+}
+.layer-modal-close {
+  position: absolute;
+  top: 18px; right: 18px;
+  width: 32px; height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(29,29,31,.06);
+  color: var(--dark);
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s;
+}
+.layer-modal-close:hover { background: rgba(29,29,31,.12); }
+.layer-modal-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.08);
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+.layer-modal h3 { margin: 0 0 6px; font-size: 1.3rem; font-weight: 800; }
+.layer-modal .layer-modal-sub { font-size: .92rem; color: var(--muted); margin-bottom: 18px; }
+.layer-modal .layer-modal-desc { font-size: .95rem; color: #2c2c2e; line-height: 1.75; margin-bottom: 22px; }
+.layer-modal h4 {
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 10px;
+}
+.layer-modal .layer-modal-docs {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.layer-modal .layer-modal-docs li {
+  font-size: .9rem;
+  color: #2c2c2e;
+  line-height: 1.6;
+  padding: 10px 14px;
+  background: var(--surface);
+  border-radius: 8px;
+}
+.layer-modal .layer-modal-example {
+  font-size: .9rem;
+  color: #2c2c2e;
+  line-height: 1.7;
+  padding: 14px 16px;
+  background: rgba(0,102,204,.06);
+  border: 1px solid rgba(0,102,204,.16);
+  border-radius: 10px;
+}
+.layer-modal .layer-modal-example p { margin: 0 0 10px; }
+.layer-modal .layer-modal-example p:last-child { margin-bottom: 0; }
+.layer-modal .layer-modal-example b { color: var(--accent); }
 
 /* ── Controls ────────────────────────────── */
 #ctrls {
@@ -551,6 +683,7 @@ h2 {
   .cover-sub { margin-bottom: 20px; }
   .bg-n { display: none; }
   #ctrls { bottom: 16px; right: 16px; }
+  .layer-modal { padding: 26px 22px; max-height: 88vh; }
 }
 
 /* 封面回到課程總覽 */
@@ -638,8 +771,8 @@ h2 {
         </div>
         <div class="agenda-card">
           <span class="a-step">第 3 小時</span>
-          <span class="a-time">課後作業練習 (Homework)</span>
-          <span class="a-desc">探討 AI 輔助設計的可能性</span>
+          <span class="a-time">設計思考<br>Design Thinking</span>
+          <span class="a-desc">雙鑽石模型與五階段（同理、定義、發想、原型、測試），搭配 AI 在各階段的協作方式</span>
         </div>
       </div>
       <a class="ext-link" href="design-thinking.html" target="_blank" rel="noopener noreferrer">設計思考講義（延伸教材）</a>
@@ -662,17 +795,18 @@ h2 {
       <h2>Jesse James Garrett 提出的由下而上設計思維</h2>
       <div class="pyr-wrap">
         <div class="pyr">
-          <div class="pyr-row p5"><b>5. 表現層 Surface</b><span>視覺設計 · 感知呈現</span></div>
-          <div class="pyr-row p4"><b>4. 骨架層 Skeleton</b><span>介面 · 導覽 · Wireframe</span></div>
-          <div class="pyr-row p3"><b>3. 結構層 Structure</b><span>互動設計 · 資訊架構</span></div>
-          <div class="pyr-row p2"><b>2. 範圍層 Scope</b><span>功能規格 · 內容需求</span></div>
-          <div class="pyr-row p1"><b>1. 策略層 Strategy</b><span>使用者需求 · 商業目標</span></div>
+          <button type="button" class="pyr-row p5" data-layer="5"><b>5. 表現層 Surface</b><span>視覺設計 · 感知呈現</span></button>
+          <button type="button" class="pyr-row p4" data-layer="4"><b>4. 骨架層 Skeleton</b><span>介面 · 導覽 · Wireframe</span></button>
+          <button type="button" class="pyr-row p3" data-layer="3"><b>3. 結構層 Structure</b><span>互動設計 · 資訊架構</span></button>
+          <button type="button" class="pyr-row p2" data-layer="2"><b>2. 範圍層 Scope</b><span>功能規格 · 內容需求</span></button>
+          <button type="button" class="pyr-row p1" data-layer="1"><b>1. 策略層 Strategy</b><span>使用者需求 · 商業目標</span></button>
         </div>
         <div class="pyr-legend">
           <p><b>具體 Concrete</b>視覺細節、最終呈現</p>
           <p style="margin-top:auto"><b>抽象 Abstract</b>概念定義、核心目標</p>
         </div>
       </div>
+      <p class="pyr-hint">點擊任一層級，查看該層的目標文件與範例 →</p>
     </div>
     <div class="slide-foot">
       <span class="course-label">UI 設計實作：Figma 與 UX 流程 × AI 設計整合</span>
@@ -697,6 +831,7 @@ h2 {
         <li>使用者需求 User Needs</li>
         <li><span class="hl">定義產品存在的核心價值</span></li>
       </ul>
+      <button type="button" class="layer-detail-btn" data-layer="1">查看目標文件與範例</button>
     </div>
     <div class="slide-foot">
       <span class="course-label">UI 設計實作：Figma 與 UX 流程 × AI 設計整合</span>
@@ -721,6 +856,7 @@ h2 {
         <li>內容需求 Content Requirements</li>
         <li><span class="hl">確立產品的邊界與守備範圍</span></li>
       </ul>
+      <button type="button" class="layer-detail-btn" data-layer="2">查看目標文件與範例</button>
     </div>
     <div class="slide-foot">
       <span class="course-label">UI 設計實作：Figma 與 UX 流程 × AI 設計整合</span>
@@ -745,6 +881,7 @@ h2 {
         <li>資訊架構 Information Architecture</li>
         <li><span class="hl">規劃 User Flow 與介面邏輯</span></li>
       </ul>
+      <button type="button" class="layer-detail-btn" data-layer="3">查看目標文件與範例</button>
     </div>
     <div class="slide-foot">
       <span class="course-label">UI 設計實作：Figma 與 UX 流程 × AI 設計整合</span>
@@ -770,6 +907,7 @@ h2 {
         <li>資訊設計 Information Design</li>
         <li><span class="hl">Wireframe 的主要產出階段</span></li>
       </ul>
+      <button type="button" class="layer-detail-btn" data-layer="4">查看目標文件與範例</button>
     </div>
     <div class="slide-foot">
       <span class="course-label">UI 設計實作：Figma 與 UX 流程 × AI 設計整合</span>
@@ -794,6 +932,7 @@ h2 {
         <li>排版、色彩、字體系統</li>
         <li><span class="hl">高保真 UI（High-Fidelity）的最終樣貌</span></li>
       </ul>
+      <button type="button" class="layer-detail-btn" data-layer="5">查看目標文件與範例</button>
     </div>
     <div class="slide-foot">
       <span class="course-label">UI 設計實作：Figma 與 UX 流程 × AI 設計整合</span>
@@ -1131,6 +1270,21 @@ h2 {
   <button id="next" aria-label="下一頁">&#8594;</button>
 </div>
 
+<!-- Layer detail modal -->
+<div class="layer-modal-overlay" id="layerModalOverlay" role="dialog" aria-modal="true" aria-labelledby="layerModalTitle">
+  <div class="layer-modal">
+    <button type="button" class="layer-modal-close" id="layerModalClose" aria-label="關閉">✕</button>
+    <span class="layer-modal-badge" id="layerModalBadge"></span>
+    <h3 id="layerModalTitle"></h3>
+    <p class="layer-modal-sub" id="layerModalSub"></p>
+    <p class="layer-modal-desc" id="layerModalDesc"></p>
+    <h4>目標文件</h4>
+    <ul class="layer-modal-docs" id="layerModalDocs"></ul>
+    <h4>範例</h4>
+    <div class="layer-modal-example" id="layerModalExample"></div>
+  </div>
+</div>
+
 <script>
 (function () {
   const slides = Array.from(document.querySelectorAll('.slide'));
@@ -1178,6 +1332,7 @@ h2 {
   document.getElementById('next').addEventListener('click', () => go(cur + 1));
 
   document.addEventListener('keydown', e => {
+    if (layerModalOverlay && layerModalOverlay.classList.contains('open')) return;
     if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(cur + 1); }
     else if (e.key === 'ArrowLeft')              { e.preventDefault(); go(cur - 1); }
   });
@@ -1185,6 +1340,98 @@ h2 {
   // Init progress bar
   prog.style.width = (1 / total * 100) + '%';
   document.getElementById('ctrls').classList.toggle('on-dark', slides[0].classList.contains('dark'));
+
+  // ── UX 5層架構：層級詳情彈窗 ─────────────
+  const layerData = {
+    1: {
+      badge: 'Layer 1 · Strategy',
+      title: '策略層 Strategy',
+      sub: '為何而做？為誰而做？',
+      desc: '策略層是商業目標與使用者需求碰在一起的地方，回答「為什麼要做這個」「這是做給誰的」。這一層沒想清楚，後面每一層都會被打回來重做。',
+      docs: [
+        '專案簡報（Project Brief）：一頁講清楚要解決什麼問題、為誰解決、憑什麼是我們',
+        '使用者需求摘要：從訪談與研究整理出來的洞察',
+        'Persona（人物誌）：把「使用者」變成一個具體、可以拿來討論的人'
+      ],
+      example: '<p>本課程 <b>Unit 02</b>（AI 輔助訪談與分析）產出的訪談洞察筆記與 Persona，就是策略層最典型的文件——它們決定了後面每一層要為誰、為什麼而做。</p>' +
+        '<p>換個具體情境想：<b>麥當勞</b>要推出「手機點餐、到店取餐」服務，策略層得先答兩個問題——「為什麼要做」（店內排隊人潮太多？外送單佔掉內用產能？）、「做給誰用」（趕時間的上班族，還是想避開排隊的學生？）。這兩題沒先講清楚，後面要不要加會員點數、要不要整合停車優惠，都沒有判斷依據，很容易做到一半又被打回來重新定義範圍。</p>'
+    },
+    2: {
+      badge: 'Layer 2 · Scope',
+      title: '範圍層 Scope',
+      sub: '要做什麼？不做什麼？',
+      desc: '範圍層把策略層的抽象目標，翻譯成「具體要做哪些功能」「放哪些內容」，畫出產品的邊界——這裡定案之後，後面就不該再無限加東西。',
+      docs: [
+        '功能規格書／需求文件（PRD, Product Requirements Document）',
+        '功能地圖（Functional Map）',
+        '內容需求清單：文字、圖片、資料來源'
+      ],
+      example: '<p><b>Unit 04</b>（產品設計流程）示範的 Functional Map，就是把 Persona 的需求收斂成一份可以逐項核對的功能清單。</p>'
+    },
+    3: {
+      badge: 'Layer 3 · Structure',
+      title: '結構層 Structure',
+      sub: '使用者如何操作與導覽？',
+      desc: '結構層決定使用者在功能之間怎麼移動、資訊怎麼分類——是介面的邏輯骨幹，這時候還看不到任何畫面長相。',
+      docs: [
+        '資訊架構圖（Information Architecture／Sitemap）',
+        '使用者流程圖（User Flow／Flowchart）'
+      ],
+      example: '<p><b>Unit 04</b>（產品設計流程）交出的資訊架構圖與 Flowchart，把範圍層列出的功能排成使用者實際會走的路徑。</p>'
+    },
+    4: {
+      badge: 'Layer 4 · Skeleton',
+      title: '骨架層 Skeleton',
+      sub: '介面的具體佈局？',
+      desc: '骨架層把結構層的邏輯落地成實際畫面佈局——按鈕放哪裡、導覽在哪裡、內容怎麼排，但還不上色、不挑字體。',
+      docs: [
+        'Wireframe（線框稿）',
+        '導覽設計圖（Navigation Design）'
+      ],
+      example: '<p><b>Unit 04</b>（產品設計流程）交出的低保真 Wireframe，就是骨架層最主要的產出——先把佈局定案，再進表現層上色。</p>'
+    },
+    5: {
+      badge: 'Layer 5 · Surface',
+      title: '表現層 Surface',
+      sub: '視覺與感官的最終呈現',
+      desc: '表現層是視覺與感官的最終呈現，把前面四層的邏輯決策變成有顏色、字體、質感的真實畫面。',
+      docs: [
+        '高保真 Mockup',
+        '風格板／設計系統（Style Tile／Design System）'
+      ],
+      example: '<p><b>Unit 05</b>（產品設計基本元素）的色彩與字體規範、<b>Unit 09</b>（Design System）的元件規範文件，都是表現層要交出的東西。</p>'
+    }
+  };
+
+  const layerModalOverlay = document.getElementById('layerModalOverlay');
+  const layerModalClose   = document.getElementById('layerModalClose');
+  const layerModalBadge   = document.getElementById('layerModalBadge');
+  const layerModalTitle   = document.getElementById('layerModalTitle');
+  const layerModalSub     = document.getElementById('layerModalSub');
+  const layerModalDesc    = document.getElementById('layerModalDesc');
+  const layerModalDocs    = document.getElementById('layerModalDocs');
+  const layerModalExample = document.getElementById('layerModalExample');
+
+  function openLayerModal(id) {
+    const data = layerData[id];
+    if (!data) return;
+    layerModalBadge.textContent = data.badge;
+    layerModalTitle.textContent = data.title;
+    layerModalSub.textContent   = data.sub;
+    layerModalDesc.textContent  = data.desc;
+    layerModalDocs.innerHTML    = data.docs.map(d => '<li>' + d + '</li>').join('');
+    layerModalExample.innerHTML = data.example;
+    layerModalOverlay.classList.add('open');
+  }
+
+  function closeLayerModal() { layerModalOverlay.classList.remove('open'); }
+
+  document.querySelectorAll('.pyr-row[data-layer], .layer-detail-btn[data-layer]').forEach(btn => {
+    btn.addEventListener('click', () => openLayerModal(btn.dataset.layer));
+  });
+  layerModalClose.addEventListener('click', closeLayerModal);
+  layerModalOverlay.addEventListener('click', e => { if (e.target === layerModalOverlay) closeLayerModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLayerModal(); });
 })();
 </script>
 </body>
