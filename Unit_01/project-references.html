@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>歷屆專題參考 · Unit 01</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #fbfbfd;
+  --dark:    #1d1d1f;
+  --muted:   #86868b;
+  --accent:  #0066cc;
+  --accent3: #4094ff;
+  --surface: #f5f5f7;
+  --card:    #e8e8ed;
+  --border:  #d2d2d7;
+  --max-w:   860px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+  padding: 0 24px 80px;
+}
+
+/* ── Top bar ─────────────────────────────── */
+.topbar {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 28px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: .04em;
+  transition: opacity .2s;
+}
+.back-link:hover { opacity: .7; }
+.back-link::before { content: '←'; }
+
+.unit-pill {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,102,204,.09);
+  padding: 4px 11px;
+  border-radius: 20px;
+}
+
+/* ── Hero ────────────────────────────────── */
+.hero {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 52px 0 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.overline {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.hero h1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -.045em;
+  line-height: 1.1;
+  color: var(--dark);
+  margin-bottom: 14px;
+}
+
+.hero p {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.7;
+  letter-spacing: -.01em;
+  max-width: 640px;
+}
+
+/* ── Section ─────────────────────────────── */
+.section {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 48px 0 0;
+}
+.section + .section {
+  border-top: 1px solid var(--border);
+  margin-top: 48px;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.section h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+
+.section-desc {
+  font-size: .92rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  max-width: 620px;
+}
+
+/* ── Project cards ───────────────────────── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+.cards.cards-full {
+  grid-template-columns: 1fr;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 20px 18px;
+  transition: border-color .2s, box-shadow .2s, transform .15s;
+}
+.card:hover {
+  border-color: rgba(0,102,204,.3);
+  box-shadow: 0 8px 30px rgba(0,0,0,.06);
+  transform: translateY(-2px);
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-no {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.card-type {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--accent);
+  background: rgba(0,102,204,.09);
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--dark);
+}
+
+.card a.open {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  margin-top: auto;
+}
+.card a.open:hover { opacity: .7; }
+.card a.open::after { content: '↗'; font-size: 12px; }
+
+/* ── Resource list ───────────────────────── */
+.resource-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.resource {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 20px;
+  text-decoration: none;
+  transition: border-color .2s, transform .15s;
+}
+.resource:hover {
+  border-color: rgba(0,102,204,.3);
+  transform: translateY(-2px);
+}
+
+.resource h3 {
+  font-size: .98rem;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: -.01em;
+}
+
+.resource span {
+  font-size: 12.5px;
+  color: var(--accent);
+  word-break: break-all;
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 620px) {
+  .cards, .resource-list { grid-template-columns: 1fr; }
+  .hero { padding: 40px 0 32px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="back-link" href="../index.html">回到課程總覽</a>
+  <span class="unit-pill">Unit 01</span>
+</div>
+
+<header class="hero">
+  <p class="overline">專題參考</p>
+  <h1>歷屆專題參考</h1>
+  <p>整理歷屆學員的期末專題成果，以及日常可參考的設計靈感站台，作為構思本屆專題方向與風格的參考起點。</p>
+</header>
+
+<section class="section">
+  <p class="section-label">專案範例檔案</p>
+  <h2>台鐵改版設計</h2>
+  <p class="section-desc">完整呈現一份專題從需求分析到高保真原型的製作過程，可作為期末專題產出格式的參考範例。</p>
+  <div class="cards cards-full">
+    <article class="card">
+      <div class="card-top"><span class="card-no">Ref</span><span class="card-type">Figma</span></div>
+      <h3>TW Railway Redesign（學生作品參考用）</h3>
+      <a class="open" href="https://www.figma.com/design/KKDOpHo9DUkACoo6GC7sli/TW-railway-redesign--%E5%AD%B8%E7%94%9F%E4%BD%9C%E5%93%81%E5%8F%83%E8%80%83%E7%94%A8-?node-id=0-1&t=OXLsbrkenV28XIu9-1" target="_blank" rel="noopener">開啟 Figma 範例</a>
+    </article>
+  </div>
+  <p class="section-desc" style="margin-top:20px;">製作方式：先進行需求分析，釐清使用者痛點與功能範圍；接著繪製線框稿，確立頁面結構與資訊層級；最後在 Figma 完成高保真視覺設計，並串接原型（Prototype）呈現完整的互動流程。</p>
+</section>
+
+<section class="section">
+  <p class="section-label">上一屆專題連結整理</p>
+  <h2>2024</h2>
+  <p class="section-desc">共 4 組期末產出，形式涵蓋 Canva 簡報與 Figma 設計檔／原型。</p>
+  <div class="cards">
+    <article class="card">
+      <div class="card-top"><span class="card-no">01</span><span class="card-type">Canva</span></div>
+      <h3>期末簡報</h3>
+      <a class="open" href="https://www.canva.com/design/DAF3bL_NyC0/Djg3ilg172FwI314Yn2tjw/view?utm_content=DAF3bL_NyC0&utm_campaign=designshare&utm_medium=link&utm_source=editor#1" target="_blank" rel="noopener">開啟期末簡報</a>
+    </article>
+    <article class="card">
+      <div class="card-top"><span class="card-no">02</span><span class="card-type">Figma Prototype</span></div>
+      <h3>期末 Prototype</h3>
+      <a class="open" href="https://www.figma.com/proto/VEAOWUtZQPj6ow0BBzUHnU/wireframe?type=design&node-id=0-1&viewport=-1342%2C535%2C0.6&t=3lEoNtkYUQSXTxuW-0&scaling=scale-down&starting-point-node-id=356%3A3063" target="_blank" rel="noopener">開啟 Prototype</a>
+    </article>
+    <article class="card">
+      <div class="card-top"><span class="card-no">03</span><span class="card-type">Figma</span></div>
+      <h3>Figma 簡報</h3>
+      <a class="open" href="https://www.figma.com/file/cM57ISyu8Q05xKS3Mkv235/%E5%8E%BB%E8%B6%A3%E6%9C%9F%E6%9C%AB%E5%B0%88%E9%A1%8C?type=design&node-id=0%3A1&mode=design&t=S49HYPu3RfPL2HSo-1" target="_blank" rel="noopener">開啟 Figma 簡報</a>
+    </article>
+    <article class="card">
+      <div class="card-top"><span class="card-no">04</span><span class="card-type">Canva</span></div>
+      <h3>期末簡報</h3>
+      <a class="open" href="https://www.canva.com/design/DAF3EedfgFQ/m_SF4-lb5ObPqJtvrhBL7g/edit" target="_blank" rel="noopener">開啟期末簡報</a>
+    </article>
+    <article class="card">
+      <div class="card-top"><span class="card-no">05</span><span class="card-type">Figma</span></div>
+      <h3>Figma 連結</h3>
+      <a class="open" href="https://www.figma.com/design/Jl2MiqaUU4Osz5YqNdOZuA/%E7%AC%AC%E4%B8%89%E7%B5%84_%E6%9C%9F%E6%9C%AB%E5%A0%B1%E5%91%8A?node-id=275-1707&p=f&t=5if0X8ZGesVrXoTP-0" target="_blank" rel="noopener">開啟 Figma 專題</a>
+    </article>
+    <article class="card">
+      <div class="card-top"><span class="card-no">06</span><span class="card-type">Canva</span></div>
+      <h3>期末簡報</h3>
+      <a class="open" href="https://www.canva.com/design/DAF3ByXBD9A/oOx_MAloVRs7yErt2bgF9w/edit" target="_blank" rel="noopener">開啟期末簡報</a>
+    </article>
+  </div>
+</section>
+
+<section class="section">
+  <p class="section-label">上一屆專題連結整理</p>
+  <h2>2025</h2>
+  <p class="section-desc">共 4 組期末報告，皆以 Canva 產出。</p>
+  <div class="cards">
+    <article class="card">
+      <div class="card-top"><span class="card-no">01</span><span class="card-type">Canva</span></div>
+      <h3>第一組－期末報告 PPT</h3>
+      <a class="open" href="https://www.canva.com/design/DAGTuLAAIV8/gvTVSgCpaBIYvScmN0GKWA/edit?utm_content=DAGTuLAAIV8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank" rel="noopener">開啟第一組期末報告</a>
+    </article>
+    <article class="card">
+      <div class="card-top"><span class="card-no">02</span><span class="card-type">Canva</span></div>
+      <h3>第二組－期末報告</h3>
+      <a class="open" href="https://www.canva.com/design/DAGUTVOFoLs/K8BFD9MsfzkDA91YZbzX-Q/edit" target="_blank" rel="noopener">開啟第二組期末報告</a>
+    </article>
+    <article class="card">
+      <div class="card-top"><span class="card-no">03</span><span class="card-type">Canva</span></div>
+      <h3>第三組－期末報告</h3>
+      <a class="open" href="https://www.canva.com/design/DAGYNYFnPGA/Kms7atqq_8ch-uxscsb0ww/view?utm_content=DAGYNYFnPGA&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h943198b757" target="_blank" rel="noopener">開啟第三組期末報告</a>
+    </article>
+    <article class="card">
+      <div class="card-top"><span class="card-no">04</span><span class="card-type">Canva</span></div>
+      <h3>第四組－期末報告</h3>
+      <a class="open" href="https://www.canva.com/design/DAGYxEXt4Hs/V20iDUCIel6dU_lCBjrI6w/edit?utm_content=DAGYxEXt4Hs&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank" rel="noopener">開啟第四組期末報告</a>
+    </article>
+  </div>
+</section>
+
+<section class="section">
+  <p class="section-label">日常靈感來源</p>
+  <h2>參考資源</h2>
+  <p class="section-desc">構思專題方向或找設計風格靈感時，可以逛逛的站台。</p>
+  <div class="resource-list">
+    <a class="resource" href="https://www.behance.net/search/projects?search=redesign+ux+user+interface&tracking_source=typeahead_search_suggestion&country=TW" target="_blank" rel="noopener">
+      <h3>Redesign</h3>
+      <span>behance.net</span>
+    </a>
+    <a class="resource" href="https://4db.cc/" target="_blank" rel="noopener">
+      <h3>日本設計網站</h3>
+      <span>4db.cc</span>
+    </a>
+    <a class="resource" href="https://webdesignclip.com/" target="_blank" rel="noopener">
+      <h3>酷站簡報</h3>
+      <span>webdesignclip.com</span>
+    </a>
+    <a class="resource" href="https://www.awwwards.com/" target="_blank" rel="noopener">
+      <h3>Awwwards</h3>
+      <span>awwwards.com</span>
+    </a>
+  </div>
+</section>
+
+</body>
+</html>

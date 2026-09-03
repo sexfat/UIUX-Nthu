@@ -210,6 +210,50 @@ body {
   cursor: default;
 }
 
+/* ── Submission notice ───────────────────── */
+.submission {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px 28px 24px;
+}
+.submission h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+.submission ul {
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+.submission li {
+  font-size: .88rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+/* ── Resource list ───────────────────────── */
+.refs {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.refs ul { list-style: none; }
+.refs li {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 10px;
+  padding-left: 18px;
+  position: relative;
+}
+.refs li::before { content: '-'; position: absolute; left: 0; color: var(--border); }
+.refs a { color: var(--accent); text-decoration: none; }
+.refs a:hover { text-decoration: underline; }
+
 /* ── Footer note ─────────────────────────── */
 .foot {
   max-width: var(--max-w);
@@ -248,6 +292,21 @@ body {
   </div>
 </header>
 
+<!-- Submission notice -->
+<div class="section-head">
+  <h2>作業繳交</h2>
+  <span>每次課程作業請依須知繳交</span>
+</div>
+
+<section class="submission">
+  <h3>繳交作業須知</h3>
+  <ul>
+    <li>每週二 23:59 前繳交，由助教協助登記同學是否完成作業。</li>
+    <li>本班學員結業條件包含「完成全部的作業」，因此最後完成期限即課程最後一天 12/9 晚上 23:59 截止，不開放同學延後繳交。</li>
+  </ul>
+  <a class="btn btn-primary" href="https://docs.google.com/spreadsheets/d/13q-jqTixehcRPXyvQnx1Ynf5hCqzzapum3PqXxBvtl8/edit?usp=sharing" target="_blank" rel="noopener">開啟繳交表單</a>
+</section>
+
 <!-- Units -->
 <div class="section-head">
   <h2>課程單元</h2>
@@ -268,6 +327,7 @@ body {
       <a class="btn btn-primary" href="Unit_01/slides.html" target="_blank" rel="noopener">簡報</a>
       <a class="btn btn-ghost" href="Unit_01/design-thinking.html" target="_blank" rel="noopener">講義：設計思考</a>
       <a class="btn btn-ghost" href="Unit_01/persona-prompt.html" target="_blank" rel="noopener">Persona 輔助頁</a>
+      <a class="btn btn-ghost" href="Unit_01/project-references.html" target="_blank" rel="noopener">參考：歷屆專題</a>
     </div>
   </article>
 
@@ -442,6 +502,18 @@ body {
   </article>
 
 </main>
+
+<!-- Resource sharing -->
+<div class="section-head">
+  <h2>資源分享</h2>
+  <span>陸續更新</span>
+</div>
+
+<div class="refs">
+  <ul>
+    <li><a href="https://www.71next.com/userDoc/category/ui/laws-of-ux/" target="_blank" rel="noopener">使用者介面定律</a></li>
+  </ul>
+</div>
 
 <footer class="foot">
   本頁是目前課程名稱、日期、時段與教材狀態的主要依據。延伸說明請參考 <a href="清華大學課程大綱.md" target="_blank" rel="noopener">清華大學課程大綱</a>；舊版資展／Figma 導向課綱僅供歷史備查，見 <a href="舊版課綱備查.md" target="_blank" rel="noopener">舊版課綱備查</a>。Unit 06、10 為報告／實作課無獨立簡報，Unit 12 為專題發表，不規劃課程簡報。
